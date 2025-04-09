@@ -1,0 +1,277 @@
+body {
+    background-color: #F6F8FC;
+}
+
+.header {
+    font-size: 2vh;
+    font-family: Arial;
+}
+
+.css {
+    white-space: break-spaces;
+    font-family: Arial;
+    display: none;
+}
+
+#h_levo:hover~#levo {
+    display: block;
+}
+#h_turtle:hover~#turtle {
+    display: block;
+}
+#h_walk:hover~#walk {
+    display: block;
+}
+#h_runrunrun:hover~#runrunrun {
+    display: block;
+}
+#h_marisa:hover~#marisa {
+    display: block;
+}
+#h_kartinka:hover~#kartinka {
+    display: block;
+}
+#h_levo:hover~#levo {
+    display: block;
+}
+#h_trud_pravo:hover~#trud_pravo {
+    display: block;
+}
+#h_really_wide_thing:hover~#really_wide_thing {
+    display: block;
+}
+#h_prikol:hover~#prikol {
+    display: block;
+}
+
+
+@keyframes color_text {
+    0% {
+        color: black;
+    }
+
+    12% {
+        color: red;
+    }
+
+    24% {
+        color: orange;
+    }
+
+    36% {
+        color: yellow;
+    }
+
+    48% {
+        color: green;
+    }
+
+    64% {
+        color: lightblue;
+    }
+
+    72% {
+        color: blue;
+    }
+
+    84% {
+        color: purple;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes flyyy {
+    0% {
+        left: 10%;
+        right: 20%;
+        top: 50%;
+        bottom: 42%;
+    }
+
+    10% {
+        left: 54%;
+        right: 78%;
+        top: 42%;
+        bottom: 7%;
+    }
+
+    20% {
+        left: 43%;
+        right: 15%;
+        top: 435%;
+        bottom: 1%;
+    }
+
+    30% {
+        left: 25%;
+        right: 84%;
+        top: 1%;
+        bottom: 45%;
+    }
+
+    40% {
+        left: 4%;
+        right: 12%;
+        top: 36%;
+        bottom: 4%;
+    }
+
+    50% {
+        left: 41%;
+        right: 4%;
+        top: 89%;
+        bottom: 45%;
+    }
+
+    60% {
+        left: 57%;
+        right: 14%;
+        top: 6%;
+        bottom: 75%;
+    }
+
+    70% {
+        left: 53%;
+        right: 14%;
+        top: 5%;
+        bottom: 32%;
+    }
+
+    80% {
+        left: 38%;
+        right: 28%;
+        top: 20%;
+        bottom: 3%;
+    }
+
+    90% {
+        left: 21%;
+        right: 18%;
+        top: 15%;
+        bottom: 6%;
+    }
+
+    100% {
+        left: 4%;
+        right: 5%;
+        top: 8%;
+        bottom: 3%;
+    }
+}
+
+@keyframes prig_skok {
+    0% {
+        text-align: left;
+    }
+
+    25% {
+        text-align: center;
+    }
+
+    75% {
+        text-align: right;
+    }
+
+    100% {
+        text-align: justify;
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: scaleX(1);
+    }
+
+    25% {
+        transform: scaleX(0);
+    }
+
+    50% {
+        transform: scaleX(-1);
+    }
+
+    75% {
+        transform: scaleX(0);
+    }
+
+    100% {
+        transform: scaleX(1);
+    }
+}
+
+.turtle {
+    animation: 10s color_text infinite;
+}
+
+.walk {
+    animation: 5s color_text infinite;
+}
+
+.runrunrun {
+    animation: 1s color_text infinite;
+}
+
+.marisa {
+    animation: 2s rotate infinite, 2s flyyy infinite;
+    position: absolute;
+    transform-origin: 50% 50%;
+}
+
+.domik {
+    border-radius: 3vh;
+    background-color: white;
+    padding: 1vh;
+    border: solid 1px #dde1e5;
+}
+
+.kartinka {
+    left: 50%;
+}
+
+.kartinka {
+    animation: 3s spin infinite;
+    left: 50%;
+}
+
+.levo {
+    text-align: left;
+    line-height: 1.5em;
+    text-indent: 2vh;
+    font-size: 10px;
+    font-weight: bolder;
+    transform: rotate(-5deg);
+}
+
+.fumo {
+    line-height: 2em;
+    font-size: 2vh;
+    animation: 2s prig_skok infinite;
+}
+
+.trud_pravo {
+    text-align: right;
+    line-height: 1em;
+
+}
+
+.really_wide_thing {
+    text-align: justify;
+    line-height: 0em;
+}
+
+.prikol:hover {
+    color: white;
+}
+
+p {
+    font-family: Arial;
+}
