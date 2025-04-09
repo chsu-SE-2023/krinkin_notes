@@ -5,23 +5,24 @@ project(QtProject LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(SOURCES Source.cpp
-bridge.h
-bridge.cpp
-gateway.h
-gateway.cpp
-net_room.cpp
-net_room.h
-repeater.h
-repeater.cpp
-router.h
-router.cpp
-stats.h
-stats.cpp
-switch.h
-switch.cpp
-tests.h
-tests.cpp
+set(SOURCES src/Source.cpp
+src/bridge.h
+src/bridge.cpp
+src/gateway.h
+src/gateway.cpp
+src/net_device.h
+src/net_room.cpp
+src/net_room.h
+src/repeater.h
+src/repeater.cpp
+src/router.h
+src/router.cpp
+src/stats.h
+src/stats.cpp
+src/switch.h
+src/switch.cpp
+src/tests.h
+src/tests.cpp
 )
 
 add_executable(QtProject ${SOURCES})

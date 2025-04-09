@@ -15,48 +15,55 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="net_room.h">
+    <ClInclude Include="src\tests.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="network.h">
+    <ClInclude Include="src\gateway.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests.h">
+    <ClInclude Include="src\net_room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stats.h">
+    <ClInclude Include="src\repeater.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="src\router.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\stats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\switch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\net_device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="src\gateway.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="net_room.cpp">
+    <ClCompile Include="src\net_room.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stats.cpp">
+    <ClCompile Include="src\repeater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="repeater.cpp">
+    <ClCompile Include="src\router.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="switch.cpp">
+    <ClCompile Include="src\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bridge.cpp">
+    <ClCompile Include="src\stats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="router.cpp">
+    <ClCompile Include="src\switch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Project1.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
+    <ClCompile Include="src\tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

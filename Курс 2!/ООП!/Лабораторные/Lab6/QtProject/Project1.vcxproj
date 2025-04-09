@@ -27,23 +27,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="network.h" />
-    <ClInclude Include="net_room.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="stats.h" />
-    <ClInclude Include="tests.h" />
+    <ClInclude Include="src\gateway.h" />
+    <ClInclude Include="src\net_device.h" />
+    <ClInclude Include="src\net_room.h" />
+    <ClInclude Include="src\repeater.h" />
+    <ClInclude Include="src\router.h" />
+    <ClInclude Include="src\stats.h" />
+    <ClInclude Include="src\switch.h" />
+    <ClInclude Include="src\tests.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bridge.cpp" />
-    <ClCompile Include="net_room.cpp" />
-    <ClCompile Include="repeater.cpp" />
-    <ClCompile Include="router.cpp" />
-    <ClCompile Include="Source.cpp" />
-    <ClCompile Include="stats.cpp" />
-    <ClCompile Include="switch.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Project1.rc" />
+    <ClCompile Include="src\gateway.cpp" />
+    <ClCompile Include="src\net_room.cpp" />
+    <ClCompile Include="src\repeater.cpp" />
+    <ClCompile Include="src\router.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\stats.cpp" />
+    <ClCompile Include="src\switch.cpp" />
+    <ClCompile Include="src\tests.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
