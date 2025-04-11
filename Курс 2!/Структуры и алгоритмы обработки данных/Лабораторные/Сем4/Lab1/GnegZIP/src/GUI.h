@@ -5,6 +5,7 @@
 namespace GnegZIP {
 
 	using namespace System;
+	using namespace System::IO;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
 	using namespace System::Windows::Forms;
@@ -52,7 +53,8 @@ namespace GnegZIP {
 		/// Обязательная переменная конструктора.
 		/// </summary>
 		System::ComponentModel::Container ^components;
-		Archiver* archiver;
+	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
+		   Archiver* archiver;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -67,6 +69,7 @@ namespace GnegZIP {
 			this->buttonSelect = (gcnew System::Windows::Forms::Button());
 			this->buttonUnComp = (gcnew System::Windows::Forms::Button());
 			this->buttonComp = (gcnew System::Windows::Forms::Button());
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->SuspendLayout();
 			// 
 			// openFileDialog1
@@ -77,10 +80,9 @@ namespace GnegZIP {
 			// 
 			this->filenameBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->filenameBox->Location = System::Drawing::Point(15, 24);
-			this->filenameBox->Margin = System::Windows::Forms::Padding(6);
+			this->filenameBox->Location = System::Drawing::Point(8, 9);
 			this->filenameBox->Name = L"filenameBox";
-			this->filenameBox->Size = System::Drawing::Size(497, 31);
+			this->filenameBox->Size = System::Drawing::Size(257, 20);
 			this->filenameBox->TabIndex = 0;
 			// 
 			// progressBar1
@@ -89,19 +91,17 @@ namespace GnegZIP {
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->progressBar1->BackColor = System::Drawing::SystemColors::Control;
 			this->progressBar1->Enabled = false;
-			this->progressBar1->Location = System::Drawing::Point(15, 123);
-			this->progressBar1->Margin = System::Windows::Forms::Padding(6);
+			this->progressBar1->Location = System::Drawing::Point(8, 64);
 			this->progressBar1->MarqueeAnimationSpeed = 30;
 			this->progressBar1->Name = L"progressBar1";
-			this->progressBar1->Size = System::Drawing::Size(497, 44);
+			this->progressBar1->Size = System::Drawing::Size(257, 23);
 			this->progressBar1->TabIndex = 1;
 			// 
 			// buttonSelect
 			// 
-			this->buttonSelect->Location = System::Drawing::Point(15, 67);
-			this->buttonSelect->Margin = System::Windows::Forms::Padding(6);
+			this->buttonSelect->Location = System::Drawing::Point(8, 35);
 			this->buttonSelect->Name = L"buttonSelect";
-			this->buttonSelect->Size = System::Drawing::Size(181, 44);
+			this->buttonSelect->Size = System::Drawing::Size(90, 23);
 			this->buttonSelect->TabIndex = 2;
 			this->buttonSelect->Text = L"Выбрать файл";
 			this->buttonSelect->UseVisualStyleBackColor = true;
@@ -110,11 +110,9 @@ namespace GnegZIP {
 			// buttonUnComp
 			// 
 			this->buttonUnComp->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->buttonUnComp->Enabled = false;
-			this->buttonUnComp->Location = System::Drawing::Point(362, 67);
-			this->buttonUnComp->Margin = System::Windows::Forms::Padding(6);
+			this->buttonUnComp->Location = System::Drawing::Point(190, 35);
 			this->buttonUnComp->Name = L"buttonUnComp";
-			this->buttonUnComp->Size = System::Drawing::Size(150, 44);
+			this->buttonUnComp->Size = System::Drawing::Size(75, 23);
 			this->buttonUnComp->TabIndex = 3;
 			this->buttonUnComp->Text = L"Разжать";
 			this->buttonUnComp->UseVisualStyleBackColor = true;
@@ -123,31 +121,32 @@ namespace GnegZIP {
 			// buttonComp
 			// 
 			this->buttonComp->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->buttonComp->Enabled = false;
-			this->buttonComp->Location = System::Drawing::Point(208, 67);
-			this->buttonComp->Margin = System::Windows::Forms::Padding(6);
+			this->buttonComp->Location = System::Drawing::Point(104, 35);
 			this->buttonComp->Name = L"buttonComp";
-			this->buttonComp->Size = System::Drawing::Size(142, 44);
+			this->buttonComp->Size = System::Drawing::Size(80, 23);
 			this->buttonComp->TabIndex = 4;
 			this->buttonComp->Text = L"Сжать";
 			this->buttonComp->UseVisualStyleBackColor = true;
 			this->buttonComp->Click += gcnew System::EventHandler(this, &GUI::buttonComp_Click);
+			//
+			// saveFileDialog1
+			//
+			this->saveFileDialog1->Filter = "Все файлы|*";
 			// 
 			// GUI
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(529, 169);
+			this->ClientSize = System::Drawing::Size(273, 105);
 			this->Controls->Add(this->buttonComp);
 			this->Controls->Add(this->buttonUnComp);
 			this->Controls->Add(this->buttonSelect);
 			this->Controls->Add(this->progressBar1);
 			this->Controls->Add(this->filenameBox);
-			this->Margin = System::Windows::Forms::Padding(6);
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
-			this->MinimumSize = System::Drawing::Size(555, 240);
+			this->MinimumSize = System::Drawing::Size(289, 144);
 			this->Name = L"GUI";
 			this->Text = L"GnegZIP";
 			this->ResumeLayout(false);
@@ -157,6 +156,7 @@ namespace GnegZIP {
 #pragma endregion
 private: 
 	bool running = false;
+	String^ exists_name = "";
 
 	/*
 	* Функция, преобразующая System::String^ в std::string
@@ -169,7 +169,10 @@ private:
 	* Метод-обёртка для выполнения сжатия в отдельном потоке
 	*/
 	System::Void CompressTask() {
-		archiver->compress(to_string(filenameBox->Text), to_string(filenameBox->Text + ".gzp"));
+		if (exists_name != "")
+			archiver->compress(to_string(filenameBox->Text), to_string(exists_name));
+		else
+			archiver->compress(to_string(filenameBox->Text), to_string(filenameBox->Text + ".gzp"));
 		running = false;
 	}
 
@@ -177,7 +180,10 @@ private:
 	* Метод-обёртка для выполнения разжатия в отдельном потоке
 	*/
 	System::Void DecompressTask() {
-		archiver->decompress(to_string(filenameBox->Text), to_string(filenameBox->Text->Replace(".gzp", "")));
+		if (exists_name != "")
+			archiver->decompress(to_string(filenameBox->Text), to_string(exists_name));
+		else
+			archiver->decompress(to_string(filenameBox->Text), to_string(filenameBox->Text->Replace(".gzp", "")));
 		running = false;
 	}
 
@@ -195,19 +201,16 @@ private:
 		openFileDialog1->ShowDialog();
 		filenameBox->Text = openFileDialog1->FileName;
 		String^ ext = filenameBox->Text->Split('.')[filenameBox->Text->Split('.')->Length - 1];
-		// Если .gzp - можно разжать, если нет - нельзя
-		if (ext == "gzp") {
-			buttonComp->Enabled = false;
-			buttonUnComp->Enabled = true;
-		}
-		else {
-			buttonComp->Enabled = true;
-			buttonUnComp->Enabled = false;
-		}
 	}
 	
 	System::Void buttonComp_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (filenameBox->Text != "" && !running) {
+			if (IO::File::Exists(filenameBox->Text + ".gzp")) {
+				MessageBox::Show("Архив с таким именем уже существует! Выберите другое имя");
+				saveFileDialog1->ShowDialog();
+				exists_name = saveFileDialog1->FileName;
+			}
+			else exists_name = "";
 			running = true;
 			Task^ task = Task::Run(gcnew Action(this, &GUI::CompressTask));
 		}
@@ -215,6 +218,12 @@ private:
 
 	System::Void buttonUnComp_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (filenameBox->Text != "" && !running) {
+			if (IO::File::Exists(filenameBox->Text->Replace(".gzp", ""))) {
+				MessageBox::Show("Файл с таким именем уже существует! Выберите другое имя");
+				saveFileDialog1->ShowDialog();
+				exists_name = saveFileDialog1->FileName;
+			}
+			else exists_name = "";
 			running = true;
 			Task^ task = Task::Run(gcnew Action(this, &GUI::DecompressTask));
 		}

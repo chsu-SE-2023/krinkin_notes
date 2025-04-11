@@ -29,7 +29,7 @@ void Archiver::compress(std::string fileName, std::string outName) {
 
 		// Создание дерева Хаффмана из байт
 		unsigned char byte;
-		while (file.read(reinterpret_cast<char*>(&byte), sizeof(byte)))
+		while (file.read((char*)(&byte), sizeof(byte)))
 			hf_tree.addByte(byte);
 		hf_tree.makeTree();
 		file.close();
@@ -39,24 +39,30 @@ void Archiver::compress(std::string fileName, std::string outName) {
 		out.write(new char[4] {'G', 'N', 'E', 'G'}, 4);
 		std::array<int, BYTE_MAX> freq = hf_tree.getFreq();
 		for (int i = 0; i < freq.size(); i++)
-			out.write(reinterpret_cast<const char*>(&freq[i]), sizeof(freq[i]));
+			out.write((char*)(&freq[i]), sizeof(freq[i]));
 
 		// Запись сжатых данных
 		file.open(fileName, std::ios::binary);
+		unsigned char compByte = 0;
 		std::string buffer = "";
-		while (file.read(reinterpret_cast<char*>(&byte), sizeof(byte))) {
+		while (file.read((char*)(&byte), sizeof(byte))) {
 			buffer += hf_tree.getCode(byte);
 			while (buffer.size() >= 8) {
-				unsigned char compByte = 0;
+				compByte = 0;
 				for (int i = 0; i < 8; ++i)
 					if (buffer[i] == '1')
-						compByte += static_cast<unsigned char>(pow(2, 7 - i));
-				out.write(reinterpret_cast<char*>(&compByte), sizeof(compByte));
+						compByte += (unsigned char)(pow(2, 7 - i));
+				out.write((char*)(&compByte), sizeof(compByte));
 				buffer = buffer.substr(8);
 			}
 			processed++;
 			updateProgress();
 		}
+		compByte = 0;
+		for (int i = 0; i < buffer.size(); ++i)
+			if (buffer[i] == '1')
+				compByte += (unsigned char)(pow(2, 7 - i));
+		out.write((char*)(&compByte), sizeof(compByte));
 		file.close();
 		out.close();
 	}
@@ -82,7 +88,7 @@ void Archiver::decompress(std::string fileName, std::string outName) {
 		// Проверка типа файла архива
 		std::string type = "";
 		for (int i = 0; i < 4; i++) {
-			file.read(reinterpret_cast<char*>(&byte), sizeof(byte));
+			file.read((char*)(&byte), sizeof(byte));
 			type += byte;
 		}
 		if (type != "GNEG") {
@@ -93,7 +99,7 @@ void Archiver::decompress(std::string fileName, std::string outName) {
 		std::array<int, BYTE_MAX> freq = {};
 		// Построение дерева
 		for (int i = 0; i < freq.size(); i++) {
-			file.read(reinterpret_cast<char*>(&freq[i]), sizeof(freq[i]));
+			file.read((char*)(&freq[i]), sizeof(freq[i]));
 			hf_tree.addByte(i, freq[i]); // i - байт, byte - частота
 		}
 		hf_tree.makeTree();
@@ -101,12 +107,12 @@ void Archiver::decompress(std::string fileName, std::string outName) {
 		// Создание изначального файла
 		std::ofstream out(outName, std::ios::binary);
 		HuffmanTree::Node* node = hf_tree.getRoot();
-		while (!file.eof() && file.read(reinterpret_cast<char*>(&byte), sizeof(byte))) {
+		while (!file.eof() && file.read((char*)(&byte), sizeof(byte))) {
 			for (int i = 0; i < 8; ++i) {
 				if (byte & (1 << (7 - i))) node = node->right;
 				else node = node->left;
 				if (!node->left && !node->right) {
-					out.write(reinterpret_cast<char*>(&node->c), sizeof(node->c));
+					out.write((char*)(&node->c), sizeof(node->c));
 					node = hf_tree.getRoot();
 				}
 			}
