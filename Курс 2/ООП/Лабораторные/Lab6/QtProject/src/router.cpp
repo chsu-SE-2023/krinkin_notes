@@ -46,6 +46,7 @@ bool Router::wpa_enabled() const {
 }
 
 void Router::print_info() const {
+    Gateway::print_info();
     std::cout << "   - SSID: ";
     this->ssid.empty() ? std::cout << this->ssid : std::cout << "None";
     std::cout << std::endl;
