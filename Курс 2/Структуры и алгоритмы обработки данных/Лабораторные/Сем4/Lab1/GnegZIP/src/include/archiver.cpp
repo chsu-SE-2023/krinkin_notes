@@ -9,6 +9,12 @@ void Archiver::updateProgress() {
 	progress = ((float)processed / (float)fsize) * 100;
 }
 
+void Archiver::clearProgress() {
+	progress = 0;
+	processed = 0;
+	fsize = 1;
+}
+
 int Archiver::getProgress() {
 	return progress;
 }
@@ -17,8 +23,10 @@ int Archiver::getProgress() {
 * Метод сжатия файла
 */
 void Archiver::compress(std::string fileName, std::string outName) {
+	clearProgress();
 	HuffmanTree hf_tree;
 	std::ifstream file(fileName, std::ios::binary);
+	file.exceptions(std::ios::badbit);
 
 	if (file.is_open()) {
 
@@ -67,16 +75,18 @@ void Archiver::compress(std::string fileName, std::string outName) {
 		out.close();
 	}
 	// Сброс прогресса по завершению
-	processed = 0;
-	updateProgress();
+	clearProgress();
 }
 
 /*
 * Метод разжатия файла
 */
 void Archiver::decompress(std::string fileName, std::string outName) {
+	clearProgress();
 	HuffmanTree hf_tree;
 	std::ifstream file(fileName, std::ios::binary);
+	file.exceptions(std::ios::badbit);
+
 	if (file.is_open()) {
 		unsigned char byte;
 
@@ -123,6 +133,5 @@ void Archiver::decompress(std::string fileName, std::string outName) {
 		file.close();
 	}
 	// Сброс прогресса по завершению
-	processed = 0;
-	updateProgress();
+	clearProgress();
 }

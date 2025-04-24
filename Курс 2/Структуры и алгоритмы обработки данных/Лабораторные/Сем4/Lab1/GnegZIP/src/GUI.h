@@ -1,6 +1,7 @@
 #pragma once
 #include "include/archiver.h"
 #include <msclr\marshal_cppstd.h>
+#include <fstream>
 
 namespace GnegZIP {
 
@@ -169,10 +170,16 @@ private:
 	* Метод-обёртка для выполнения сжатия в отдельном потоке
 	*/
 	System::Void CompressTask() {
-		if (exists_name != "")
-			archiver->compress(to_string(filenameBox->Text), to_string(exists_name));
-		else
-			archiver->compress(to_string(filenameBox->Text), to_string(filenameBox->Text + ".gzp"));
+		try {
+			if (exists_name != "")
+				archiver->compress(to_string(filenameBox->Text), to_string(exists_name));
+			else
+				archiver->compress(to_string(filenameBox->Text), to_string(filenameBox->Text + ".gzp"));
+		}
+		catch (std::ios_base::failure e) {
+			MessageBox::Show("Не удалось открыть указанный файл: " + gcnew String(e.what()), "Ошибка",
+				MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 		running = false;
 	}
 
@@ -180,10 +187,16 @@ private:
 	* Метод-обёртка для выполнения разжатия в отдельном потоке
 	*/
 	System::Void DecompressTask() {
-		if (exists_name != "")
-			archiver->decompress(to_string(filenameBox->Text), to_string(exists_name));
-		else
-			archiver->decompress(to_string(filenameBox->Text), to_string(filenameBox->Text->Replace(".gzp", "")));
+		try {
+			if (exists_name != "")
+				archiver->decompress(to_string(filenameBox->Text), to_string(exists_name));
+			else
+				archiver->decompress(to_string(filenameBox->Text), to_string(filenameBox->Text->Replace(".gzp", "")));
+		}
+		catch (std::ios_base::failure e) {
+			MessageBox::Show("Не удалось открыть указанный архив: " + gcnew String(e.what()), "Ошибка",
+				MessageBoxButtons::OK, MessageBoxIcon::Error);
+		}
 		running = false;
 	}
 
@@ -206,9 +219,12 @@ private:
 	System::Void buttonComp_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (filenameBox->Text != "" && !running) {
 			if (IO::File::Exists(filenameBox->Text + ".gzp")) {
-				MessageBox::Show("Архив с таким именем уже существует! Выберите другое имя");
-				saveFileDialog1->ShowDialog();
-				exists_name = saveFileDialog1->FileName;
+				MessageBox::Show("Архив с таким именем уже существует! Выберите другое имя", 
+					"Файл существует", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				saveFileDialog1->FileName = filenameBox->Text + ".gzp";
+				if (saveFileDialog1->ShowDialog() == Windows::Forms::DialogResult::OK) {
+					exists_name = saveFileDialog1->FileName;
+				} else return;
 			}
 			else exists_name = "";
 			running = true;
@@ -219,9 +235,12 @@ private:
 	System::Void buttonUnComp_Click(System::Object^ sender, System::EventArgs^ e) {
 		if (filenameBox->Text != "" && !running) {
 			if (IO::File::Exists(filenameBox->Text->Replace(".gzp", ""))) {
-				MessageBox::Show("Файл с таким именем уже существует! Выберите другое имя");
-				saveFileDialog1->ShowDialog();
-				exists_name = saveFileDialog1->FileName;
+				MessageBox::Show("Файл с таким именем уже существует! Выберите другое имя",
+					"Файл существует", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				saveFileDialog1->FileName = filenameBox->Text->Replace(".gzp", "");
+				if (saveFileDialog1->ShowDialog() == Windows::Forms::DialogResult::OK) {
+					exists_name = saveFileDialog1->FileName;
+				} else return;
 			}
 			else exists_name = "";
 			running = true;
