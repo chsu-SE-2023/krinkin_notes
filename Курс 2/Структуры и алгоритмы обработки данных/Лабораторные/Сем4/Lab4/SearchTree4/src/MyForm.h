@@ -3,6 +3,7 @@
 #include <msclr/marshal_cppstd.h>
 #include <string>
 #include <chrono>
+#include <algorithm>
 
 namespace SearchTree4 {
 

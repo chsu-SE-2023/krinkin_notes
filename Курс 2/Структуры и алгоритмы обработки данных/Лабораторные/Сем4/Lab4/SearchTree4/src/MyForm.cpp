@@ -60,6 +60,17 @@ System::Void SearchTree4::Searcher::buttonOpen_Click(System::Object^ sender, Sys
 	} while (reader->Peek() != -1);
 	reader->Close();
 	s_tree->to_datagrid(dataGridViewAlphabet);
+
+	std::vector<SearchTree<std::wstring>::Node*> words = std::vector<SearchTree<std::wstring>::Node*>();
+	s_tree->to_vector(words);
+	std::sort(words.begin(), words.end(), s_tree->sorter);
+
+	for each (SearchTree<std::wstring>::Node * word in words) {
+		int count = dataGridViewFreq->RowCount++;
+		dataGridViewFreq->Rows[count]->Cells[0]->Value = gcnew System::String(word->data.c_str());
+		dataGridViewFreq->Rows[count]->Cells[1]->Value = word->count;
+
+	}
 }
 
 System::Void SearchTree4::Searcher::textBoxSearch_Enter(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {

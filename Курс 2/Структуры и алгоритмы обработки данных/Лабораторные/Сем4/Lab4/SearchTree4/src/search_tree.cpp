@@ -1,5 +1,6 @@
 #include "search_tree.h"
 #include <iostream>
+#include <vector>
 
 // »нстанцирование дл€ std::wstring
 template class SearchTree<std::wstring>;
@@ -7,9 +8,11 @@ template SearchTree<std::wstring>::Node::Node(std::wstring data);
 template void SearchTree<std::wstring>::create(Node*&, std::wstring&);
 template void SearchTree<std::wstring>::search(Node*&, Node*&, std::wstring&);
 template void SearchTree<std::wstring>::to_datagrid(Node*&, System::Windows::Forms::DataGridView^&, int&);
+template void SearchTree<std::wstring>::to_vector(Node*&, std::vector<Node*>&, int&);
 template void SearchTree<std::wstring>::add(std::wstring);
 template const SearchTree<std::wstring>::Node* SearchTree<std::wstring>::search(std::wstring);
 template void SearchTree<std::wstring>::to_datagrid(System::Windows::Forms::DataGridView^, int);
+template void SearchTree<std::wstring>::to_vector(std::vector<Node*>&, int);
 
 // »нстанцирование дл€ std::string
 template class SearchTree<std::string>;
@@ -85,6 +88,22 @@ void SearchTree<T>::to_datagrid(Node*& root, System::Windows::Forms::DataGridVie
 };
 
 template <class T>
+void SearchTree<T>::to_vector(Node*& root, std::vector<Node*>& vec, int& len) {
+	/*
+	* ћетод, рекурсивно заполн€ющий заданный вектор значени€ми из дерева
+	*/
+	if (root != nullptr) {
+		to_vector(root->left, vec, len);
+		if (len) {
+			if (root->data.size() == len)
+				vec.push_back(root);
+		}
+		else vec.push_back(root);
+		to_vector(root->right, vec, len);
+	}
+};
+
+template <class T>
 void SearchTree<T>::add(T key) {
 	/*
 	* ћетод, добавл€ющий значение в дерево
@@ -112,4 +131,20 @@ void SearchTree<T>::to_datagrid(System::Windows::Forms::DataGridView^ table, int
 	* »нтерфейс дл€ рекурсивного to_datagrid()
 	*/
 	to_datagrid(this->root, table, len);
+}
+
+template <class T>
+void SearchTree<T>::to_vector(std::vector<Node*>& vec, int len) {
+	/*
+	* »нтерфейс дл€ рекурсивного to_vector()
+	*/
+	to_vector(this->root, vec, len);
+}
+
+template <class T>
+bool SearchTree<T>::sorter(SearchTree<T>::Node* a, SearchTree<T>::Node* b) {
+	if (a->count != b->count) {
+		return a->count > b->count;
+	}
+	return a->data > b->data;
 }
