@@ -1,7 +1,10 @@
 #include "GUI.h"
+#include <string>
+#include <msclr\marshal_cppstd.h>
 
 using namespace System;
 using namespace System::Windows::Forms;
+using namespace msclr::interop;
 
 /*
 * ћетод удал€ющий пробелы, переносы и комментарии из
@@ -85,7 +88,7 @@ System::Void Analize::GUI::openFileButton_Click(System::Object^ sender, System::
 
 	StreamReader^ reader = gcnew StreamReader(openFileDialog1->FileName, Encoding::GetEncoding("windows-1251"));
 	do {
-		this->sourceBox->Text += reader->ReadLine() + "\r\n";
+		this->sourceBox->Text += reader->ReadLine() + " \r\n";
 	} while (reader->Peek() != -1);
 	this->sourceBox->BackColor = System::Drawing::SystemColors::Window;
 }

@@ -75,6 +75,8 @@ char Analyser::space_filter(char c) {
 		switch (c) {
 		case '/': { state = 1; break; }
 		case ' ': { state = 5; break; }
+		case '\n': { state = 5; break; }
+		case '\r': { state = 5; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -112,7 +114,7 @@ char Analyser::space_filter(char c) {
 std::string Analyser::lexem_filter(char c, char next) {
 	switch (state) {
 	case 0: {
-		switch (c) {
+		switch (c) { 
 			// Ключевые слова
 		case 'a': { state = 7; break; }
 		case 'b': { state = 10; break; }

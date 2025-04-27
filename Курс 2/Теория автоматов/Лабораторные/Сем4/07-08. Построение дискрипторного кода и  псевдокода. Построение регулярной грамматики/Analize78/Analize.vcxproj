@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="l_analyser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI.h">

@@ -1,7 +1,5 @@
 #pragma once
 #include "l_analyser.h"
-#include <string>
-#include <msclr\marshal_cppstd.h>
 
 namespace Analize {
 
@@ -13,7 +11,6 @@ namespace Analize {
 	using namespace System::Drawing;
 	using namespace System::IO;
 	using namespace System::Text;
-	using namespace msclr::interop;
 
 	/// <summary>
 	/// Summary for GUI
