@@ -161,13 +161,15 @@ std::string Analyser::lexem_filter(char c, char next) {
 		case ',': { state = 6; break; }
 		case ';': { state = 6; break; }
 		case ':': { state = 6; break; }
-		case '\'': { state = 6; break; }
-		case '\"': { state = 6; break; }
 		case '{': { state = 6; break; }
 		case '}': { state = 6; break; }
 		case '(': { state = 6; break; }
 		case ')': { state = 6; break; }
 		case '\n': { state = 6; break; }
+
+				 // Строки
+		case '\'': { state = 71; break; }
+		case '\"': { state = 71; break; }
 
 		default: { state = 0; break; }
 		} break;
@@ -202,9 +204,9 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 4: {
 		switch (c) {
-		case '=': { state = 4; break; }
-		case '>': { state = 5; break; }
-		case '<': { state = 5; break; }
+		case '=': { state = 72; break; }
+		case '>': { state = 72; break; }
+		case '<': { state = 72; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -221,11 +223,11 @@ std::string Analyser::lexem_filter(char c, char next) {
 		case '8': { state = 2; break; }
 		case '9': { state = 2; break; }
 
-		case '=': { state = 5; break; }
-		case '+': { state = 5; break; }
-		case '-': { state = 5; break; }
-		case '>': { state = 5; break; }
-		default: { state = 0; break; }
+		case '=': { state = 72; break; }
+		case '+': { state = 72; break; }
+		case '-': { state = 72; break; }
+		case '>': { state = 72; break; }
+		default: { state = 0; break; }:
 		} break;
 	}
 	case 6: {
@@ -649,6 +651,18 @@ std::string Analyser::lexem_filter(char c, char next) {
 		default: { state = 0; break; }
 		} break;
 	}
+	case 71: {
+		switch (c) {
+		case '\"': { state = 2; break; }
+		case '\'': { state = 2; break; }
+		default: { state = 71; break; }
+		} break;
+	}
+	case 72: {
+		switch (c) {
+		default: { state = 0; break; }
+		} break;
+	}
 	}
 
 	buffer += c;
@@ -661,6 +675,10 @@ std::string Analyser::lexem_filter(char c, char next) {
 
 	// Знаки
 	if ((state == 4 || state == 5) && !is_sign(next)) {
+		return buffer;
+	}
+	if (state == 72) {
+		state = 5;
 		return buffer;
 	}
 

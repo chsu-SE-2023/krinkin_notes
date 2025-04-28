@@ -7,6 +7,26 @@ using namespace System::Windows::Forms;
 using namespace msclr::interop;
 
 /*
+* ћетод, сбрасывающий интерфейс программы в исходное состо€ние
+*/
+System::Void Analize::GUI::clear() {
+	this->outBox->Text = "";
+	this->textBoxPseudo->Text = "";
+	this->textBoxDescript->Text = "";
+	array<DataGridView^>^ grids = {
+		this->dataGridViewConst,
+		this->dataGridViewKeys,
+		this->dataGridViewIDs,
+		this->dataGridViewDelims,
+		this->dataGridViewRelative,
+		this->dataGridViewSigns
+	};
+	for each (DataGridView ^ table in grids) {
+		table->RowCount = 1;
+	}
+} 
+
+/*
 * ћетод удал€ющий пробелы, переносы и комментарии из
 * текста программы, использу€ анализатор
 */
@@ -85,6 +105,7 @@ System::Void Analize::GUI::openFileButton_Click(System::Object^ sender, System::
 	this->openFileDialog1->FileName = "";
 	this->openFileDialog1->ShowDialog();
 	this->fileNameBox->Text = openFileDialog1->FileName;
+	this->sourceBox->Text = "";
 
 	StreamReader^ reader = gcnew StreamReader(openFileDialog1->FileName, Encoding::GetEncoding("windows-1251"));
 	do {
@@ -97,6 +118,8 @@ System::Void Analize::GUI::openFileButton_Click(System::Object^ sender, System::
 * ќбработка нажати€ на кнопку "ќбработать"
 */ 
 System::Void Analize::GUI::processButton_Click(System::Object^ sender, System::EventArgs^ e) {
+	clear(); // —брос программы
+
 	// ”даление пробелов и переносов
 	this->outBox->BackColor = System::Drawing::SystemColors::Window;
 	stripSource();

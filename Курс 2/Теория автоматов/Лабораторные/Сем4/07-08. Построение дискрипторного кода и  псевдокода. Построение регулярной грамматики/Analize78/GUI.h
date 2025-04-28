@@ -98,35 +98,35 @@ namespace Analize {
 			this->tabPageLexems = (gcnew System::Windows::Forms::TabPage());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->dataGridViewDelims = (gcnew System::Windows::Forms::DataGridView());
+			this->DelimsNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->DelimsLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->DelimsCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridViewSigns = (gcnew System::Windows::Forms::DataGridView());
+			this->SignsNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->SignsLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->SignsCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridViewRelative = (gcnew System::Windows::Forms::DataGridView());
+			this->RelativeNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->RelativeLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->RelativeCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridViewIDs = (gcnew System::Windows::Forms::DataGridView());
+			this->IDNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->IDLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->IDCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridViewConst = (gcnew System::Windows::Forms::DataGridView());
+			this->ConstNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ConstLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ConstCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->outBox = (gcnew System::Windows::Forms::TextBox());
 			this->dataGridViewKeys = (gcnew System::Windows::Forms::DataGridView());
+			this->KeysNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->KeyLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->KeyCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->codesTab = (gcnew System::Windows::Forms::TabPage());
 			this->textBoxPName = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxDName = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxPseudo = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxDescript = (gcnew System::Windows::Forms::TextBox());
-			this->KeysNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->KeyLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->KeyCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ConstNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ConstLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ConstCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->IDNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->IDLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->IDCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->RelativeNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->RelativeLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->RelativeCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->SignsNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->SignsLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->SignsCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->DelimsNum = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->DelimsLexem = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->DelimsCode = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tabControl1->SuspendLayout();
 			this->tabPageSource->SuspendLayout();
 			this->tabPageLexems->SuspendLayout();
@@ -248,7 +248,6 @@ namespace Analize {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox1->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
 				static_cast<System::Int32>(static_cast<System::Byte>(249)));
 			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
@@ -260,7 +259,6 @@ namespace Analize {
 			this->textBox1->Size = System::Drawing::Size(149, 17);
 			this->textBox1->TabIndex = 9;
 			this->textBox1->Text = L"Обработанный текст";
-			this->textBox1->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// dataGridViewDelims
 			// 
@@ -283,6 +281,24 @@ namespace Analize {
 			this->dataGridViewDelims->Size = System::Drawing::Size(315, 229);
 			this->dataGridViewDelims->TabIndex = 8;
 			// 
+			// DelimsNum
+			// 
+			this->DelimsNum->HeaderText = L"60 (Delims)";
+			this->DelimsNum->Name = L"DelimsNum";
+			this->DelimsNum->ReadOnly = true;
+			// 
+			// DelimsLexem
+			// 
+			this->DelimsLexem->HeaderText = L"Лексема";
+			this->DelimsLexem->Name = L"DelimsLexem";
+			this->DelimsLexem->ReadOnly = true;
+			// 
+			// DelimsCode
+			// 
+			this->DelimsCode->HeaderText = L"Код";
+			this->DelimsCode->Name = L"DelimsCode";
+			this->DelimsCode->ReadOnly = true;
+			// 
 			// dataGridViewSigns
 			// 
 			this->dataGridViewSigns->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
@@ -303,6 +319,24 @@ namespace Analize {
 			this->dataGridViewSigns->RowTemplate->ReadOnly = true;
 			this->dataGridViewSigns->Size = System::Drawing::Size(315, 229);
 			this->dataGridViewSigns->TabIndex = 7;
+			// 
+			// SignsNum
+			// 
+			this->SignsNum->HeaderText = L"50 (Signs)";
+			this->SignsNum->Name = L"SignsNum";
+			this->SignsNum->ReadOnly = true;
+			// 
+			// SignsLexem
+			// 
+			this->SignsLexem->HeaderText = L"Лексема";
+			this->SignsLexem->Name = L"SignsLexem";
+			this->SignsLexem->ReadOnly = true;
+			// 
+			// SignsCode
+			// 
+			this->SignsCode->HeaderText = L"Код";
+			this->SignsCode->Name = L"SignsCode";
+			this->SignsCode->ReadOnly = true;
 			// 
 			// dataGridViewRelative
 			// 
@@ -325,6 +359,24 @@ namespace Analize {
 			this->dataGridViewRelative->Size = System::Drawing::Size(315, 228);
 			this->dataGridViewRelative->TabIndex = 6;
 			// 
+			// RelativeNum
+			// 
+			this->RelativeNum->HeaderText = L"40 (Relative)";
+			this->RelativeNum->Name = L"RelativeNum";
+			this->RelativeNum->ReadOnly = true;
+			// 
+			// RelativeLexem
+			// 
+			this->RelativeLexem->HeaderText = L"Лексема";
+			this->RelativeLexem->Name = L"RelativeLexem";
+			this->RelativeLexem->ReadOnly = true;
+			// 
+			// RelativeCode
+			// 
+			this->RelativeCode->HeaderText = L"Код";
+			this->RelativeCode->Name = L"RelativeCode";
+			this->RelativeCode->ReadOnly = true;
+			// 
 			// dataGridViewIDs
 			// 
 			this->dataGridViewIDs->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
@@ -346,6 +398,24 @@ namespace Analize {
 			this->dataGridViewIDs->Size = System::Drawing::Size(315, 229);
 			this->dataGridViewIDs->TabIndex = 5;
 			// 
+			// IDNum
+			// 
+			this->IDNum->HeaderText = L"30 (ID)";
+			this->IDNum->Name = L"IDNum";
+			this->IDNum->ReadOnly = true;
+			// 
+			// IDLexem
+			// 
+			this->IDLexem->HeaderText = L"Лексема";
+			this->IDLexem->Name = L"IDLexem";
+			this->IDLexem->ReadOnly = true;
+			// 
+			// IDCode
+			// 
+			this->IDCode->HeaderText = L"Код";
+			this->IDCode->Name = L"IDCode";
+			this->IDCode->ReadOnly = true;
+			// 
 			// dataGridViewConst
 			// 
 			this->dataGridViewConst->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
@@ -366,6 +436,24 @@ namespace Analize {
 			this->dataGridViewConst->RowTemplate->ReadOnly = true;
 			this->dataGridViewConst->Size = System::Drawing::Size(315, 229);
 			this->dataGridViewConst->TabIndex = 4;
+			// 
+			// ConstNum
+			// 
+			this->ConstNum->HeaderText = L"20 (Const)";
+			this->ConstNum->Name = L"ConstNum";
+			this->ConstNum->ReadOnly = true;
+			// 
+			// ConstLexem
+			// 
+			this->ConstLexem->HeaderText = L"Лексема";
+			this->ConstLexem->Name = L"ConstLexem";
+			this->ConstLexem->ReadOnly = true;
+			// 
+			// ConstCode
+			// 
+			this->ConstCode->HeaderText = L"Код";
+			this->ConstCode->Name = L"ConstCode";
+			this->ConstCode->ReadOnly = true;
 			// 
 			// outBox
 			// 
@@ -401,6 +489,24 @@ namespace Analize {
 			this->dataGridViewKeys->RowTemplate->ReadOnly = true;
 			this->dataGridViewKeys->Size = System::Drawing::Size(315, 228);
 			this->dataGridViewKeys->TabIndex = 1;
+			// 
+			// KeysNum
+			// 
+			this->KeysNum->HeaderText = L"10 (Keys)";
+			this->KeysNum->Name = L"KeysNum";
+			this->KeysNum->ReadOnly = true;
+			// 
+			// KeyLexem
+			// 
+			this->KeyLexem->HeaderText = L"Лексема";
+			this->KeyLexem->Name = L"KeyLexem";
+			this->KeyLexem->ReadOnly = true;
+			// 
+			// KeyCode
+			// 
+			this->KeyCode->HeaderText = L"Код";
+			this->KeyCode->Name = L"KeyCode";
+			this->KeyCode->ReadOnly = true;
 			// 
 			// codesTab
 			// 
@@ -468,114 +574,6 @@ namespace Analize {
 			this->textBoxDescript->Size = System::Drawing::Size(956, 266);
 			this->textBoxDescript->TabIndex = 4;
 			// 
-			// KeysNum
-			// 
-			this->KeysNum->HeaderText = L"10 (Keys)";
-			this->KeysNum->Name = L"KeysNum";
-			this->KeysNum->ReadOnly = true;
-			// 
-			// KeyLexem
-			// 
-			this->KeyLexem->HeaderText = L"Лексема";
-			this->KeyLexem->Name = L"KeyLexem";
-			this->KeyLexem->ReadOnly = true;
-			// 
-			// KeyCode
-			// 
-			this->KeyCode->HeaderText = L"Код";
-			this->KeyCode->Name = L"KeyCode";
-			this->KeyCode->ReadOnly = true;
-			// 
-			// ConstNum
-			// 
-			this->ConstNum->HeaderText = L"20 (Const)";
-			this->ConstNum->Name = L"ConstNum";
-			this->ConstNum->ReadOnly = true;
-			// 
-			// ConstLexem
-			// 
-			this->ConstLexem->HeaderText = L"Лексема";
-			this->ConstLexem->Name = L"ConstLexem";
-			this->ConstLexem->ReadOnly = true;
-			// 
-			// ConstCode
-			// 
-			this->ConstCode->HeaderText = L"Код";
-			this->ConstCode->Name = L"ConstCode";
-			this->ConstCode->ReadOnly = true;
-			// 
-			// IDNum
-			// 
-			this->IDNum->HeaderText = L"30 (ID)";
-			this->IDNum->Name = L"IDNum";
-			this->IDNum->ReadOnly = true;
-			// 
-			// IDLexem
-			// 
-			this->IDLexem->HeaderText = L"Лексема";
-			this->IDLexem->Name = L"IDLexem";
-			this->IDLexem->ReadOnly = true;
-			// 
-			// IDCode
-			// 
-			this->IDCode->HeaderText = L"Код";
-			this->IDCode->Name = L"IDCode";
-			this->IDCode->ReadOnly = true;
-			// 
-			// RelativeNum
-			// 
-			this->RelativeNum->HeaderText = L"40 (Relative)";
-			this->RelativeNum->Name = L"RelativeNum";
-			this->RelativeNum->ReadOnly = true;
-			// 
-			// RelativeLexem
-			// 
-			this->RelativeLexem->HeaderText = L"Лексема";
-			this->RelativeLexem->Name = L"RelativeLexem";
-			this->RelativeLexem->ReadOnly = true;
-			// 
-			// RelativeCode
-			// 
-			this->RelativeCode->HeaderText = L"Код";
-			this->RelativeCode->Name = L"RelativeCode";
-			this->RelativeCode->ReadOnly = true;
-			// 
-			// SignsNum
-			// 
-			this->SignsNum->HeaderText = L"50 (Signs)";
-			this->SignsNum->Name = L"SignsNum";
-			this->SignsNum->ReadOnly = true;
-			// 
-			// SignsLexem
-			// 
-			this->SignsLexem->HeaderText = L"Лексема";
-			this->SignsLexem->Name = L"SignsLexem";
-			this->SignsLexem->ReadOnly = true;
-			// 
-			// SignsCode
-			// 
-			this->SignsCode->HeaderText = L"Код";
-			this->SignsCode->Name = L"SignsCode";
-			this->SignsCode->ReadOnly = true;
-			// 
-			// DelimsNum
-			// 
-			this->DelimsNum->HeaderText = L"60 (Delims)";
-			this->DelimsNum->Name = L"DelimsNum";
-			this->DelimsNum->ReadOnly = true;
-			// 
-			// DelimsLexem
-			// 
-			this->DelimsLexem->HeaderText = L"Лексема";
-			this->DelimsLexem->Name = L"DelimsLexem";
-			this->DelimsLexem->ReadOnly = true;
-			// 
-			// DelimsCode
-			// 
-			this->DelimsCode->HeaderText = L"Код";
-			this->DelimsCode->Name = L"DelimsCode";
-			this->DelimsCode->ReadOnly = true;
-			// 
 			// GUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -604,6 +602,7 @@ namespace Analize {
 
 #pragma endregion
 private: 
+	System::Void clear();
 	System::Void stripSource();
 	int getFromTable(String^, DataGridView^);
 	System::Void buildCodes(int, String^, String^, DataGridView^);

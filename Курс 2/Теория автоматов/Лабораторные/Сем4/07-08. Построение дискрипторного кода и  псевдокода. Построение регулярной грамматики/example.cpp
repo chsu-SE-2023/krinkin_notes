@@ -48,6 +48,8 @@ void     arr_print(int*      arr, int size) {
         std::cout     <<    arr[i]    <<    " ";
     }
     std::cout    <<    std::endl;
+    -----;
+    <<<<<;
 }
 
 int main() { // Even more comments
