@@ -62,6 +62,7 @@ System::Void Analize::GUI::buildCodes(int state, String^ lexem, String^ code, Da
 		gridView->Rows[k_count - 1]->Cells[1]->Value = lexem;
 		gridView->Rows[k_count - 1]->Cells[2]->Value = code;
 	}
+	if (state == -1) state = 6;
 	textBoxDescript->Text += "(" + state * 10 + "," + getFromTable(lexem, gridView) + ")";
 	textBoxPseudo->Text += code;
 }
