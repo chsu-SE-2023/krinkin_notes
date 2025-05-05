@@ -28,6 +28,11 @@ void Analyser::clearState() {
 	this->buffer = "";
 }
 
+bool Analyser::isCorrect(std::string lexem, int state) {
+	// TODO: Check IDs 
+	return false;
+};
+
 /*
 * ћетод, возвращающий состо€ние конечного автомата
 */

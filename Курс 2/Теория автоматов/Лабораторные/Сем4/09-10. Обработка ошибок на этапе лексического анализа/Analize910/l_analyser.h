@@ -12,6 +12,7 @@ private:
 public:
 
 	void clearState();
+	bool isCorrect(std::string, int);
 	int getState() const;
 	char space_filter(char);
 	std::string lexem_filter(char, char);

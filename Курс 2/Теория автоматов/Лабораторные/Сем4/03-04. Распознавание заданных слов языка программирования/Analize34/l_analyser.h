@@ -68,9 +68,7 @@ public:
 			case '/': { state = 1; break; }
 			case ' ': { state = 4; break; }
 			case '\n': { state = 4; break; }
-			default: { switch (c) {
 			default: { state = 0; break; }
-			} break; break; }
 			} break;
 		}
 		case 1: {
@@ -78,6 +76,7 @@ public:
 			case '/': { state = 1; break; }
 			case '*': { state = 2; break; }
 			case '\n': { state = 5; break; }
+			default: { state = 1; break; }
 			} break;
 		}
 		case 2: {
@@ -97,9 +96,7 @@ public:
 			case '/': { state = 1; break; }
 			case '\n': { state = 5; break; }
 			case ' ': { state = 5; break; }
-			default: { switch (c) {
 			default: { state = 0; break; }
-			} break; break; }
 			} break;
 		}
 		case 5: {
@@ -107,9 +104,7 @@ public:
 			case '/': { state = 1; break; }
 			case ' ': { state = 5; break; }
 			case '\n': { state = 5; break; }
-			default: { switch (c) {
 			default: { state = 0; break; }
-			} break; break; }
 			} break;
 		}
 		}
@@ -133,9 +128,11 @@ public:
 	std::string lexem_filter(char c) {
 		if (state == 0) buffer = "";
 		if (state > 0 && state <= 6 && std::count(delimers.begin(), delimers.end(), c)) {
-			std::string r_buff = buffer;
-			buffer = "";
-			return r_buff;
+			if (state != 2 || c != '.') {
+				std::string r_buff = buffer;
+				buffer = "";
+				return r_buff;
+			}
 		}
 
 		switch (state) {
@@ -153,16 +150,16 @@ public:
 			case 't': { state = 58; break; }
 			case 'v': { state = 61; break; }
 
-			case '0': { state = 64; break; }
-			case '1': { state = 64; break; }
-			case '2': { state = 64; break; }
-			case '3': { state = 64; break; }
-			case '4': { state = 64; break; }
-			case '5': { state = 64; break; }
-			case '6': { state = 64; break; }
-			case '7': { state = 64; break; }
-			case '8': { state = 64; break; }
-			case '9': { state = 64; break; }
+			case '0': { state = 2; break; }
+			case '1': { state = 2; break; }
+			case '2': { state = 2; break; }
+			case '3': { state = 2; break; }
+			case '4': { state = 2; break; }
+			case '5': { state = 2; break; }
+			case '6': { state = 2; break; }
+			case '7': { state = 2; break; }
+			case '8': { state = 2; break; }
+			case '9': { state = 2; break; }
 			case '-': { state = 65; break; }
 			case '+': { state = 65; break; }
 			case '.': { state = 66; break; }
@@ -176,6 +173,19 @@ public:
 		}
 		case 2: {
 			switch (c) {
+			case '0': { state = 2; break; }
+			case '1': { state = 2; break; }
+			case '2': { state = 2; break; }
+			case '3': { state = 2; break; }
+			case '4': { state = 2; break; }
+			case '5': { state = 2; break; }
+			case '6': { state = 2; break; }
+			case '7': { state = 2; break; }
+			case '8': { state = 2; break; }
+			case '9': { state = 2; break; }
+			case 'e': { state = 67; break; }
+			case 'E': { state = 67; break; }
+			case '.': { state = 66; break; }
 			default: { state = 0; break; }
 			} break;
 		}
@@ -548,51 +558,33 @@ public:
 			default: { state = 0; break; }
 			} break;
 		}
-		case 64: {
-			switch (c) {
-			case '0': { state = 64; break; }
-			case '1': { state = 64; break; }
-			case '2': { state = 64; break; }
-			case '3': { state = 64; break; }
-			case '4': { state = 64; break; }
-			case '5': { state = 64; break; }
-			case '6': { state = 64; break; }
-			case '7': { state = 64; break; }
-			case '8': { state = 64; break; }
-			case '9': { state = 64; break; }
-			case 'e': { state = 67; break; }
-			case 'E': { state = 67; break; }
-			case '.': { state = 66; break; }
-			default: { state = 0; break; }
-			} break;
-		}
 		case 65: {
 			switch (c) {
-			case '0': { state = 64; break; }
-			case '1': { state = 64; break; }
-			case '2': { state = 64; break; }
-			case '3': { state = 64; break; }
-			case '4': { state = 64; break; }
-			case '5': { state = 64; break; }
-			case '6': { state = 64; break; }
-			case '7': { state = 64; break; }
-			case '8': { state = 64; break; }
-			case '9': { state = 64; break; }
+			case '0': { state = 2; break; }
+			case '1': { state = 2; break; }
+			case '2': { state = 2; break; }
+			case '3': { state = 2; break; }
+			case '4': { state = 2; break; }
+			case '5': { state = 2; break; }
+			case '6': { state = 2; break; }
+			case '7': { state = 2; break; }
+			case '8': { state = 2; break; }
+			case '9': { state = 2; break; }
 			default: { state = 0; break; }
 			} break;
 		}
 		case 66: {
 			switch (c) {
-			case '0': { state = 64; break; }
-			case '1': { state = 64; break; }
-			case '2': { state = 64; break; }
-			case '3': { state = 64; break; }
-			case '4': { state = 64; break; }
-			case '5': { state = 64; break; }
-			case '6': { state = 64; break; }
-			case '7': { state = 64; break; }
-			case '8': { state = 64; break; }
-			case '9': { state = 64; break; }
+			case '0': { state = 2; break; }
+			case '1': { state = 2; break; }
+			case '2': { state = 2; break; }
+			case '3': { state = 2; break; }
+			case '4': { state = 2; break; }
+			case '5': { state = 2; break; }
+			case '6': { state = 2; break; }
+			case '7': { state = 2; break; }
+			case '8': { state = 2; break; }
+			case '9': { state = 2; break; }
 			default: { state = 0; break; }
 			} break;
 		}
