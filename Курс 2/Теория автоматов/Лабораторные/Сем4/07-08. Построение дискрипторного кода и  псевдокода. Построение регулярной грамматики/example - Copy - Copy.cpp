@@ -1,3 +1,15 @@
------5
+314.56
+31.56E+02
+32.33E
+145.16A7
 <<<<<
-//std::cout << i++ << ++i << i-- << --i << std::endl;
+++-+==
+3_nomer
+nomer_3
+4nomer
+--=+<=>=>>
+;;;
+int_1
+int char
+int_char
+aq, 

@@ -12,3 +12,4 @@ nomer_3
 int_1
 int char
 int_char
+aq, 

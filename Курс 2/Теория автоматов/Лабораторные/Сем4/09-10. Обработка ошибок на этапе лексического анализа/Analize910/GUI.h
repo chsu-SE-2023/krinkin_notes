@@ -272,7 +272,7 @@ namespace Analize {
 				this->DelimsNum,
 					this->DelimsLexem, this->DelimsCode
 			});
-			this->dataGridViewDelims->Location = System::Drawing::Point(328, 514);
+			this->dataGridViewDelims->Location = System::Drawing::Point(649, 511);
 			this->dataGridViewDelims->Name = L"dataGridViewDelims";
 			this->dataGridViewDelims->ReadOnly = true;
 			this->dataGridViewDelims->RowHeadersVisible = false;
@@ -283,7 +283,7 @@ namespace Analize {
 			// 
 			// DelimsNum
 			// 
-			this->DelimsNum->HeaderText = L"50 (Delims)";
+			this->DelimsNum->HeaderText = L"60 (Delims)";
 			this->DelimsNum->Name = L"DelimsNum";
 			this->DelimsNum->ReadOnly = true;
 			// 
@@ -311,7 +311,7 @@ namespace Analize {
 				this->SignsNum,
 					this->SignsLexem, this->SignsCode
 			});
-			this->dataGridViewSigns->Location = System::Drawing::Point(8, 514);
+			this->dataGridViewSigns->Location = System::Drawing::Point(328, 511);
 			this->dataGridViewSigns->Name = L"dataGridViewSigns";
 			this->dataGridViewSigns->ReadOnly = true;
 			this->dataGridViewSigns->RowHeadersVisible = false;
@@ -322,7 +322,7 @@ namespace Analize {
 			// 
 			// SignsNum
 			// 
-			this->SignsNum->HeaderText = L"40 (Signs)";
+			this->SignsNum->HeaderText = L"50 (Signs)";
 			this->SignsNum->Name = L"SignsNum";
 			this->SignsNum->ReadOnly = true;
 			// 
@@ -350,7 +350,7 @@ namespace Analize {
 				this->RelativeNum,
 					this->RelativeLexem, this->RelativeCode
 			});
-			this->dataGridViewRelative->Location = System::Drawing::Point(649, 279);
+			this->dataGridViewRelative->Location = System::Drawing::Point(8, 512);
 			this->dataGridViewRelative->Name = L"dataGridViewRelative";
 			this->dataGridViewRelative->ReadOnly = true;
 			this->dataGridViewRelative->RowHeadersVisible = false;
@@ -361,7 +361,7 @@ namespace Analize {
 			// 
 			// RelativeNum
 			// 
-			this->RelativeNum->HeaderText = L"30 (Relative)";
+			this->RelativeNum->HeaderText = L"40 (Relative)";
 			this->RelativeNum->Name = L"RelativeNum";
 			this->RelativeNum->ReadOnly = true;
 			// 
@@ -389,7 +389,7 @@ namespace Analize {
 				this->IDNum,
 					this->IDLexem, this->IDCode
 			});
-			this->dataGridViewIDs->Location = System::Drawing::Point(649, 514);
+			this->dataGridViewIDs->Location = System::Drawing::Point(649, 278);
 			this->dataGridViewIDs->Name = L"dataGridViewIDs";
 			this->dataGridViewIDs->ReadOnly = true;
 			this->dataGridViewIDs->RowHeadersVisible = false;
@@ -400,7 +400,7 @@ namespace Analize {
 			// 
 			// IDNum
 			// 
-			this->IDNum->HeaderText = L"60 (ID)";
+			this->IDNum->HeaderText = L"30 (ID)";
 			this->IDNum->Name = L"IDNum";
 			this->IDNum->ReadOnly = true;
 			// 

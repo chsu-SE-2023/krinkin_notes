@@ -62,7 +62,6 @@ System::Void Analize::GUI::buildCodes(int state, String^ lexem, String^ code, Da
 		gridView->Rows[k_count - 1]->Cells[1]->Value = lexem;
 		gridView->Rows[k_count - 1]->Cells[2]->Value = code;
 	}
-	if (state == -1) state = 6;
 	textBoxDescript->Text += "(" + state * 10 + "," + getFromTable(lexem, gridView) + ")";
 	textBoxPseudo->Text += code;
 }
@@ -81,20 +80,20 @@ System::Void Analize::GUI::addToTable(int state, String^ lexem) {
 		buildCodes(state, lexem, "const", dataGridViewConst); 
 		break;
 	}
-	case 3: { // Оператор отношения
+	case 3: { // Идентификатор
+		buildCodes(state, lexem, "id", dataGridViewIDs); 
+		break;
+	}
+	case 4: { // Оператор отношения
 		buildCodes(state, lexem, lexem, dataGridViewRelative); 
 		break;
 	}
-	case 4: { // Знак операции
+	case 5: { // Знак операции
 		buildCodes(state, lexem, lexem, dataGridViewSigns);
 		break;
 	}
-	case 5: { // Разделитель
+	case 6: { // Разделитель
 		buildCodes(state, lexem, lexem, dataGridViewDelims); 
-		break;
-	}
-	case -1: { // Идентификатор
-		buildCodes(state, lexem, "id", dataGridViewIDs);
 		break;
 	}
 	}
