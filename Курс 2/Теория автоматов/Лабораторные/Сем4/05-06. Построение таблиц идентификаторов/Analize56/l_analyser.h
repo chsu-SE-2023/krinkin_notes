@@ -986,13 +986,13 @@ public:
 			is_id = true; // Åñëè àâòîìàò ïåğåø¸ë â ñîñòîÿíèå S=0, òî âñÿ ëåêñåìà - èäåíèôèêàòîğ
 
 		// Êëş÷åâûå ñëîâà è êîíñòàíòû
-		if ((state == 1 || state == 2) && (is_delim(next) || is_sign(next)) && !is_id && c) {
+		if ((state == 1 || state == 2) && (is_delim(next) || is_sign(next)) && !is_id) {
 			if (state != 2 || next != '.')
 				return buffer;
 		}
 
 		// Çíàêè
-		if ((state > 10 && state <= 60) && (!is_next_valid(next) || is_multisign()) && !is_id && c) {
+		if ((state > 10 && state <= 60) && (!is_next_valid(next) || is_multisign()) && !is_id) {
 			if ((state >= 28 && state <= 30) || (state >= 33 && state <= 34) || state == 12) {
 				state = 4;
 				return buffer;
@@ -1007,10 +1007,11 @@ public:
 		}
 
 		// Èäåíòèôèêàòîğû
-		if (buffer != "" && (is_id || state > 60) && (is_delim(next) || is_sign(next))) {
+		if (buffer != "" && (is_id || state > 60 || (state >= 3 && state <= 5)) && (is_delim(next) || (is_sign(next) && !is_next_valid(next)))) {
 			state = 3; return buffer;
 		}
 
 		return "";
+
 	}
 };
