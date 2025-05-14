@@ -51,7 +51,7 @@ bool Analyser::is_next_valid(char c) {
 		return state > 0 && state <= 6 && state != 3;
 	}
 	return true;
-};
+}
 
 /*
 * Ìåòîä, âîçâğàùàşùèé ÿâëÿåòñÿ ëè çíàêîì
@@ -70,14 +70,14 @@ Analyser::Analyser() {
 	this->buffer = "";
 	this->is_id = false;
 	this->state = 0;
-};
+}
 
 Analyser::Analyser(Analyser* copy) {
 	this->buffer = copy->buffer;
 	this->is_id = copy->is_id;
 	this->state = copy->state;
 	this->check_next = copy->check_next;
-};
+}
 
 /*
 * Ìåòîä, ñáğàñûâàşùèé ñîñòîÿíèå êîíå÷íîãî àâòîìàòà
@@ -94,12 +94,13 @@ void Analyser::clearState() {
 int Analyser::getState() const {
 	return this->state;
 }
+
 /*
 * Ìåòîä, óñòàíàâëèâàşùèé ñîñòîÿíèå êîíå÷íîãî àâòîìàòà
 */
 void Analyser::setState(int state) {
 	this->state = state;
-};
+}
 
 /*
 * Ìåòîä, ëåêñè÷åñêîãî àíàëèçàòîğà äëÿ óäàëåíèÿ
@@ -968,13 +969,13 @@ std::string Analyser::lexem_filter(char c, char next) {
 		is_id = true; // Åñëè àâòîìàò ïåğåø¸ë â ñîñòîÿíèå S=0, òî âñÿ ëåêñåìà - èäåíèôèêàòîğ
 
 	// Êëş÷åâûå ñëîâà è êîíñòàíòû
-	if ((state == 1 || state == 2) && (is_delim(next) || is_sign(next)) && !is_id && c) {
+	if ((state == 1 || state == 2) && (is_delim(next) || is_sign(next)) && !is_id) {
 		if (state != 2 || next != '.')
 			return buffer;
 	}
 
 	// Çíàêè
-	if ((state > 10 && state <= 60) && (!is_next_valid(next) || is_multisign()) && !is_id && c) {
+	if ((state > 10 && state <= 60) && (!is_next_valid(next) || is_multisign()) && !is_id) {
 		if ((state >= 28 && state <= 30) || (state >= 33 && state <= 34) || state == 12) {
 			state = 4;
 			return buffer;
@@ -989,7 +990,7 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 
 	// Èäåíòèôèêàòîğû
-	if (buffer != "" && (is_id || state > 60) && (is_delim(next) || is_sign(next))) {
+	if (buffer != "" && (is_id || state > 60 || (state >= 3 && state <= 5)) && (is_delim(next) || (is_sign(next) && !is_next_valid(next)))) {
 		state = 3; return buffer;
 	}
 
