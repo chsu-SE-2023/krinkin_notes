@@ -21,7 +21,7 @@ Gateway::Gateway() : Switch() {
 *
 * @param вектор клиентов
 */
-Gateway::Gateway(std::vector<int>& clients) : Switch(clients) {
+Gateway::Gateway(std::vector<Client>& clients) : Switch(clients) {
     set_defaults();
 };
 
@@ -30,7 +30,7 @@ Gateway::Gateway(std::vector<int>& clients) : Switch(clients) {
 *
 * @param MAC-адресс
 */
-Gateway::Gateway(std::array<int, 5> address) : Switch(address) {
+Gateway::Gateway(MAC_Address address) : Switch(address) {
     set_defaults();
 };
 
@@ -40,7 +40,7 @@ Gateway::Gateway(std::array<int, 5> address) : Switch(address) {
 * @param вектор клиентов
 * @param MAC-адресс
 */
-Gateway::Gateway(std::vector<int>& clients, std::array<int, 5> address) : Switch(clients, address) {
+Gateway::Gateway(std::vector<Client>& clients, MAC_Address address) : Switch(clients, address) {
     set_defaults();
 };
 
@@ -52,7 +52,7 @@ Gateway::Gateway(std::vector<int>& clients, std::array<int, 5> address) : Switch
 * @param MAC-адресс
 * @param протокол
 */
-Gateway::Gateway(const double*& packets, std::vector<int>& clients, std::array<int, 5> address, std::string protocol) : Switch(packets, clients, address) {
+Gateway::Gateway(const double*& packets, std::vector<Client>& clients, MAC_Address address, std::string protocol) : Switch(packets, clients, address) {
     set_defaults();
     this->protocol = protocol;
 };
@@ -96,7 +96,7 @@ void Gateway::set_protocol(std::string protocol) {
 /**
 * Метод, печатающий информацию об устройстве в консоль
 */
-void Gateway::print_info() const {
+void Gateway::print_info() {
     Switch::print_info();
     std::cout << "Protocol - " << this->protocol << std::endl;
 };

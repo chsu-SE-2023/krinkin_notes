@@ -7,7 +7,7 @@
 */
 void Repeater::set_defaults() {
     this->packets = nullptr;
-    this->address.fill(0);
+    this->address = MAC_Address();
 }
 
 /**
@@ -22,7 +22,7 @@ Repeater::Repeater() {
 * 
 * @param MAC-адрес
 */
-Repeater::Repeater(std::array<int, 5> address) {
+Repeater::Repeater(MAC_Address address) {
     set_defaults();
     this->address = address;
 };
@@ -43,7 +43,7 @@ Repeater::Repeater(const double*& packets) {
 * @param массив пакетов
 * @param MAC-адрес
 */
-Repeater::Repeater(const double*& packets, std::array<int, 5> address) {
+Repeater::Repeater(const double*& packets, MAC_Address address) {
     set_defaults();
     this->packets = packets;
     this->address = address;
@@ -91,7 +91,7 @@ void Repeater::receive(const double*& packets) {
 *
 * @return MAC-адрес
 */
-std::array<int, 5> Repeater::get_address() const {
+MAC_Address Repeater::get_address() const {
     return address;
 };
 
@@ -100,19 +100,16 @@ std::array<int, 5> Repeater::get_address() const {
 *
 * @param MAC-адрес
 */
-void Repeater::set_address(const std::array<int, 5>& address) {
+void Repeater::set_address(MAC_Address address) {
     this->address = address;
 };
 
 /**
 * ћетод, печатающий информацию об устройстве в консоль
 */
-void Repeater::print_info() const {
+void Repeater::print_info() {
     std::cout << "Device info: " << std::endl;
-    std::cout << "   - MAC Address: ";
-    for (int i = 0; i < address.size(); i++)
-        std::cout << this->address[i] << ":";
-    std::cout << "\b" << " " << std::endl;
+    std::cout << "   - MAC Address: " << address.as_string() << " " << std::endl;
 };
 
 /**

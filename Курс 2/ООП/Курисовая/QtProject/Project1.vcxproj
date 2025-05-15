@@ -46,6 +46,7 @@
     <ClCompile Include="src\devices\repeater.cpp" />
     <ClCompile Include="src\devices\router.cpp" />
     <ClCompile Include="src\misc\address.cpp" />
+    <ClCompile Include="src\misc\client.cpp" />
     <ClCompile Include="src\Source.cpp" />
     <ClCompile Include="src\containers\stats.cpp" />
     <ClCompile Include="src\devices\switch.cpp" />

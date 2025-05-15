@@ -14,7 +14,7 @@ MAC_Address::MAC_Address() {
 * 
 * @param массив значений
 */
-MAC_Address::MAC_Address(std::array<char, 6> values) {
+MAC_Address::MAC_Address(std::array<unsigned char, 6> values) {
 	this->values = values;
 }
 

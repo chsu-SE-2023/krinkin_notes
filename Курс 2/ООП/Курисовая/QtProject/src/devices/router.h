@@ -12,20 +12,21 @@ protected:
 public:
     Router();
     Router(std::string, std::string);
-    Router(std::vector<int>&);
-    Router(std::array<int, 5>&);
+    Router(std::vector<Client>&);
+    Router(MAC_Address);
     Router(const double*&);
-    Router(std::vector<int>&, std::array<int, 5>&);
-    Router(const double*&, std::vector<int>&, std::array<int, 5>, std::string, std::string, std::string);
+    Router(std::vector<Client>&, MAC_Address);
+    Router(const double*&, std::vector<Client>&, MAC_Address, std::string, std::string, std::string);
     Router(Router&);
     ~Router();
-    std::array<int, 5> get_address() const;
+    MAC_Address get_address() const;
     const double* get_packets() const;
     bool is_wps() const;
     void print_info() const;
-    void set_address(const std::array<int, 5>&);
+    void set_address(MAC_Address);
     void wps_init();
-    void wps_connect(int);
+    void connect(Client);
+    void connect(Client, std::string, std::string);
     void receive(const double*&);
     void reset();
 };

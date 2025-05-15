@@ -10,11 +10,11 @@ protected:
     std::string passwd;
 public:
     WLRepeater();
-    WLRepeater(std::string, std::string); // ssid, passwd
-    WLRepeater(std::array<int, 5>); // address
-    WLRepeater(const double*&); // packets
-    WLRepeater(const double*&, std::array<int, 5>, std::string, std::string); // packets, address, ssid, passwd
-    WLRepeater(WLRepeater&); // copy
+    WLRepeater(std::string, std::string);
+    WLRepeater(MAC_Address);
+    WLRepeater(const double*&);
+    WLRepeater(const double*&, MAC_Address, std::string, std::string);
+    WLRepeater(WLRepeater&);
     ~WLRepeater();
     std::string get_ssid() const;
     void print_info() const;

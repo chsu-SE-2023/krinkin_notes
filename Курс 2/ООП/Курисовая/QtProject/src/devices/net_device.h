@@ -1,5 +1,5 @@
 #pragma once
-#include <array>
+#include "../misc/address.h"
 
 class NetDevice {
 protected:
@@ -7,8 +7,8 @@ protected:
 public:
 	virtual const double* get_packets() const = 0;
 	virtual void receive(const double*&) = 0;
-	virtual std::array<int, 5> get_address() const = 0;
-	virtual void set_address(const std::array<int, 5>&) = 0;
+	virtual MAC_Address get_address() const = 0;
+	virtual void set_address(MAC_Address) = 0;
 	virtual void print_info() const = 0;
 	virtual void reset() = 0;
 };

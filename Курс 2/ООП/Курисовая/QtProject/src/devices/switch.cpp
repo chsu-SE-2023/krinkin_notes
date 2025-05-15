@@ -20,7 +20,7 @@ Switch::Switch() : Repeater() {
 *
 * @param вектор клиентов
 */
-Switch::Switch(std::vector<int>& clients) : Repeater() {
+Switch::Switch(std::vector<Client>& clients) : Repeater() {
     set_defaults();
     if (clients.size() > cli_cap) throw std::overflow_error("clients vector is too big");
     this->clients = clients;
@@ -31,7 +31,7 @@ Switch::Switch(std::vector<int>& clients) : Repeater() {
 *
 * @param адрес
 */
-Switch::Switch(std::array<int, 5>& address) : Repeater(address) {
+Switch::Switch(MAC_Address address) : Repeater(address) {
     set_defaults();
 }
 
@@ -41,7 +41,7 @@ Switch::Switch(std::array<int, 5>& address) : Repeater(address) {
 * @param вектор клиентов
 * @param адрес
 */
-Switch::Switch(std::vector<int>& clients, std::array<int, 5>& address) : Repeater(address) {
+Switch::Switch(std::vector<Client>& clients, MAC_Address address) : Repeater(address) {
     set_defaults();
     if (clients.size() > cli_cap) throw std::overflow_error("clients vector is too big");
     this->clients = clients;
@@ -54,7 +54,7 @@ Switch::Switch(std::vector<int>& clients, std::array<int, 5>& address) : Repeate
 * @param вектор клиентов
 * @param адрес
 */
-Switch::Switch(const double*& packets, std::vector<int>& clients, std::array<int, 5>& address) : Repeater(packets, address) {
+Switch::Switch(const double*& packets, std::vector<Client>& clients, MAC_Address address) : Repeater(packets, address) {
     set_defaults();
     if (clients.size() > cli_cap) throw std::overflow_error("clients vector is too big");
     this->clients = clients;
@@ -102,11 +102,11 @@ bool operator<(const Switch& first, const Switch& second) {
 /**
 * Метод, печатающий информацию об устройстве в консоль
 */
-void Switch::print_info() const {
+void Switch::print_info() {
     Repeater::print_info();
     std::cout << "   - Connected devices (" << this->clients.size() << "): ";
     for (int i = 0; i < this->clients.size(); i++)
-        std::cout << this->clients[i] << " ";
+        std::cout << this->clients[i].get_name() << " ";
     std::cout << std::endl;
 }
 
@@ -115,7 +115,7 @@ void Switch::print_info() const {
 * 
 * @return вектор подключенных клиентов 
 */
-std::vector<int> Switch::get_clients() const {
+std::vector<Client> Switch::get_clients() const {
     return this->clients;
 }
 
@@ -124,7 +124,7 @@ std::vector<int> Switch::get_clients() const {
 * 
 * @param вектор клиентов, подключаемых к устройству
 */
-void Switch::set_clients(std::vector<int>& clients) {
+void Switch::set_clients(std::vector<Client>& clients) {
     if (clients.size() > cli_cap) throw std::length_error("clients vector is too big");
     this->clients = clients;
 }
@@ -136,6 +136,27 @@ void Switch::set_clients(std::vector<int>& clients) {
 */
 int Switch::clients_count() const {
     return this->clients.size();
+}
+
+/**
+* Метод подключающий клиента к устройству 
+*
+* @param подключаемый клиент
+*/
+void Switch::connect(Client client) {
+    if (client.get_type() == WIRED)
+        this->clients.push_back(client);
+    else
+        throw std::invalid_argument("This device does not support wireless connection");
+};
+
+/**
+* Метод отключающий клиента от устройства
+*
+* @param отключаемый клиент
+*/
+void Switch::disconnect(Client client) {
+    clients.erase(std::find(clients.begin(), clients.end(), client));
 }
 
 /**

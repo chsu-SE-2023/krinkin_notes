@@ -1,27 +1,29 @@
 #pragma once
 #include "repeater.h"
+#include "../misc/client.h"
 #include <vector>
-#include <array>
 
 class Switch: public Repeater {
 
 protected:
     static const int cli_cap = 32;
-    std::vector<int> clients;
+    std::vector<Client> clients;
     void set_defaults();
 public:
     Switch();
-    Switch(std::vector<int>&);
-    Switch(std::array<int, 5>&);
-    Switch(std::vector<int>&, std::array<int, 5>&);
-    Switch(const double*&, std::vector<int>&, std::array<int, 5>&);
+    Switch(std::vector<Client>&);
+    Switch(MAC_Address);
+    Switch(std::vector<Client>&, MAC_Address);
+    Switch(const double*&, std::vector<Client>&, MAC_Address);
     Switch(Switch&);
     ~Switch();
     friend bool operator>(const Switch&, const Switch&);
     friend bool operator<(const Switch&, const Switch&);
     int clients_count() const;
-    std::vector<int> get_clients() const;
-    void set_clients(std::vector<int>&);
-    void print_info() const;
+    void connect(Client);
+    void disconnect(Client);
+    std::vector<Client> get_clients() const;
+    void set_clients(std::vector<Client>&);
+    void print_info();
     void reset();
 };

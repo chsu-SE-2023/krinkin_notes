@@ -30,7 +30,7 @@ Router::Router(std::string ssid, std::string passwd) : Gateway(), WLRepeater(ssi
 *
 * @param вектор клиентов
 */
-Router::Router(std::vector<int>& clients) : Gateway(clients) {
+Router::Router(std::vector<Client>& clients) : Gateway(clients) {
     set_defaults();
 }
 
@@ -39,7 +39,7 @@ Router::Router(std::vector<int>& clients) : Gateway(clients) {
 *
 * @param MAC-адрес
 */
-Router::Router(std::array<int, 5>& address) : Gateway(address), WLRepeater() {
+Router::Router(MAC_Address address) : Gateway(address), WLRepeater() {
     set_defaults();
 }
 
@@ -58,7 +58,7 @@ Router::Router(const double*& packets) : Router(packets) {
 * @param вектор клиентов
 * @param MAC-адрес
 */
-Router::Router(std::vector<int>& clients, std::array<int, 5>& address) : Gateway(clients, address), WLRepeater() {
+Router::Router(std::vector<Client>& clients, MAC_Address address) : Gateway(clients, address), WLRepeater() {
     set_defaults();
 }
 
@@ -72,7 +72,7 @@ Router::Router(std::vector<int>& clients, std::array<int, 5>& address) : Gateway
 * @param SSID беспроводной сети
 * @param пароль беспроводной сети
 */
-Router::Router(const double*& packets, std::vector<int>& clients, std::array<int, 5> address, std::string protocol, std::string ssid, std::string passwd) : Gateway(packets, clients, address, protocol), WLRepeater(ssid, passwd) {
+Router::Router(const double*& packets, std::vector<Client>& clients, MAC_Address address, std::string protocol, std::string ssid, std::string passwd) : Gateway(packets, clients, address, protocol), WLRepeater(ssid, passwd) {
     set_defaults();
 }
 
@@ -116,7 +116,7 @@ void Router::receive(const double*& packets) {
 *
 * @return MAC-адрес
 */
-std::array<int, 5> Router::get_address() const {
+MAC_Address Router::get_address() const {
     return Repeater::get_address();
 };
 
@@ -152,7 +152,7 @@ void Router::reset() {
 *
 * @param MAC-адрес
 */
-void Router::set_address(const std::array<int, 5>& address) {
+void Router::set_address(MAC_Address address) {
     Repeater::set_address(address);
 }
 
@@ -168,8 +168,27 @@ void Router::wps_init() {
 * 
 * @param подключаемый клиент
 */
-void Router::wps_connect(int client_id) {
-    // TODO: Append clients
-    // this->clients.assign(client_id);
-    this->wps = false;
+void Router::connect(Client client) {
+    if (client.get_type() == WIRED)
+        this->clients.push_back(client);
+    if (client.get_type() == WIRELESS) {
+        if (wps) {
+            this->clients.push_back(client);
+            this->wps = false;
+        }
+        else throw std::invalid_argument("Device will be in WPS mode to connect wireless client without credentials");
+    }
+}
+
+/*
+* Метод подключающий клиента к беспроводной сети
+*
+* @param подключаемый клиент
+* @param SSID сети устройства
+* @param пароль сети устройства
+*/
+void Router::connect(Client client, std::string ssid, std::string passwd) {
+    if (this->ssid == ssid && this->passwd == passwd)
+        this->clients.push_back(client);
+    else throw std::invalid_argument("Wrong credentials provided!");
 }

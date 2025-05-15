@@ -33,7 +33,7 @@ WLRepeater::WLRepeater(std::string ssid, std::string passwd) : Repeater() {
 *
 * @param MAC-адрес
 */
-WLRepeater::WLRepeater(std::array<int, 5> address) : Repeater(address) {
+WLRepeater::WLRepeater(MAC_Address address) : Repeater(address) {
     set_defaults();
 }
 
@@ -54,7 +54,7 @@ WLRepeater::WLRepeater(const double*& packets) : Repeater(packets) {
 * @param SSID беспроводной сети
 * @param пароль беспроводной сети
 */
-WLRepeater::WLRepeater(const double*& packets, std::array<int, 5> address, std::string ssid, std::string passwd) : Repeater(packets, address) {
+WLRepeater::WLRepeater(const double*& packets, MAC_Address address, std::string ssid, std::string passwd) : Repeater(packets, address) {
     set_defaults();
     this->ssid = ssid;
     this->passwd = passwd;
