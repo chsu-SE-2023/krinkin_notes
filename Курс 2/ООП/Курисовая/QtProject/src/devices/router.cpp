@@ -1,107 +1,174 @@
 #include <iostream>
 #include "router.h"
 
+/**
+* Приватный метод, задающий значения по умолчанию
+*/
 void Router::set_defaults() {
     this->wps = false;
 }
 
+/**
+* Конструктор по умолчанию
+*/
 Router::Router() : Gateway(), WLRepeater() {
     set_defaults();
 }
 
+/**
+* Конструктор с параметрами
+*
+* @param SSID беспроводной сети
+* @param пароль беспроводной сети
+*/
 Router::Router(std::string ssid, std::string passwd) : Gateway(), WLRepeater(ssid, passwd) {
     set_defaults();
 }
 
+/**
+* Конструктор с параметрами
+*
+* @param вектор клиентов
+*/
 Router::Router(std::vector<int>& clients) : Gateway(clients) {
     set_defaults();
 }
 
+/**
+* Конструктор с параметрами
+*
+* @param MAC-адрес
+*/
 Router::Router(std::array<int, 5>& address) : Gateway(address), WLRepeater() {
     set_defaults();
 }
 
+/**
+* Конструктор с параметрами
+*
+* @param массив пакетов
+*/
+Router::Router(const double*& packets) : Router(packets) {
+    set_defaults();
+}
+
+/**
+* Конструктор с параметрами
+*
+* @param вектор клиентов
+* @param MAC-адрес
+*/
 Router::Router(std::vector<int>& clients, std::array<int, 5>& address) : Gateway(clients, address), WLRepeater() {
     set_defaults();
 }
 
+/**
+* Конструктор с параметрами
+*
+* @param массив пакетов
+* @param вектор клиентов
+* @param MAC-адрес
+* @param наименование протокола
+* @param SSID беспроводной сети
+* @param пароль беспроводной сети
+*/
 Router::Router(const double*& packets, std::vector<int>& clients, std::array<int, 5> address, std::string protocol, std::string ssid, std::string passwd) : Gateway(packets, clients, address, protocol), WLRepeater(ssid, passwd) {
     set_defaults();
 }
 
+/**
+* Копирующий коструктор
+*
+* @param экземпляр Router
+*/
 Router::Router(Router& copy) : Gateway(copy.Gateway::packets, copy.clients, copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
     this->wps = copy.wps;
 }
 
+/**
+* Деконструктор
+*/
 Router::~Router() {
     Gateway::~Gateway();
     WLRepeater::~WLRepeater();
 }
 
+/**
+* Метод, возвращающий хранимый массив пакетов
+*
+* @return массив пакетов
+*/
 const double* Router::get_packets() const {
-    /*
-    * Метод возвращает указатель на массив пакетов
-    */ 
     return Repeater::get_packets();
 };
 
+/**
+* Метод, для получения пакетов
+*
+* @param принимаемый массив пакетов
+*/
 void Router::receive(const double*& packets) {
-    /*
-    * Метод принимает массив пакетов
-    */
     Repeater::receive(packets);
 };
 
+/**
+* Метод, возвращающий MAC-адрес устройства
+*
+* @return MAC-адрес
+*/
 std::array<int, 5> Router::get_address() const {
-    /*
-    * Метод возвращает MAC-адрес устройства
-    */
     return Repeater::get_address();
 };
 
+/**
+* Метод возвращающиц активирован ли на устройстве режим WPS подключения
+* 
+* @return булевое значение активации режима WPS подключения
+*/
 bool Router::is_wps() const {
-    /*
-    * Метод возвращает открыт ли на устройстве режим WPS подключения
-    */
     return wps;
 }
 
+/**
+* Метод, печатающий информацию об устройстве в консоль
+*/
 void Router::print_info() const {
-    /*
-    * Метод печатает информацию об устройстве
-    */
     std::cout << "   - WPS: ";
     this->wps ? std::cout << "enabled" : std::cout << "disabled";
     std::cout << std::endl;
 }
 
+/**
+* Публичный метод, сбрасывающий устройство до значений по умолчанию
+*/
 void Router::reset() {
-    /*
-    * Метод сбрасывает все установки устройства к значениям по умолчанию
-    */
     Gateway::set_defaults();
     WLRepeater::set_defaults();
     set_defaults();
 }
 
+/**
+* Метод, устанавливающий MAC-адрес устройства
+*
+* @param MAC-адрес
+*/
 void Router::set_address(const std::array<int, 5>& address) {
-    /*
-    * Метод устанавливает MAC-адрес для устройства
-    */
     Repeater::set_address(address);
 }
 
+/**
+* Метод активирующий режим WPS подключения на устройстве
+*/
 void Router::wps_init() {
-    /*
-    * Метод активирует WPS режим подключения на устройстве
-    */
     this->wps = true;
 }
 
+/*
+* Метод подключающий клиента по WPS и отключающий режим WPS
+* 
+* @param подключаемый клиент
+*/
 void Router::wps_connect(int client_id) {
-    /*
-    * Метод подключающий клиента по WPS и отключающий WPS
-    */
     // TODO: Append clients
     // this->clients.assign(client_id);
     this->wps = false;

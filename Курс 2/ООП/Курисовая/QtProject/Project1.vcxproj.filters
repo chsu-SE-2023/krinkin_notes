@@ -15,60 +15,69 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\tests.h">
+    <ClInclude Include="src\devices\gateway.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\gateway.h">
+    <ClInclude Include="src\containers\net_room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\net_room.h">
+    <ClInclude Include="src\devices\repeater.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\repeater.h">
+    <ClInclude Include="src\devices\router.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\router.h">
+    <ClInclude Include="src\containers\stats.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\stats.h">
+    <ClInclude Include="src\devices\switch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\switch.h">
+    <ClInclude Include="src\devices\net_device.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\net_device.h">
+    <ClInclude Include="src\devices\wl_repeater.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\wl_repeater.h">
+    <ClInclude Include="src\containers\container.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\misc\client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\misc\address.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\gateway.cpp">
+    <ClCompile Include="src\devices\gateway.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\net_room.cpp">
+    <ClCompile Include="src\containers\net_room.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\repeater.cpp">
+    <ClCompile Include="src\devices\repeater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\router.cpp">
+    <ClCompile Include="src\devices\router.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\stats.cpp">
+    <ClCompile Include="src\containers\stats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\switch.cpp">
+    <ClCompile Include="src\devices\switch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\tests.cpp">
+    <ClCompile Include="src\devices\wl_repeater.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\wl_repeater.cpp">
+    <ClCompile Include="src\containers\container.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\misc\address.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

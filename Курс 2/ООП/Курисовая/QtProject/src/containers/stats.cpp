@@ -1,11 +1,23 @@
 #include "stats.h"
-#include "router.h"
+#include "../devices/net_device.h"
 #include "net_room.h"
 #include <iostream>
-#include <map>
+
+Stats::Node::Node(NetDevice& data) {
+	this->next = nullptr;
+	this->prev = nullptr;
+	this->data = data;
+}
+
+Stats::Node::~Node() {
+	if (next) delete next;
+	if (prev) delete prev;
+}
 
 Stats::Stats() {
 	clients_total = 0;
+	first = nullptr;
+	last = nullptr;
 };
 
 Stats::~Stats() {

@@ -8,7 +8,6 @@ class Gateway : public Switch {
 protected:
     std::string protocol;
     void set_defaults();
-    friend class Tests;
 public:
     Gateway();
     Gateway(std::vector<int>&); // clients
