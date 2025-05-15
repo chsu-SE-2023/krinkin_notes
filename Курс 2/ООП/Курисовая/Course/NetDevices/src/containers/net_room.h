@@ -1,5 +1,5 @@
 #pragma once
-#include <ostream>
+#include "../misc/address.h"
 
 template <typename T>
 class ServerRoom {
@@ -28,6 +28,6 @@ public:
     void add(const T&);
     void seek(int);
 	void sort();
-    T* search(std::array<int, 5>&);
+    T* search(MAC_Address);
     int size();
 };

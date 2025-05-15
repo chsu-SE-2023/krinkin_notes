@@ -204,16 +204,14 @@ void ServerRoom<NetDevice>::sort() {
 * @param address объекта NetDevice
 * @return указатель на найденный объект или nullptr если объект не найден
 */
-template<> 
-NetDevice* ServerRoom<NetDevice>::search(std::array<int, 5>& address) {
+template<>
+NetDevice* ServerRoom<NetDevice>::search(MAC_Address address) {
     Shelf* current = this->first;
     while (current->next != nullptr) {
-        for (int i = 0; i < address.size(); i++) {
-            if (current->device->get_address()[i] != address[i]) {
-                if (current->next != nullptr)
-                    current = current->next;
-                continue;
-            }
+        if (current->device->get_address() != address) {
+            if (current->next != nullptr)
+                current = current->next;
+            continue;
         }
         return current->device;
     }

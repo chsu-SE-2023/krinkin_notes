@@ -3,7 +3,6 @@
 #include "wl_repeater.h"
 #include <string>
 #include <vector>
-#include <array>
 
 class Router: public Gateway, public WLRepeater {
 protected:

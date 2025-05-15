@@ -1,6 +1,5 @@
 #include "repeater.h"
 #include <iostream>
-#include <vector>
 
 /**
 * ѕриватный метод, задающий значени€ по умолчанию

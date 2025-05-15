@@ -1,7 +1,6 @@
 #pragma once
 #include "repeater.h"
 #include <string>
-#include <array>
 
 class WLRepeater : public Repeater {
 protected:

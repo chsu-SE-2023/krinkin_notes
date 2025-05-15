@@ -33,6 +33,7 @@
     <RootNamespace>UnitTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectSubType>NativeUnitTestProject</ProjectSubType>
+    <ProjectName>VSUnitTests</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -245,7 +246,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\QtProject\Project1.vcxproj">
+    <ProjectReference Include="..\NetDevices\NetDevices.vcxproj">
       <Project>{3c53f67d-6a25-46b5-a203-d55a0aa08c7c}</Project>
     </ProjectReference>
   </ItemGroup>
