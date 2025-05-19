@@ -45,7 +45,8 @@ namespace Analize {
 		/// Required designer variable.
 		/// </summary>
 		System::ComponentModel::Container ^components;
-	private: System::Windows::Forms::TabControl^ tabControl1;
+	private: System::Windows::Forms::TabControl^ tabControlError;
+
 	private: System::Windows::Forms::TabPage^ tabPageSource;
 	private: System::Windows::Forms::TabPage^ tabPageLexems;
 	private: System::Windows::Forms::TextBox^ outBox;
@@ -79,6 +80,9 @@ namespace Analize {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ConstNum;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ConstLexem;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ConstCode;
+	private: System::Windows::Forms::TabPage^ tabPage1;
+	private: System::Windows::Forms::TextBox^ textBoxErrors;
+	private: System::Windows::Forms::TextBox^ textBox2;
 		   Analyser* analyser;
 
 #pragma region Windows Form Designer generated code
@@ -93,7 +97,7 @@ namespace Analize {
 			this->processButton = (gcnew System::Windows::Forms::Button());
 			this->fileNameBox = (gcnew System::Windows::Forms::TextBox());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
-			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
+			this->tabControlError = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageSource = (gcnew System::Windows::Forms::TabPage());
 			this->tabPageLexems = (gcnew System::Windows::Forms::TabPage());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -127,7 +131,10 @@ namespace Analize {
 			this->textBoxDName = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxPseudo = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxDescript = (gcnew System::Windows::Forms::TextBox());
-			this->tabControl1->SuspendLayout();
+			this->tabPage1 = (gcnew System::Windows::Forms::TabPage());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxErrors = (gcnew System::Windows::Forms::TextBox());
+			this->tabControlError->SuspendLayout();
 			this->tabPageSource->SuspendLayout();
 			this->tabPageLexems->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewDelims))->BeginInit();
@@ -137,6 +144,7 @@ namespace Analize {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewConst))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewKeys))->BeginInit();
 			this->codesTab->SuspendLayout();
+			this->tabPage1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// sourceBox
@@ -198,21 +206,22 @@ namespace Analize {
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
-			// tabControl1
+			// tabControlError
 			// 
-			this->tabControl1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+			this->tabControlError->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
-			this->tabControl1->Controls->Add(this->tabPageSource);
-			this->tabControl1->Controls->Add(this->tabPageLexems);
-			this->tabControl1->Controls->Add(this->codesTab);
-			this->tabControl1->ItemSize = System::Drawing::Size(102, 31);
-			this->tabControl1->Location = System::Drawing::Point(1, 0);
-			this->tabControl1->Multiline = true;
-			this->tabControl1->Name = L"tabControl1";
-			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(981, 788);
-			this->tabControl1->TabIndex = 9;
+			this->tabControlError->Controls->Add(this->tabPageSource);
+			this->tabControlError->Controls->Add(this->tabPageLexems);
+			this->tabControlError->Controls->Add(this->codesTab);
+			this->tabControlError->Controls->Add(this->tabPage1);
+			this->tabControlError->ItemSize = System::Drawing::Size(102, 31);
+			this->tabControlError->Location = System::Drawing::Point(1, 0);
+			this->tabControlError->Multiline = true;
+			this->tabControlError->Name = L"tabControlError";
+			this->tabControlError->SelectedIndex = 0;
+			this->tabControlError->Size = System::Drawing::Size(981, 788);
+			this->tabControlError->TabIndex = 9;
 			// 
 			// tabPageSource
 			// 
@@ -524,7 +533,8 @@ namespace Analize {
 			// 
 			// textBoxPName
 			// 
-			this->textBoxPName->BackColor = System::Drawing::SystemColors::Window;
+			this->textBoxPName->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
 			this->textBoxPName->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxPName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -537,7 +547,8 @@ namespace Analize {
 			// 
 			// textBoxDName
 			// 
-			this->textBoxDName->BackColor = System::Drawing::SystemColors::Window;
+			this->textBoxDName->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
 			this->textBoxDName->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxDName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -574,16 +585,56 @@ namespace Analize {
 			this->textBoxDescript->Size = System::Drawing::Size(956, 266);
 			this->textBoxDescript->TabIndex = 4;
 			// 
+			// tabPage1
+			// 
+			this->tabPage1->Controls->Add(this->textBox2);
+			this->tabPage1->Controls->Add(this->textBoxErrors);
+			this->tabPage1->Location = System::Drawing::Point(4, 35);
+			this->tabPage1->Name = L"tabPage1";
+			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
+			this->tabPage1->Size = System::Drawing::Size(973, 749);
+			this->tabPage1->TabIndex = 3;
+			this->tabPage1->Text = L"Ошибки";
+			this->tabPage1->UseVisualStyleBackColor = true;
+			// 
+			// textBox2
+			// 
+			this->textBox2->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox2->Location = System::Drawing::Point(7, 6);
+			this->textBox2->Name = L"textBox2";
+			this->textBox2->ReadOnly = true;
+			this->textBox2->Size = System::Drawing::Size(114, 17);
+			this->textBox2->TabIndex = 7;
+			this->textBox2->Text = L"Список ошибок";
+			// 
+			// textBoxErrors
+			// 
+			this->textBoxErrors->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->textBoxErrors->BackColor = System::Drawing::SystemColors::Control;
+			this->textBoxErrors->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBoxErrors->Location = System::Drawing::Point(7, 29);
+			this->textBoxErrors->Multiline = true;
+			this->textBoxErrors->Name = L"textBoxErrors";
+			this->textBoxErrors->Size = System::Drawing::Size(958, 711);
+			this->textBoxErrors->TabIndex = 0;
+			// 
 			// GUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(982, 787);
-			this->Controls->Add(this->tabControl1);
+			this->Controls->Add(this->tabControlError);
 			this->MinimumSize = System::Drawing::Size(998, 826);
 			this->Name = L"GUI";
 			this->Text = L"Анализатор";
-			this->tabControl1->ResumeLayout(false);
+			this->tabControlError->ResumeLayout(false);
 			this->tabPageSource->ResumeLayout(false);
 			this->tabPageSource->PerformLayout();
 			this->tabPageLexems->ResumeLayout(false);
@@ -596,6 +647,8 @@ namespace Analize {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewKeys))->EndInit();
 			this->codesTab->ResumeLayout(false);
 			this->codesTab->PerformLayout();
+			this->tabPage1->ResumeLayout(false);
+			this->tabPage1->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -605,6 +658,7 @@ private:
 	System::Void clear();
 	System::Void stripSource();
 	int getFromTable(String^, DataGridView^);
+	System::Void error(String^, String^);
 	System::Void buildCodes(int, String^, String^, DataGridView^);
 	System::Void addToTable(int, String^);
 	System::Void openFileButton_Click(System::Object^, System::EventArgs^ e);

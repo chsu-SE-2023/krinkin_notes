@@ -3,9 +3,12 @@
 #include <vector>
 #include "l_analyser.h"
 
-/*
+/**
 * Метод, возвращающий является ли разделителем
 * заданный символ
+* 
+* @param проверяемый символ
+* @return результат проверки
 */
 bool Analyser::is_delim(char c) {
 	/*if (check_next) {
@@ -24,6 +27,9 @@ bool Analyser::is_delim(char c) {
 /*
 * Метод, возвращающий является ли знаком
 * заданный символ
+* 
+* @param проверяемый символ
+* @return результат проверки
 */
 bool Analyser::is_sign(char c) {
 	/*if (check_next) {
@@ -38,8 +44,24 @@ bool Analyser::is_sign(char c) {
 	std::string signs = ".:[]<>+-/*=#&";
 	return std::count(signs.begin(), signs.end(), c) > 0;
 }
+
+/*
+* Метод, возвращающий является ли специальным
+* заданный символ
+*
+* @param проверяемый символ
+* @return результат проверки
+*/
+bool Analyser::is_special(char c) {
+	std::string signs = "!\"@#№$%:^?&*\\/|~`";
+	return std::count(signs.begin(), signs.end(), c) > 0;
+}
+
 /*
 * Метод, возвращающий входит ли следующий символ в валидную лексему
+* 
+* @param проверяемый символ
+* @return результат проверки
 */
 bool Analyser::is_next_valid(char c) {
 	if (check_next) {
@@ -56,6 +78,8 @@ bool Analyser::is_next_valid(char c) {
 /*
 * Метод, возвращающий является ли знаком
 * заданный символ по состояниям
+* 
+* @return результат проверки
 */
 bool Analyser::is_multisign() {
 	std::vector<int> n_states = { 
@@ -79,34 +103,51 @@ Analyser::Analyser(Analyser* copy) {
 	this->check_next = copy->check_next;
 }
 
-/*
+/**
 * Метод, сбрасывающий состояние конечного автомата
 */
-void Analyser::clearState() {
+void Analyser::clear_state() {
 	this->state = 0;
 	this->buffer = "";
 	this->is_id = false;
 }
 
-/*
-* Метод, возвращающий состояние конечного автомата
+/**
+* Метод, последнюю ошибку конечного автомата
+*
+* @return ошибка автомата
 */
-int Analyser::getState() const {
+std::string Analyser::get_error() {
+	return this->error;
+};
+
+/**
+* Метод, возвращающий состояние конечного автомата
+* 
+* @return состояние автомата
+*/
+int Analyser::get_state() const {
 	return this->state;
 }
 
-/*
+/**
 * Метод, устанавливающий состояние конечного автомата
+* 
+* @param состояние автомата
 */
-void Analyser::setState(int state) {
+void Analyser::set_state(int state) {
 	this->state = state;
 }
 
-/*
+/**
 * Метод, лексического анализатора для удаления
 * пробелов, переносов, комментариев
+* 
+* @param символ из текста
+* @param следующий символ из текста
+* @return символ или -1, если символ не должен входить в конечный результат
 */
-char Analyser::space_filter(char c) {
+char Analyser::space_filter(char c, char next) {
 	if (c == '	') return -1;
 	switch (state) {
 	case 0: {
@@ -174,9 +215,13 @@ char Analyser::space_filter(char c) {
 	return -1;
 }
 
-/*
+/**
 * Метод, лексического анализатора для разделения
 * лексем и определения их типа
+* 
+* @param символ из текста
+* @param следующий символ из текста
+* @return лексема или пустая строка, если лексема не найдена
 */
 std::string Analyser::lexem_filter(char c, char next) {
 	switch (state) {
@@ -287,16 +332,16 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 4: {
 		switch (c) {
-		case '0': { state = 2; break; }
-		case '1': { state = 2; break; }
-		case '2': { state = 2; break; }
-		case '3': { state = 2; break; }
-		case '4': { state = 2; break; }
-		case '5': { state = 2; break; }
-		case '6': { state = 2; break; }
-		case '7': { state = 2; break; }
-		case '8': { state = 2; break; }
-		case '9': { state = 2; break; }
+		case '0': { state = 9; break; }
+		case '1': { state = 9; break; }
+		case '2': { state = 9; break; }
+		case '3': { state = 9; break; }
+		case '4': { state = 9; break; }
+		case '5': { state = 9; break; }
+		case '6': { state = 9; break; }
+		case '7': { state = 9; break; }
+		case '8': { state = 9; break; }
+		case '9': { state = 9; break; }
 		case '-': { state = 5; break; }
 		case '+': { state = 5; break; }
 		default: { state = 0; break; }
@@ -304,16 +349,16 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 5: {
 		switch (c) {
-		case '0': { state = 2; break; }
-		case '1': { state = 2; break; }
-		case '2': { state = 2; break; }
-		case '3': { state = 2; break; }
-		case '4': { state = 2; break; }
-		case '5': { state = 2; break; }
-		case '6': { state = 2; break; }
-		case '7': { state = 2; break; }
-		case '8': { state = 2; break; }
-		case '9': { state = 2; break; }
+		case '0': { state = 9; break; }
+		case '1': { state = 9; break; }
+		case '2': { state = 9; break; }
+		case '3': { state = 9; break; }
+		case '4': { state = 9; break; }
+		case '5': { state = 9; break; }
+		case '6': { state = 9; break; }
+		case '7': { state = 9; break; }
+		case '8': { state = 9; break; }
+		case '9': { state = 9; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -334,8 +379,18 @@ std::string Analyser::lexem_filter(char c, char next) {
 		default: { state = 8; break; }
 		} break;
 	}
-	case 9: { // Не занято
+	case 9: { //Константа вида xE-xx
 		switch (c) {
+		case '0': { state = 9; break; }
+		case '1': { state = 9; break; }
+		case '2': { state = 9; break; }
+		case '3': { state = 9; break; }
+		case '4': { state = 9; break; }
+		case '5': { state = 9; break; }
+		case '6': { state = 9; break; }
+		case '7': { state = 9; break; }
+		case '8': { state = 9; break; }
+		case '9': { state = 9; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -969,9 +1024,11 @@ std::string Analyser::lexem_filter(char c, char next) {
 		is_id = true; // Если автомат перешёл в состояние S=0, то вся лексема - иденификатор
 
 	// Ключевые слова и константы
-	if ((state == 1 || state == 2) && (is_delim(next) || is_sign(next)) && !is_id) {
-		if (state != 2 || next != '.')
+	if ((state == 1 || state == 2 || state == 9) && (is_delim(next) || is_sign(next)) && !is_id) {
+		if ((state != 2 && state != 9) || next != '.') {
+			if (state == 9) state = 2;
 			return buffer;
+		}
 	}
 
 	// Знаки
@@ -990,8 +1047,14 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 
 	// Идентификаторы
-	if (buffer != "" && (is_id || state > 60 || (state >= 3 && state <= 5)) && (is_delim(next) || (is_sign(next) && !is_next_valid(next)))) {
+	if (buffer != "" && (is_id || state > 60) && (is_delim(next) || (is_sign(next) && !is_next_valid(next)))) {
 		state = 3; return buffer;
+	}
+
+	if ((state >= 3 && state <= 5) && (is_delim(next) || (is_sign(next) && !is_next_valid(next)))) {
+		this->error = "Неверная константа: " + buffer;
+		clear_state();
+		return "error";
 	}
 
 	return "";

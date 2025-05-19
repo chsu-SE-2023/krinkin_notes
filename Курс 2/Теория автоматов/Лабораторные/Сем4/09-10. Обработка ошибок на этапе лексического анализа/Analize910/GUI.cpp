@@ -6,13 +6,14 @@ using namespace System;
 using namespace System::Windows::Forms;
 using namespace msclr::interop;
 
-/*
+/**
 * Метод, сбрасывающий интерфейс программы в исходное состояние
 */
 System::Void Analize::GUI::clear() {
 	this->outBox->Text = "";
 	this->textBoxPseudo->Text = "";
 	this->textBoxDescript->Text = "";
+	this->textBoxErrors->Text = "";
 	array<DataGridView^>^ grids = {
 		this->dataGridViewConst,
 		this->dataGridViewKeys,
@@ -26,21 +27,29 @@ System::Void Analize::GUI::clear() {
 	}
 } 
 
-/*
+/**
 * Метод удаляющий пробелы, переносы и комментарии из
 * текста программы, используя анализатор
 */
 System::Void Analize::GUI::stripSource() {
-	analyser->clearState();
-	for (int i = 0; i < sourceBox->Text->Length; i++) {
-		char out = analyser->space_filter(sourceBox->Text[i]);
+	analyser->clear_state();
+	char prev = sourceBox->Text[0];
+	for (int i = 1; i < sourceBox->Text->Length; i++) {
+		char out = analyser->space_filter(prev, sourceBox->Text[i]);
 		if (out != -1) outBox->Text += gcnew System::String(&out);
+		prev = sourceBox->Text[i];
 	}
+	if (analyser->get_state() >= 1 && analyser->get_state() <= 3)
+		error("Удаление пробелов", "Обнаружен незакрытый многострочный комментарий");
 }
 
-/*
+/**
 * Метод возвращающий номер лексемы в указанной таблице лексем.
-* При отстутствии лексемы в таблице вернёт 0.
+* При отстутствии лексемы в таблице вернёт 0 (номер в таблице начинается с 1).
+* 
+* @param искомое значение
+* @param искомая таблица
+* @return номер элемента из левого столбца
 */
 int Analize::GUI::getFromTable(String^ value, DataGridView^ gridView) {
 	for (int i = 0; i < gridView->RowCount; i++) {
@@ -51,11 +60,30 @@ int Analize::GUI::getFromTable(String^ value, DataGridView^ gridView) {
 	return 0;
 }
 
-/*
+/**
+* Метод добавляющий в текстбокс сообщение об ошибке
+*
+* @param искомое значение
+*/
+System::Void Analize::GUI::error(String^ where, String^ what) {
+	textBoxErrors->Text += "["+where+"] " + what + "\r\n";
+}
+
+/**
 * Метод, добавляющий лексему в таблицу лексем и на её основе
 * добавляющий лексему в дескрипторный и псевдо-код
+* 
+* @param состояние автомата
+* @param лексема
+* @param код лексемы
+* @param целевая таблица
 */
 System::Void Analize::GUI::buildCodes(int state, String^ lexem, String^ code, DataGridView^ gridView) {
+	if (lexem == "error") {
+		textBoxDescript->Text += "(error)";
+		textBoxPseudo->Text += code;
+		return;
+	}
 	if (!getFromTable(lexem, gridView)) {
 		int k_count = gridView->RowCount++;
 		gridView->Rows[k_count - 1]->Cells[0]->Value = k_count.ToString();
@@ -66,11 +94,25 @@ System::Void Analize::GUI::buildCodes(int state, String^ lexem, String^ code, Da
 	textBoxPseudo->Text += code;
 }
 
-/*
-* Функция разделяющая лексемы по таблицам
+/**
+* Метод разделяющий лексемы по таблицам
+* 
+* @param состояние для определения класса
+* @param лексема
 */
 System::Void Analize::GUI::addToTable(int state, String^ lexem) {
 	lexem = lexem->Replace("\n", "\\n")->Replace("\r", "\\r");
+	if (lexem == "error") buildCodes(state, lexem, lexem, dataGridViewIDs);
+	if (state == 3 && System::Char::IsDigit(lexem[0])) {
+		error("Лексический анализ", "Неверный идентификатор (начался с цифры): " + lexem);
+		buildCodes(state, "error", "error", dataGridViewIDs);
+		return;
+	}
+	if (state == 3 && (analyser->is_special(lexem[0]) || analyser->is_sign(lexem[0]))) {
+		error("Лексический анализ", "Неверный идентификатор (начался со спецсимвола): " + lexem);
+		buildCodes(state, "error", "error", dataGridViewIDs);
+		return;
+	}
 	switch (state) {
 	case 1: { // Ключевое слово
 		buildCodes(state, lexem, lexem, dataGridViewKeys); 
@@ -98,7 +140,7 @@ System::Void Analize::GUI::addToTable(int state, String^ lexem) {
 	}
 	}
 }
-/*
+/**
 * Обработка нажатия на кнопку "Отрыть файл"
 */
 System::Void Analize::GUI::openFileButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -114,7 +156,7 @@ System::Void Analize::GUI::openFileButton_Click(System::Object^ sender, System::
 	this->sourceBox->BackColor = System::Drawing::SystemColors::Window;
 }
 
-/*
+/**
 * Обработка нажатия на кнопку "Обработать"
 */ 
 System::Void Analize::GUI::processButton_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -125,15 +167,23 @@ System::Void Analize::GUI::processButton_Click(System::Object^ sender, System::E
 	stripSource();
 
 	// Лексический анализ
-	analyser->clearState();
+	analyser->clear_state();
 	char prev = this->outBox->Text[0];
 	for (int i = 1; i < this->outBox->Text->Length; i++) {
 		std::string lexem = analyser->lexem_filter(prev, this->outBox->Text[i]);
 		if (!lexem.empty()) {
-			this->addToTable(analyser->getState(), gcnew String(lexem.c_str()));
-			analyser->clearState();
+			if (lexem == "error") error("Лексический анализ", gcnew String(analyser->get_error().c_str()));
+			this->addToTable(analyser->get_state(), gcnew String(lexem.c_str()));
+			analyser->clear_state();
 		}
 		prev = this->outBox->Text[i];
+	}
+	switch (analyser->get_state()) {
+	case 7:
+	case 8: {
+		error("Лексический анализ", "В тексте программы обнаружена незакрытая строка");
+		break;
+	}
 	}
 }
 

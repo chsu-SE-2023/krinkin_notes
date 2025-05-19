@@ -287,16 +287,16 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 4: {
 		switch (c) {
-		case '0': { state = 2; break; }
-		case '1': { state = 2; break; }
-		case '2': { state = 2; break; }
-		case '3': { state = 2; break; }
-		case '4': { state = 2; break; }
-		case '5': { state = 2; break; }
-		case '6': { state = 2; break; }
-		case '7': { state = 2; break; }
-		case '8': { state = 2; break; }
-		case '9': { state = 2; break; }
+		case '0': { state = 9; break; }
+		case '1': { state = 9; break; }
+		case '2': { state = 9; break; }
+		case '3': { state = 9; break; }
+		case '4': { state = 9; break; }
+		case '5': { state = 9; break; }
+		case '6': { state = 9; break; }
+		case '7': { state = 9; break; }
+		case '8': { state = 9; break; }
+		case '9': { state = 9; break; }
 		case '-': { state = 5; break; }
 		case '+': { state = 5; break; }
 		default: { state = 0; break; }
@@ -304,16 +304,16 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 5: {
 		switch (c) {
-		case '0': { state = 2; break; }
-		case '1': { state = 2; break; }
-		case '2': { state = 2; break; }
-		case '3': { state = 2; break; }
-		case '4': { state = 2; break; }
-		case '5': { state = 2; break; }
-		case '6': { state = 2; break; }
-		case '7': { state = 2; break; }
-		case '8': { state = 2; break; }
-		case '9': { state = 2; break; }
+		case '0': { state = 9; break; }
+		case '1': { state = 9; break; }
+		case '2': { state = 9; break; }
+		case '3': { state = 9; break; }
+		case '4': { state = 9; break; }
+		case '5': { state = 9; break; }
+		case '6': { state = 9; break; }
+		case '7': { state = 9; break; }
+		case '8': { state = 9; break; }
+		case '9': { state = 9; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -334,8 +334,18 @@ std::string Analyser::lexem_filter(char c, char next) {
 		default: { state = 8; break; }
 		} break;
 	}
-	case 9: { // Не занято
+	case 9: { //Константа вида xE-xx
 		switch (c) {
+		case '0': { state = 9; break; }
+		case '1': { state = 9; break; }
+		case '2': { state = 9; break; }
+		case '3': { state = 9; break; }
+		case '4': { state = 9; break; }
+		case '5': { state = 9; break; }
+		case '6': { state = 9; break; }
+		case '7': { state = 9; break; }
+		case '8': { state = 9; break; }
+		case '9': { state = 9; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -969,9 +979,11 @@ std::string Analyser::lexem_filter(char c, char next) {
 		is_id = true; // Если автомат перешёл в состояние S=0, то вся лексема - иденификатор
 
 	// Ключевые слова и константы
-	if ((state == 1 || state == 2) && (is_delim(next) || is_sign(next)) && !is_id) {
-		if (state != 2 || next != '.')
+	if ((state == 1 || state == 2 || state == 9) && (is_delim(next) || is_sign(next)) && !is_id) {
+		if ((state != 2 && state != 9) || next != '.') {
+			if (state == 9) state = 2;
 			return buffer;
+		}
 	}
 
 	// Знаки
