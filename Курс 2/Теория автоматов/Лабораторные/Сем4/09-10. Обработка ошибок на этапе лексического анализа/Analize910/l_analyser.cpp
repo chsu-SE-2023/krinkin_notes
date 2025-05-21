@@ -52,9 +52,13 @@ bool Analyser::is_sign(char c) {
 * @param проверяемый символ
 * @return результат проверки
 */
-bool Analyser::is_special(char c) {
+bool Analyser::check_special(System::String^ string) {
 	std::string signs = "!\"@#№$%:^?&*\\/|~`";
-	return std::count(signs.begin(), signs.end(), c) > 0;
+	for each (char c in string) {
+		if (std::count(signs.begin(), signs.end(), c) > 0)
+			return true;
+	}
+	return false;
 }
 
 /*

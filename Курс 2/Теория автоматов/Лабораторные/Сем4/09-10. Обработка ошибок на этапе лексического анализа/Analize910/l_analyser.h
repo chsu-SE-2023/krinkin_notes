@@ -20,7 +20,7 @@ public:
 	bool is_multisign();
 	bool is_next_valid(char);
 	bool is_sign(char);
-	bool is_special(char);
+	bool check_special(System::String^);
 	void set_state(int);
 	char space_filter(char, char);
 	std::string lexem_filter(char, char);

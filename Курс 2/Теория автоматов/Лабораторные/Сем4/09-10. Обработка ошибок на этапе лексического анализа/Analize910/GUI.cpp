@@ -102,15 +102,12 @@ System::Void Analize::GUI::buildCodes(int state, String^ lexem, String^ code, Da
 */
 System::Void Analize::GUI::addToTable(int state, String^ lexem) {
 	lexem = lexem->Replace("\n", "\\n")->Replace("\r", "\\r");
-	if (lexem == "error") buildCodes(state, lexem, lexem, dataGridViewIDs);
 	if (state == 3 && System::Char::IsDigit(lexem[0])) {
 		error("Лексический анализ", "Неверный идентификатор (начался с цифры): " + lexem);
-		buildCodes(state, "error", "error", dataGridViewIDs);
 		return;
 	}
-	if (state == 3 && (analyser->is_special(lexem[0]) || analyser->is_sign(lexem[0]))) {
-		error("Лексический анализ", "Неверный идентификатор (начался со спецсимвола): " + lexem);
-		buildCodes(state, "error", "error", dataGridViewIDs);
+	if (state == 3 && (analyser->check_special(lexem) || analyser->is_sign(lexem[0]))) {
+		error("Лексический анализ", "Неверный идентификатор (содержит спецсимвол): " + lexem);
 		return;
 	}
 	switch (state) {
@@ -137,6 +134,9 @@ System::Void Analize::GUI::addToTable(int state, String^ lexem) {
 	case 6: { // Разделитель
 		buildCodes(state, lexem, lexem, dataGridViewDelims); 
 		break;
+	}
+	default: {
+		error("Лексический анализатор", "Неизвесная лексема: " + lexem);
 	}
 	}
 }
@@ -173,7 +173,7 @@ System::Void Analize::GUI::processButton_Click(System::Object^ sender, System::E
 		std::string lexem = analyser->lexem_filter(prev, this->outBox->Text[i]);
 		if (!lexem.empty()) {
 			if (lexem == "error") error("Лексический анализ", gcnew String(analyser->get_error().c_str()));
-			this->addToTable(analyser->get_state(), gcnew String(lexem.c_str()));
+			else this->addToTable(analyser->get_state(), gcnew String(lexem.c_str()));
 			analyser->clear_state();
 		}
 		prev = this->outBox->Text[i];
