@@ -3,41 +3,43 @@
 using namespace System;
 using namespace System::Windows::Forms;
 
+/*
+* ћетод, удал€ющий из строки ненужные символы
+*/
 String^ SearchTree4::Searcher::strip(String^ word) {
-	/*
-	* ћетод удал€ет из строки ненужные символы
-	*/
-	String^ delims = L" .,!?:;=+-&#%$[](){}/\\\0\n\r\"\'ЂїДУФЕЧЦЦ††††	0123456789";
+	String^ delims = L" .,!?:;=+-&#%$[](){}/\\\0\n\r\"\'ЂїДУФЕ∞ЧЦЦ_††††	0123456789";
 	for each (wchar_t d in delims)
 		word = word->Replace(d.ToString(), "");
 	return word;
 }
 
+/*
+* ћетод, преобразующий тип System::String в std::wstring
+*/
 std::wstring SearchTree4::Searcher::to_string(String^ string) {
-	/*
-	* ћетод преобразует тип System::String в std::wstring
-	*/
 	return msclr::interop::marshal_as<std::wstring>(string);
 }
 
+/*
+* ћетод, сбрасывающий элементы интерфейса в изначальный вид
+*/
 System::Void SearchTree4::Searcher::reset() {
-	/*
-	* ћетод сбрасывает элементы интерфейса в изначальный вид
-	*/
-	dataGridViewAlphabet->RowCount = 0;
-	dataGridViewFreq->RowCount = 0;
-	dataGridViewFilter->RowCount = 0;
+	((DataTable^) dataGridViewAlphabet->DataSource)->Rows->Clear();
+	((DataTable^)dataGridViewFreq->DataSource)->Rows->Clear();
+	((DataTable^)dataGridViewFilter->DataSource)->Rows->Clear();
+
 	textBoxResult->Text = "";
 	textBoxSearch->Text = "";
+	textBoxLen->Text = "";
 	delete s_tree;
 	s_tree = new SearchTree<std::wstring>();
 }
 
+/**
+* ћетод, вызываемый по нажатию кнопки открыти€ файла, построчно
+* дел€щий текстовый файл на слова, добавл€€ их в дерево поиска
+*/
 System::Void SearchTree4::Searcher::buttonOpen_Click(System::Object^ sender, System::EventArgs^ e) {
-	/*
-	* ћетод, вызывающийс€ по нажатию кнопки открыти€ файла, построчно
-	* дел€щий текстовый файл на слова, добавл€€ их в дерево поиска
-	*/
 	openFileDialog1->FileName = "";
 	openFileDialog1->ShowDialog();
 	if (openFileDialog1->FileName == "") return;
@@ -59,25 +61,40 @@ System::Void SearchTree4::Searcher::buttonOpen_Click(System::Object^ sender, Sys
 
 	} while (reader->Peek() != -1);
 	reader->Close();
-	s_tree->to_datagrid(dataGridViewAlphabet);
+
+	DataTable^ dt_a = ((DataTable^)dataGridViewAlphabet->DataSource)->Clone();
+	delete dataGridViewAlphabet->DataSource;
+	s_tree->to_datagrid(dt_a);
+	dataGridViewAlphabet->DataSource = dt_a;
 
 	std::vector<SearchTree<std::wstring>::Node*> words = std::vector<SearchTree<std::wstring>::Node*>();
 	s_tree->to_vector(words);
 	std::sort(words.begin(), words.end(), s_tree->sorter);
 
+	DataTable^ dt_f = ((DataTable^)dataGridViewFreq->DataSource)->Clone();
+	delete dataGridViewFreq->DataSource;
 	for each (SearchTree<std::wstring>::Node * word in words) {
-		int count = dataGridViewFreq->RowCount++;
-		dataGridViewFreq->Rows[count]->Cells[0]->Value = gcnew System::String(word->data.c_str());
-		dataGridViewFreq->Rows[count]->Cells[1]->Value = word->count;
-
+		System::Data::DataRow^ row = dt_f->NewRow();
+		row[0] = gcnew System::String(word->data.c_str());
+		row[1] = word->count;
+		dt_f->Rows->Add(row);
 	}
+	dataGridViewFreq->DataSource = dt_f;
 }
 
+/**
+* ћетод, вызываемый по нажатию кнопки сброса.
+* явл€етс€ обЄрткой к функции reset()
+*/
+System::Void SearchTree4::Searcher::buttonReset_Click(System::Object^ sender, System::EventArgs^ e) {
+	reset();
+}
+
+/**
+* ћетод, вызываемый по нажатию Enter в строке поиска
+* и вызывающий поиск слова в дереве поиска
+*/
 System::Void SearchTree4::Searcher::textBoxSearch_Enter(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	/*
-	* ћетод, вызывающийс€ по нажатию Enter в строке поиска 
-	* и вызывающий поиск слова в дереве поиска
-	*/
 	if (e->KeyChar == (char)Keys::Return) {
 		auto t1 = std::chrono::steady_clock::now();
 		const SearchTree<std::wstring>::Node* node = s_tree->search(to_string(strip(textBoxSearch->Text->ToLower())));
@@ -92,23 +109,38 @@ System::Void SearchTree4::Searcher::textBoxSearch_Enter(System::Object^ sender, 
 	}
 }
 
+/**
+* ћетод, вызываемый по нажатию Enter в строке фильтра и
+* вызывающий построение таблицы по фильтру длины слова
+*/
 System::Void SearchTree4::Searcher::textBoxLen_Enter(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	/*
-	* ћетод, вызывающийс€ по нажатию Enter в строке фильтра и
-	* вызывающий построение таблицы по фильтру длины слова
-	*/
+	
 	if (e->KeyChar == (char)Keys::Return) {
-		dataGridViewFilter->RowCount = 0;
+		DataTable^ dt = ((DataTable^)dataGridViewFilter->DataSource)->Clone();
+		delete dataGridViewFilter->DataSource;
 		try {
 			int len = Int32::Parse(textBoxLen->Text);
-			s_tree->to_datagrid(dataGridViewFilter, len);
+			s_tree->to_datagrid(dt, len);
+			dataGridViewFilter->DataSource = dt;
 		}
 		catch (FormatException^ fe) {
-			textBoxLen->Text = "";
+			/*textBoxLen->Text = "";
 			int count = dataGridViewFilter->RowCount++;
-			dataGridViewFilter->Rows[count]->Cells[0]->Value = fe->Message;
+			dataGridViewFilter->Rows[count]->Cells[0]->Value = fe->Message;*/
 		}
 	}
+}
+
+/**
+* ћетод, вызываемый при загрузке формы. »нициализирует данные в таблицах
+*/
+System::Void SearchTree4::Searcher::Searcher_Load(System::Object^ sender, System::EventArgs^ e) {
+	DataTable^ dt = gcnew DataTable("Frequency");
+	dt->Columns->Add(gcnew DataColumn("—лово"));
+	dt->Columns->Add(gcnew DataColumn(" оличество"));
+	dataGridViewAlphabet->DataSource = dt;
+	dataGridViewFreq->DataSource = dt->Clone();
+	dataGridViewFilter->DataSource = dt->Clone();
 }
 
 [STAThread]
