@@ -41,22 +41,13 @@ namespace SearchTree4 {
 		}
 	private: System::Windows::Forms::TextBox^ textBoxSearch;
 	private: System::Windows::Forms::DataGridView^ dataGridViewAlphabet;
-
-
 	private: System::Windows::Forms::Button^ buttonOpen;
 	private: System::Windows::Forms::TextBox^ textBox3;
 	private: System::Windows::Forms::DataGridView^ dataGridViewFreq;
-
-
 	private: System::Windows::Forms::TextBox^ textBox4;
 	private: System::Windows::Forms::TextBox^ textBox5;
-
-
-
 	private: System::Windows::Forms::TextBox^ textBoxLen;
 	private: System::Windows::Forms::TextBox^ textBox8;
-
-
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
 	private: System::Windows::Forms::TextBox^ textBoxResult;
 	private:

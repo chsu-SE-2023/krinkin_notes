@@ -64,8 +64,9 @@ SearchTree<T>::SearchTree() {
 */
 template <class T>
 SearchTree<T>::SearchTree(SearchTree& copy, int len) {
-	//this->copy(copy.root, *this, len);
-
+	// Сие конструктор рекурсивный, так что может бахнуть если 
+	// по фильтру кол-во найденых слов слишком большое
+	this->copy(copy.root, *this, len); 
 }
 
 /**

@@ -70,8 +70,8 @@ System::Void SearchTree4::Searcher::buttonOpen_Click(System::Object^ sender, Sys
 	do {
 		String^ line = reader->ReadLine();
 		array<wchar_t>^ delims = { ' ', '.', ',' , '!', '?', ':', ';', 
-			'=', '+', '-', '&', '#', '%', '$', '[', ']', '(', ')', '{', 
-			'}', '/', '\\', '\0', '\n', '\r', '\"', '\'', 'Ђ', 'ї', 'Д', 
+			'=', '+', '-', '&', '#', '%', '$', '*','[', ']', '(', ')', '{',
+			'}', '<', '>','/', '\\', '\0', '\n', '\r', '\"', '\'', 'Ђ', 'ї', 'Д',
 			'У', 'Е', 'Ч', 'Ц', '	', '†' };
 
 		for each (String ^ word in line->Split(delims)) {
@@ -127,9 +127,7 @@ System::Void SearchTree4::Searcher::textBoxLen_Enter(System::Object^ sender, Sys
 			updateTables();
 		}
 		catch (FormatException^ fe) {
-			/*textBoxLen->Text = "";
-			int count = dataGridViewFilter->RowCount++;
-			dataGridViewFilter->Rows[count]->Cells[0]->Value = fe->Message;*/
+			return;
 		}
 	}
 }
@@ -143,13 +141,10 @@ System::Void SearchTree4::Searcher::Searcher_Load(System::Object^ sender, System
 	dt->Columns->Add(gcnew DataColumn(" оличество"));
 	dataGridViewAlphabet->DataSource = dt;
 	dataGridViewFreq->DataSource = dt->Clone();
-	//dataGridViewFilter->DataSource = dt->Clone();
 	dataGridViewAlphabet->Columns[0]->SortMode = DataGridViewColumnSortMode::NotSortable;
 	dataGridViewAlphabet->Columns[1]->SortMode = DataGridViewColumnSortMode::NotSortable;
 	dataGridViewFreq->Columns[0]->SortMode = DataGridViewColumnSortMode::NotSortable;
 	dataGridViewFreq->Columns[1]->SortMode = DataGridViewColumnSortMode::NotSortable;
-	//dataGridViewFilter->Columns[0]->SortMode = DataGridViewColumnSortMode::NotSortable;
-	//dataGridViewFilter->Columns[1]->SortMode = DataGridViewColumnSortMode::NotSortable;
 }
 
 [STAThread]

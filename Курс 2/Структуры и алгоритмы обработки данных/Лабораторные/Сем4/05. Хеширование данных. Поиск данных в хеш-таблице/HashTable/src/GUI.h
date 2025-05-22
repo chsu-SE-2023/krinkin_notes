@@ -63,6 +63,9 @@ namespace HashTable {
 	private: System::Windows::Forms::TextBox^ textBoxMostLenght;
 
 	private: System::Windows::Forms::TextBox^ textBox11;
+	private: System::Windows::Forms::TextBox^ textBox10;
+	private: System::Windows::Forms::ComboBox^ comboBoxMode;
+
 
 	private:
 		/// <summary>
@@ -77,7 +80,7 @@ namespace HashTable {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->textBoxSResult = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxSearch = (gcnew System::Windows::Forms::TextBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -104,6 +107,8 @@ namespace HashTable {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxMostLenght = (gcnew System::Windows::Forms::TextBox());
 			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
+			this->comboBoxMode = (gcnew System::Windows::Forms::ComboBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewHash))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownCount))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownA))->BeginInit();
@@ -163,9 +168,9 @@ namespace HashTable {
 			this->dataGridViewHash->ReadOnly = true;
 			this->dataGridViewHash->RowHeadersVisible = false;
 			this->dataGridViewHash->RowHeadersWidth = 82;
-			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->dataGridViewHash->RowsDefaultCellStyle = dataGridViewCellStyle5;
+			this->dataGridViewHash->RowsDefaultCellStyle = dataGridViewCellStyle1;
 			this->dataGridViewHash->Size = System::Drawing::Size(441, 480);
 			this->dataGridViewHash->TabIndex = 4;
 			// 
@@ -173,11 +178,13 @@ namespace HashTable {
 			// 
 			this->numericUpDownCount->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->numericUpDownCount->Enabled = false;
-			this->numericUpDownCount->Location = System::Drawing::Point(453, 300);
+			this->numericUpDownCount->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->numericUpDownCount->Location = System::Drawing::Point(453, 280);
 			this->numericUpDownCount->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDownCount->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 50000, 0, 0, 0 });
 			this->numericUpDownCount->Name = L"numericUpDownCount";
-			this->numericUpDownCount->Size = System::Drawing::Size(86, 20);
+			this->numericUpDownCount->Size = System::Drawing::Size(86, 24);
 			this->numericUpDownCount->TabIndex = 9;
 			this->numericUpDownCount->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 30, 0, 0, 0 });
 			this->numericUpDownCount->ValueChanged += gcnew System::EventHandler(this, &GUI::numericUpDownCount_ValueChanged);
@@ -189,7 +196,7 @@ namespace HashTable {
 			this->textBox3->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox3->Location = System::Drawing::Point(547, 300);
+			this->textBox3->Location = System::Drawing::Point(547, 283);
 			this->textBox3->Margin = System::Windows::Forms::Padding(2);
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(148, 17);
@@ -204,6 +211,7 @@ namespace HashTable {
 			this->textBoxFileName->Location = System::Drawing::Point(451, 461);
 			this->textBoxFileName->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxFileName->Name = L"textBoxFileName";
+			this->textBoxFileName->ReadOnly = true;
 			this->textBoxFileName->Size = System::Drawing::Size(302, 24);
 			this->textBoxFileName->TabIndex = 11;
 			this->textBoxFileName->Text = L"Случайные тестовые данные";
@@ -240,11 +248,13 @@ namespace HashTable {
 			// 
 			this->numericUpDownA->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->numericUpDownA->Enabled = false;
-			this->numericUpDownA->Location = System::Drawing::Point(453, 328);
+			this->numericUpDownA->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->numericUpDownA->Location = System::Drawing::Point(453, 308);
 			this->numericUpDownA->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDownA->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 50000, 0, 0, 0 });
 			this->numericUpDownA->Name = L"numericUpDownA";
-			this->numericUpDownA->Size = System::Drawing::Size(86, 20);
+			this->numericUpDownA->Size = System::Drawing::Size(86, 24);
 			this->numericUpDownA->TabIndex = 14;
 			this->numericUpDownA->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 7, 0, 0, 0 });
 			this->numericUpDownA->ValueChanged += gcnew System::EventHandler(this, &GUI::numericUpDownA_ValueChanged);
@@ -253,11 +263,13 @@ namespace HashTable {
 			// 
 			this->numericUpDownC->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->numericUpDownC->Enabled = false;
-			this->numericUpDownC->Location = System::Drawing::Point(453, 358);
+			this->numericUpDownC->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->numericUpDownC->Location = System::Drawing::Point(453, 338);
 			this->numericUpDownC->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDownC->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 50000, 0, 0, 0 });
 			this->numericUpDownC->Name = L"numericUpDownC";
-			this->numericUpDownC->Size = System::Drawing::Size(86, 20);
+			this->numericUpDownC->Size = System::Drawing::Size(86, 24);
 			this->numericUpDownC->TabIndex = 15;
 			this->numericUpDownC->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 15, 0, 0, 0 });
 			this->numericUpDownC->ValueChanged += gcnew System::EventHandler(this, &GUI::numericUpDownC_ValueChanged);
@@ -269,7 +281,7 @@ namespace HashTable {
 			this->textBox5->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox5->Location = System::Drawing::Point(547, 328);
+			this->textBox5->Location = System::Drawing::Point(547, 311);
 			this->textBox5->Margin = System::Windows::Forms::Padding(2);
 			this->textBox5->Name = L"textBox5";
 			this->textBox5->Size = System::Drawing::Size(148, 17);
@@ -283,7 +295,7 @@ namespace HashTable {
 			this->textBox6->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox6->Location = System::Drawing::Point(547, 357);
+			this->textBox6->Location = System::Drawing::Point(547, 341);
 			this->textBox6->Margin = System::Windows::Forms::Padding(2);
 			this->textBox6->Name = L"textBox6";
 			this->textBox6->Size = System::Drawing::Size(148, 17);
@@ -297,7 +309,7 @@ namespace HashTable {
 			this->textBox7->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox7->Location = System::Drawing::Point(453, 271);
+			this->textBox7->Location = System::Drawing::Point(453, 259);
 			this->textBox7->Margin = System::Windows::Forms::Padding(2);
 			this->textBox7->Name = L"textBox7";
 			this->textBox7->Size = System::Drawing::Size(86, 17);
@@ -311,7 +323,7 @@ namespace HashTable {
 			this->textBox8->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox8->Location = System::Drawing::Point(451, 112);
+			this->textBox8->Location = System::Drawing::Point(451, 92);
 			this->textBox8->Margin = System::Windows::Forms::Padding(2);
 			this->textBox8->Name = L"textBox8";
 			this->textBox8->Size = System::Drawing::Size(86, 17);
@@ -325,7 +337,7 @@ namespace HashTable {
 			this->textBox9->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox9->Location = System::Drawing::Point(512, 136);
+			this->textBox9->Location = System::Drawing::Point(512, 116);
 			this->textBox9->Margin = System::Windows::Forms::Padding(2);
 			this->textBox9->Name = L"textBox9";
 			this->textBox9->Size = System::Drawing::Size(216, 17);
@@ -339,7 +351,7 @@ namespace HashTable {
 			this->textBoxCollCount->Enabled = false;
 			this->textBoxCollCount->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxCollCount->Location = System::Drawing::Point(451, 133);
+			this->textBoxCollCount->Location = System::Drawing::Point(451, 113);
 			this->textBoxCollCount->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxCollCount->Name = L"textBoxCollCount";
 			this->textBoxCollCount->ReadOnly = true;
@@ -353,7 +365,7 @@ namespace HashTable {
 			this->textBoxMostClass->Enabled = false;
 			this->textBoxMostClass->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxMostClass->Location = System::Drawing::Point(451, 161);
+			this->textBoxMostClass->Location = System::Drawing::Point(451, 141);
 			this->textBoxMostClass->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxMostClass->Name = L"textBoxMostClass";
 			this->textBoxMostClass->ReadOnly = true;
@@ -367,7 +379,7 @@ namespace HashTable {
 			this->textBox12->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox12->Location = System::Drawing::Point(512, 164);
+			this->textBox12->Location = System::Drawing::Point(512, 144);
 			this->textBox12->Margin = System::Windows::Forms::Padding(2);
 			this->textBox12->Name = L"textBox12";
 			this->textBox12->Size = System::Drawing::Size(216, 17);
@@ -381,7 +393,7 @@ namespace HashTable {
 			this->textBoxFillPercent->Enabled = false;
 			this->textBoxFillPercent->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxFillPercent->Location = System::Drawing::Point(451, 217);
+			this->textBoxFillPercent->Location = System::Drawing::Point(451, 197);
 			this->textBoxFillPercent->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxFillPercent->Name = L"textBoxFillPercent";
 			this->textBoxFillPercent->ReadOnly = true;
@@ -395,7 +407,7 @@ namespace HashTable {
 			this->textBox14->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox14->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox14->Location = System::Drawing::Point(512, 220);
+			this->textBox14->Location = System::Drawing::Point(512, 200);
 			this->textBox14->Margin = System::Windows::Forms::Padding(2);
 			this->textBox14->Name = L"textBox14";
 			this->textBox14->Size = System::Drawing::Size(216, 17);
@@ -408,12 +420,15 @@ namespace HashTable {
 			// 
 			// comboBoxFunc
 			// 
+			this->comboBoxFunc->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->comboBoxFunc->Enabled = false;
+			this->comboBoxFunc->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
 			this->comboBoxFunc->FormattingEnabled = true;
 			this->comboBoxFunc->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"h(x)=x%B", L"h(x)=(ax+c)%B" });
-			this->comboBoxFunc->Location = System::Drawing::Point(453, 383);
+			this->comboBoxFunc->Location = System::Drawing::Point(453, 367);
 			this->comboBoxFunc->Name = L"comboBoxFunc";
-			this->comboBoxFunc->Size = System::Drawing::Size(121, 21);
+			this->comboBoxFunc->Size = System::Drawing::Size(121, 26);
 			this->comboBoxFunc->TabIndex = 26;
 			this->comboBoxFunc->Text = L"h(x)=x%B";
 			this->comboBoxFunc->SelectedIndexChanged += gcnew System::EventHandler(this, &GUI::comboBoxFunc_SelectedIndexChanged);
@@ -425,7 +440,7 @@ namespace HashTable {
 			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox2->Location = System::Drawing::Point(579, 387);
+			this->textBox2->Location = System::Drawing::Point(579, 371);
 			this->textBox2->Margin = System::Windows::Forms::Padding(2);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(148, 17);
@@ -439,7 +454,7 @@ namespace HashTable {
 			this->textBoxMostLenght->Enabled = false;
 			this->textBoxMostLenght->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxMostLenght->Location = System::Drawing::Point(451, 189);
+			this->textBoxMostLenght->Location = System::Drawing::Point(451, 169);
 			this->textBoxMostLenght->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxMostLenght->Name = L"textBoxMostLenght";
 			this->textBoxMostLenght->ReadOnly = true;
@@ -453,12 +468,40 @@ namespace HashTable {
 			this->textBox11->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox11->Location = System::Drawing::Point(512, 192);
+			this->textBox11->Location = System::Drawing::Point(512, 172);
 			this->textBox11->Margin = System::Windows::Forms::Padding(2);
 			this->textBox11->Name = L"textBox11";
 			this->textBox11->Size = System::Drawing::Size(216, 17);
 			this->textBox11->TabIndex = 28;
 			this->textBox11->Text = L"Длина самого длинного класса\r\n";
+			// 
+			// textBox10
+			// 
+			this->textBox10->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->textBox10->BackColor = System::Drawing::SystemColors::Control;
+			this->textBox10->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox10->Location = System::Drawing::Point(580, 403);
+			this->textBox10->Margin = System::Windows::Forms::Padding(2);
+			this->textBox10->Name = L"textBox10";
+			this->textBox10->Size = System::Drawing::Size(148, 17);
+			this->textBox10->TabIndex = 31;
+			this->textBox10->Text = L"Режим x";
+			// 
+			// comboBoxMode
+			// 
+			this->comboBoxMode->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->comboBoxMode->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->comboBoxMode->FormattingEnabled = true;
+			this->comboBoxMode->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Целая часть", L"Сумма" });
+			this->comboBoxMode->Location = System::Drawing::Point(453, 399);
+			this->comboBoxMode->Name = L"comboBoxMode";
+			this->comboBoxMode->Size = System::Drawing::Size(121, 26);
+			this->comboBoxMode->TabIndex = 30;
+			this->comboBoxMode->Text = L"Целая часть";
+			this->comboBoxMode->SelectedIndexChanged += gcnew System::EventHandler(this, &GUI::comboBox1_SelectedIndexChanged);
 			// 
 			// GUI
 			// 
@@ -466,6 +509,8 @@ namespace HashTable {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
 			this->ClientSize = System::Drawing::Size(848, 490);
+			this->Controls->Add(this->textBox10);
+			this->Controls->Add(this->comboBoxMode);
 			this->Controls->Add(this->textBoxMostLenght);
 			this->Controls->Add(this->textBox11);
 			this->Controls->Add(this->textBox2);
@@ -510,6 +555,7 @@ private:
 	MyHashTable* hashTable;
 	array<float>^ data = {};
 
+	std::string getMode();
 	System::Void updateStats();
 	System::Void rebuildTable();
 	System::Void GUI_Load(System::Object^ sender, System::EventArgs^ e);
@@ -519,5 +565,6 @@ private:
 	System::Void numericUpDownA_ValueChanged(System::Object^ sender, System::EventArgs^ e);
 	System::Void numericUpDownC_ValueChanged(System::Object^ sender, System::EventArgs^ e);
 	System::Void comboBoxFunc_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+	System::Void comboBox1_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 };
 }

@@ -22,8 +22,8 @@ MyHashTable::MyHashTable(int class_count) {
 * @param значение
 * @param хеш-функция
 */
-void MyHashTable::add(float key, int (*hash_f)(float)) {
-	table[hash_f(key)].push_back(key);
+void MyHashTable::add(float key, int (*hash_f)(float, std::string), std::string mode) {
+	table[hash_f(key, mode)].push_back(key);
 }
 
 /**
@@ -53,7 +53,7 @@ int MyHashTable::getColCount() {
 *
 * @param процент заполняемости
 */
-int MyHashTable::getFillPercent() {
+float MyHashTable::getFillPercent() {
 	int filled = 0;
 	for (int i = 0; i < table.size(); i++)
 		if (table[i].size() > 0) filled++;
@@ -81,7 +81,12 @@ int MyHashTable::getLongestClass() {
 *
 * @param класс в хеш-таблице
 */
-int MyHashTable::hashA(float key) {
+int MyHashTable::hashA(float key, std::string mode) {
+	if (mode == "sum") {
+		float int_p;
+		float float_p = std::modf(key, &int_p);
+		key = (int)int_p + float_p * std::pow(10, F_PRESITION);
+	}
 	return (int)key % cls_count;
 }
 
@@ -90,8 +95,13 @@ int MyHashTable::hashA(float key) {
 *
 * @param класс в хеш-таблице
 */
-int MyHashTable::hashB(float key) {
-	return (a * (int)key + c ) % cls_count;
+int MyHashTable::hashB(float key, std::string mode) {
+	if (mode == "sum") {
+		float int_p;
+		float float_p = std::modf(key, &int_p);
+		key = (int)int_p + float_p * std::pow(10, F_PRESITION);
+	}
+	return (a * (int)key + c) % cls_count;
 }
 
 /**
@@ -111,8 +121,8 @@ float MyHashTable::round(float value, int n) {
 * @param хеш-функция
 * @return номер класса в хеш-таблице
 */
-int MyHashTable::search(float key, int (*hash_f)(float)) {
-	int cls = hash_f(key);
+int MyHashTable::search(float key, int (*hash_f)(float, std::string), std::string mode) {
+	int cls = hash_f(key, mode);
 	for (int i = 0; i < table[cls].size(); i++)
 		if (table[cls][i] == key) return cls;
 	return -1;
@@ -146,7 +156,8 @@ void MyHashTable::toTable(System::Data::DataTable^& table) {
 		System::Data::DataRow^ row = table->NewRow();
 		row[0] = i;
 		for (int j = 0; j < this->table[i].size(); j++) {
-			row[1] += this->table[i][j].ToString("F"+F_PRESITION) + "  ";
+			row[1] = this->table[i].size();
+			row[2] += this->table[i][j].ToString("F"+F_PRESITION) + "  ";
 		}
 		table->Rows->Add(row);
 	}
