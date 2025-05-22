@@ -27,6 +27,16 @@ void MyHashTable::add(float key, int (*hash_f)(float)) {
 }
 
 /**
+* Метод, возвращающий длину конкретного класса
+*
+* @param индекс класса
+* @return длина класса
+*/
+int MyHashTable::getClassLenght(int index) {
+	return table[index].size();
+}
+
+/**
 * Метод, возвращающий общее количество коллизий
 *
 * @param количество коллизий

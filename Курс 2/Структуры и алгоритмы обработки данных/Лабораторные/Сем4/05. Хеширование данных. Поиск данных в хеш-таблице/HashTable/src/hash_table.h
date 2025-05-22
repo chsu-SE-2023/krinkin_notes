@@ -14,6 +14,7 @@ private:
 public:
 	MyHashTable(int);
 	void add(float, int (*)(float));
+	int getClassLenght(int);
 	int getColCount();
 	int getFillPercent();
 	int getLongestClass();

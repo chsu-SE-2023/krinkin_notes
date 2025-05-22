@@ -56,6 +56,14 @@ namespace HashTable {
 	private: System::Windows::Forms::TextBox^ textBox12;
 	private: System::Windows::Forms::TextBox^ textBoxFillPercent;
 	private: System::Windows::Forms::TextBox^ textBox14;
+	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
+	private: System::Windows::Forms::ComboBox^ comboBoxFunc;
+
+	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::TextBox^ textBoxMostLenght;
+
+	private: System::Windows::Forms::TextBox^ textBox11;
+
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -69,7 +77,7 @@ namespace HashTable {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle2 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
+			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle5 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->textBoxSResult = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxSearch = (gcnew System::Windows::Forms::TextBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
@@ -91,6 +99,11 @@ namespace HashTable {
 			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxFillPercent = (gcnew System::Windows::Forms::TextBox());
 			this->textBox14 = (gcnew System::Windows::Forms::TextBox());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->comboBoxFunc = (gcnew System::Windows::Forms::ComboBox());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxMostLenght = (gcnew System::Windows::Forms::TextBox());
+			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewHash))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownCount))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownA))->BeginInit();
@@ -99,107 +112,125 @@ namespace HashTable {
 			// 
 			// textBoxSResult
 			// 
+			this->textBoxSResult->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBoxSResult->BackColor = System::Drawing::SystemColors::Control;
 			this->textBoxSResult->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBoxSResult->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxSResult->Location = System::Drawing::Point(911, 97);
+			this->textBoxSResult->Location = System::Drawing::Point(451, 55);
+			this->textBoxSResult->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxSResult->Name = L"textBoxSResult";
-			this->textBoxSResult->Size = System::Drawing::Size(772, 33);
+			this->textBoxSResult->ReadOnly = true;
+			this->textBoxSResult->Size = System::Drawing::Size(386, 17);
 			this->textBoxSResult->TabIndex = 7;
 			// 
 			// textBoxSearch
 			// 
+			this->textBoxSearch->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBoxSearch->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBoxSearch->Location = System::Drawing::Point(911, 51);
+			this->textBoxSearch->Location = System::Drawing::Point(451, 32);
+			this->textBoxSearch->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxSearch->Name = L"textBoxSearch";
-			this->textBoxSearch->Size = System::Drawing::Size(772, 40);
+			this->textBoxSearch->Size = System::Drawing::Size(390, 24);
 			this->textBoxSearch->TabIndex = 6;
 			this->textBoxSearch->TextChanged += gcnew System::EventHandler(this, &GUI::textBoxSearch_TextChanged);
 			// 
 			// textBox1
 			// 
+			this->textBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox1->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox1->Location = System::Drawing::Point(911, 12);
+			this->textBox1->Location = System::Drawing::Point(453, 11);
+			this->textBox1->Margin = System::Windows::Forms::Padding(2);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(100, 33);
+			this->textBox1->Size = System::Drawing::Size(50, 17);
 			this->textBox1->TabIndex = 5;
 			this->textBox1->Text = L"Поиск";
 			// 
 			// dataGridViewHash
 			// 
+			this->dataGridViewHash->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->dataGridViewHash->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::AllCells;
 			this->dataGridViewHash->BackgroundColor = System::Drawing::SystemColors::Window;
 			this->dataGridViewHash->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridViewHash->Dock = System::Windows::Forms::DockStyle::Left;
-			this->dataGridViewHash->Location = System::Drawing::Point(0, 0);
-			this->dataGridViewHash->Margin = System::Windows::Forms::Padding(6);
+			this->dataGridViewHash->Location = System::Drawing::Point(5, 5);
 			this->dataGridViewHash->Name = L"dataGridViewHash";
 			this->dataGridViewHash->ReadOnly = true;
 			this->dataGridViewHash->RowHeadersVisible = false;
 			this->dataGridViewHash->RowHeadersWidth = 82;
-			dataGridViewCellStyle2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
+			dataGridViewCellStyle5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->dataGridViewHash->RowsDefaultCellStyle = dataGridViewCellStyle2;
-			this->dataGridViewHash->Size = System::Drawing::Size(902, 942);
+			this->dataGridViewHash->RowsDefaultCellStyle = dataGridViewCellStyle5;
+			this->dataGridViewHash->Size = System::Drawing::Size(441, 480);
 			this->dataGridViewHash->TabIndex = 4;
 			// 
 			// numericUpDownCount
 			// 
+			this->numericUpDownCount->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->numericUpDownCount->Enabled = false;
-			this->numericUpDownCount->Location = System::Drawing::Point(917, 680);
+			this->numericUpDownCount->Location = System::Drawing::Point(453, 300);
+			this->numericUpDownCount->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDownCount->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 50000, 0, 0, 0 });
 			this->numericUpDownCount->Name = L"numericUpDownCount";
-			this->numericUpDownCount->Size = System::Drawing::Size(171, 31);
+			this->numericUpDownCount->Size = System::Drawing::Size(86, 20);
 			this->numericUpDownCount->TabIndex = 9;
 			this->numericUpDownCount->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 30, 0, 0, 0 });
 			this->numericUpDownCount->ValueChanged += gcnew System::EventHandler(this, &GUI::numericUpDownCount_ValueChanged);
 			// 
 			// textBox3
 			// 
+			this->textBox3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox3->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox3->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox3->Location = System::Drawing::Point(1105, 680);
+			this->textBox3->Location = System::Drawing::Point(547, 300);
+			this->textBox3->Margin = System::Windows::Forms::Padding(2);
 			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(297, 33);
+			this->textBox3->Size = System::Drawing::Size(148, 17);
 			this->textBox3->TabIndex = 10;
 			this->textBox3->Text = L"Количество классов";
 			// 
 			// textBoxFileName
 			// 
+			this->textBoxFileName->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->textBoxFileName->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxFileName->Location = System::Drawing::Point(911, 890);
+			this->textBoxFileName->Location = System::Drawing::Point(451, 461);
+			this->textBoxFileName->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxFileName->Name = L"textBoxFileName";
-			this->textBoxFileName->Size = System::Drawing::Size(596, 40);
+			this->textBoxFileName->Size = System::Drawing::Size(302, 24);
 			this->textBoxFileName->TabIndex = 11;
 			this->textBoxFileName->Text = L"Случайные тестовые данные";
 			// 
 			// textBox4
 			// 
+			this->textBox4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox4->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox4->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox4->Location = System::Drawing::Point(911, 851);
+			this->textBox4->Location = System::Drawing::Point(453, 440);
+			this->textBox4->Margin = System::Windows::Forms::Padding(2);
 			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(286, 33);
+			this->textBox4->Size = System::Drawing::Size(143, 17);
 			this->textBox4->TabIndex = 12;
 			this->textBox4->Text = L"Файл с данными";
 			// 
 			// buttonOpen
 			// 
-			this->buttonOpen->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->buttonOpen->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->buttonOpen->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->buttonOpen->Location = System::Drawing::Point(1514, 890);
+			this->buttonOpen->Location = System::Drawing::Point(757, 461);
+			this->buttonOpen->Margin = System::Windows::Forms::Padding(2);
 			this->buttonOpen->Name = L"buttonOpen";
-			this->buttonOpen->Size = System::Drawing::Size(169, 40);
+			this->buttonOpen->Size = System::Drawing::Size(84, 24);
 			this->buttonOpen->TabIndex = 13;
 			this->buttonOpen->Text = L"Открыть";
 			this->buttonOpen->UseVisualStyleBackColor = true;
@@ -207,150 +238,238 @@ namespace HashTable {
 			// 
 			// numericUpDownA
 			// 
+			this->numericUpDownA->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->numericUpDownA->Enabled = false;
-			this->numericUpDownA->Location = System::Drawing::Point(917, 734);
+			this->numericUpDownA->Location = System::Drawing::Point(453, 328);
+			this->numericUpDownA->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDownA->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 50000, 0, 0, 0 });
 			this->numericUpDownA->Name = L"numericUpDownA";
-			this->numericUpDownA->Size = System::Drawing::Size(171, 31);
+			this->numericUpDownA->Size = System::Drawing::Size(86, 20);
 			this->numericUpDownA->TabIndex = 14;
+			this->numericUpDownA->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 7, 0, 0, 0 });
 			this->numericUpDownA->ValueChanged += gcnew System::EventHandler(this, &GUI::numericUpDownA_ValueChanged);
 			// 
 			// numericUpDownC
 			// 
+			this->numericUpDownC->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->numericUpDownC->Enabled = false;
-			this->numericUpDownC->Location = System::Drawing::Point(917, 793);
+			this->numericUpDownC->Location = System::Drawing::Point(453, 358);
+			this->numericUpDownC->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDownC->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 50000, 0, 0, 0 });
 			this->numericUpDownC->Name = L"numericUpDownC";
-			this->numericUpDownC->Size = System::Drawing::Size(171, 31);
+			this->numericUpDownC->Size = System::Drawing::Size(86, 20);
 			this->numericUpDownC->TabIndex = 15;
+			this->numericUpDownC->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 15, 0, 0, 0 });
 			this->numericUpDownC->ValueChanged += gcnew System::EventHandler(this, &GUI::numericUpDownC_ValueChanged);
 			// 
 			// textBox5
 			// 
+			this->textBox5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox5->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox5->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox5->Location = System::Drawing::Point(1105, 734);
+			this->textBox5->Location = System::Drawing::Point(547, 328);
+			this->textBox5->Margin = System::Windows::Forms::Padding(2);
 			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(297, 33);
+			this->textBox5->Size = System::Drawing::Size(148, 17);
 			this->textBox5->TabIndex = 16;
 			this->textBox5->Text = L"Значение a";
 			// 
 			// textBox6
 			// 
+			this->textBox6->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox6->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox6->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox6->Location = System::Drawing::Point(1105, 791);
+			this->textBox6->Location = System::Drawing::Point(547, 357);
+			this->textBox6->Margin = System::Windows::Forms::Padding(2);
 			this->textBox6->Name = L"textBox6";
-			this->textBox6->Size = System::Drawing::Size(297, 33);
+			this->textBox6->Size = System::Drawing::Size(148, 17);
 			this->textBox6->TabIndex = 17;
 			this->textBox6->Text = L"Значение c";
 			// 
 			// textBox7
 			// 
+			this->textBox7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox7->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox7->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox7->Location = System::Drawing::Point(917, 625);
+			this->textBox7->Location = System::Drawing::Point(453, 271);
+			this->textBox7->Margin = System::Windows::Forms::Padding(2);
 			this->textBox7->Name = L"textBox7";
-			this->textBox7->Size = System::Drawing::Size(171, 33);
+			this->textBox7->Size = System::Drawing::Size(86, 17);
 			this->textBox7->TabIndex = 18;
 			this->textBox7->Text = L"Параметры";
 			// 
 			// textBox8
 			// 
+			this->textBox8->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox8->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox8->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox8->Location = System::Drawing::Point(917, 259);
+			this->textBox8->Location = System::Drawing::Point(451, 112);
+			this->textBox8->Margin = System::Windows::Forms::Padding(2);
 			this->textBox8->Name = L"textBox8";
-			this->textBox8->Size = System::Drawing::Size(171, 33);
+			this->textBox8->Size = System::Drawing::Size(86, 17);
 			this->textBox8->TabIndex = 19;
 			this->textBox8->Text = L"Статистика";
 			// 
 			// textBox9
 			// 
+			this->textBox9->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox9->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox9->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox9->Location = System::Drawing::Point(999, 316);
+			this->textBox9->Location = System::Drawing::Point(512, 136);
+			this->textBox9->Margin = System::Windows::Forms::Padding(2);
 			this->textBox9->Name = L"textBox9";
-			this->textBox9->Size = System::Drawing::Size(343, 33);
+			this->textBox9->Size = System::Drawing::Size(216, 17);
 			this->textBox9->TabIndex = 20;
 			this->textBox9->Text = L"Общее число коллизий";
 			// 
 			// textBoxCollCount
 			// 
+			this->textBoxCollCount->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBoxCollCount->BackColor = System::Drawing::SystemColors::Window;
 			this->textBoxCollCount->Enabled = false;
 			this->textBoxCollCount->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxCollCount->Location = System::Drawing::Point(911, 313);
+			this->textBoxCollCount->Location = System::Drawing::Point(451, 133);
+			this->textBoxCollCount->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxCollCount->Name = L"textBoxCollCount";
 			this->textBoxCollCount->ReadOnly = true;
-			this->textBoxCollCount->Size = System::Drawing::Size(73, 40);
+			this->textBoxCollCount->Size = System::Drawing::Size(57, 24);
 			this->textBoxCollCount->TabIndex = 21;
 			// 
 			// textBoxMostClass
 			// 
+			this->textBoxMostClass->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBoxMostClass->BackColor = System::Drawing::SystemColors::Window;
 			this->textBoxMostClass->Enabled = false;
 			this->textBoxMostClass->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxMostClass->Location = System::Drawing::Point(911, 368);
+			this->textBoxMostClass->Location = System::Drawing::Point(451, 161);
+			this->textBoxMostClass->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxMostClass->Name = L"textBoxMostClass";
 			this->textBoxMostClass->ReadOnly = true;
-			this->textBoxMostClass->Size = System::Drawing::Size(73, 40);
+			this->textBoxMostClass->Size = System::Drawing::Size(57, 24);
 			this->textBoxMostClass->TabIndex = 23;
 			// 
 			// textBox12
 			// 
+			this->textBox12->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox12->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox12->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox12->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox12->Location = System::Drawing::Point(999, 371);
+			this->textBox12->Location = System::Drawing::Point(512, 164);
+			this->textBox12->Margin = System::Windows::Forms::Padding(2);
 			this->textBox12->Name = L"textBox12";
-			this->textBox12->Size = System::Drawing::Size(343, 33);
+			this->textBox12->Size = System::Drawing::Size(216, 17);
 			this->textBox12->TabIndex = 22;
 			this->textBox12->Text = L"Самый длинный класс";
 			// 
 			// textBoxFillPercent
 			// 
+			this->textBoxFillPercent->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBoxFillPercent->BackColor = System::Drawing::SystemColors::Window;
 			this->textBoxFillPercent->Enabled = false;
 			this->textBoxFillPercent->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
-			this->textBoxFillPercent->Location = System::Drawing::Point(911, 424);
+			this->textBoxFillPercent->Location = System::Drawing::Point(451, 217);
+			this->textBoxFillPercent->Margin = System::Windows::Forms::Padding(2);
 			this->textBoxFillPercent->Name = L"textBoxFillPercent";
 			this->textBoxFillPercent->ReadOnly = true;
-			this->textBoxFillPercent->Size = System::Drawing::Size(73, 40);
+			this->textBoxFillPercent->Size = System::Drawing::Size(57, 24);
 			this->textBoxFillPercent->TabIndex = 24;
 			// 
 			// textBox14
 			// 
+			this->textBox14->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox14->BackColor = System::Drawing::SystemColors::Control;
 			this->textBox14->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox14->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox14->Location = System::Drawing::Point(999, 431);
+			this->textBox14->Location = System::Drawing::Point(512, 220);
+			this->textBox14->Margin = System::Windows::Forms::Padding(2);
 			this->textBox14->Name = L"textBox14";
-			this->textBox14->Size = System::Drawing::Size(343, 33);
+			this->textBox14->Size = System::Drawing::Size(216, 17);
 			this->textBox14->TabIndex = 25;
 			this->textBox14->Text = L"Процент заполняемости";
 			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
+			// 
+			// comboBoxFunc
+			// 
+			this->comboBoxFunc->Enabled = false;
+			this->comboBoxFunc->FormattingEnabled = true;
+			this->comboBoxFunc->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"h(x)=x%B", L"h(x)=(ax+c)%B" });
+			this->comboBoxFunc->Location = System::Drawing::Point(453, 383);
+			this->comboBoxFunc->Name = L"comboBoxFunc";
+			this->comboBoxFunc->Size = System::Drawing::Size(121, 21);
+			this->comboBoxFunc->TabIndex = 26;
+			this->comboBoxFunc->Text = L"h(x)=x%B";
+			this->comboBoxFunc->SelectedIndexChanged += gcnew System::EventHandler(this, &GUI::comboBoxFunc_SelectedIndexChanged);
+			// 
+			// textBox2
+			// 
+			this->textBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->textBox2->BackColor = System::Drawing::SystemColors::Control;
+			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox2->Location = System::Drawing::Point(579, 387);
+			this->textBox2->Margin = System::Windows::Forms::Padding(2);
+			this->textBox2->Name = L"textBox2";
+			this->textBox2->Size = System::Drawing::Size(148, 17);
+			this->textBox2->TabIndex = 27;
+			this->textBox2->Text = L"Хеш-функция";
+			// 
+			// textBoxMostLenght
+			// 
+			this->textBoxMostLenght->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->textBoxMostLenght->BackColor = System::Drawing::SystemColors::Window;
+			this->textBoxMostLenght->Enabled = false;
+			this->textBoxMostLenght->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->textBoxMostLenght->Location = System::Drawing::Point(451, 189);
+			this->textBoxMostLenght->Margin = System::Windows::Forms::Padding(2);
+			this->textBoxMostLenght->Name = L"textBoxMostLenght";
+			this->textBoxMostLenght->ReadOnly = true;
+			this->textBoxMostLenght->Size = System::Drawing::Size(57, 24);
+			this->textBoxMostLenght->TabIndex = 29;
+			// 
+			// textBox11
+			// 
+			this->textBox11->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->textBox11->BackColor = System::Drawing::SystemColors::Control;
+			this->textBox11->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.875F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox11->Location = System::Drawing::Point(512, 192);
+			this->textBox11->Margin = System::Windows::Forms::Padding(2);
+			this->textBox11->Name = L"textBox11";
+			this->textBox11->Size = System::Drawing::Size(216, 17);
+			this->textBox11->TabIndex = 28;
+			this->textBox11->Text = L"Длина самого длинного класса\r\n";
+			// 
 			// GUI
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(12, 25);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Control;
-			this->ClientSize = System::Drawing::Size(1695, 942);
+			this->ClientSize = System::Drawing::Size(848, 490);
+			this->Controls->Add(this->textBoxMostLenght);
+			this->Controls->Add(this->textBox11);
+			this->Controls->Add(this->textBox2);
+			this->Controls->Add(this->comboBoxFunc);
 			this->Controls->Add(this->textBox14);
 			this->Controls->Add(this->textBoxFillPercent);
 			this->Controls->Add(this->textBoxMostClass);
@@ -372,8 +491,9 @@ namespace HashTable {
 			this->Controls->Add(this->textBoxSearch);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->dataGridViewHash);
-			this->Margin = System::Windows::Forms::Padding(6);
+			this->MinimumSize = System::Drawing::Size(764, 479);
 			this->Name = L"GUI";
+			this->Padding = System::Windows::Forms::Padding(5);
 			this->Text = L"GUI";
 			this->Load += gcnew System::EventHandler(this, &GUI::GUI_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewHash))->EndInit();
@@ -398,5 +518,6 @@ private:
 	System::Void numericUpDownCount_ValueChanged(System::Object^ sender, System::EventArgs^ e);
 	System::Void numericUpDownA_ValueChanged(System::Object^ sender, System::EventArgs^ e);
 	System::Void numericUpDownC_ValueChanged(System::Object^ sender, System::EventArgs^ e);
+	System::Void comboBoxFunc_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
 };
 }

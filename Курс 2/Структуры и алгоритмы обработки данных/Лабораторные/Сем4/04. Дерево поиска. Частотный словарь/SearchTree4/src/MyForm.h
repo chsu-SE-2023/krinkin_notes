@@ -50,8 +50,9 @@ namespace SearchTree4 {
 
 	private: System::Windows::Forms::TextBox^ textBox4;
 	private: System::Windows::Forms::TextBox^ textBox5;
-	private: System::Windows::Forms::DataGridView^ dataGridViewFilter;
-	private: System::Windows::Forms::TextBox^ textBox6;
+
+
+
 	private: System::Windows::Forms::TextBox^ textBoxLen;
 	private: System::Windows::Forms::TextBox^ textBox8;
 
@@ -64,6 +65,7 @@ namespace SearchTree4 {
 		/// </summary>
 		System::ComponentModel::Container ^components;
 	private: System::Windows::Forms::Button^ buttonReset;
+
 
 		   SearchTree<std::wstring>* s_tree;
 
@@ -82,8 +84,6 @@ namespace SearchTree4 {
 			this->dataGridViewFreq = (gcnew System::Windows::Forms::DataGridView());
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->dataGridViewFilter = (gcnew System::Windows::Forms::DataGridView());
-			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxLen = (gcnew System::Windows::Forms::TextBox());
 			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
@@ -91,14 +91,13 @@ namespace SearchTree4 {
 			this->buttonReset = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewAlphabet))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewFreq))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewFilter))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// textBoxSearch
 			// 
-			this->textBoxSearch->Location = System::Drawing::Point(139, 11);
+			this->textBoxSearch->Location = System::Drawing::Point(143, 9);
 			this->textBoxSearch->Name = L"textBoxSearch";
-			this->textBoxSearch->Size = System::Drawing::Size(490, 20);
+			this->textBoxSearch->Size = System::Drawing::Size(443, 20);
 			this->textBoxSearch->TabIndex = 0;
 			this->textBoxSearch->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Searcher::textBoxSearch_Enter);
 			// 
@@ -111,17 +110,19 @@ namespace SearchTree4 {
 			this->dataGridViewAlphabet->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->dataGridViewAlphabet->BackgroundColor = System::Drawing::SystemColors::Window;
 			this->dataGridViewAlphabet->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridViewAlphabet->Location = System::Drawing::Point(13, 58);
+			this->dataGridViewAlphabet->Location = System::Drawing::Point(8, 81);
 			this->dataGridViewAlphabet->Name = L"dataGridViewAlphabet";
 			this->dataGridViewAlphabet->ReadOnly = true;
 			this->dataGridViewAlphabet->RowHeadersVisible = false;
 			this->dataGridViewAlphabet->RowHeadersWidth = 82;
-			this->dataGridViewAlphabet->Size = System::Drawing::Size(269, 419);
+			this->dataGridViewAlphabet->Size = System::Drawing::Size(286, 487);
 			this->dataGridViewAlphabet->TabIndex = 2;
 			// 
 			// buttonOpen
 			// 
-			this->buttonOpen->Location = System::Drawing::Point(13, 8);
+			this->buttonOpen->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonOpen->Location = System::Drawing::Point(8, 6);
 			this->buttonOpen->Name = L"buttonOpen";
 			this->buttonOpen->Size = System::Drawing::Size(75, 23);
 			this->buttonOpen->TabIndex = 3;
@@ -133,10 +134,12 @@ namespace SearchTree4 {
 			// 
 			this->textBox3->BackColor = System::Drawing::SystemColors::Window;
 			this->textBox3->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBox3->Location = System::Drawing::Point(95, 13);
+			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox3->Location = System::Drawing::Point(89, 9);
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->ReadOnly = true;
-			this->textBox3->Size = System::Drawing::Size(38, 13);
+			this->textBox3->Size = System::Drawing::Size(49, 17);
 			this->textBox3->TabIndex = 4;
 			this->textBox3->Text = L"Поиск";
 			// 
@@ -149,22 +152,24 @@ namespace SearchTree4 {
 			this->dataGridViewFreq->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->dataGridViewFreq->BackgroundColor = System::Drawing::SystemColors::Window;
 			this->dataGridViewFreq->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridViewFreq->Location = System::Drawing::Point(289, 58);
+			this->dataGridViewFreq->Location = System::Drawing::Point(300, 81);
 			this->dataGridViewFreq->Name = L"dataGridViewFreq";
 			this->dataGridViewFreq->ReadOnly = true;
 			this->dataGridViewFreq->RowHeadersVisible = false;
 			this->dataGridViewFreq->RowHeadersWidth = 82;
-			this->dataGridViewFreq->Size = System::Drawing::Size(269, 419);
+			this->dataGridViewFreq->Size = System::Drawing::Size(286, 487);
 			this->dataGridViewFreq->TabIndex = 5;
 			// 
 			// textBox4
 			// 
 			this->textBox4->BackColor = System::Drawing::SystemColors::Window;
 			this->textBox4->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBox4->Location = System::Drawing::Point(13, 37);
+			this->textBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox4->Location = System::Drawing::Point(8, 58);
 			this->textBox4->Name = L"textBox4";
 			this->textBox4->ReadOnly = true;
-			this->textBox4->Size = System::Drawing::Size(100, 13);
+			this->textBox4->Size = System::Drawing::Size(100, 17);
 			this->textBox4->TabIndex = 6;
 			this->textBox4->Text = L"По алфавиту";
 			// 
@@ -172,44 +177,18 @@ namespace SearchTree4 {
 			// 
 			this->textBox5->BackColor = System::Drawing::SystemColors::Window;
 			this->textBox5->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBox5->Location = System::Drawing::Point(289, 39);
+			this->textBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox5->Location = System::Drawing::Point(300, 58);
 			this->textBox5->Name = L"textBox5";
 			this->textBox5->ReadOnly = true;
-			this->textBox5->Size = System::Drawing::Size(100, 13);
+			this->textBox5->Size = System::Drawing::Size(100, 17);
 			this->textBox5->TabIndex = 7;
 			this->textBox5->Text = L"По частоте";
 			// 
-			// dataGridViewFilter
-			// 
-			this->dataGridViewFilter->AllowUserToAddRows = false;
-			this->dataGridViewFilter->AllowUserToDeleteRows = false;
-			this->dataGridViewFilter->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Left));
-			this->dataGridViewFilter->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
-			this->dataGridViewFilter->BackgroundColor = System::Drawing::SystemColors::Window;
-			this->dataGridViewFilter->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridViewFilter->Location = System::Drawing::Point(564, 58);
-			this->dataGridViewFilter->Name = L"dataGridViewFilter";
-			this->dataGridViewFilter->ReadOnly = true;
-			this->dataGridViewFilter->RowHeadersVisible = false;
-			this->dataGridViewFilter->RowHeadersWidth = 82;
-			this->dataGridViewFilter->Size = System::Drawing::Size(269, 419);
-			this->dataGridViewFilter->TabIndex = 8;
-			// 
-			// textBox6
-			// 
-			this->textBox6->BackColor = System::Drawing::SystemColors::Window;
-			this->textBox6->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBox6->Location = System::Drawing::Point(564, 39);
-			this->textBox6->Name = L"textBox6";
-			this->textBox6->ReadOnly = true;
-			this->textBox6->Size = System::Drawing::Size(100, 13);
-			this->textBox6->TabIndex = 9;
-			this->textBox6->Text = L"Фильтр (по длине)";
-			// 
 			// textBoxLen
 			// 
-			this->textBoxLen->Location = System::Drawing::Point(768, 34);
+			this->textBoxLen->Location = System::Drawing::Point(143, 33);
 			this->textBoxLen->Name = L"textBoxLen";
 			this->textBoxLen->Size = System::Drawing::Size(65, 20);
 			this->textBoxLen->TabIndex = 10;
@@ -219,12 +198,14 @@ namespace SearchTree4 {
 			// 
 			this->textBox8->BackColor = System::Drawing::SystemColors::Window;
 			this->textBox8->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBox8->Location = System::Drawing::Point(718, 37);
+			this->textBox8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox8->Location = System::Drawing::Point(8, 33);
 			this->textBox8->Name = L"textBox8";
 			this->textBox8->ReadOnly = true;
-			this->textBox8->Size = System::Drawing::Size(44, 13);
+			this->textBox8->Size = System::Drawing::Size(129, 17);
 			this->textBox8->TabIndex = 11;
-			this->textBox8->Text = L"Длина";
+			this->textBox8->Text = L"Фильтр по длине";
 			this->textBox8->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
 			// 
 			// openFileDialog1
@@ -235,15 +216,19 @@ namespace SearchTree4 {
 			// 
 			this->textBoxResult->BackColor = System::Drawing::SystemColors::Window;
 			this->textBoxResult->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBoxResult->Location = System::Drawing::Point(632, 13);
+			this->textBoxResult->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBoxResult->Location = System::Drawing::Point(300, 35);
 			this->textBoxResult->Name = L"textBoxResult";
 			this->textBoxResult->ReadOnly = true;
-			this->textBoxResult->Size = System::Drawing::Size(200, 13);
+			this->textBoxResult->Size = System::Drawing::Size(215, 17);
 			this->textBoxResult->TabIndex = 13;
 			// 
 			// buttonReset
 			// 
-			this->buttonReset->Location = System::Drawing::Point(768, 8);
+			this->buttonReset->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonReset->Location = System::Drawing::Point(519, 33);
 			this->buttonReset->Name = L"buttonReset";
 			this->buttonReset->Size = System::Drawing::Size(67, 23);
 			this->buttonReset->TabIndex = 14;
@@ -256,13 +241,11 @@ namespace SearchTree4 {
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::SystemColors::Window;
-			this->ClientSize = System::Drawing::Size(847, 489);
+			this->ClientSize = System::Drawing::Size(594, 576);
 			this->Controls->Add(this->buttonReset);
 			this->Controls->Add(this->textBoxResult);
 			this->Controls->Add(this->textBox8);
 			this->Controls->Add(this->textBoxLen);
-			this->Controls->Add(this->textBox6);
-			this->Controls->Add(this->dataGridViewFilter);
 			this->Controls->Add(this->textBox5);
 			this->Controls->Add(this->textBox4);
 			this->Controls->Add(this->dataGridViewFreq);
@@ -271,13 +254,14 @@ namespace SearchTree4 {
 			this->Controls->Add(this->dataGridViewAlphabet);
 			this->Controls->Add(this->textBoxSearch);
 			this->Margin = System::Windows::Forms::Padding(2);
-			this->MinimumSize = System::Drawing::Size(858, 135);
+			this->MaximumSize = System::Drawing::Size(610, 2000);
+			this->MinimumSize = System::Drawing::Size(610, 169);
 			this->Name = L"Searcher";
+			this->Padding = System::Windows::Forms::Padding(5);
 			this->Text = L"Searcher";
 			this->Load += gcnew System::EventHandler(this, &Searcher::Searcher_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewAlphabet))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewFreq))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewFilter))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -288,6 +272,7 @@ public:
 	String^ strip(String^);
 	std::wstring to_string(String^);
 	System::Void reset();
+	System::Void updateTables();
 
 private:
 	System::Void buttonOpen_Click(System::Object^, System::EventArgs^);

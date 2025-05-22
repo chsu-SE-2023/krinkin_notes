@@ -2,6 +2,8 @@
 
 using namespace System;
 using namespace System::Windows::Forms;
+using namespace System::IO;
+using namespace System::Globalization;
 
 /**
 * Метод, обновляющий поля со статистикой
@@ -9,6 +11,7 @@ using namespace System::Windows::Forms;
 System::Void HashTable::GUI::updateStats() {
 	textBoxCollCount->Text = hashTable->getColCount().ToString();
 	textBoxMostClass->Text = hashTable->getLongestClass().ToString();
+	textBoxMostLenght->Text = hashTable->getClassLenght(hashTable->getLongestClass()).ToString();
 	textBoxFillPercent->Text = hashTable->getFillPercent().ToString();
 }
 
@@ -20,8 +23,13 @@ System::Void HashTable::GUI::rebuildTable() {
 	hashTable = new MyHashTable(System::Decimal::ToInt32(numericUpDownCount->Value));
 	hashTable->setA(System::Decimal::ToInt32(numericUpDownA->Value));
 	hashTable->setC(System::Decimal::ToInt32(numericUpDownC->Value));
-	for (int i = 0; i < data->Length; i++)
-		hashTable->add(data[i], MyHashTable::hashA);
+	for (int i = 0; i < data->Length; i++) {
+		if (comboBoxFunc->Text == "h(x)=x%B")
+			hashTable->add(data[i], MyHashTable::hashA);
+		if (comboBoxFunc->Text == "h(x)=(ax+c)%B")
+			hashTable->add(data[i], MyHashTable::hashB);
+	}
+		
 
 	DataTable^ dt = ((DataTable^)dataGridViewHash->DataSource)->Copy();
 	delete dataGridViewHash->DataSource;
@@ -50,7 +58,12 @@ System::Void HashTable::GUI::GUI_Load(System::Object^ sender, System::EventArgs^
 */
 System::Void HashTable::GUI::textBoxSearch_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	try {
-		int cls = hashTable->search(float::Parse(textBoxSearch->Text), MyHashTable::hashA);
+		int cls = -1;
+		if (comboBoxFunc->Text == "h(x)=x%B")
+			cls = hashTable->search(float::Parse(textBoxSearch->Text), MyHashTable::hashA);
+		if (comboBoxFunc->Text == "h(x)=(ax+c)%B")
+			cls = hashTable->search(float::Parse(textBoxSearch->Text), MyHashTable::hashB);
+		
 		if (cls != -1)
 			textBoxSResult->Text = "Значение " + textBoxSearch->Text + " найдено и имеет класс " + cls;
 		else
@@ -65,12 +78,30 @@ System::Void HashTable::GUI::textBoxSearch_TextChanged(System::Object^ sender, S
 * Метод, вызываемый при нажатии кнопки "Открыть". Отключает демонстрацонный режим и читает данные
 */
 System::Void HashTable::GUI::buttonOpen_Click(System::Object^ sender, System::EventArgs^ e) {
+	openFileDialog1->FileName = "";
+	openFileDialog1->ShowDialog();
+	if (openFileDialog1->FileName == "") return;
+
+	int line_count = 0;
+	StreamReader^ reader = gcnew StreamReader(openFileDialog1->FileName);
+	do {
+		String^ line = reader->ReadLine();
+		float f_value = float::Parse(line, CultureInfo::InvariantCulture);
+		line_count++;
+		array<float>::Resize(data, line_count);
+		data[line_count - 1] = f_value;
+	} while (reader->Peek() != -1);
+
+	comboBoxFunc->Text = "h(x)=(ax+c)%B";
+	comboBoxFunc->Enabled = true;
 	textBoxCollCount->Enabled = true;
 	textBoxMostClass->Enabled = true;
+	textBoxMostLenght->Enabled = true;
 	textBoxFillPercent->Enabled = true;
 	numericUpDownCount->Enabled = true;
 	numericUpDownA->Enabled = true;
 	numericUpDownC->Enabled = true;
+	rebuildTable();
 }
 
 /**
@@ -91,6 +122,12 @@ System::Void HashTable::GUI::numericUpDownA_ValueChanged(System::Object^ sender,
 * Метод, вызываемый при изменении значения c. Вызывает перестройку хеш-таблицы.
 */
 System::Void HashTable::GUI::numericUpDownC_ValueChanged(System::Object^ sender, System::EventArgs^ e) {
+	rebuildTable();
+}
+/**
+* Метод, вызываемый при выборе другой хеш-функции. Вызывает перестройку хеш-таблицы.
+*/
+System::Void HashTable::GUI::comboBoxFunc_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 	rebuildTable();
 }
 

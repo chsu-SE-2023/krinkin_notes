@@ -4,25 +4,27 @@
 
 // »нстанцирование дл€ std::wstring
 template class SearchTree<std::wstring>;
-template SearchTree<std::wstring>::Node::Node(std::wstring data);
-template void SearchTree<std::wstring>::create(Node*&, std::wstring&);
+template SearchTree<std::wstring>::Node::Node(std::wstring data, int);
+template void SearchTree<std::wstring>::create(Node*&, std::wstring&, int&);
 template void SearchTree<std::wstring>::search(Node*&, Node*&, std::wstring&);
-template void SearchTree<std::wstring>::to_datagrid(Node*&, System::Data::DataTable^&, int&);
-template void SearchTree<std::wstring>::to_vector(Node*&, std::vector<Node*>&, int&);
-template void SearchTree<std::wstring>::add(std::wstring);
+template void SearchTree<std::wstring>::to_datagrid(Node*&, System::Data::DataTable^&);
+template void SearchTree<std::wstring>::to_vector(Node*&, std::vector<Node*>&);
+template void SearchTree<std::wstring>::add(std::wstring, int);
 template const SearchTree<std::wstring>::Node* SearchTree<std::wstring>::search(std::wstring);
-template void SearchTree<std::wstring>::to_datagrid(System::Data::DataTable^, int);
-template void SearchTree<std::wstring>::to_vector(std::vector<Node*>&, int);
+template void SearchTree<std::wstring>::to_datagrid(System::Data::DataTable^);
+template void SearchTree<std::wstring>::to_vector(std::vector<Node*>&);
 
 // »нстанцирование дл€ std::string
 template class SearchTree<std::string>;
-template SearchTree<std::string>::Node::Node(std::string data);
-template void SearchTree<std::string>::create(Node*&, std::string&);
+template SearchTree<std::string>::Node::Node(std::string data, int);
+template void SearchTree<std::string>::create(Node*&, std::string&, int&);
 template void SearchTree<std::string>::search(Node*&, Node*&, std::string&);
-template void SearchTree<std::string>::to_datagrid(Node*&, System::Data::DataTable^&, int&);
-template void SearchTree<std::string>::add(std::string);
+template void SearchTree<std::string>::to_datagrid(Node*&, System::Data::DataTable^&);
+template void SearchTree<std::string>::to_vector(Node*&, std::vector<Node*>&);
+template void SearchTree<std::string>::add(std::string, int);
 template const SearchTree<std::string>::Node* SearchTree<std::string>::search(std::string);
-template void SearchTree<std::string>::to_datagrid(System::Data::DataTable^, int);
+template void SearchTree<std::string>::to_datagrid(System::Data::DataTable^);
+template void SearchTree<std::string>::to_vector(std::vector<Node*>&);
 
 /**
 *  оструктор листа дерева
@@ -30,9 +32,9 @@ template void SearchTree<std::string>::to_datagrid(System::Data::DataTable^, int
 * @param сохран€емые данные
 */
 template <class T>
-SearchTree<T>::Node::Node(T data) {
+SearchTree<T>::Node::Node(T data, int count) {
 	this->data = data;
-	this->count = 1;
+	this->count = count;
 	this->left = nullptr;
 	this->right = nullptr;
 }
@@ -47,11 +49,49 @@ SearchTree<T>::Node::~Node() {
 }
 
 /**
+*  онструктор дерева по умолчанию
+*/
+template <class T>
+SearchTree<T>::SearchTree() {
+	root = nullptr;
+}
+
+/**
+*  опирующий конструктор дерева
+* 
+* @param дерево
+* @param ограничитель длина слова
+*/
+template <class T>
+SearchTree<T>::SearchTree(SearchTree& copy, int len) {
+	//this->copy(copy.root, *this, len);
+
+}
+
+/**
 * ƒекоструктор дерева
 */
 template <class T>
 SearchTree<T>::~SearchTree() {
 	delete root;
+}
+
+/**
+* ѕриватный метод, рекурсивно копирующий значени€ одного дерева в другое
+*
+* @param указатель на корень изначального дерева
+* @param целевое дерево
+* @param ограничение по длине значений
+*/
+template <class T>
+void SearchTree<T>::copy(Node*& root, SearchTree& dest, int& len) {
+	if (root != nullptr) {
+		copy(root->left, dest, len);
+		if (len != -1) {
+			if (root->data.size() == len) dest.add(root->data, root->count);
+		} else dest.add(root->data, root->count);
+		copy(root->right, dest, len);
+	}
 }
 
 /**
@@ -61,13 +101,13 @@ SearchTree<T>::~SearchTree() {
 * @param сохран€емые в листе данные
 */
 template <class T>
-void SearchTree<T>::create(Node*& root, T& key) {
+void SearchTree<T>::create(Node*& root, T& key, int& count) {
 	if (root == nullptr)
-		root = new Node(key);
+		root = new Node(key, count);
 	else if (key < root->data)
-		create(root->left, key);
+		create(root->left, key, count);
 	else if (key > root->data)
-		create(root->right, key);
+		create(root->right, key, count);
 };
 
 /**
@@ -97,25 +137,14 @@ void SearchTree<T>::search(Node*& root, Node*& result, T& key) {
 * @param (необ€зательный) фильтр длины
 */
 template <class T>
-void SearchTree<T>::to_datagrid(Node*& root, System::Data::DataTable^& table, int& len) {
+void SearchTree<T>::to_datagrid(Node*& root, System::Data::DataTable^& table) {
 	if (root != nullptr) {
-		to_datagrid(root->left, table, len);
-		if (len) {
-			// ƒобавление значений только с заданной длинной
-			if (root->data.size() == len) {
-				System::Data::DataRow^ row = table->NewRow();
-				row[0] = gcnew System::String(root->data.c_str());
-				row[1] = root->count;
-				table->Rows->Add(row);
-			}
-		}
-		else {
-			System::Data::DataRow^ row = table->NewRow();
-			row[0] = gcnew System::String(root->data.c_str());
-			row[1] = root->count;
-			table->Rows->Add(row);
-		}
-		to_datagrid(root->right, table, len);
+		to_datagrid(root->left, table);
+		System::Data::DataRow^ row = table->NewRow();
+		row[0] = gcnew System::String(root->data.c_str());
+		row[1] = root->count;
+		table->Rows->Add(row);
+		to_datagrid(root->right, table);
 	}
 };
 
@@ -127,16 +156,11 @@ void SearchTree<T>::to_datagrid(Node*& root, System::Data::DataTable^& table, in
 * @param (необ€зательный) фильтр длины
 */
 template <class T>
-void SearchTree<T>::to_vector(Node*& root, std::vector<Node*>& vec, int& len) {
+void SearchTree<T>::to_vector(Node*& root, std::vector<Node*>& vec) {
 	if (root != nullptr) {
-		to_vector(root->left, vec, len);
-		if (len) {
-			// ƒобавление значений только с заданной длинной
-			if (root->data.size() == len)
-				vec.push_back(root);
-		}
-		else vec.push_back(root);
-		to_vector(root->right, vec, len);
+		to_vector(root->left, vec);
+		vec.push_back(root);
+		to_vector(root->right, vec);
 	}
 };
 
@@ -146,11 +170,11 @@ void SearchTree<T>::to_vector(Node*& root, std::vector<Node*>& vec, int& len) {
 * @param добавл€емое значение
 */
 template <class T>
-void SearchTree<T>::add(T key) {
+void SearchTree<T>::add(T key, int count) {
 	Node* value = nullptr;
 	search(this->root, value, key); // ѕоиск существующего
-	if (value == nullptr) create(this->root, key);
-	else value->count++;
+	if (value == nullptr) create(this->root, key, count);
+	else value->count += count;
 };
 
 /**
@@ -173,8 +197,8 @@ typename const SearchTree<T>::Node* SearchTree<T>::search(T key) {
 * @param (необ€зательный) фильтр длины
 */
 template <class T>
-void SearchTree<T>::to_datagrid(System::Data::DataTable^ table, int len) {
-	to_datagrid(this->root, table, len);
+void SearchTree<T>::to_datagrid(System::Data::DataTable^ table) {
+	to_datagrid(this->root, table);
 }
 
 /**
@@ -185,8 +209,8 @@ void SearchTree<T>::to_datagrid(System::Data::DataTable^ table, int len) {
 * @param (необ€зательный) фильтр длины
 */
 template <class T>
-void SearchTree<T>::to_vector(std::vector<Node*>& vec, int len) {
-	to_vector(this->root, vec, len);
+void SearchTree<T>::to_vector(std::vector<Node*>& vec) {
+	to_vector(this->root, vec);
 }
 
 /**
