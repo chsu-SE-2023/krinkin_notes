@@ -1,4 +1,0 @@
-do
-double
-default
-defaultuble
