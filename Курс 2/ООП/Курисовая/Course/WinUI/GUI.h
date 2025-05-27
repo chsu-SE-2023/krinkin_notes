@@ -35,7 +35,6 @@ namespace WinUI {
 			}
 		}
 	private: System::Windows::Forms::TabControl^ tabControl1;
-	protected:
 	private: System::Windows::Forms::TabPage^ tabPage1;
 	private: System::Windows::Forms::TabPage^ tabPage2;
 	private: System::Windows::Forms::DataGridView^ dataGridView1;
@@ -102,7 +101,6 @@ namespace WinUI {
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"Контейнер 1";
 			this->tabPage1->UseVisualStyleBackColor = true;
-			this->tabPage1->Click += gcnew System::EventHandler(this, &GUI::tabPage1_Click);
 			// 
 			// dataGridView1
 			// 
