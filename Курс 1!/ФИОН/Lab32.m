@@ -1,0 +1,32 @@
+L1=10;
+L2=10; 
+N1=100;
+N2=100; 
+dx=L1/N1; 
+dy=L2/N2; 
+Vvoln=1;
+
+for i=1:(N1+1);
+    x(i)=-L1/2+dx*(i-1);
+    for j=1:(N2+1);
+        y(j)=-L2/2+dy*(j-1);
+        if x(i)^2+4*(y(j)^2)<1;
+            u(i,j)=1-x(i)^2-4*(y(j)^2);
+        else u(i,j)=0; 
+        end;
+            v(i,j)=0;
+        end; 
+end; 
+T=6;
+dt=0.01;
+
+for t=0:dt:T; 
+    a=Vvoln^2*del2(u,dx,dy);
+    v=v+a*dt;
+    u=u+v*dt;
+    [X,Y]=meshgrid(-L1/2:dx:L1/2,-L2/2:dy:L2/2);
+    mesh(X,Y,u);
+    axis([-L1/2 L1/2 -L2/2 L2/2 -1 1]);
+    contour(X,Y,u);
+    pause(0);
+end;
