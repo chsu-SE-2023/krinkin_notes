@@ -18,8 +18,9 @@ public:
 	Client(MAC_Address);
 	Client(double*);
 	Client(std::string, MAC_Address, double*, char);
-	Client(Client&);
+	Client(const Client&);
 	~Client();
+	friend bool operator==(const Client&, const Client&);
 	MAC_Address get_address() const;
 	std::string get_name() const;
 	char get_type() const;

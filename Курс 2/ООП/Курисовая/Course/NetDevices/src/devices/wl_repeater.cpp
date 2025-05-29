@@ -65,7 +65,7 @@ WLRepeater::WLRepeater(const double*& packets, MAC_Address address, std::string 
 *
 * @param ύκηεμολÿπ WLRepeater
 */
-WLRepeater::WLRepeater(WLRepeater& copy) : Repeater(copy.packets, copy.address) {
+WLRepeater::WLRepeater(const WLRepeater& copy) : Repeater(const_cast<const double*&>(copy.packets), const_cast<MAC_Address&>(copy.address)) {
     this->ssid = copy.ssid;
     this->passwd = copy.passwd;
 }

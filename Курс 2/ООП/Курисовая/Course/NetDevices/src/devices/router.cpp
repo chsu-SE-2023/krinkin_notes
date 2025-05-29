@@ -48,7 +48,7 @@ Router::Router(MAC_Address address) : Gateway(address), WLRepeater() {
 *
 * @param массив пакетов
 */
-Router::Router(const double*& packets) : Router(packets) {
+Router::Router(const double*& packets) : Gateway(packets) {
     set_defaults();
 }
 
@@ -81,7 +81,7 @@ Router::Router(const double*& packets, std::vector<Client>& clients, MAC_Address
 *
 * @param экземпл€р Router
 */
-Router::Router(Router& copy) : Gateway(copy.Gateway::packets, copy.clients, copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
+Router::Router(const Router& copy) : Gateway(const_cast<const double*&>(copy.Gateway::packets), const_cast<std::vector<Client>&>(copy.clients), copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
     this->wps = copy.wps;
 }
 

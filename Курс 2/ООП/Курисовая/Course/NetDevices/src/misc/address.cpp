@@ -19,12 +19,21 @@ MAC_Address::MAC_Address(std::array<unsigned char, 6> values) {
 }
 
 /**
+*  опирующий конструтор
+*
+* @param ссылка на экземпл€р MAC_Address
+*/
+MAC_Address::MAC_Address(const MAC_Address& copy) {
+	this->values = copy.values;
+}
+
+/**
 * ќператор, провер€юий идентичны ли два MAC-адреса
 *
 * @param первый MAC-адрес
 * @param второй MAC-адрес
 */
-bool operator== (MAC_Address& first, MAC_Address& second) {
+bool operator== (const MAC_Address& first, const MAC_Address& second) {
     return first.values == second.values;
 }
 
@@ -34,7 +43,7 @@ bool operator== (MAC_Address& first, MAC_Address& second) {
 * @param первый MAC-адрес
 * @param второй MAC-адрес
 */
-bool operator!= (MAC_Address& first, MAC_Address& second) {
+bool operator!= (const MAC_Address& first, const MAC_Address& second) {
     return first.values != second.values;
 }
 

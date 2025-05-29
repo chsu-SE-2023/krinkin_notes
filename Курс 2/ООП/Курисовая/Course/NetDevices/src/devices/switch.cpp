@@ -18,6 +18,15 @@ Switch::Switch() : Repeater() {
 /**
 * Конструктор с параметрами
 *
+* @param массив пакетов
+*/
+Switch::Switch(const double*& packets) : Repeater(packets) {
+    set_defaults();
+}
+
+/**
+* Конструктор с параметрами
+*
 * @param вектор клиентов
 */
 Switch::Switch(std::vector<Client>& clients) : Repeater() {
@@ -65,7 +74,7 @@ Switch::Switch(const double*& packets, std::vector<Client>& clients, MAC_Address
 *
 * @param экземпляр Switch
 */
-Switch::Switch(Switch& sw) : Repeater(sw.packets, sw.address) {
+Switch::Switch(const Switch& sw) : Repeater(const_cast<const double*&>(sw.packets), const_cast<MAC_Address&>(sw.address)) {
     this->clients = sw.clients;
 };
 

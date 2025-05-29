@@ -28,12 +28,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\containers\container.h" />
+    <ClInclude Include="src\containers\data_center.h" />
+    <ClInclude Include="src\containers\server_room.h" />
     <ClInclude Include="src\devices\gateway.h" />
     <ClInclude Include="src\devices\net_device.h" />
-    <ClInclude Include="src\containers\net_room.h" />
     <ClInclude Include="src\devices\repeater.h" />
     <ClInclude Include="src\devices\router.h" />
-    <ClInclude Include="src\containers\stats.h" />
     <ClInclude Include="src\devices\switch.h" />
     <ClInclude Include="src\devices\wl_repeater.h" />
     <ClInclude Include="src\misc\address.h" />
@@ -41,14 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\containers\container.cpp" />
+    <ClCompile Include="src\containers\data_center.cpp" />
+    <ClCompile Include="src\containers\server_room.cpp" />
     <ClCompile Include="src\devices\gateway.cpp" />
-    <ClCompile Include="src\containers\net_room.cpp" />
     <ClCompile Include="src\devices\repeater.cpp" />
     <ClCompile Include="src\devices\router.cpp" />
     <ClCompile Include="src\misc\address.cpp" />
     <ClCompile Include="src\misc\client.cpp" />
-    <ClCompile Include="src\Source.cpp" />
-    <ClCompile Include="src\containers\stats.cpp" />
     <ClCompile Include="src\devices\switch.cpp" />
     <ClCompile Include="src\devices\wl_repeater.cpp" />
   </ItemGroup>
@@ -74,13 +73,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>

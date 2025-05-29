@@ -13,7 +13,7 @@ public:
     WLRepeater(MAC_Address);
     WLRepeater(const double*&);
     WLRepeater(const double*&, MAC_Address, std::string, std::string);
-    WLRepeater(WLRepeater&);
+    WLRepeater(const WLRepeater&);
     ~WLRepeater();
     std::string get_ssid() const;
     void print_info() const;

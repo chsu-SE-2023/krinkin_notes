@@ -103,6 +103,7 @@ System::Void HashTable::GUI::buttonOpen_Click(System::Object^ sender, System::Ev
 		array<float>::Resize(data, line_count);
 		data[line_count - 1] = f_value;
 	} while (reader->Peek() != -1);
+	reader->Close();
 
 	comboBoxFunc->Text = "h(x)=(ax+c)%B";
 	comboBoxFunc->Enabled = true;

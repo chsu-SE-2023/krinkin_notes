@@ -65,7 +65,7 @@ Client::Client(std::string name, MAC_Address address, double* packets, char type
 *
 * @param экземпляр Client
 */
-Client::Client(Client& copy) {
+Client::Client(const Client& copy) {
 	this->name = copy.name;
 	this->address = copy.address;
 	this->packets = copy.packets;
@@ -78,6 +78,17 @@ Client::Client(Client& copy) {
 Client::~Client() {
 	name = "";
 	if (packets) delete packets;
+}
+
+/**
+* Перегрузка оператора ==
+* 
+* @param первый объект
+* @param второй объект
+* @return результат сравнения
+*/
+bool operator==(const Client& first, const Client& second) {
+	return first.address == second.address;
 }
 
 /**

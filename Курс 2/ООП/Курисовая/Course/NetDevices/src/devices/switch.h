@@ -11,11 +11,12 @@ protected:
     void set_defaults();
 public:
     Switch();
+    Switch(const double*&);
     Switch(std::vector<Client>&);
     Switch(MAC_Address);
     Switch(std::vector<Client>&, MAC_Address);
     Switch(const double*&, std::vector<Client>&, MAC_Address);
-    Switch(Switch&);
+    Switch(const Switch&);
     ~Switch();
     friend bool operator>(const Switch&, const Switch&);
     friend bool operator<(const Switch&, const Switch&);

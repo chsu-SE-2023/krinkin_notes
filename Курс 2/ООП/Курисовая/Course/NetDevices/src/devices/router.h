@@ -16,7 +16,7 @@ public:
     Router(const double*&);
     Router(std::vector<Client>&, MAC_Address);
     Router(const double*&, std::vector<Client>&, MAC_Address, std::string, std::string, std::string);
-    Router(Router&);
+    Router(const Router&);
     ~Router();
     MAC_Address get_address() const;
     const double* get_packets() const;

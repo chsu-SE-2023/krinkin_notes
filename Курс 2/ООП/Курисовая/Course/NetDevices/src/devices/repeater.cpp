@@ -53,7 +53,7 @@ Repeater::Repeater(const double*& packets, MAC_Address address) {
 *
 * @param экземпляр Repeater
 */
-Repeater::Repeater(Repeater& copy) {
+Repeater::Repeater(const Repeater& copy) {
     this->address = copy.address;
     this->packets = copy.packets;
 };
@@ -62,10 +62,76 @@ Repeater::Repeater(Repeater& copy) {
 * Деконструктор
 */
 Repeater::~Repeater() {
-    // А нужно ли вообще удалять внешние данные?
+    // HACK: А нужно ли вообще удалять внешние данные?
     /*if (packets != nullptr)
         delete packets;*/
 };
+
+/**
+* Перезрузка оператора >
+* 
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator>(const Repeater& first, const Repeater& second) {
+    return first.address > second.address;
+}
+
+/**
+* Перезрузка оператора <
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator<(const Repeater& first, const Repeater& second) {
+    return first.address < second.address;
+}
+
+/**
+* Перезрузка оператора >=
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator>=(const Repeater& first, const Repeater& second) {
+    return first.address >= second.address;
+}
+
+/**
+* Перезрузка оператора <=
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator<=(const Repeater& first, const Repeater& second) {
+    return first.address <= second.address;
+}
+
+/**
+* Перезрузка оператора ==
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator==(const Repeater& first, const Repeater& second) {
+    return first.address == second.address;
+}
+
+/**
+* Перезрузка оператора !=
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator!=(const Repeater& first, const Repeater& second) {
+    return first.address != second.address;
+}
 
 /**
 * Метод, возвращающий хранимый массив пакетов

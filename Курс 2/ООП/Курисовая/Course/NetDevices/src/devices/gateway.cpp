@@ -19,6 +19,15 @@ Gateway::Gateway() : Switch() {
 /**
 * Конструктор с параметрами
 *
+* @param массив пакетов
+*/
+Gateway::Gateway(const double*& packets) : Switch(packets) {
+    set_defaults();
+}
+
+/**
+* Конструктор с параметрами
+*
 * @param вектор клиентов
 */
 Gateway::Gateway(std::vector<Client>& clients) : Switch(clients) {
@@ -62,7 +71,7 @@ Gateway::Gateway(const double*& packets, std::vector<Client>& clients, MAC_Addre
 *
 * @param экземпляр Gateway
 */
-Gateway::Gateway(Gateway& copy) : Switch(copy.packets, copy.clients, copy.address) {
+Gateway::Gateway(const Gateway& copy) : Switch(const_cast<const double*&>(copy.packets), const_cast<std::vector<Client>&>(copy.clients), copy.address) {
     this->protocol = copy.protocol;
 };
 

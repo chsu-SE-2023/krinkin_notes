@@ -23,7 +23,7 @@ MyHashTable::MyHashTable(int class_count) {
 * @param хеш-функция
 */
 void MyHashTable::add(float key, int (*hash_f)(float, std::string), std::string mode) {
-	table[hash_f(key, mode)].push_back(key);
+	table[hash_f(key, mode)].emplace_back(key);
 }
 
 /**

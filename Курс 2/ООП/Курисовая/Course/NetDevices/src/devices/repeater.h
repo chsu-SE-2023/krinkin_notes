@@ -11,8 +11,14 @@ public:
     Repeater(MAC_Address);
     Repeater(const double*&);
     Repeater(const double*&, MAC_Address);
-    Repeater(Repeater&);
+    Repeater(const Repeater&);
     ~Repeater();
+    friend bool operator>(const Repeater&, const Repeater&);
+    friend bool operator<(const Repeater&, const Repeater&);
+    friend bool operator>=(const Repeater&, const Repeater&);
+    friend bool operator<=(const Repeater&, const Repeater&);
+    friend bool operator==(const Repeater&, const Repeater&);
+    friend bool operator!=(const Repeater&, const Repeater&);
     MAC_Address get_address() const;
     const double* get_packets() const;
     void set_address(const MAC_Address);
