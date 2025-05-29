@@ -306,7 +306,6 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 1: { // Ключевые слова
 		switch (c) {
-		case 'u': { state = 79; break; }
 		case '_': { state = 69; break; }
 		case '8': { state = 92; break; }
 		case '1': { state = 94; break; }
@@ -314,7 +313,9 @@ std::string Analyser::lexem_filter(char c, char next) {
 		case 'e': { state = 109; break; }
 		case 'i': { state = 114; break; }
 		//case '_': { state = 117; break; }
-		//case 'u': { state = 139; break; }
+		case 'u': { state = 139; break; }
+		//case '_': { state = 292; break; }
+		//case '_': { state = 384; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -856,7 +857,7 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 86: {
 		switch (c) {
-		case 's': { state = 87; break; 
+		case 's': { state = 87; break; }
 		case 't': { state = 88; break; }
 		default: { state = 0; break; }
 		} break;
@@ -1502,292 +1503,298 @@ std::string Analyser::lexem_filter(char c, char next) {
 		default: { state = 0; break; }
 		} break;
 	}
-			// ##############################################################
 	case 191: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'u': { state = 192; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 192: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 193; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 193: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 194; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 194: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'b': { state = 195; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 195: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 196; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 196: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 197: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 198; break; }
+		case 'e': { state = 205; break; }
+		case 'o': { state = 206; break; }
+		case 'u': { state = 214; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 198: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'm': { state = 199; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 199: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 200; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 200: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 's': { state = 201; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 201: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'p': { state = 202; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 202: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 203; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 203: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 204; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 204: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 205: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'w': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 206: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 207; break; }
+		case 't': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 207: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'x': { state = 208; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 208: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 209; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 209: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 210; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 210: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'p': { state = 211; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 211: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 212: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 213; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 213: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'q': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 214: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 215; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 215: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 216; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 216: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'p': { state = 217; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 217: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 218; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 218: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 219: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'p': { state = 220; break; }
+		case 'r': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 220: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 221; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 221: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 222; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 222: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 223; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 223: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 224; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 224: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'o': { state = 225; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 225: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 226: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 227; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 227: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'q': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 228: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 229; break; }
+		case 'u': { state = 240; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 229: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 230; break; }
+		case 'o': { state = 234; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 230: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'v': { state = 231; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 231: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 232; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 232: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 233; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 233: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 234: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 235; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 235: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 236; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 236: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 237; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 237: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 238; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 238: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 239; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -1799,265 +1806,274 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 240: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'b': { state = 241; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 241: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 242; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 242: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 243; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 243: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 244: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 245; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 245: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'f': { state = 246; break; }
+		case 'g': { state = 251; break; }
+		case 'i': { state = 256; break; }
+		case 'q': { state = 269; break; }
+		case 't': { state = 274; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 246: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 247; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 247: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 248; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 248: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'x': { state = 249; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 249: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'p': { state = 250; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 250: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 251: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 252; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 252: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 's': { state = 253; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 253: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 254; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 254: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 255; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 255: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 256: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 257; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 257: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 258; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 258: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 259; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 259: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 260; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 260: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'p': { state = 261; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 261: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 262; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 262: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 263; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 263: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 264; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 264: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case '_': { state = 265; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 265: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 266; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 266: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 267; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 267: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 's': { state = 268; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 268: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 269: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'u': { state = 270; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 270: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 271; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 271: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 272; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 272: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 273; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 273: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 's': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 274: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'u': { state = 275; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 275: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 276; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 276: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 277: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'h': { state = 278; break; }
+		case 'i': { state = 281; break; }
+		case 't': { state = 288; break; }
+		case 'w': { state = 304; break; }
+		case 'y': { state = 308; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 278: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'o': { state = 279; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 279: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 280; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 280: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 281: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'g': { state = 282; break; }
+		case 'z': { state = 285; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 282: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 283; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 283: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 284; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -2069,193 +2085,195 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 285: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 286; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 286: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'o': { state = 287; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 287: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'f': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 288: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 289; break; }
+		case 'r': { state = 301; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 289: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 290; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 290: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 291; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 291: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 292: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 293; break; }
+		case 'c': { state = 298; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 293: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 's': { state = 294; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 294: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 's': { state = 295; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 295: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 296; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 296: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 297; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 297: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 298: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 299; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 299: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 's': { state = 300; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 300: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 301: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'u': { state = 302; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 302: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 303; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 303: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 304: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 305; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 305: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 306; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 306: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 307; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 307: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'h': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 308: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 309; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 309: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 310; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 310: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'h': { state = 311; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 311: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 312; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 312: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'o': { state = 313; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 313: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 314; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 314: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 315; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 315: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'z': { state = 316; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 316: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 317; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -2267,157 +2285,165 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 318: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 319; break; }
+		case 'h': { state = 325; break; }
+		case 'r': { state = 337; break; }
+		case 'y': { state = 339; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 319: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'm': { state = 320; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 320: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'p': { state = 321; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 321: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 322; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 322: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 323; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 323: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 324; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 324: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 325: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 326; break; }
+		case 'r': { state = 327; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 326: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 's': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 327: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 328; break; }
+		case 'o': { state = 336; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 328: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 329; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 329: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'd': { state = 330; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 330: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case '_': { state = 331; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 331: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 332; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 332: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'o': { state = 333; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 333: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 334; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 334: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 335; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 335: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 336: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'w': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 337: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'u': { state = 338; break; }
+		case 'y': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 338: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 339: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'p': { state = 340; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 340: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 341; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 341: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'd': { state = 342; break; }
+		case 'i': { state = 344; break; }
+		case 'n': { state = 345; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 342: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 343; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 343: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'f': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -2429,67 +2455,69 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 345: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 346; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 346: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'm': { state = 347; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 347: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 348: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 349; break; }
+		case 's': { state = 357; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 349: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 350; break; }
+		case 's': { state = 352; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 350: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'o': { state = 351; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 351: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 352: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 353; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 353: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'g': { state = 354; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 354: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 355; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 355: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 356; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -2501,61 +2529,63 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 357: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 358; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 358: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'n': { state = 359; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 359: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'g': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 360: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 361; break; }
+		case 'o': { state = 366; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 361: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 362; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 362: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 363; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 363: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'u': { state = 364; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 364: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 365; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 365: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 366: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 367; break; }
+		case 'l': { state = 368; break; }
 		default: { state = 0; break; }
 		} break;
 	}
@@ -2567,109 +2597,110 @@ std::string Analyser::lexem_filter(char c, char next) {
 	}
 	case 368: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 369; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 369: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 370; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 370: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 371; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 371: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 372; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 372: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 373: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'c': { state = 374; break; }
+		case 'h': { state = 379; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 374: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'h': { state = 375; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 375: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'a': { state = 376; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 376: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 377; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 377: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case '_': { state = 378; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 378: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 't': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 379: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'i': { state = 380; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 380: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'l': { state = 381; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 381: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 382: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'o': { state = 383; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 383: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'r': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 384: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'e': { state = 385; break; }
 		default: { state = 0; break; }
 		} break;
 	}
 	case 385: {
 		switch (c) {
-		case 'd': { state = 1; break; }
+		case 'q': { state = 1; break; }
 		default: { state = 0; break; }
 		} break;
 	}
