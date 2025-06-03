@@ -1,0 +1,16 @@
+[Info]
+Version = 3
+
+[Object]
+Pmd1 = UserFile\Model\my model\cirno improved\cirno.pmx
+Pmd2 = UserFile\Accessory\Jetbus hd1\jb1.pmx
+Pmd3 = UserFile\BackGround\sirkuit tsukuba by GB 01A\sirkuit.pmx
+Pmd4 = UserFile\BackGround\24-hours_SkyDome by kanata\24hours_skydome.pmx
+
+[Effect]
+Default = none
+Pmd1 = none
+Pmd2 = none
+Pmd3 = none
+Pmd4 = none
+
