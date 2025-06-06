@@ -46,10 +46,11 @@ namespace Analize {
 		/// </summary>
 		System::ComponentModel::Container ^components;
 	private: System::Windows::Forms::TabControl^ tabControlError;
-
 	private: System::Windows::Forms::TabPage^ tabPageSource;
 	private: System::Windows::Forms::TabPage^ tabPageLexems;
 	private: System::Windows::Forms::TextBox^ outBox;
+
+
 	private: System::Windows::Forms::DataGridView^ dataGridViewKeys;
 	private: System::Windows::Forms::DataGridView^ dataGridViewConst;
 	private: System::Windows::Forms::DataGridView^ dataGridViewIDs;
@@ -83,7 +84,12 @@ namespace Analize {
 	private: System::Windows::Forms::TabPage^ tabPage1;
 	private: System::Windows::Forms::TextBox^ textBoxErrors;
 	private: System::Windows::Forms::TextBox^ textBox2;
-		   Analyser* analyser;
+	private: System::Windows::Forms::TextBox^ textBox7;
+	private: System::Windows::Forms::TextBox^ linesNum;
+	private: System::Windows::Forms::TextBox^ textBox4;
+	private: System::Windows::Forms::TextBox^ outBoxL;
+
+	Analyser* analyser;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -99,6 +105,10 @@ namespace Analize {
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->tabControlError = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageSource = (gcnew System::Windows::Forms::TabPage());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->linesNum = (gcnew System::Windows::Forms::TextBox());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
+			this->outBoxL = (gcnew System::Windows::Forms::TextBox());
 			this->tabPageLexems = (gcnew System::Windows::Forms::TabPage());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->dataGridViewDelims = (gcnew System::Windows::Forms::DataGridView());
@@ -158,7 +168,7 @@ namespace Analize {
 			this->sourceBox->Multiline = true;
 			this->sourceBox->Name = L"sourceBox";
 			this->sourceBox->ScrollBars = System::Windows::Forms::ScrollBars::Both;
-			this->sourceBox->Size = System::Drawing::Size(958, 675);
+			this->sourceBox->Size = System::Drawing::Size(470, 675);
 			this->sourceBox->TabIndex = 0;
 			this->sourceBox->WordWrap = false;
 			// 
@@ -198,7 +208,7 @@ namespace Analize {
 			this->fileNameBox->Location = System::Drawing::Point(7, 687);
 			this->fileNameBox->Name = L"fileNameBox";
 			this->fileNameBox->ReadOnly = true;
-			this->fileNameBox->Size = System::Drawing::Size(958, 24);
+			this->fileNameBox->Size = System::Drawing::Size(470, 24);
 			this->fileNameBox->TabIndex = 6;
 			this->fileNameBox->Text = L"Source.cpp";
 			// 
@@ -225,6 +235,10 @@ namespace Analize {
 			// 
 			// tabPageSource
 			// 
+			this->tabPageSource->Controls->Add(this->textBox7);
+			this->tabPageSource->Controls->Add(this->linesNum);
+			this->tabPageSource->Controls->Add(this->textBox4);
+			this->tabPageSource->Controls->Add(this->outBoxL);
 			this->tabPageSource->Controls->Add(this->fileNameBox);
 			this->tabPageSource->Controls->Add(this->processButton);
 			this->tabPageSource->Controls->Add(this->openFileButton);
@@ -236,6 +250,64 @@ namespace Analize {
 			this->tabPageSource->TabIndex = 1;
 			this->tabPageSource->Text = L"Исходник";
 			this->tabPageSource->UseVisualStyleBackColor = true;
+			// 
+			// textBox7
+			// 
+			this->textBox7->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->textBox7->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox7->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox7->Location = System::Drawing::Point(522, 690);
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->ReadOnly = true;
+			this->textBox7->Size = System::Drawing::Size(118, 17);
+			this->textBox7->TabIndex = 12;
+			this->textBox7->Text = L"Значащих строк";
+			// 
+			// linesNum
+			// 
+			this->linesNum->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->linesNum->BackColor = System::Drawing::SystemColors::Window;
+			this->linesNum->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->linesNum->Location = System::Drawing::Point(483, 687);
+			this->linesNum->Name = L"linesNum";
+			this->linesNum->ReadOnly = true;
+			this->linesNum->Size = System::Drawing::Size(33, 24);
+			this->linesNum->TabIndex = 11;
+			// 
+			// textBox4
+			// 
+			this->textBox4->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->textBox4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox4->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox4->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox4->Location = System::Drawing::Point(815, 690);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->ReadOnly = true;
+			this->textBox4->Size = System::Drawing::Size(149, 17);
+			this->textBox4->TabIndex = 10;
+			this->textBox4->Text = L"Обработанный текст";
+			this->textBox4->TextAlign = System::Windows::Forms::HorizontalAlignment::Right;
+			// 
+			// outBoxL
+			// 
+			this->outBoxL->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->outBoxL->BackColor = System::Drawing::SystemColors::Control;
+			this->outBoxL->Font = (gcnew System::Drawing::Font(L"Courier New", 11));
+			this->outBoxL->Location = System::Drawing::Point(483, 6);
+			this->outBoxL->Multiline = true;
+			this->outBoxL->Name = L"outBoxL";
+			this->outBoxL->ReadOnly = true;
+			this->outBoxL->ScrollBars = System::Windows::Forms::ScrollBars::Both;
+			this->outBoxL->Size = System::Drawing::Size(482, 675);
+			this->outBoxL->TabIndex = 9;
+			this->outBoxL->WordWrap = false;
 			// 
 			// tabPageLexems
 			// 
@@ -655,7 +727,10 @@ namespace Analize {
 
 #pragma endregion
 private: 
+	int line = 0;
 	System::Void clear();
+	String^ spaces(int);
+	String^ Analize::GUI::addLineNum(String^);
 	System::Void stripSource();
 	int getFromTable(String^, DataGridView^);
 	System::Void error(String^, String^);

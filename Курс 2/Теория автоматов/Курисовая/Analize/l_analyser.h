@@ -15,6 +15,7 @@ public:
 	Analyser(Analyser*);
 	void clear_state();
 	std::string get_error();
+	int get_lines_count(System::String^);
 	int get_state() const;
 	bool is_delim(char);
 	bool is_multisign();

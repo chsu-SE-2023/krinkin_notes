@@ -27,18 +27,48 @@ System::Void Analize::GUI::clear() {
 	}
 } 
 
+String^ Analize::GUI::spaces(int count) {
+	String^ spaces = gcnew String("");
+	for (int i = 0; i < count; i++)
+		spaces += " ";
+	return spaces;
+}
+
+String^ Analize::GUI::addLineNum(String^ target) {
+	line = 0;
+	// Количество разрядов длины
+	int count = (analyser->get_lines_count(target) + 1).ToString()->Length;
+	target = ++line + spaces(count - 1) + "  " + target;
+	String^ out = gcnew String("");
+	for (int i = 0; i < target->Length; i++) {
+		if (target[i] == '\n') {
+			std::cout << line << " " << count - (line.ToString()->Length) << std::endl;
+			out += "\n" + ++line + spaces(count - (line.ToString()->Length)) + "  ";
+			continue;
+		}
+		out += target[i];
+	}
+	target = out;
+	return target;
+}
+
 /**
 * Метод удаляющий пробелы, переносы и комментарии из
 * текста программы, используя анализатор
 */
 System::Void Analize::GUI::stripSource() {
 	analyser->clear_state();
+	sourceBox->Text = sourceBox->Text->Replace(" \r\n", "\n");
 	char prev = sourceBox->Text[0];
 	for (int i = 1; i < sourceBox->Text->Length; i++) {
 		char out = analyser->space_filter(prev, sourceBox->Text[i]);
-		if (out != -1) outBox->Text += gcnew System::String(&out);
+		if (out != -1) outBoxL->Text += gcnew System::String(&out);
 		prev = sourceBox->Text[i];
 	}
+	sourceBox->Text = sourceBox->Text->Replace("\n", " \r\n");
+	outBoxL->Text = outBoxL->Text->Replace("\n", " \r\n");
+
+	// Обработка ошибок
 	if (analyser->get_state() >= 1 && analyser->get_state() <= 3)
 		error("Удаление пробелов", "Обнаружен незакрытый многострочный комментарий");
 }
@@ -167,6 +197,7 @@ System::Void Analize::GUI::processButton_Click(System::Object^ sender, System::E
 	stripSource();
 
 	// Лексический анализ
+	outBox->Text = outBoxL->Text->Replace("\r", "")->Replace("\n", "");
 	analyser->clear_state();
 	char prev = this->outBox->Text[0];
 	for (int i = 1; i < this->outBox->Text->Length; i++) {
@@ -178,6 +209,13 @@ System::Void Analize::GUI::processButton_Click(System::Object^ sender, System::E
 		}
 		prev = this->outBox->Text[i];
 	}
+
+	// Добавление числа строк
+	this->linesNum->Text = analyser->get_lines_count(this->outBoxL->Text).ToString();
+	this->sourceBox->Text = addLineNum(this->sourceBox->Text);
+	this->outBoxL->Text = addLineNum(this->outBoxL->Text);
+
+	// Обработка ошибок
 	switch (analyser->get_state()) {
 	case 7:
 	case 8: {
