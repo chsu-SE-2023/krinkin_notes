@@ -1,4 +1,5 @@
 #pragma once
+#include <sstream>
 #include <msclr\marshal_cppstd.h>
 #include "../NetDevices/src/misc/address.h"
 #include "../NetDevices/src/misc/client.h"
@@ -24,8 +25,12 @@ namespace WinUI {
 		GUI(void)
 		{
 			InitializeComponent();
-			cont_B = new ServerRoom();
-			cont_C = new DataCenter<ServerRoom>();
+			contB = new DataCenter();
+			contRepeater = new ServerRoom<Repeater>();
+			contWLRepeater = new ServerRoom<WLRepeater>();
+			contSwitch = new ServerRoom<Switch>();
+			contGateway = new ServerRoom<Gateway>();
+			contRouter = new ServerRoom<Router>();
 		}
 
 	protected:
@@ -34,18 +39,17 @@ namespace WinUI {
 		/// </summary>
 		~GUI()
 		{
-			if (components)
-			{
-				delete components;
-			}
+			if (components) delete components;
+			if (contB) delete contB;
+			if (contRepeater) delete contRepeater;
+			if (contWLRepeater) delete contWLRepeater;
+			if (contSwitch) delete contSwitch;
+			if (contGateway) delete contGateway;
+			if (contRouter) delete contRouter;
 		}
 	private: System::Windows::Forms::TabControl^ tabControl1;
 	private: System::Windows::Forms::TabPage^ tabPageContainerB;
-	private: System::Windows::Forms::TabPage^ tabPageContainerC;
-
-
-	private: System::Windows::Forms::DataGridView^ dataGridViewContainerB;
-
+	private: System::Windows::Forms::TabPage^ tabPageRepeater;
 	private: System::Windows::Forms::Button^ buttonAdd;
 	private: System::Windows::Forms::ComboBox^ comboBoxClass;
 	private: System::Windows::Forms::Button^ buttonSort;
@@ -79,6 +83,26 @@ namespace WinUI {
 	private: System::Windows::Forms::Button^ button3;
 	private: System::Windows::Forms::TextBox^ textBox12;
 	private: System::Windows::Forms::TextBox^ textBox14;
+	private: System::Windows::Forms::TabPage^ tabPageWLRepeater;
+	private: System::Windows::Forms::TabPage^ tabPageSwitch;
+	private: System::Windows::Forms::TabPage^ tabPageGateway;
+	private: System::Windows::Forms::TabPage^ tabPageRouter;
+	private: System::Windows::Forms::DataGridView^ dataGridViewB;
+	private: System::Windows::Forms::DataGridView^ dataGridViewRepeater;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ObjPointer;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ObjFields;
+	private: System::Windows::Forms::DataGridView^ dataGridViewWLRepeater;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn1;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn2;
+	private: System::Windows::Forms::DataGridView^ dataGridViewSwitch;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn3;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn4;
+	private: System::Windows::Forms::DataGridView^ dataGridViewGateway;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn5;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn6;
+	private: System::Windows::Forms::DataGridView^ dataGridViewRouter;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn7;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn8;
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -94,8 +118,27 @@ namespace WinUI {
 		{
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageContainerB = (gcnew System::Windows::Forms::TabPage());
-			this->dataGridViewContainerB = (gcnew System::Windows::Forms::DataGridView());
-			this->tabPageContainerC = (gcnew System::Windows::Forms::TabPage());
+			this->dataGridViewB = (gcnew System::Windows::Forms::DataGridView());
+			this->tabPageRepeater = (gcnew System::Windows::Forms::TabPage());
+			this->dataGridViewRepeater = (gcnew System::Windows::Forms::DataGridView());
+			this->ObjPointer = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ObjFields = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->tabPageWLRepeater = (gcnew System::Windows::Forms::TabPage());
+			this->dataGridViewWLRepeater = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridViewTextBoxColumn1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn2 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->tabPageSwitch = (gcnew System::Windows::Forms::TabPage());
+			this->dataGridViewSwitch = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridViewTextBoxColumn3 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn4 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->tabPageGateway = (gcnew System::Windows::Forms::TabPage());
+			this->dataGridViewGateway = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridViewTextBoxColumn5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn6 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->tabPageRouter = (gcnew System::Windows::Forms::TabPage());
+			this->dataGridViewRouter = (gcnew System::Windows::Forms::DataGridView());
+			this->dataGridViewTextBoxColumn7 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dataGridViewTextBoxColumn8 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->buttonSort = (gcnew System::Windows::Forms::Button());
 			this->buttonAdd = (gcnew System::Windows::Forms::Button());
 			this->comboBoxClass = (gcnew System::Windows::Forms::ComboBox());
@@ -131,7 +174,17 @@ namespace WinUI {
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->tabControl1->SuspendLayout();
 			this->tabPageContainerB->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewContainerB))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewB))->BeginInit();
+			this->tabPageRepeater->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewRepeater))->BeginInit();
+			this->tabPageWLRepeater->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewWLRepeater))->BeginInit();
+			this->tabPageSwitch->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewSwitch))->BeginInit();
+			this->tabPageGateway->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewGateway))->BeginInit();
+			this->tabPageRouter->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewRouter))->BeginInit();
 			this->tabControl2->SuspendLayout();
 			this->tabPage3->SuspendLayout();
 			this->tabPageContainers->SuspendLayout();
@@ -143,46 +196,235 @@ namespace WinUI {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl1->Controls->Add(this->tabPageContainerB);
-			this->tabControl1->Controls->Add(this->tabPageContainerC);
+			this->tabControl1->Controls->Add(this->tabPageRepeater);
+			this->tabControl1->Controls->Add(this->tabPageWLRepeater);
+			this->tabControl1->Controls->Add(this->tabPageSwitch);
+			this->tabControl1->Controls->Add(this->tabPageGateway);
+			this->tabControl1->Controls->Add(this->tabPageRouter);
 			this->tabControl1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->tabControl1->Location = System::Drawing::Point(602, 2);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(446, 588);
+			this->tabControl1->Size = System::Drawing::Size(610, 588);
 			this->tabControl1->TabIndex = 0;
 			// 
 			// tabPageContainerB
 			// 
-			this->tabPageContainerB->Controls->Add(this->dataGridViewContainerB);
+			this->tabPageContainerB->Controls->Add(this->dataGridViewB);
 			this->tabPageContainerB->Location = System::Drawing::Point(4, 27);
 			this->tabPageContainerB->Name = L"tabPageContainerB";
 			this->tabPageContainerB->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageContainerB->Size = System::Drawing::Size(438, 557);
+			this->tabPageContainerB->Size = System::Drawing::Size(602, 557);
 			this->tabPageContainerB->TabIndex = 0;
 			this->tabPageContainerB->Text = L"Контейнер B";
 			this->tabPageContainerB->UseVisualStyleBackColor = true;
 			// 
-			// dataGridViewContainerB
+			// dataGridViewB
 			// 
-			this->dataGridViewContainerB->AllowUserToDeleteRows = false;
-			this->dataGridViewContainerB->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridViewContainerB->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->dataGridViewContainerB->Location = System::Drawing::Point(3, 3);
-			this->dataGridViewContainerB->Name = L"dataGridViewContainerB";
-			this->dataGridViewContainerB->ReadOnly = true;
-			this->dataGridViewContainerB->Size = System::Drawing::Size(432, 551);
-			this->dataGridViewContainerB->TabIndex = 0;
+			this->dataGridViewB->AllowUserToDeleteRows = false;
+			this->dataGridViewB->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridViewB->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->dataGridViewB->Location = System::Drawing::Point(3, 3);
+			this->dataGridViewB->Name = L"dataGridViewB";
+			this->dataGridViewB->ReadOnly = true;
+			this->dataGridViewB->Size = System::Drawing::Size(596, 551);
+			this->dataGridViewB->TabIndex = 0;
 			// 
-			// tabPageContainerC
+			// tabPageRepeater
 			// 
-			this->tabPageContainerC->Location = System::Drawing::Point(4, 27);
-			this->tabPageContainerC->Name = L"tabPageContainerC";
-			this->tabPageContainerC->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageContainerC->Size = System::Drawing::Size(438, 557);
-			this->tabPageContainerC->TabIndex = 1;
-			this->tabPageContainerC->Text = L"Контейнер C";
-			this->tabPageContainerC->UseVisualStyleBackColor = true;
+			this->tabPageRepeater->Controls->Add(this->dataGridViewRepeater);
+			this->tabPageRepeater->Location = System::Drawing::Point(4, 27);
+			this->tabPageRepeater->Name = L"tabPageRepeater";
+			this->tabPageRepeater->Padding = System::Windows::Forms::Padding(3);
+			this->tabPageRepeater->Size = System::Drawing::Size(602, 557);
+			this->tabPageRepeater->TabIndex = 1;
+			this->tabPageRepeater->Text = L"Repeater (C)";
+			this->tabPageRepeater->UseVisualStyleBackColor = true;
+			// 
+			// dataGridViewRepeater
+			// 
+			this->dataGridViewRepeater->AllowUserToDeleteRows = false;
+			this->dataGridViewRepeater->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridViewRepeater->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridViewRepeater->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->ObjPointer,
+					this->ObjFields
+			});
+			this->dataGridViewRepeater->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->dataGridViewRepeater->Location = System::Drawing::Point(3, 3);
+			this->dataGridViewRepeater->Name = L"dataGridViewRepeater";
+			this->dataGridViewRepeater->ReadOnly = true;
+			this->dataGridViewRepeater->Size = System::Drawing::Size(596, 551);
+			this->dataGridViewRepeater->TabIndex = 0;
+			// 
+			// ObjPointer
+			// 
+			this->ObjPointer->HeaderText = L"Адрес";
+			this->ObjPointer->Name = L"ObjPointer";
+			this->ObjPointer->ReadOnly = true;
+			// 
+			// ObjFields
+			// 
+			this->ObjFields->HeaderText = L"Поля";
+			this->ObjFields->Name = L"ObjFields";
+			this->ObjFields->ReadOnly = true;
+			// 
+			// tabPageWLRepeater
+			// 
+			this->tabPageWLRepeater->Controls->Add(this->dataGridViewWLRepeater);
+			this->tabPageWLRepeater->Location = System::Drawing::Point(4, 27);
+			this->tabPageWLRepeater->Name = L"tabPageWLRepeater";
+			this->tabPageWLRepeater->Padding = System::Windows::Forms::Padding(3);
+			this->tabPageWLRepeater->Size = System::Drawing::Size(602, 557);
+			this->tabPageWLRepeater->TabIndex = 2;
+			this->tabPageWLRepeater->Text = L"WLRepeater (C)";
+			this->tabPageWLRepeater->UseVisualStyleBackColor = true;
+			// 
+			// dataGridViewWLRepeater
+			// 
+			this->dataGridViewWLRepeater->AllowUserToDeleteRows = false;
+			this->dataGridViewWLRepeater->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridViewWLRepeater->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridViewWLRepeater->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->dataGridViewTextBoxColumn1,
+					this->dataGridViewTextBoxColumn2
+			});
+			this->dataGridViewWLRepeater->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->dataGridViewWLRepeater->Location = System::Drawing::Point(3, 3);
+			this->dataGridViewWLRepeater->Name = L"dataGridViewWLRepeater";
+			this->dataGridViewWLRepeater->ReadOnly = true;
+			this->dataGridViewWLRepeater->Size = System::Drawing::Size(596, 551);
+			this->dataGridViewWLRepeater->TabIndex = 1;
+			// 
+			// dataGridViewTextBoxColumn1
+			// 
+			this->dataGridViewTextBoxColumn1->HeaderText = L"Адрес";
+			this->dataGridViewTextBoxColumn1->Name = L"dataGridViewTextBoxColumn1";
+			this->dataGridViewTextBoxColumn1->ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn2
+			// 
+			this->dataGridViewTextBoxColumn2->HeaderText = L"Поля";
+			this->dataGridViewTextBoxColumn2->Name = L"dataGridViewTextBoxColumn2";
+			this->dataGridViewTextBoxColumn2->ReadOnly = true;
+			// 
+			// tabPageSwitch
+			// 
+			this->tabPageSwitch->Controls->Add(this->dataGridViewSwitch);
+			this->tabPageSwitch->Location = System::Drawing::Point(4, 27);
+			this->tabPageSwitch->Name = L"tabPageSwitch";
+			this->tabPageSwitch->Padding = System::Windows::Forms::Padding(3);
+			this->tabPageSwitch->Size = System::Drawing::Size(602, 557);
+			this->tabPageSwitch->TabIndex = 3;
+			this->tabPageSwitch->Text = L"Switch (C)";
+			this->tabPageSwitch->UseVisualStyleBackColor = true;
+			// 
+			// dataGridViewSwitch
+			// 
+			this->dataGridViewSwitch->AllowUserToDeleteRows = false;
+			this->dataGridViewSwitch->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridViewSwitch->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridViewSwitch->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->dataGridViewTextBoxColumn3,
+					this->dataGridViewTextBoxColumn4
+			});
+			this->dataGridViewSwitch->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->dataGridViewSwitch->Location = System::Drawing::Point(3, 3);
+			this->dataGridViewSwitch->Name = L"dataGridViewSwitch";
+			this->dataGridViewSwitch->ReadOnly = true;
+			this->dataGridViewSwitch->Size = System::Drawing::Size(596, 551);
+			this->dataGridViewSwitch->TabIndex = 1;
+			// 
+			// dataGridViewTextBoxColumn3
+			// 
+			this->dataGridViewTextBoxColumn3->HeaderText = L"Адрес";
+			this->dataGridViewTextBoxColumn3->Name = L"dataGridViewTextBoxColumn3";
+			this->dataGridViewTextBoxColumn3->ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn4
+			// 
+			this->dataGridViewTextBoxColumn4->HeaderText = L"Поля";
+			this->dataGridViewTextBoxColumn4->Name = L"dataGridViewTextBoxColumn4";
+			this->dataGridViewTextBoxColumn4->ReadOnly = true;
+			// 
+			// tabPageGateway
+			// 
+			this->tabPageGateway->Controls->Add(this->dataGridViewGateway);
+			this->tabPageGateway->Location = System::Drawing::Point(4, 27);
+			this->tabPageGateway->Name = L"tabPageGateway";
+			this->tabPageGateway->Padding = System::Windows::Forms::Padding(3);
+			this->tabPageGateway->Size = System::Drawing::Size(602, 557);
+			this->tabPageGateway->TabIndex = 4;
+			this->tabPageGateway->Text = L"Gateway (C)";
+			this->tabPageGateway->UseVisualStyleBackColor = true;
+			// 
+			// dataGridViewGateway
+			// 
+			this->dataGridViewGateway->AllowUserToDeleteRows = false;
+			this->dataGridViewGateway->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridViewGateway->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridViewGateway->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->dataGridViewTextBoxColumn5,
+					this->dataGridViewTextBoxColumn6
+			});
+			this->dataGridViewGateway->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->dataGridViewGateway->Location = System::Drawing::Point(3, 3);
+			this->dataGridViewGateway->Name = L"dataGridViewGateway";
+			this->dataGridViewGateway->ReadOnly = true;
+			this->dataGridViewGateway->Size = System::Drawing::Size(596, 551);
+			this->dataGridViewGateway->TabIndex = 1;
+			// 
+			// dataGridViewTextBoxColumn5
+			// 
+			this->dataGridViewTextBoxColumn5->HeaderText = L"Адрес";
+			this->dataGridViewTextBoxColumn5->Name = L"dataGridViewTextBoxColumn5";
+			this->dataGridViewTextBoxColumn5->ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn6
+			// 
+			this->dataGridViewTextBoxColumn6->HeaderText = L"Поля";
+			this->dataGridViewTextBoxColumn6->Name = L"dataGridViewTextBoxColumn6";
+			this->dataGridViewTextBoxColumn6->ReadOnly = true;
+			// 
+			// tabPageRouter
+			// 
+			this->tabPageRouter->Controls->Add(this->dataGridViewRouter);
+			this->tabPageRouter->Location = System::Drawing::Point(4, 27);
+			this->tabPageRouter->Name = L"tabPageRouter";
+			this->tabPageRouter->Padding = System::Windows::Forms::Padding(3);
+			this->tabPageRouter->Size = System::Drawing::Size(602, 557);
+			this->tabPageRouter->TabIndex = 5;
+			this->tabPageRouter->Text = L"Router (C)";
+			this->tabPageRouter->UseVisualStyleBackColor = true;
+			// 
+			// dataGridViewRouter
+			// 
+			this->dataGridViewRouter->AllowUserToDeleteRows = false;
+			this->dataGridViewRouter->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
+			this->dataGridViewRouter->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
+			this->dataGridViewRouter->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(2) {
+				this->dataGridViewTextBoxColumn7,
+					this->dataGridViewTextBoxColumn8
+			});
+			this->dataGridViewRouter->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->dataGridViewRouter->Location = System::Drawing::Point(3, 3);
+			this->dataGridViewRouter->Name = L"dataGridViewRouter";
+			this->dataGridViewRouter->ReadOnly = true;
+			this->dataGridViewRouter->Size = System::Drawing::Size(596, 551);
+			this->dataGridViewRouter->TabIndex = 1;
+			// 
+			// dataGridViewTextBoxColumn7
+			// 
+			this->dataGridViewTextBoxColumn7->HeaderText = L"Адрес";
+			this->dataGridViewTextBoxColumn7->Name = L"dataGridViewTextBoxColumn7";
+			this->dataGridViewTextBoxColumn7->ReadOnly = true;
+			// 
+			// dataGridViewTextBoxColumn8
+			// 
+			this->dataGridViewTextBoxColumn8->HeaderText = L"Поля";
+			this->dataGridViewTextBoxColumn8->Name = L"dataGridViewTextBoxColumn8";
+			this->dataGridViewTextBoxColumn8->ReadOnly = true;
 			// 
 			// buttonSort
 			// 
@@ -205,6 +447,7 @@ namespace WinUI {
 			this->buttonAdd->TabIndex = 3;
 			this->buttonAdd->Text = L"Добавить";
 			this->buttonAdd->UseVisualStyleBackColor = true;
+			this->buttonAdd->Click += gcnew System::EventHandler(this, &GUI::buttonAdd_Click);
 			// 
 			// comboBoxClass
 			// 
@@ -217,6 +460,7 @@ namespace WinUI {
 			this->comboBoxClass->Name = L"comboBoxClass";
 			this->comboBoxClass->Size = System::Drawing::Size(175, 26);
 			this->comboBoxClass->TabIndex = 1;
+			this->comboBoxClass->SelectedIndexChanged += gcnew System::EventHandler(this, &GUI::comboBoxClass_SelectedIndexChanged);
 			// 
 			// buttonSearch
 			// 
@@ -261,6 +505,7 @@ namespace WinUI {
 			// 
 			// textBoxMAC
 			// 
+			this->textBoxMAC->Enabled = false;
 			this->textBoxMAC->Location = System::Drawing::Point(8, 177);
 			this->textBoxMAC->Name = L"textBoxMAC";
 			this->textBoxMAC->Size = System::Drawing::Size(163, 24);
@@ -279,6 +524,7 @@ namespace WinUI {
 			// 
 			// textBoxPackets
 			// 
+			this->textBoxPackets->Enabled = false;
 			this->textBoxPackets->Location = System::Drawing::Point(6, 147);
 			this->textBoxPackets->Name = L"textBoxPackets";
 			this->textBoxPackets->Size = System::Drawing::Size(343, 24);
@@ -297,6 +543,7 @@ namespace WinUI {
 			// 
 			// textBoxCapacity
 			// 
+			this->textBoxCapacity->Enabled = false;
 			this->textBoxCapacity->Location = System::Drawing::Point(8, 267);
 			this->textBoxCapacity->Name = L"textBoxCapacity";
 			this->textBoxCapacity->Size = System::Drawing::Size(50, 24);
@@ -326,6 +573,7 @@ namespace WinUI {
 			// 
 			// textBoxProtocol
 			// 
+			this->textBoxProtocol->Enabled = false;
 			this->textBoxProtocol->Location = System::Drawing::Point(7, 207);
 			this->textBoxProtocol->Name = L"textBoxProtocol";
 			this->textBoxProtocol->Size = System::Drawing::Size(120, 24);
@@ -344,6 +592,7 @@ namespace WinUI {
 			// 
 			// textBoxSSID
 			// 
+			this->textBoxSSID->Enabled = false;
 			this->textBoxSSID->Location = System::Drawing::Point(8, 237);
 			this->textBoxSSID->Name = L"textBoxSSID";
 			this->textBoxSSID->Size = System::Drawing::Size(119, 24);
@@ -352,6 +601,7 @@ namespace WinUI {
 			// checkBoxWPS
 			// 
 			this->checkBoxWPS->AutoSize = true;
+			this->checkBoxWPS->Enabled = false;
 			this->checkBoxWPS->Location = System::Drawing::Point(8, 293);
 			this->checkBoxWPS->Name = L"checkBoxWPS";
 			this->checkBoxWPS->Size = System::Drawing::Size(104, 22);
@@ -361,6 +611,8 @@ namespace WinUI {
 			// 
 			// tabControl2
 			// 
+			this->tabControl2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left));
 			this->tabControl2->Controls->Add(this->tabPage3);
 			this->tabControl2->Controls->Add(this->tabPageContainers);
 			this->tabControl2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
@@ -545,15 +797,24 @@ namespace WinUI {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1047, 590);
+			this->ClientSize = System::Drawing::Size(1213, 590);
 			this->Controls->Add(this->tabControl2);
 			this->Controls->Add(this->tabControl1);
 			this->Name = L"GUI";
 			this->Text = L"GUI";
-			this->Load += gcnew System::EventHandler(this, &GUI::GUI_Load);
 			this->tabControl1->ResumeLayout(false);
 			this->tabPageContainerB->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewContainerB))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewB))->EndInit();
+			this->tabPageRepeater->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewRepeater))->EndInit();
+			this->tabPageWLRepeater->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewWLRepeater))->EndInit();
+			this->tabPageSwitch->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewSwitch))->EndInit();
+			this->tabPageGateway->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewGateway))->EndInit();
+			this->tabPageRouter->ResumeLayout(false);
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewRouter))->EndInit();
 			this->tabControl2->ResumeLayout(false);
 			this->tabPage3->ResumeLayout(false);
 			this->tabPage3->PerformLayout();
@@ -564,48 +825,109 @@ namespace WinUI {
 		}
 #pragma endregion
 private: 
-	ServerRoom* cont_B;
-	DataCenter<ServerRoom>* cont_C;
+	DataCenter* contB;
+	ServerRoom<Repeater>* contRepeater;
+	ServerRoom<WLRepeater>* contWLRepeater;
+	ServerRoom<Switch>* contSwitch;
+	ServerRoom<Gateway>* contGateway;
+	ServerRoom<Router>* contRouter;
+
 
 	std::string to_string(String^ string) {
 		msclr::interop::marshal_context context;
 		return context.marshal_as<std::string>(string);
 	}
 
-	NetDevice* createObject(System::String^ cls) {
+	template <typename T>
+	System::Void updateTable(std::vector<T*> vec, DataGridView^ table) {
+		// FIXME: Первый элемент таблицы не отображается
+		table->RowCount = 1;
+		for (int i = 0; i < vec.size(); i++) {
+			int count = table->RowCount++;
+			const void* address = static_cast<const void*>(vec[i]);
+			std::stringstream ss;
+			ss << address;
+			table->Rows[count - 1]->HeaderCell->Value = count;
+			table->Rows[count - 1]->Cells[0]->Value = "0x" + gcnew String(ss.str().c_str());
+			table->Rows[count - 1]->Cells[1]->Value = "{" + gcnew String(vec[i]->get_info().c_str()) + "}";
+		}
+	}
+
+	System::Void resetFields() {
+		textBoxPackets->Enabled = false;
+		textBoxMAC->Enabled = false;
+		textBoxCapacity->Enabled = false;
+		// TODO: Текстбокс клиентов
+		textBoxProtocol->Enabled = false;
+		textBoxSSID->Enabled = false;
+		checkBoxWPS->Enabled = false;
+	}
+
+	System::Void buttonAdd_Click(System::Object^ sender, System::EventArgs^ e) {
 		const double* packets = { 0 };
 		MAC_Address address = textBoxMAC->Text == "" ? MAC_Address() : MAC_Address();
 		std::string protocol = textBoxProtocol->Text == "" ? "" : to_string(textBoxProtocol->Text);
 		std::string ssid = textBoxSSID->Text == "" ? "" : to_string(textBoxSSID->Text);
 		int capacity = textBoxCapacity->Text == "" ? 32 : 32;
 		bool wps = checkBoxWPS->Checked;
-		if (cls == "Repeater") {
-			return new Repeater(packets, address);
+
+		if (comboBoxClass->Text == "Repeater") {
+			contRepeater->add(*(new Repeater(packets, address)));
+			updateTable(contRepeater->get_vector(), dataGridViewRepeater);
 		}
-		if (cls == "WLRepeater") {
-			return new WLRepeater(packets, address, ssid, ""); // TODO: заполнение поля passwd
+		if (comboBoxClass->Text == "WLRepeater") {
+			contWLRepeater->add(*(new WLRepeater(packets, address, ssid, ""))); // TODO: заполнение поля passwd
+			updateTable(contWLRepeater->get_vector(), dataGridViewWLRepeater);
 		}
-		if (cls == "Switch") {
-			//return new Switch(packets, clients, address); 
-			return new Switch(); // TODO: заполнение поля clients
+		if (comboBoxClass->Text == "Switch") {
+			contSwitch->add(*(new Switch())); // TODO: заполнение поля clients
+			updateTable(contSwitch->get_vector(), dataGridViewSwitch);
 		}
-		if (cls == "Gateway") {
-			// return new Gateway(packets, clients, address, protocol); 
-			return new Gateway(); // TODO: заполнение поля clients
+		if (comboBoxClass->Text == "Gateway") {
+			contGateway->add(*(new Gateway())); // TODO: заполнение поля clients
+			updateTable(contGateway->get_vector(), dataGridViewGateway);
 		}
-		if (cls == "Router") {
+		if (comboBoxClass->Text == "Router") {
 			// TODO: неопределённый базовый класс
-			//return new Router(); 
+			//contRouter->add(*(new Router()));
+			updateTable(contRouter->get_vector(), dataGridViewRouter);
 		}
-		return nullptr;
+		System::Console::Write("Добавлен объект " + comboBoxClass->Text + "\n");
 	}
 
-	System::Void buttonAdd_Click(System::Object^ sender, System::EventArgs^ e) {
-		cont_B->add(createObject(comboBoxClass->Text));
-		
-	}
-
-	System::Void GUI_Load(System::Object^ sender, System::EventArgs^ e) {
+	System::Void comboBoxClass_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		resetFields();
+		if (comboBoxClass->Text == "Repeater") {
+			textBoxPackets->Enabled = true;
+			textBoxMAC->Enabled = true;
+		}
+		else if (comboBoxClass->Text == "WLRepeater") {
+			textBoxPackets->Enabled = true;
+			textBoxMAC->Enabled = true;
+			textBoxSSID->Enabled = true;
+		}
+		else if (comboBoxClass->Text == "Switch") {
+			textBoxPackets->Enabled = true;
+			textBoxMAC->Enabled = true;
+			textBoxCapacity->Enabled = true;
+			// TODO: Текстбокс клиентов
+		}
+		else if (comboBoxClass->Text == "Gateway") {
+			textBoxPackets->Enabled = true;
+			textBoxMAC->Enabled = true;
+			textBoxCapacity->Enabled = true;
+			// TODO: Текстбокс клиентов
+			textBoxProtocol->Enabled = true;
+		}
+		else if (comboBoxClass->Text == "Router") {
+			textBoxPackets->Enabled = true;
+			textBoxMAC->Enabled = true;
+			textBoxCapacity->Enabled = true;
+			// TODO: Текстбокс клиентов
+			textBoxProtocol->Enabled = true;
+			textBoxSSID->Enabled = true;
+			checkBoxWPS->Enabled = true;
+		}
 	}
 };
 }

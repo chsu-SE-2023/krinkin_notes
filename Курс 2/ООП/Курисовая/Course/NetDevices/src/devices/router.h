@@ -19,6 +19,7 @@ public:
     Router(const Router&);
     ~Router();
     MAC_Address get_address() const;
+    std::string get_info();
     const double* get_packets() const;
     bool is_wps() const;
     void print_info() const;

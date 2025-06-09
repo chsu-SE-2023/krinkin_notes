@@ -63,8 +63,7 @@ Repeater::Repeater(const Repeater& copy) {
 */
 Repeater::~Repeater() {
     // HACK: А нужно ли вообще удалять внешние данные?
-    /*if (packets != nullptr)
-        delete packets;*/
+    // if (packets) delete packets;
 };
 
 /**
@@ -143,13 +142,23 @@ const double* Repeater::get_packets() const {
 };
 
 /**
-* Метод, для получения пакетов
+* Метод для получения пакетов
 *
 * @param принимаемый массив пакетов
 */
 void Repeater::receive(const double*& packets) {
     this->packets = packets;
 };
+
+/**
+* Метод, возвращающий информацию об объекте
+* в виде текста о его полях
+*
+* @return текст о полях объекта
+*/
+std::string Repeater::get_info() {
+    return "address: " + address.as_string();
+}
 
 /**
 * Метод, возвращающий MAC-адрес устройства

@@ -80,6 +80,16 @@ WLRepeater::~WLRepeater() {
 }
 
 /**
+* Метод, возвращающий информацию об объекте
+* в виде текста о его полях
+*
+* @return текст о полях объекта
+*/
+std::string WLRepeater::get_info() {
+    return Repeater::get_info() + ", ssid: " + ssid + ", passwd: " + passwd;
+}
+
+/**
 * Метод возвращающий SSID сети устройства
 * 
 * @return SSID сети устройства

@@ -3,6 +3,16 @@
 
 /**
 *  оструктор дл€ структуры
+*
+* @param указатель на хранимые данные
+*/
+Container::Node::Node() {
+	this->data = nullptr;
+	this->next = nullptr;
+}
+
+/**
+*  оструктор дл€ структуры
 * 
 * @param указатель на хранимые данные
 */
@@ -24,7 +34,7 @@ Container::Node::~Node() {
 *  оструктор по умолчанию
 */
 Container::Container() {
-	this->first = new Node(nullptr);
+	this->first = new Node();
 	this->last = this->first;
 }
 
@@ -33,7 +43,6 @@ Container::Container() {
 */
 Container::~Container() {
 	if (first) delete first;
-	if (last) delete last;
 }
 
 /**

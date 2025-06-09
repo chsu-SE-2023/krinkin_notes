@@ -20,6 +20,7 @@ public:
     friend bool operator==(const Repeater&, const Repeater&);
     friend bool operator!=(const Repeater&, const Repeater&);
     MAC_Address get_address() const;
+    std::string get_info();
     const double* get_packets() const;
     void set_address(const MAC_Address);
     void receive(const double*&);

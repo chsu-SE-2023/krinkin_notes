@@ -15,6 +15,7 @@ public:
     WLRepeater(const double*&, MAC_Address, std::string, std::string);
     WLRepeater(const WLRepeater&);
     ~WLRepeater();
+    std::string get_info();
     std::string get_ssid() const;
     void print_info() const;
     void set_ssid(std::string);

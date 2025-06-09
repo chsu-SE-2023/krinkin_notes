@@ -121,6 +121,16 @@ MAC_Address Router::get_address() const {
 };
 
 /**
+* Метод, возвращающий информацию об объекте
+* в виде текста о его полях
+*
+* @return текст о полях объекта
+*/
+std::string Router::get_info() {
+    return Gateway::get_info() + WLRepeater::get_info() + ", wps: " + std::to_string(wps);
+}
+
+/**
 * Метод возвращающиц активирован ли на устройстве режим WPS подключения
 * 
 * @return булевое значение активации режима WPS подключения

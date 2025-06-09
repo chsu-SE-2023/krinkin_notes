@@ -1,18 +1,35 @@
 #pragma once
-#include "../devices/net_device.h"
-#include "container.h"
+#include "../misc/address.h"
+#include "../devices/router.h"
+#include "server_room.h"
 
-class ServerRoom : private Container {
+template <typename T>
+class ServerRoom {
+
 private:
-	int clients_total;
+	struct Node {
+        T* device;
+        Node* next;
+        Node* prev;
+        Node(T*);
+        ~Node();
+    };
+    // Указатели на первую и последнюю полку
+    Node* first, * last;
+    Node* get_node(ServerRoom<T>*, int);
+
 public:
-	ServerRoom();
-	~ServerRoom();
-	//NetDevice*& operator[](int);
-	void add(NetDevice*);
-	void remove(int);
-	void print();
-	int size();
-	int get_total_devices() const;
-	void clear();
+    ServerRoom();
+    ServerRoom(T&);
+    ~ServerRoom();
+    ServerRoom<T>& operator--(int);
+    T* operator[](int);
+    friend bool operator== (const ServerRoom<T>&, const ServerRoom<T>&);
+    friend bool operator!= (const ServerRoom<T>&, const ServerRoom<T>&);
+    void add(T&);
+    std::vector<T*> get_vector();
+    void seek(int);
+	void sort();
+    T* search(MAC_Address);
+    int size();
 };

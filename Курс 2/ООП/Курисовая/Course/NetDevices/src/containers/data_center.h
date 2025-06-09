@@ -1,33 +1,17 @@
 #pragma once
-#include "../misc/address.h"
-#include "server_room.h"
+#include "../devices/net_device.h"
+#include "container.h"
 
-template <typename T>
-class DataCenter {
-
+class DataCenter : private Container {
 private:
-	struct Node {
-        T* device;
-        Node* next;
-        Node* prev;
-        Node(T*);
-        ~Node();
-    };
-    // Указатели на первую и последнюю полку
-    Node* first, * last;
-    Node* get_node(DataCenter<T>*, int);
-
+	int clients_total;
 public:
-    DataCenter();
-    DataCenter(T&);
-    ~DataCenter();
-    DataCenter<T>& operator--(int);
-    T* operator[](int);
-    friend bool operator== (const DataCenter<T>&, const DataCenter<T>&);
-    friend bool operator!= (const DataCenter<T>&, const DataCenter<T>&);
-    void add(T&);
-    void seek(int);
-	void sort();
-    T* search(MAC_Address);
-    int size();
+	DataCenter();
+	//NetDevice*& operator[](int);
+	void add(NetDevice*);
+	void remove(int);
+	void print();
+	int size();
+	int get_total_devices() const;
+	void clear();
 };

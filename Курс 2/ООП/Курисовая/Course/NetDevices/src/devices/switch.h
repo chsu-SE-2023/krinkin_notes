@@ -24,6 +24,7 @@ public:
     void connect(Client);
     void disconnect(Client);
     std::vector<Client> get_clients() const;
+    std::string get_info();
     void set_clients(std::vector<Client>&);
     void print_info();
     void reset();

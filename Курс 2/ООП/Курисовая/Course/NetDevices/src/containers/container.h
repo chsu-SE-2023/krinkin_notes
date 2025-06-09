@@ -6,6 +6,7 @@ private:
 	struct Node {
 		void* data;
 		Node* next;
+		Node();
 		Node(void*);
 		~Node();
 	};

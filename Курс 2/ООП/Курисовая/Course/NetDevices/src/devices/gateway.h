@@ -16,6 +16,7 @@ public:
     Gateway(const double*&, std::vector<Client>&, MAC_Address, std::string);
     Gateway(const Gateway&);
     ~Gateway();
+    std::string get_info();
     std::string get_protocol() const;
     void set_protocol(std::string);
     void print_info();

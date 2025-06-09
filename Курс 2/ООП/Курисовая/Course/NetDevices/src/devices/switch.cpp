@@ -129,6 +129,16 @@ std::vector<Client> Switch::get_clients() const {
 }
 
 /**
+* Метод, возвращающий информацию об объекте
+* в виде текста о его полях
+*
+* @return текст о полях объекта
+*/
+std::string Switch::get_info() {
+    return Repeater::get_info() + ", cli_cap: " + std::to_string(cli_cap) + ", clients: vector<>";
+}
+
+/**
 * Метод принимающий вектор клиентов, подключаемых к устройству
 * 
 * @param вектор клиентов, подключаемых к устройству
