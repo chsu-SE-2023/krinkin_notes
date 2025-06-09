@@ -3,67 +3,128 @@ import networkx
 
 class Graph:
 
-    window = 100
     count = 0
     gr = dict()
-    color = list()
-    stack = list()
+    cycle = False
+    found = False
+    min_key = 0
 
     def __init__(self, filename):
+        """
+        Конструктор
+        :param filename: имя файла, содержащего вершины
+        """
         file = open(filename, 'r').readlines()
         self.count = int(file[0])
         f_edges = file[1:]
-        for edge in f_edges:
+        for edge in f_edges: # Формирование словаря рёбер
             nodes = list(map(int, edge.split(' ')))
             if nodes[0] not in self.gr: self.gr[nodes[0]] = []
             if nodes[1] not in self.gr: self.gr[nodes[1]] = []
             self.gr[nodes[0]].append(nodes[1])
-        self.color = [0 for _ in range(self.count)]
+        self.min_key = min(list(self.gr.keys()))
+        draw_graph(self.gr) # Отрисовка изначального графа
 
-    def draw_graph(self) -> None:
-        pyplot.figure(self.window)
+    def check_graph(self) -> bool:
+        """
+        Метод, возвращающий существуют ли циклы в графе
+        :return: булево значение не существуют ли циклы
+        """
+        def dfs(current):
+            colors[current-self.min_key] = 1
+            for neighbor in self.gr[current]:
+                if colors[neighbor-self.min_key] != 2:
+                    dfs(neighbor)
+                else:
+                    self.cycle = True
+                    break
+            colors[current-self.min_key] = 2
 
-        graph = networkx.DiGraph()
+        for start_node in range(self.min_key, self.count+self.min_key):
+            # Цвета для вершин: 0 - белый, 1 - серый, 2 - чёрный
+            colors = [0 for _ in range(self.count)]
+            dfs(start_node)
+        return not self.cycle
 
-        for key in self.gr:
-            for i in self.gr[key]:
-                graph.add_edge(key, i)
+    def dfs_paths(self) -> list:
+        """
+        Метод, возвращающий все возможные обходы в глубину
+        :return: список обходов
+        """
+        all_paths = []
 
-        pos = networkx.spring_layout(graph, k=10, seed=0)
-        networkx.draw_networkx_nodes(graph, pos, node_size=500, node_color="yellow")
-        networkx.draw_networkx_edges(graph, pos, width=2, arrowsize=25)
-        networkx.draw_networkx_labels(graph, pos, font_size=12)
+        def dfs(path, current):
+            # Если обойдены все вершины графа
+            if len(path) == self.count:
+                all_paths.append(path[::-1])
+                return
+            for neighbor in self.gr[current]:
+                if not visited[neighbor-self.min_key]:
+                    # Занесение в путь
+                    visited[neighbor-self.min_key] = True
+                    path.append(neighbor)
+                    dfs(path, neighbor)
 
-        self.window *= (self.window // 100) + 1
+        # Начало обхода из разных вершин
+        for start_node in range(self.min_key, self.count+self.min_key):
+            visited = [False] * self.count
+            visited[start_node-self.min_key] = True
+            dfs([start_node], start_node)
 
-    def __dfs(self, i: int) -> None:
-        self.color[i] += 1
-        for j in self.gr[i+1]:
-            if self.color[j-1] != 2:
-                self.__dfs(j-1)
-        self.color[i] = 2
-        self.stack.append(i)
+        return all_paths
 
     def sort_graph(self) -> None:
-        for key in self.gr:
-            if self.color[key-1] != 2:
-                self.__dfs(key-1)
-        renames = {}
-        for i in range(len(self.stack)):
-            new = self.stack.pop()
-            renames[new+1] = i+1
-        new_d = {}
-        for new in renames:
-            new_d[renames[new]] = self.gr[new]
-            for i in range(len(new_d[renames[new]])):
-                new_d[renames[new]][i] = renames[new_d[renames[new]][i]]
-        self.gr = new_d
+        """
+        Метод, производящий топографическую сортировку графа
+        """
+        paths = self.dfs_paths()
+        if len(paths) > 0: self.found = True
+        for path in paths:
+            renames = {} # Словарь переименований
+            for i in range(len(path)):
+                new = path.pop()
+                renames[new] = i
+            new_d = {}
+            for new in renames:
+                new_d[renames[new]] = self.gr[new]
+                for i in range(len(new_d[renames[new]])):
+                    new_d[renames[new]][i] = renames[new_d[renames[new]][i]]
+            draw_graph(new_d) # Отрисовка вариации переименований
+
+window = 100
+def draw_graph(nodes: dict) -> None:
+    """
+    Функция, инициализирующая отрисовку графа
+    :param nodes: словарь ребер графа формата
+    {'a': [b, c]} - a смежно с b и c
+    """
+    global window
+    pyplot.figure(window)
+
+    graph = networkx.DiGraph()
+
+    for key in nodes:
+        for i in nodes[key]:
+            graph.add_edge(key, i)
+
+    pos = networkx.spring_layout(graph, k=10, seed=0)
+    networkx.draw_networkx_nodes(graph, pos, node_size=500, node_color="yellow")
+    networkx.draw_networkx_edges(graph, pos, width=2, arrowsize=25)
+    networkx.draw_networkx_labels(graph, pos, font_size=12)
+
+    window += 100
+
+def main():
+    g = Graph('input.txt')
+    if not g.check_graph(): # Проверка графа на циклы
+        g.sort_graph()
+        if g.found: # Проверка на существование пути
+            pyplot.tight_layout()
+            pyplot.show()
+        else:
+            print("Таких нумераций не существует")
+    else:
+        print("Таких нумераций не существует. Обнаружен цикл")
 
 if __name__ == "__main__":
-    g = Graph('input_habr.txt')
-    g.draw_graph()
-    g.sort_graph()
-    g.draw_graph()
-
-    pyplot.tight_layout()
-    pyplot.show()
+    main()
