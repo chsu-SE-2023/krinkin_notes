@@ -33,4 +33,5 @@ public:
 	void sort();
     T* search(MAC_Address);
     int size();
+    int cli_total();
 };

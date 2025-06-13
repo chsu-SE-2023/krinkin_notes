@@ -113,7 +113,7 @@ std::vector<void*> Container::get_vector() {
 	std::vector<void*> vec = {};
 	Node* current = first;
 	while (current != nullptr) {
-		vec.emplace_back(current);
+		vec.emplace_back(current->data);
 		current = current->next;
 	}
 	return vec;

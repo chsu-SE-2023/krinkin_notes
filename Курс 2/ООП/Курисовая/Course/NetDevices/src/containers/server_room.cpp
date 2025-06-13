@@ -351,3 +351,49 @@ int ServerRoom<T>::size() {
     }
     return count;
 }
+
+template <>
+int ServerRoom<Repeater>::cli_total() {
+    return this->size();
+}
+
+template <>
+int ServerRoom<WLRepeater>::cli_total() {
+    return this->size();
+}
+
+template <>
+int ServerRoom<Switch>::cli_total() {
+    int count = 0;
+    Node* current = this->first;
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            count += current->device->clients_count();
+        current = current->next;
+    }
+    return count;
+}
+
+template <>
+int ServerRoom<Gateway>::cli_total() {
+    int count = 0;
+    Node* current = this->first;
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            count += current->device->clients_count();
+        current = current->next;
+    }
+    return count;
+}
+
+template <>
+int ServerRoom<Router>::cli_total() {
+    int count = 0;
+    Node* current = this->first;
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            count += current->device->clients_count();
+        current = current->next;
+    }
+    return count;
+}

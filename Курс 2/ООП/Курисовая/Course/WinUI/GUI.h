@@ -111,7 +111,7 @@ namespace WinUI {
 	private: System::Windows::Forms::TextBox^ textBox12;
 	private: System::Windows::Forms::TextBox^ textBoxIndex;
 	private: System::Windows::Forms::TextBox^ textBox5;
-	private: System::Windows::Forms::ComboBox^ comboBox1;
+	private: System::Windows::Forms::ComboBox^ comboBoxContType;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnType;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnDevices;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnClients;
@@ -184,7 +184,7 @@ namespace WinUI {
 			this->textBoxIndex = (gcnew System::Windows::Forms::TextBox());
 			this->tabPageContainers = (gcnew System::Windows::Forms::TabPage());
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->comboBoxContType = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox9 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox15 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxValue = (gcnew System::Windows::Forms::TextBox());
@@ -531,7 +531,7 @@ namespace WinUI {
 			// 
 			this->buttonSort->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->buttonSort->Location = System::Drawing::Point(6, 184);
+			this->buttonSort->Location = System::Drawing::Point(7, 184);
 			this->buttonSort->Name = L"buttonSort";
 			this->buttonSort->Size = System::Drawing::Size(109, 23);
 			this->buttonSort->TabIndex = 5;
@@ -801,7 +801,7 @@ namespace WinUI {
 			// tabPageContainers
 			// 
 			this->tabPageContainers->Controls->Add(this->textBox5);
-			this->tabPageContainers->Controls->Add(this->comboBox1);
+			this->tabPageContainers->Controls->Add(this->comboBoxContType);
 			this->tabPageContainers->Controls->Add(this->textBox9);
 			this->tabPageContainers->Controls->Add(this->textBox15);
 			this->tabPageContainers->Controls->Add(this->textBoxValue);
@@ -830,17 +830,18 @@ namespace WinUI {
 			this->textBox5->TabIndex = 25;
 			this->textBox5->Text = L"Тип контейнера";
 			// 
-			// comboBox1
+			// comboBoxContType
 			// 
-			this->comboBox1->FormattingEnabled = true;
-			this->comboBox1->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
+			this->comboBoxContType->FormattingEnabled = true;
+			this->comboBoxContType->Items->AddRange(gcnew cli::array< System::Object^  >(5) {
 				L"Repeater", L"WLRepeater", L"Switch", L"Gateway",
 					L"Router"
 			});
-			this->comboBox1->Location = System::Drawing::Point(6, 26);
-			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(175, 26);
-			this->comboBox1->TabIndex = 24;
+			this->comboBoxContType->Location = System::Drawing::Point(6, 26);
+			this->comboBoxContType->Name = L"comboBoxContType";
+			this->comboBoxContType->Size = System::Drawing::Size(175, 26);
+			this->comboBoxContType->TabIndex = 24;
+			this->comboBoxContType->SelectedIndexChanged += gcnew System::EventHandler(this, &GUI::comboBoxContType_SelectedIndexChanged);
 			// 
 			// textBox9
 			// 
@@ -933,20 +934,22 @@ private:
 		return context.marshal_as<std::string>(string);
 	}
 
+	template <typename T>
+	System::Void addBTableRow(ServerRoom<T>* container) {
+		int count = dataGridViewB->RowCount++;
+		dataGridViewB->Rows[count - 1]->Cells[0]->Value = gcnew String(typeid(T).name());
+		dataGridViewB->Rows[count - 1]->Cells[1]->Value = container->size();
+		dataGridViewB->Rows[count - 1]->Cells[2]->Value = container->cli_total();
+	}
+
 	System::Void updateBTable() {
 		dataGridViewB->RowCount = 1;
 		std::vector<void*> vec = contB->get_vector();
-		ServerRoom<Repeater>* a = (ServerRoom<Repeater>*) vec[0];
-		ServerRoom<WLRepeater>* b = (ServerRoom<WLRepeater>*) vec[1];
-		ServerRoom<Switch>* c = (ServerRoom<Switch>*) vec[2];
-		ServerRoom<Gateway>* d = (ServerRoom<Gateway>*) vec[3];
-		ServerRoom<Router>* e = (ServerRoom<Router>*) vec[4];
-		for (int i = 0; i < vec.size(); i++) {
-			int count = dataGridViewB->RowCount++;
-			dataGridViewB->Rows[count - 1]->Cells[1]->Value = ((ServerRoom<Repeater>*) vec[i])->size();
-			//dataGridViewB->Rows[count - 1]->Cells[1]->Value = "0x" + gcnew String(ss.str().c_str());
-			//dataGridViewB->Rows[count - 1]->Cells[2]->Value = "{" + gcnew String(vec[i]->get_info().c_str()) + "}";
-		}
+		addBTableRow(static_cast<ServerRoom<Repeater>*>(vec[0]));
+		addBTableRow(static_cast<ServerRoom<WLRepeater>*>(vec[1]));
+		addBTableRow(static_cast<ServerRoom<Switch>*>(vec[2]));
+		addBTableRow(static_cast<ServerRoom<Gateway>*>(vec[3]));
+		addBTableRow(static_cast<ServerRoom<Router>*>(vec[4]));
 	}
 
 	template <typename T>
@@ -1082,6 +1085,33 @@ private:
 	System::Void GUI_Load(System::Object^ sender, System::EventArgs^ e) {
 		updateTable(contRepeater->get_vector(), dataGridViewRepeater);
 		updateBTable();
+	}
+	
+	System::Void comboBoxContType_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		comboBoxCriteria->BeginUpdate();
+		comboBoxCriteria->Text = "";
+		comboBoxCriteria->Items->Clear();
+		if (comboBoxContType->Text == "Repeater") {
+			comboBoxCriteria->Items->AddRange(gcnew cli::array< System::Object^>(1) {
+				"address"});
+		}
+		else if (comboBoxContType->Text == "WLRepeater") {
+			comboBoxCriteria->Items->AddRange(gcnew cli::array< System::Object^>(3) {
+				"address", "ssid", "passwd" });
+		}
+		else if (comboBoxContType->Text == "Switch") {
+			comboBoxCriteria->Items->AddRange(gcnew cli::array< System::Object^>(2) {
+				"address", "clients_count" });
+		}
+		else if (comboBoxContType->Text == "Gateway") {
+			comboBoxCriteria->Items->AddRange(gcnew cli::array< System::Object^>(3) {
+				"address", "clients_count", "protocol" });
+		}
+		else if (comboBoxContType->Text == "Router") {
+			comboBoxCriteria->Items->AddRange(gcnew cli::array< System::Object^>(6) {
+				"address", "clients_count", "protocol", "ssid", "passwd", "wps" });
+		}
+		comboBoxCriteria->EndUpdate();
 	}
 };
 }
