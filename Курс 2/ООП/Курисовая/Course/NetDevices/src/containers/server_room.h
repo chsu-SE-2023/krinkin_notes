@@ -21,6 +21,7 @@ private:
 public:
     ServerRoom();
     ServerRoom(T&);
+    ServerRoom(const ServerRoom&);
     ~ServerRoom();
     ServerRoom<T>& operator--(int);
     T* operator[](int);

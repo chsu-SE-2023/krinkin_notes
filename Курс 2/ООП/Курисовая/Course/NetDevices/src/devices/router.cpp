@@ -48,7 +48,7 @@ Router::Router(MAC_Address address) : Gateway(address), WLRepeater() {
 *
 * @param массив пакетов
 */
-Router::Router(const double*& packets) : Gateway(packets) {
+Router::Router(const unsigned char*& bytes) : Gateway(bytes) {
     set_defaults();
 }
 
@@ -72,7 +72,7 @@ Router::Router(std::vector<Client>& clients, MAC_Address address) : Gateway(clie
 * @param SSID беспроводной сети
 * @param пароль беспроводной сети
 */
-Router::Router(const double*& packets, std::vector<Client>& clients, MAC_Address address, std::string protocol, std::string ssid, std::string passwd) : Gateway(packets, clients, address, protocol), WLRepeater(ssid, passwd) {
+Router::Router(const unsigned char*& bytes, std::vector<Client>& clients, MAC_Address address, std::string protocol, std::string ssid, std::string passwd) : Gateway(bytes, clients, address, protocol), WLRepeater(ssid, passwd) {
     set_defaults();
 }
 
@@ -81,7 +81,7 @@ Router::Router(const double*& packets, std::vector<Client>& clients, MAC_Address
 *
 * @param экземпл€р Router
 */
-Router::Router(const Router& copy) : Gateway(const_cast<const double*&>(copy.Gateway::packets), const_cast<std::vector<Client>&>(copy.clients), copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
+Router::Router(const Router& copy) : Gateway(const_cast<const unsigned char*&>(copy.Gateway::bytes), const_cast<std::vector<Client>&>(copy.clients), copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
     this->wps = copy.wps;
 }
 
@@ -98,8 +98,8 @@ Router::~Router() {
 *
 * @return массив пакетов
 */
-const double* Router::get_packets() const {
-    return Repeater::get_packets();
+const unsigned char* Router::get_bytes() const {
+    return Repeater::get_bytes();
 };
 
 /**
@@ -107,8 +107,8 @@ const double* Router::get_packets() const {
 *
 * @param принимаемый массив пакетов
 */
-void Router::receive(const double*& packets) {
-    Repeater::receive(packets);
+void Router::receive(const unsigned char*& bytes) {
+    Repeater::receive(bytes);
 };
 
 /**

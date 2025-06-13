@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class Container {
 
@@ -7,7 +8,7 @@ private:
 		void* data;
 		Node* next;
 		Node();
-		Node(void*);
+		Node(void*&);
 		~Node();
 	};
 	Node* first, *last;
@@ -19,6 +20,7 @@ public:
 	const void* operator[](int);
 	void add(void*);
 	int count(void*);
+	std::vector<void*> get_vector();
 	void seek(int);
 	int size();
 };

@@ -18,9 +18,9 @@ Switch::Switch() : Repeater() {
 /**
 * Конструктор с параметрами
 *
-* @param массив пакетов
+* @param массив байт
 */
-Switch::Switch(const double*& packets) : Repeater(packets) {
+Switch::Switch(const unsigned char*& bytes) : Repeater(bytes) {
     set_defaults();
 }
 
@@ -59,11 +59,11 @@ Switch::Switch(std::vector<Client>& clients, MAC_Address address) : Repeater(add
 /**
 * Конструктор с параметрами
 *
-* @param массив пакетов
+* @param массив байт
 * @param вектор клиентов
 * @param адрес
 */
-Switch::Switch(const double*& packets, std::vector<Client>& clients, MAC_Address address) : Repeater(packets, address) {
+Switch::Switch(const unsigned char*& bytes, std::vector<Client>& clients, MAC_Address address) : Repeater(bytes, address) {
     set_defaults();
     if (clients.size() > cli_cap) throw std::overflow_error("clients vector is too big");
     this->clients = clients;
@@ -74,7 +74,7 @@ Switch::Switch(const double*& packets, std::vector<Client>& clients, MAC_Address
 *
 * @param экземпляр Switch
 */
-Switch::Switch(const Switch& sw) : Repeater(const_cast<const double*&>(sw.packets), const_cast<MAC_Address&>(sw.address)) {
+Switch::Switch(const Switch& sw) : Repeater(const_cast<const unsigned char*&>(sw.bytes), const_cast<MAC_Address&>(sw.address)) {
     this->clients = sw.clients;
 };
 

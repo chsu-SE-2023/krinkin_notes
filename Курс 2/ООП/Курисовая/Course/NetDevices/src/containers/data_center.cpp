@@ -10,8 +10,12 @@ DataCenter::DataCenter() : Container() {
 //	return Container::operator[](index);
 //}
 
-void DataCenter::add(NetDevice* device) {
+void DataCenter::add(void* device) {
 	Container::add(device);
+}
+
+std::vector<void*> DataCenter::get_vector() {
+	return Container::get_vector();
 }
 
 void DataCenter::remove(int index) {

@@ -9,11 +9,11 @@ protected:
     void set_defaults();
 public:
     Gateway();
-    Gateway(const double*&);
+    Gateway(const unsigned char*&);
     Gateway(std::vector<Client>&);
     Gateway(MAC_Address);
     Gateway(std::vector<Client>&, MAC_Address);
-    Gateway(const double*&, std::vector<Client>&, MAC_Address, std::string);
+    Gateway(const unsigned char*&, std::vector<Client>&, MAC_Address, std::string);
     Gateway(const Gateway&);
     ~Gateway();
     std::string get_info();

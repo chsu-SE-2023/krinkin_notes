@@ -16,7 +16,7 @@ Container::Node::Node() {
 * 
 * @param указатель на хранимые данные
 */
-Container::Node::Node(void* data) {
+Container::Node::Node(void*& data) {
 	this->data = data;
 	this->next = nullptr;
 }
@@ -107,6 +107,16 @@ int Container::count(void* item) {
 		current = current->next;
 	}
 	return count;
+}
+
+std::vector<void*> Container::get_vector() {
+	std::vector<void*> vec = {};
+	Node* current = first;
+	while (current != nullptr) {
+		vec.emplace_back(current);
+		current = current->next;
+	}
+	return vec;
 }
 
 /**

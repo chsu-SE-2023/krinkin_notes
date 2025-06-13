@@ -5,7 +5,7 @@
 * ѕриватный метод, задающий значени€ по умолчанию
 */
 void Repeater::set_defaults() {
-    this->packets = nullptr;
+    this->bytes = nullptr;
     this->address = MAC_Address();
 }
 
@@ -29,22 +29,22 @@ Repeater::Repeater(MAC_Address address) {
 /**
 *  онструктор с параметрами
 *
-* @param массив пакетов
+* @param массив байт
 */
-Repeater::Repeater(const double*& packets) {
+Repeater::Repeater(const unsigned char*& bytes) {
     set_defaults();
-    this->packets = packets;
+    this->bytes = bytes;
 };
 
 /**
 *  онструктор с параметрами
 *
-* @param массив пакетов
+* @param массив байт
 * @param MAC-адрес
 */
-Repeater::Repeater(const double*& packets, MAC_Address address) {
+Repeater::Repeater(const unsigned char*& bytes, MAC_Address address) {
     set_defaults();
-    this->packets = packets;
+    this->bytes = bytes;
     this->address = address;
 }
 
@@ -55,7 +55,7 @@ Repeater::Repeater(const double*& packets, MAC_Address address) {
 */
 Repeater::Repeater(const Repeater& copy) {
     this->address = copy.address;
-    this->packets = copy.packets;
+    this->bytes = copy.bytes;
 };
 
 /**
@@ -137,17 +137,17 @@ bool operator!=(const Repeater& first, const Repeater& second) {
 * 
 * @return массив пакетов
 */
-const double* Repeater::get_packets() const {
-    return packets;
+const unsigned char* Repeater::get_bytes() const {
+    return bytes;
 };
 
 /**
-* ћетод дл€ получени€ пакетов
+* ћетод дл€ получени€ байт
 *
-* @param принимаемый массив пакетов
+* @param принимаемый массив байт
 */
-void Repeater::receive(const double*& packets) {
-    this->packets = packets;
+void Repeater::receive(const unsigned char*& bytes) {
+    this->bytes = bytes;
 };
 
 /**
@@ -157,6 +157,7 @@ void Repeater::receive(const double*& packets) {
 * @return текст о пол€х объекта
 */
 std::string Repeater::get_info() {
+    // TODO: печать bytes
     return "address: " + address.as_string();
 }
 

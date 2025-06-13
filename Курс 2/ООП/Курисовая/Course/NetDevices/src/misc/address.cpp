@@ -1,4 +1,5 @@
 #include "address.h"
+#include <iomanip>
 #include <sstream>
 #include <ios>
 
@@ -16,6 +17,23 @@ MAC_Address::MAC_Address() {
 */
 MAC_Address::MAC_Address(std::array<unsigned char, 6> values) {
 	this->values = values;
+}
+
+/**
+*  онструктор с параметром
+*
+* @param адрес в виде строки
+*/
+MAC_Address::MAC_Address(std::string str) {
+	std::istringstream isstream(str);
+	std::string part;
+	int size = 0;
+	while (std::getline(isstream, part, ':') && size < 6) {
+		int value = std::stoi(part, nullptr, 16);
+		if (value > 255) throw std::overflow_error("MAC Address part was bigger than one byte");
+		values[size] = value;
+		size++;
+	}
 }
 
 /**
@@ -50,13 +68,13 @@ bool operator!= (const MAC_Address& first, const MAC_Address& second) {
 /**
 * ћетод, возвращающий MAC-адрес как строку
 *
-* @return MAX-адрес как std::string
+* @return MAC-адрес как std::string
 */
 std::string MAC_Address::as_string() {
 	std::stringstream ss;
 	for (int i = 0; i < values.size() - 1; i++)
-		ss << std::hex << (unsigned int)std::int8_t(values[i]) << ':';
-	ss << std::hex << (unsigned int)std::int8_t(values[values.size()-1]);
+		ss << std::uppercase << std::hex << std::setw(2) << std::setfill('0') << (unsigned int)std::int8_t(values[i]) << ':';
+	ss << std::uppercase << std::hex << std::setw(2) << std::setfill('0') << (unsigned int)std::int8_t(values[values.size()-1]);
 	return ss.str();
 }
 

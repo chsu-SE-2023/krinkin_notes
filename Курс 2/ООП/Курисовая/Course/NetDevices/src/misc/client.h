@@ -9,15 +9,15 @@ class Client {
 private:
 	std::string name;
 	MAC_Address address;
-	const double* packets;
+	const unsigned char* bytes;
 	char type;
 
 public:
 	Client();
 	Client(std::string);
 	Client(MAC_Address);
-	Client(double*);
-	Client(std::string, MAC_Address, double*, char);
+	Client(unsigned char*);
+	Client(std::string, MAC_Address, unsigned char*, char);
 	Client(const Client&);
 	~Client();
 	friend bool operator==(const Client&, const Client&);
@@ -28,5 +28,5 @@ public:
 	void set_name(std::string);
 	void set_type(char);
 	void send_to(NetDevice*);
-	const double* receive_from(NetDevice*);
+	const unsigned char* receive_from(NetDevice*);
 };

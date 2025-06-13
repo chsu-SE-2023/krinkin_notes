@@ -4,13 +4,13 @@
 class Repeater: public NetDevice {
 protected:
     MAC_Address address;
-    const double* packets;
+    const unsigned char* bytes;
     void set_defaults();
 public:
     Repeater();
     Repeater(MAC_Address);
-    Repeater(const double*&);
-    Repeater(const double*&, MAC_Address);
+    Repeater(const unsigned char*&);
+    Repeater(const unsigned char*&, MAC_Address);
     Repeater(const Repeater&);
     ~Repeater();
     friend bool operator>(const Repeater&, const Repeater&);
@@ -21,9 +21,9 @@ public:
     friend bool operator!=(const Repeater&, const Repeater&);
     MAC_Address get_address() const;
     std::string get_info();
-    const double* get_packets() const;
+    const unsigned char* get_bytes() const;
     void set_address(const MAC_Address);
-    void receive(const double*&);
+    void receive(const unsigned char*&);
     void print_info();
     void reset();
 };

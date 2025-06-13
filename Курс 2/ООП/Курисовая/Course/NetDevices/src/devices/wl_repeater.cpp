@@ -40,21 +40,21 @@ WLRepeater::WLRepeater(MAC_Address address) : Repeater(address) {
 /**
 * Конструктор с параметрами
 *
-* @param массив пакетов
+* @param массив байт
 */
-WLRepeater::WLRepeater(const double*& packets) : Repeater(packets) {
+WLRepeater::WLRepeater(const unsigned char*& bytes) : Repeater(bytes) {
     set_defaults();
 }
 
 /**
 * Конструктор с параметрами
 *
-* @param массив пакетов
+* @param массив байт
 * @param MAC-адрес
 * @param SSID беспроводной сети
 * @param пароль беспроводной сети
 */
-WLRepeater::WLRepeater(const double*& packets, MAC_Address address, std::string ssid, std::string passwd) : Repeater(packets, address) {
+WLRepeater::WLRepeater(const unsigned char*& bytes, MAC_Address address, std::string ssid, std::string passwd) : Repeater(bytes, address) {
     set_defaults();
     this->ssid = ssid;
     this->passwd = passwd;
@@ -65,7 +65,7 @@ WLRepeater::WLRepeater(const double*& packets, MAC_Address address, std::string 
 *
 * @param экземпляр WLRepeater
 */
-WLRepeater::WLRepeater(const WLRepeater& copy) : Repeater(const_cast<const double*&>(copy.packets), const_cast<MAC_Address&>(copy.address)) {
+WLRepeater::WLRepeater(const WLRepeater& copy) : Repeater(const_cast<const unsigned char*&>(copy.bytes), const_cast<MAC_Address&>(copy.address)) {
     this->ssid = copy.ssid;
     this->passwd = copy.passwd;
 }

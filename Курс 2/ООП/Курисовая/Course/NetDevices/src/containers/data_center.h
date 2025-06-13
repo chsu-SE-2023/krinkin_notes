@@ -8,7 +8,8 @@ private:
 public:
 	DataCenter();
 	//NetDevice*& operator[](int);
-	void add(NetDevice*);
+	void add(void*);
+	std::vector<void*> get_vector();
 	void remove(int);
 	void print();
 	int size();

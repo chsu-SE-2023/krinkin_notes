@@ -11,8 +11,8 @@ public:
     WLRepeater();
     WLRepeater(std::string, std::string);
     WLRepeater(MAC_Address);
-    WLRepeater(const double*&);
-    WLRepeater(const double*&, MAC_Address, std::string, std::string);
+    WLRepeater(const unsigned char*&);
+    WLRepeater(const unsigned char*&, MAC_Address, std::string, std::string);
     WLRepeater(const WLRepeater&);
     ~WLRepeater();
     std::string get_info();

@@ -6,7 +6,7 @@
 Client::Client() {
 	this->name = "";
 	this->address = MAC_Address();
-	this->packets = nullptr;
+	this->bytes = nullptr;
 	this->type = WIRED;
 }
 
@@ -18,7 +18,7 @@ Client::Client() {
 Client::Client(std::string name) {
 	this->name = name;
 	this->address = MAC_Address();
-	this->packets = nullptr;
+	this->bytes = nullptr;
 	this->type = WIRED;
 }
 
@@ -30,19 +30,19 @@ Client::Client(std::string name) {
 Client::Client(MAC_Address address) {
 	this->name = "";
 	this->address = address;
-	this->packets = nullptr;
+	this->bytes = nullptr;
 	this->type = WIRED;
 }
 
 /**
 * Конструктор с параметрами
 *
-* @param массив пакетов
+* @param массив байт
 */
-Client::Client(double* packets) {
+Client::Client(unsigned char* bytes) {
 	this->name = "";
 	this->address = MAC_Address();
-	this->packets = packets;
+	this->bytes = bytes;
 	this->type = WIRED;
 }
 
@@ -51,13 +51,13 @@ Client::Client(double* packets) {
 *
 * @param имя клиента
 * @param MAC-адрес
-* @param массив пакетов
+* @param массив байт
 * @param тип подключения (0 - WIRED, 1 - WIRELESS)
 */
-Client::Client(std::string name, MAC_Address address, double* packets, char type) {
+Client::Client(std::string name, MAC_Address address, unsigned char* bytes, char type) {
 	this->name = name;
 	this->address = address;
-	this->packets = packets;
+	this->bytes = bytes;
 	this->type = type;
 }
 /**
@@ -68,7 +68,7 @@ Client::Client(std::string name, MAC_Address address, double* packets, char type
 Client::Client(const Client& copy) {
 	this->name = copy.name;
 	this->address = copy.address;
-	this->packets = copy.packets;
+	this->bytes = copy.bytes;
 	this->type = copy.type;
 }
 
@@ -77,7 +77,7 @@ Client::Client(const Client& copy) {
 */
 Client::~Client() {
 	name = "";
-	if (packets) delete packets;
+	if (bytes) delete bytes;
 }
 
 /**
@@ -146,24 +146,24 @@ void Client::set_type(char type) {
 }
 
 /**
-* Метод, отправляющий пакеты на сетевое устройство
+* Метод, отправляющий байты на сетевое устройство
 *
 * @param сетевое устройство
 */
 void Client::send_to(NetDevice* device) {
-	device->receive(this->packets);
+	device->receive(this->bytes);
 }
 
 /**
-* Метод, принимающий пакеты от сетевого устройства
+* Метод, принимающий байты от сетевого устройства
 * 
 * Сохраняет полученный адрес массива в поле объекта,
 * а также возвращает его значение
 *
 * @param сетевое устройство
-* @return массив пакетов
+* @return массив байт
 */
-const double* Client::receive_from(NetDevice* device) {
-	this->packets = device->get_packets();
-	return this->packets;
+const unsigned char* Client::receive_from(NetDevice* device) {
+	this->bytes = device->get_bytes();
+	return this->bytes;
 }

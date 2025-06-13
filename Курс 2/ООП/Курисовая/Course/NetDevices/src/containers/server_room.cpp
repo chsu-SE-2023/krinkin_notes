@@ -3,7 +3,7 @@
 #include "../misc/address.h"
 #include <iostream>
 
-// Инстанцирование для Repeater
+#pragma region Instancing for Repeater
 template class ServerRoom<Repeater>;
 template ServerRoom<Repeater>::Node::Node(Repeater*);
 template ServerRoom<Repeater>::Node::~Node();
@@ -21,8 +21,9 @@ template void ServerRoom<Repeater>::seek(int);
 template void ServerRoom<Repeater>::sort();
 template Repeater* ServerRoom<Repeater>::search(MAC_Address);
 template int ServerRoom<Repeater>::size();
+#pragma endregion
 
-// Инстанцирование для WLRepeater
+#pragma region Instancing for WLRepeater
 template class ServerRoom<WLRepeater>;
 template ServerRoom<WLRepeater>::Node::Node(WLRepeater*);
 template ServerRoom<WLRepeater>::Node::~Node();
@@ -40,8 +41,9 @@ template void ServerRoom<WLRepeater>::seek(int);
 template void ServerRoom<WLRepeater>::sort();
 template WLRepeater* ServerRoom<WLRepeater>::search(MAC_Address);
 template int ServerRoom<WLRepeater>::size();
+#pragma endregion
 
-// Инстанцирование для Switch
+#pragma region Instancing for Switch
 template class ServerRoom<Switch>;
 template ServerRoom<Switch>::Node::Node(Switch*);
 template ServerRoom<Switch>::Node::~Node();
@@ -59,8 +61,9 @@ template void ServerRoom<Switch>::seek(int);
 template void ServerRoom<Switch>::sort();
 template Switch* ServerRoom<Switch>::search(MAC_Address);
 template int ServerRoom<Switch>::size();
+#pragma endregion
 
-// Инстанцирование для Gateway
+#pragma region Instancing for Gateway
 template class ServerRoom<Gateway>;
 template ServerRoom<Gateway>::Node::Node(Gateway*);
 template ServerRoom<Gateway>::Node::~Node();
@@ -78,8 +81,9 @@ template void ServerRoom<Gateway>::seek(int);
 template void ServerRoom<Gateway>::sort();
 template Gateway* ServerRoom<Gateway>::search(MAC_Address);
 template int ServerRoom<Gateway>::size();
+#pragma endregion
 
-// Инстанцирование для Router
+#pragma region Instancing for Router
 template class ServerRoom<Router>;
 template ServerRoom<Router>::Node::Node(Router*);
 template ServerRoom<Router>::Node::~Node();
@@ -97,6 +101,7 @@ template void ServerRoom<Router>::seek(int);
 template void ServerRoom<Router>::sort();
 template Router* ServerRoom<Router>::search(MAC_Address);
 template int ServerRoom<Router>::size();
+#pragma endregion
 
 /**
 * Конструктор для структуры
@@ -116,7 +121,7 @@ ServerRoom<T>::Node::Node(T* device) {
 */
 template <typename T>
 ServerRoom<T>::Node::~Node() {
-    if (device) delete device; // Нужно ли удалять девайс в принципе?
+    if (device) delete device; // TODO: Нужно ли удалять девайс в принципе?
     if (next) delete next;
     if (prev != nullptr) prev->next = nullptr;
 }
@@ -139,6 +144,23 @@ template <typename T>
 ServerRoom<T>::ServerRoom(T& device) {
     this->first = new Node(&device);
     this->last = this->first;
+}
+
+/**
+* Копирующий конструктор
+*
+* @param ссылка на добавляемое устройство
+*/
+template <typename T>
+ServerRoom<T>::ServerRoom(const ServerRoom<T>& copy) {
+    this->first = new Node(nullptr);
+    this->last = this->first;
+    Node* current = copy.first;
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            this->add(*current->device);
+        current = current->next;
+    }
 }
 
 /**
@@ -243,8 +265,9 @@ template <typename T>
 std::vector<T*> ServerRoom<T>::get_vector() {
     std::vector<T*> pointers = {};
     Node* current = this->first;
-    while (current->next != nullptr) {
-        pointers.emplace_back(current->device);
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            pointers.emplace_back(current->device);
         current = current->next;
     }
     return pointers;
@@ -321,13 +344,10 @@ template <typename T>
 int ServerRoom<T>::size() {
     int count = 0;
     Node* current = this->first;
-    if (current != nullptr && current->device != nullptr) {
-        count++;
-        while (current->next != nullptr) {
-            if (current != nullptr)
-                current = current->next;
+    while (current != nullptr) {
+        if (current->device != nullptr)
             count++;
-        }
+        current = current->next;
     }
     return count;
 }
