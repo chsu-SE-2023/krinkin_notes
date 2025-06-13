@@ -1,6 +1,8 @@
 #include <iostream>
 #include "switch.h"
 
+int Switch::cli_cap = 32;
+
 /**
 * Приватный метод, задающий значения по умолчанию
 */
@@ -87,25 +89,69 @@ Switch::~Switch() {
 }
 
 /**
- * Оператор сравнивающий количество подключенных к устройствам клиентов
- * 
- * @param первое устройство
- * @param второе устройство
- * @return булево значение сравнения
- */
+* Перезрузка оператора >
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
 bool operator>(const Switch& first, const Switch& second) {
-    return first.clients.size() > second.clients.size();
+    return first.clients.size() > first.clients.size();
 }
 
 /**
- * Оператор сравнивающий количество подключенных к устройствам клиентов
- *
- * @param первое устройство
- * @param второе устройство
- * @return булево значение сравнения
- */
+* Перезрузка оператора <
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
 bool operator<(const Switch& first, const Switch& second) {
-    return first.clients.size() < second.clients.size();
+    return first.clients.size() < first.clients.size();
+}
+
+/**
+* Перезрузка оператора >=
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator>=(const Switch& first, const Switch& second) {
+    return first.clients.size() >= first.clients.size();
+}
+
+/**
+* Перезрузка оператора <=
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator<=(const Switch& first, const Switch& second) {
+    return first.clients.size() <= first.clients.size();
+}
+
+/**
+* Перезрузка оператора ==
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator==(const Switch& first, const Switch& second) {
+    return first.clients.size() == first.clients.size();
+}
+
+/**
+* Перезрузка оператора !=
+*
+* @param ссылка на первый объект
+* @param ссылка на первый объект
+* @return результат сравнения
+*/
+bool operator!=(const Switch& first, const Switch& second) {
+    return first.clients.size() != first.clients.size();
 }
 
 /**
@@ -135,7 +181,16 @@ std::vector<Client> Switch::get_clients() const {
 * @return текст о полях объекта
 */
 std::string Switch::get_info() {
-    return Repeater::get_info() + ", cli_cap: " + std::to_string(cli_cap) + ", clients: vector<>";
+    return Repeater::get_info() + ", cli_cap: " + std::to_string(cli_cap) + 
+        ", clients: vector<Client> {size: " + std::to_string(clients.size()) + "}";
+}
+/**
+* Статический метод задающий вместительность устройства
+*
+* @param вместительность устройства
+*/
+void Switch::set_capacity(int value) {
+    cli_cap = value;
 }
 
 /**
@@ -149,9 +204,9 @@ void Switch::set_clients(std::vector<Client>& clients) {
 }
 
 /**
-* Метод принимающий вектор клиентов, подключаемых к устройству
+* Метод, возвращающий количество клиентов, подключенных к устройству
 *
-* @param вектор клиентов, подключаемых к устройству
+* @return количество клиентов, подключенных к устройству
 */
 int Switch::clients_count() const {
     return this->clients.size();

@@ -7,12 +7,12 @@ private:
 	int clients_total;
 public:
 	DataCenter();
-	//NetDevice*& operator[](int);
+	//NetDevice_I*& operator[](int);
 	void add(void*);
-	std::vector<void*> get_vector();
-	void remove(int);
-	void print();
-	int size();
-	int get_total_devices() const;
 	void clear();
+	int count(void*);
+	int get_total_devices() const;
+	std::vector<void*> get_vector();
+	void seek(int);
+	int size();
 };

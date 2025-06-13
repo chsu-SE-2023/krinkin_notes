@@ -27,6 +27,6 @@ public:
 	void set_address(MAC_Address);
 	void set_name(std::string);
 	void set_type(char);
-	void send_to(NetDevice*);
-	const unsigned char* receive_from(NetDevice*);
+	void send_to(NetDevice_I*);
+	const unsigned char* receive_from(NetDevice_I*);
 };

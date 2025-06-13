@@ -4,10 +4,10 @@
 #include <ios>
 
 /**
-*  онструктор по умолчанию. —оздаЄт адрес 00:00:00:00:00:00
+*  онструктор по умолчанию. —оздаЄт случайный адрес
 */
 MAC_Address::MAC_Address() {
-	values.fill(0);
+	generate();
 }
 
 /**
@@ -46,7 +46,63 @@ MAC_Address::MAC_Address(const MAC_Address& copy) {
 }
 
 /**
-* ќператор, провер€юий идентичны ли два MAC-адреса
+* ѕерегрузка оператора больше
+*
+* @param первый MAC-адрес
+* @param второй MAC-адрес
+*/
+bool operator>(const MAC_Address& first, const MAC_Address& second) {
+	for (int i = 0; i < first.values.size(); i++) {
+		if (first.values[i] != second.values[i])
+			return first.values[i] > second.values[i];
+	}
+	return false;
+}
+
+/**
+* ѕерегрузка оператора меньше
+*
+* @param первый MAC-адрес
+* @param второй MAC-адрес
+*/
+bool operator<(const MAC_Address& first, const MAC_Address& second) {
+	for (int i = 0; i < first.values.size(); i++) {
+		if (first.values[i] != second.values[i]) 
+			return first.values[i] < second.values[i];
+	}
+	return false;
+}
+
+/**
+* ѕерегрузка оператора больше или равно
+*
+* @param первый MAC-адрес
+* @param второй MAC-адрес
+*/
+bool operator>=(const MAC_Address& first, const MAC_Address& second) {
+	for (int i = 0; i < first.values.size(); i++) {
+		if (first.values[i] != second.values[i])
+			return first.values[i] > second.values[i];
+	}
+	return true;
+}
+
+/**
+* ѕерегрузка оператора меньше или равно
+*
+* @param первый MAC-адрес
+* @param второй MAC-адрес
+*/
+bool operator<=(const MAC_Address& first, const MAC_Address& second) {
+	for (int i = 0; i < first.values.size(); i++) {
+		if (first.values[i] != second.values[i])
+			return first.values[i] < second.values[i];
+	}
+	return true;
+}
+
+/**
+* ќператор, провер€ющий идентичны ли два MAC-адреса
 *
 * @param первый MAC-адрес
 * @param второй MAC-адрес
@@ -56,7 +112,7 @@ bool operator== (const MAC_Address& first, const MAC_Address& second) {
 }
 
 /**
-* ќператор, провер€юий различны ли два MAC-адреса
+* ќператор, провер€ющий различны ли два MAC-адреса
 *
 * @param первый MAC-адрес
 * @param второй MAC-адрес
@@ -73,8 +129,8 @@ bool operator!= (const MAC_Address& first, const MAC_Address& second) {
 std::string MAC_Address::as_string() {
 	std::stringstream ss;
 	for (int i = 0; i < values.size() - 1; i++)
-		ss << std::uppercase << std::hex << std::setw(2) << std::setfill('0') << (unsigned int)std::int8_t(values[i]) << ':';
-	ss << std::uppercase << std::hex << std::setw(2) << std::setfill('0') << (unsigned int)std::int8_t(values[values.size()-1]);
+		ss << std::uppercase << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(static_cast<uint8_t>(values[i])) << ':';
+	ss << std::uppercase << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(static_cast<uint8_t>(values[values.size()-1]));
 	return ss.str();
 }
 
@@ -83,8 +139,7 @@ std::string MAC_Address::as_string() {
 *
 * @param сем€ дл€ генератора случайных чисел
 */
-void MAC_Address::generate(unsigned int seed) {
-	srand(seed);
+void MAC_Address::generate() {
 	for (int i = 0; i < values.size(); i++)
 		values[i] = rand() % 255;
 }

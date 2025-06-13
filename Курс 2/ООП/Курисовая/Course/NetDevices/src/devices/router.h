@@ -18,6 +18,7 @@ public:
     Router(const unsigned char*&, std::vector<Client>&, MAC_Address, std::string, std::string, std::string);
     Router(const Router&);
     ~Router();
+    int clients_count() const;
     MAC_Address get_address() const;
     std::string get_info();
     const unsigned char* get_bytes() const;

@@ -3,6 +3,11 @@
 #include "../devices/router.h"
 #include "server_room.h"
 
+enum class SearchMode {
+    Protocol, 
+    SSID
+};
+
 template <typename T>
 class ServerRoom {
 
@@ -31,7 +36,10 @@ public:
     std::vector<T*> get_vector();
     void seek(int);
 	void sort();
-    T* search(MAC_Address);
+    std::vector<T*> search(MAC_Address);
+    std::vector<T*> search(int, int);
+    std::vector<T*> search(std::string, SearchMode);
+    std::vector<Router*> search(bool);
     int size();
     int cli_total();
 };

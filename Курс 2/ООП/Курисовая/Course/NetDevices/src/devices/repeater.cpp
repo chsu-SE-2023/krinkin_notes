@@ -133,6 +133,15 @@ bool operator!=(const Repeater& first, const Repeater& second) {
 }
 
 /**
+* ћетод, возвращающий количество клиентов, подключенных к устройству
+*
+* @return количество клиентов, подключенных к устройству
+*/
+int Repeater::clients_count() const {
+    return 1;
+}
+
+/**
 * ћетод, возвращающий хранимый массив пакетов
 * 
 * @return массив пакетов

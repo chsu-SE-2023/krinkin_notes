@@ -6,7 +6,7 @@
 * ѕриватный метод, задающий значени€ по умолчанию
 */
 void Gateway::set_defaults() {
-    this->protocol = "";
+    this->protocol = "raw";
 }
 
 /**

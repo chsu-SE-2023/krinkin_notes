@@ -34,7 +34,7 @@ Container::Node::~Node() {
 *  оструктор по умолчанию
 */
 Container::Container() {
-	this->first = new Node();
+	this->first = nullptr;
 	this->last = this->first;
 }
 
@@ -78,18 +78,18 @@ const void* Container::operator[](int index) {
 }
 
 /**
-* ћетод, добавл€ющий элемент в конструктор
+* ћетод, добавл€ющий элемент в контейнер
 *
 * @param указатель на добавл€емое значение
 */
 void Container::add(void* item) {
-	if (this->last->data == nullptr) {
-		this->last->data = item;
+	if (this->last == nullptr) {
+		this->last = new Node(item);
+		this->first = this->last;
 	}
 	else {
 		this->last->next = new Node(item);
 		this->last = this->last->next;
-		this->last->next = nullptr;
 	}
 }
 
@@ -109,6 +109,11 @@ int Container::count(void* item) {
 	return count;
 }
 
+/**
+* ћетод, возвращающий данные из контейнера в виде вектора
+*
+* @return данные из контейнера в виде вектора
+*/
 std::vector<void*> Container::get_vector() {
 	std::vector<void*> vec = {};
 	Node* current = first;

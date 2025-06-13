@@ -94,6 +94,15 @@ Router::~Router() {
 }
 
 /**
+* Метод, возвращающий количество клиентов, подключенных к устройству
+*
+* @return количество клиентов, подключенных к устройству
+*/
+int Router::clients_count() const {
+    return Gateway::clients_count();
+}
+
+/**
 * Метод, возвращающий хранимый массив пакетов
 *
 * @return массив пакетов
@@ -127,7 +136,7 @@ MAC_Address Router::get_address() const {
 * @return текст о полях объекта
 */
 std::string Router::get_info() {
-    return Gateway::get_info() + WLRepeater::get_info() + ", wps: " + std::to_string(wps);
+    return Gateway::get_info() + ", ssid: " + ssid + ", passwd: " + passwd + ", wps: " + std::to_string(wps);
 }
 
 /**

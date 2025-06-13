@@ -19,8 +19,11 @@ template void ServerRoom<Repeater>::add(Repeater&);
 template std::vector<Repeater*> ServerRoom<Repeater>::get_vector();
 template void ServerRoom<Repeater>::seek(int);
 template void ServerRoom<Repeater>::sort();
-template Repeater* ServerRoom<Repeater>::search(MAC_Address);
+template std::vector<Repeater*> ServerRoom<Repeater>::search(MAC_Address);
+template std::vector <Repeater*> ServerRoom<Repeater>::search(int, int);
+template std::vector <Repeater*> ServerRoom<Repeater>::search(std::string, SearchMode);
 template int ServerRoom<Repeater>::size();
+template int ServerRoom<Repeater>::cli_total();
 #pragma endregion
 
 #pragma region Instancing for WLRepeater
@@ -39,8 +42,11 @@ template void ServerRoom<WLRepeater>::add(WLRepeater&);
 template std::vector<WLRepeater*> ServerRoom<WLRepeater>::get_vector();
 template void ServerRoom<WLRepeater>::seek(int);
 template void ServerRoom<WLRepeater>::sort();
-template WLRepeater* ServerRoom<WLRepeater>::search(MAC_Address);
+template std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(MAC_Address);
+template std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(int, int);
+template std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(std::string, SearchMode);
 template int ServerRoom<WLRepeater>::size();
+template int ServerRoom<WLRepeater>::cli_total();
 #pragma endregion
 
 #pragma region Instancing for Switch
@@ -59,8 +65,11 @@ template void ServerRoom<Switch>::add(Switch&);
 template std::vector<Switch*> ServerRoom<Switch>::get_vector();
 template void ServerRoom<Switch>::seek(int);
 template void ServerRoom<Switch>::sort();
-template Switch* ServerRoom<Switch>::search(MAC_Address);
+template std::vector <Switch*> ServerRoom<Switch>::search(MAC_Address);
+template std::vector <Switch*> ServerRoom<Switch>::search(int, int);
+template std::vector <Switch*> ServerRoom<Switch>::search(std::string, SearchMode);
 template int ServerRoom<Switch>::size();
+template int ServerRoom<Switch>::cli_total();
 #pragma endregion
 
 #pragma region Instancing for Gateway
@@ -79,8 +88,11 @@ template void ServerRoom<Gateway>::add(Gateway&);
 template std::vector<Gateway*> ServerRoom<Gateway>::get_vector();
 template void ServerRoom<Gateway>::seek(int);
 template void ServerRoom<Gateway>::sort();
-template Gateway* ServerRoom<Gateway>::search(MAC_Address);
+template std::vector <Gateway*> ServerRoom<Gateway>::search(MAC_Address);
+template std::vector <Gateway*> ServerRoom<Gateway>::search(int, int);
+template std::vector <Gateway*> ServerRoom<Gateway>::search(std::string, SearchMode);
 template int ServerRoom<Gateway>::size();
+template int ServerRoom<Gateway>::cli_total();
 #pragma endregion
 
 #pragma region Instancing for Router
@@ -99,8 +111,11 @@ template void ServerRoom<Router>::add(Router&);
 template std::vector<Router*> ServerRoom<Router>::get_vector();
 template void ServerRoom<Router>::seek(int);
 template void ServerRoom<Router>::sort();
-template Router* ServerRoom<Router>::search(MAC_Address);
+template std::vector <Router*> ServerRoom<Router>::search(MAC_Address);
+template std::vector <Router*> ServerRoom<Router>::search(int, int);
+template std::vector <Router*> ServerRoom<Router>::search(std::string, SearchMode);
 template int ServerRoom<Router>::size();
+template int ServerRoom<Router>::cli_total();
 #pragma endregion
 
 /**
@@ -131,7 +146,7 @@ ServerRoom<T>::Node::~Node() {
 */
 template <typename T> 
 ServerRoom<T>::ServerRoom() {
-    this->first = new Node(nullptr);
+    this->first = nullptr;
     this->last = this->first;
 }
 
@@ -153,7 +168,7 @@ ServerRoom<T>::ServerRoom(T& device) {
 */
 template <typename T>
 ServerRoom<T>::ServerRoom(const ServerRoom<T>& copy) {
-    this->first = new Node(nullptr);
+    this->first = nullptr;
     this->last = this->first;
     Node* current = copy.first;
     while (current != nullptr) {
@@ -251,8 +266,9 @@ bool operator!=(const ServerRoom<T>& first, const ServerRoom<T>& second) {
  */
 template <typename T>
 void ServerRoom<T>::add(T& device) {
-    if (this->last->device == nullptr) {
-        this->last->device = &device;
+    if (this->last == nullptr) {
+        this->last = new Node(&device);
+        this->first = this->last;
     }
     else {
         this->last->next = new Node(&device);
@@ -282,23 +298,24 @@ template <typename T>
 void ServerRoom<T>::seek(int count) {
     if (count <= 0)
         throw std::invalid_argument("Count must be positive and bigger than zero");
-    if (this->first == this->last) {
-        this->first = nullptr;
-        this->last = nullptr;
-    }
-    else {
-        do {
-            Node* prev = get_node(this, size() - 1);
+    do {
+        if (this->first == this->last) {
+            if (this->last != nullptr) delete this->last;
+            this->first = nullptr;
+            this->last = nullptr;
+        }
+        else {
+            Node* prev = get_node(this, size() - 2);
             prev->next = nullptr;
             delete this->last;
             this->last = prev;
-            count--;
-        } while (count > 0);
-    }
+        }
+        count--;
+    } while (count > 0);
 }
 
 /**
- * Метод сортирует экземпляры по количеству поключенных устройств по возрастанию
+ * Метод сортирует хранимые объекты методом пузырька
  */
 template <typename T>
 void ServerRoom<T>::sort() {
@@ -318,21 +335,81 @@ void ServerRoom<T>::sort() {
 /**
 * Метод поиска экземпляра по MAC адресу
 * 
-* @param address объекта NetDevice
-* @return указатель на найденный объект или nullptr если объект не найден
+* @param address объекта
+* @return вектор указатель на найденные объекты
 */
 template<typename T>
-T* ServerRoom<T>::search(MAC_Address address) {
+std::vector<T*> ServerRoom<T>::search(MAC_Address address) {
+    int count = 0;
+    std::vector<T*> vec = {};
     Node* current = this->first;
-    while (current->next != nullptr) {
-        if (current->device->get_address() != address) {
-            if (current->next != nullptr)
-                current = current->next;
-            continue;
-        }
-        return current->device;
+
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            if (current->device->get_address() == address)
+                vec.emplace_back(current->device);
+        current = current->next;
     }
-    return nullptr;
+    return vec;
+}
+
+/**
+* Метод поиска экземпляра по диапазону клиентов
+*
+* @param address объекта
+* @return вектор указатель на найденные объекты
+*/
+template<typename T>
+std::vector <T*> ServerRoom<T>::search(int start, int end) {
+    int count = 0;
+    std::vector<T*> vec = {};
+    Node* current = this->first;
+
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            if (start < current->device->clients_count() < end)
+                vec.emplace_back(current->device);
+        current = current->next;
+    }
+    return vec;
+}
+
+template<typename T>
+std::vector <T*> ServerRoom<T>::search(std::string str, SearchMode mode) {
+    int count = 0;
+    std::vector<T*> vec = {};
+    std::string search_str = "";
+    Node* current = this->first;
+
+    while (current != nullptr) {
+        //if (mode == SearchMode::Protocol) search_str = current->device->get_protocol();
+        //if (mode == SearchMode::SSID) search_str = current->device->get_ssid();
+        if (current->device != nullptr)
+            if (search_str != str)
+                vec.emplace_back(current->device);
+        current = current->next;
+    }
+    return vec;
+}
+
+/**
+* Метод поиска экземпляра по статусу WPS
+*
+* @param address объекта
+* @return вектор указатель на найденные объекты
+*/
+std::vector<Router*> ServerRoom<Router>::search(bool wps) {
+    int count = 0;
+    std::vector<Router*> vec = {};
+    Node* current = this->first;
+
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            if (current->device->is_wps() != wps)
+                vec.emplace_back(current->device);
+        current = current->next;
+    }
+    return vec;
 }
 
 /**
@@ -352,42 +429,14 @@ int ServerRoom<T>::size() {
     return count;
 }
 
-template <>
-int ServerRoom<Repeater>::cli_total() {
-    return this->size();
-}
-
-template <>
-int ServerRoom<WLRepeater>::cli_total() {
-    return this->size();
-}
-
-template <>
-int ServerRoom<Switch>::cli_total() {
-    int count = 0;
-    Node* current = this->first;
-    while (current != nullptr) {
-        if (current->device != nullptr)
-            count += current->device->clients_count();
-        current = current->next;
-    }
-    return count;
-}
-
-template <>
-int ServerRoom<Gateway>::cli_total() {
-    int count = 0;
-    Node* current = this->first;
-    while (current != nullptr) {
-        if (current->device != nullptr)
-            count += current->device->clients_count();
-        current = current->next;
-    }
-    return count;
-}
-
-template <>
-int ServerRoom<Router>::cli_total() {
+/**
+* Функция возвращает количество клиентов 
+* по всем устроствам в комнате
+*
+* @return количество клиентов
+*/
+template <typename T>
+int ServerRoom<T>::cli_total() {
     int count = 0;
     Node* current = this->first;
     while (current != nullptr) {
