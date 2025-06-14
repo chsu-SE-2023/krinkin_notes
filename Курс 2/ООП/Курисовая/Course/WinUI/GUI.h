@@ -17,6 +17,8 @@ namespace WinUI {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;	
 	using namespace System::Drawing;
+	using namespace System::IO;
+	using namespace System::Text;
 
 	/// <summary>
 	/// Summary for GUI
@@ -117,6 +119,9 @@ namespace WinUI {
 	private: System::Windows::Forms::TextBox^ textBoxResult;
 	private: System::Windows::Forms::Button^ buttonReset;
 	private: System::Windows::Forms::Button^ buttonDeleteAll;
+	private: System::Windows::Forms::Button^ buttonLoadFile;
+
+	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
 
 	private:
 		/// <summary>
@@ -181,6 +186,7 @@ namespace WinUI {
 			this->checkBoxWPS = (gcnew System::Windows::Forms::CheckBox());
 			this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
+			this->buttonLoadFile = (gcnew System::Windows::Forms::Button());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxPasswd = (gcnew System::Windows::Forms::TextBox());
 			this->buttonGet = (gcnew System::Windows::Forms::Button());
@@ -194,6 +200,7 @@ namespace WinUI {
 			this->textBox15 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxValue = (gcnew System::Windows::Forms::TextBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->tabControl1->SuspendLayout();
 			this->tabPageContainerB->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewB))->BeginInit();
@@ -751,6 +758,7 @@ namespace WinUI {
 			// 
 			// tabPage3
 			// 
+			this->tabPage3->Controls->Add(this->buttonLoadFile);
 			this->tabPage3->Controls->Add(this->textBox2);
 			this->tabPage3->Controls->Add(this->textBoxPasswd);
 			this->tabPage3->Controls->Add(this->buttonGet);
@@ -777,6 +785,18 @@ namespace WinUI {
 			this->tabPage3->TabIndex = 0;
 			this->tabPage3->Text = L"Объект";
 			this->tabPage3->UseVisualStyleBackColor = true;
+			// 
+			// buttonLoadFile
+			// 
+			this->buttonLoadFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonLoadFile->Location = System::Drawing::Point(92, 486);
+			this->buttonLoadFile->Name = L"buttonLoadFile";
+			this->buttonLoadFile->Size = System::Drawing::Size(149, 23);
+			this->buttonLoadFile->TabIndex = 28;
+			this->buttonLoadFile->Text = L"Загрузить из файла";
+			this->buttonLoadFile->UseVisualStyleBackColor = true;
+			this->buttonLoadFile->Click += gcnew System::EventHandler(this, &GUI::buttonLoadFile_Click);
 			// 
 			// textBox2
 			// 
@@ -933,6 +953,10 @@ namespace WinUI {
 			this->textBox1->Size = System::Drawing::Size(121, 17);
 			this->textBox1->TabIndex = 15;
 			this->textBox1->Text = L"Критерий (поле)";
+			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
 			// GUI
 			// 
@@ -1188,6 +1212,53 @@ private:
 			cont->seek(cont->size());
 		}
 		updateAllTables();
+	}
+
+	System::Void buttonLoadFile_Click(System::Object^ sender, System::EventArgs^ e) {
+		openFileDialog1->FileName = "";
+		openFileDialog1->ShowDialog();
+
+		StreamReader^ reader = gcnew StreamReader(openFileDialog1->FileName, Encoding::GetEncoding("windows-1251"));
+		do {
+			System::String^ line = reader->ReadLine();
+			cli::array<System::String^>^ data = line->Split(',');
+			if (data[0] == "Repeater") {
+				Repeater* obj = new Repeater();
+				obj->set_address(MAC_Address(to_string(data[1])));
+				contRepeater->add(*obj);
+			}
+			else if (data[0] == "WLRepeater") {
+				WLRepeater* obj = new WLRepeater();
+				obj->set_address(MAC_Address(to_string(data[1])));
+				obj->set_ssid(to_string(data[4]));
+				obj->set_passwd(to_string(data[5]));
+				contWLRepeater->add(*obj);
+			}
+			else if (data[0] == "Switch") {
+				Switch* obj = new Switch();
+				obj->set_address(MAC_Address(to_string(data[1])));
+				obj->set_capacity(Int32::Parse(data[2]));
+				contSwitch->add(*obj);
+			}
+			else if (data[0] == "Gateway") {
+				Gateway* obj = new Gateway();
+				obj->set_address(MAC_Address(to_string(data[1])));
+				obj->set_protocol(to_string(data[3]));
+				contGateway->add(*obj);
+			}
+			else if (data[0] == "Router") {
+				Router* obj = new Router();
+				obj->set_address(MAC_Address(to_string(data[1])));
+				obj->set_capacity(Int32::Parse(data[2]));
+				obj->set_protocol(to_string(data[3]));
+				obj->set_ssid(to_string(data[4]));
+				obj->set_passwd(to_string(data[5]));
+				if (bool::Parse(data[6])) obj->wps_init();
+				contRouter->add(*obj);
+			}
+			updateAllTables();
+		} while (reader->Peek() != -1);
+		reader->Close();
 	}
 };
 }
