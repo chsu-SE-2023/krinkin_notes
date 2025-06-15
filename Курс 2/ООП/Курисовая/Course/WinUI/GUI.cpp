@@ -1,4 +1,5 @@
 #include "GUI.h"
+#include "WLANDialog.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -12,4 +13,10 @@ int main(array<String^>^ args)
 
 	WinUI::GUI form;
 	Application::Run(% form);
+}
+
+void ShowWLANDialog()
+{
+	WinUI::WLANDialog^ form = gcnew WinUI::WLANDialog();
+	form->Show();
 }

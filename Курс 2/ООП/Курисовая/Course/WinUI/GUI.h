@@ -9,6 +9,8 @@
 #include "../NetDevices/src/containers/data_center.h"
 #include "../NetDevices/src/containers/server_room.h"
 
+void ShowWLANDialog();
+
 namespace WinUI {
 
 	using namespace System;
@@ -69,8 +71,6 @@ namespace WinUI {
 	private: System::Windows::Forms::TextBox^ textBoxProtocol;
 	private: System::Windows::Forms::TextBox^ textBox10;
 	private: System::Windows::Forms::TextBox^ textBoxCapacity;
-	private: System::Windows::Forms::TextBox^ textBox8;
-	private: System::Windows::Forms::TextBox^ textBoxBytes;
 	private: System::Windows::Forms::TextBox^ textBox6;
 	private: System::Windows::Forms::TextBox^ textBoxMAC;
 	private: System::Windows::Forms::TextBox^ textBox13;
@@ -120,9 +120,22 @@ namespace WinUI {
 	private: System::Windows::Forms::Button^ buttonReset;
 	private: System::Windows::Forms::Button^ buttonDeleteAll;
 	private: System::Windows::Forms::Button^ buttonLoadFile;
-
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
-
+	private: System::Windows::Forms::TabPage^ tabPageClient;
+	private: System::Windows::Forms::Button^ buttonMACGen;
+	private: System::Windows::Forms::Button^ buttonMACGenC;
+	private: System::Windows::Forms::TextBox^ textBoxMACC;
+	private: System::Windows::Forms::TextBox^ textBox5;
+	private: System::Windows::Forms::TextBox^ textBox7;
+	private: System::Windows::Forms::TextBox^ textBoxCName;
+	private: System::Windows::Forms::ComboBox^ comboBoxCType;
+	private: System::Windows::Forms::TextBox^ textBox14;
+	private: System::Windows::Forms::TextBox^ textBox16;
+	private: System::Windows::Forms::Button^ buttonConnect;
+	private: System::Windows::Forms::TextBox^ textBoxBytes;
+	private: System::Windows::Forms::TextBox^ textBox18;
+	public: System::Windows::Forms::TextBox^ textBoxConnectText;
+	private: System::Windows::Forms::TextBox^ textBoxConCriteria;
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -175,8 +188,6 @@ namespace WinUI {
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxMAC = (gcnew System::Windows::Forms::TextBox());
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxBytes = (gcnew System::Windows::Forms::TextBox());
-			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxCapacity = (gcnew System::Windows::Forms::TextBox());
 			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
@@ -186,6 +197,7 @@ namespace WinUI {
 			this->checkBoxWPS = (gcnew System::Windows::Forms::CheckBox());
 			this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
+			this->buttonMACGen = (gcnew System::Windows::Forms::Button());
 			this->buttonLoadFile = (gcnew System::Windows::Forms::Button());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxPasswd = (gcnew System::Windows::Forms::TextBox());
@@ -200,6 +212,20 @@ namespace WinUI {
 			this->textBox15 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxValue = (gcnew System::Windows::Forms::TextBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->tabPageClient = (gcnew System::Windows::Forms::TabPage());
+			this->textBoxConCriteria = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxConnectText = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxBytes = (gcnew System::Windows::Forms::TextBox());
+			this->textBox18 = (gcnew System::Windows::Forms::TextBox());
+			this->buttonConnect = (gcnew System::Windows::Forms::Button());
+			this->textBox16 = (gcnew System::Windows::Forms::TextBox());
+			this->comboBoxCType = (gcnew System::Windows::Forms::ComboBox());
+			this->textBox14 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox7 = (gcnew System::Windows::Forms::TextBox());
+			this->textBoxCName = (gcnew System::Windows::Forms::TextBox());
+			this->buttonMACGenC = (gcnew System::Windows::Forms::Button());
+			this->textBoxMACC = (gcnew System::Windows::Forms::TextBox());
+			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->tabControl1->SuspendLayout();
 			this->tabPageContainerB->SuspendLayout();
@@ -217,6 +243,7 @@ namespace WinUI {
 			this->tabControl2->SuspendLayout();
 			this->tabPage3->SuspendLayout();
 			this->tabPageContainers->SuspendLayout();
+			this->tabPageClient->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// tabControl1
@@ -235,7 +262,7 @@ namespace WinUI {
 			this->tabControl1->Location = System::Drawing::Point(372, 2);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(840, 550);
+			this->tabControl1->Size = System::Drawing::Size(840, 497);
 			this->tabControl1->TabIndex = 0;
 			// 
 			// tabPageContainerB
@@ -244,7 +271,7 @@ namespace WinUI {
 			this->tabPageContainerB->Location = System::Drawing::Point(4, 27);
 			this->tabPageContainerB->Name = L"tabPageContainerB";
 			this->tabPageContainerB->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageContainerB->Size = System::Drawing::Size(832, 519);
+			this->tabPageContainerB->Size = System::Drawing::Size(832, 466);
 			this->tabPageContainerB->TabIndex = 0;
 			this->tabPageContainerB->Text = L"Контейнер B";
 			this->tabPageContainerB->UseVisualStyleBackColor = true;
@@ -263,7 +290,7 @@ namespace WinUI {
 			this->dataGridViewB->Name = L"dataGridViewB";
 			this->dataGridViewB->ReadOnly = true;
 			this->dataGridViewB->RowHeadersVisible = false;
-			this->dataGridViewB->Size = System::Drawing::Size(826, 513);
+			this->dataGridViewB->Size = System::Drawing::Size(826, 460);
 			this->dataGridViewB->TabIndex = 0;
 			// 
 			// ColumnType
@@ -290,7 +317,7 @@ namespace WinUI {
 			this->tabPageRepeater->Location = System::Drawing::Point(4, 27);
 			this->tabPageRepeater->Name = L"tabPageRepeater";
 			this->tabPageRepeater->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageRepeater->Size = System::Drawing::Size(832, 519);
+			this->tabPageRepeater->Size = System::Drawing::Size(832, 466);
 			this->tabPageRepeater->TabIndex = 1;
 			this->tabPageRepeater->Text = L"Repeater (C)";
 			this->tabPageRepeater->UseVisualStyleBackColor = true;
@@ -309,7 +336,7 @@ namespace WinUI {
 			this->dataGridViewRepeater->Name = L"dataGridViewRepeater";
 			this->dataGridViewRepeater->ReadOnly = true;
 			this->dataGridViewRepeater->RowHeadersVisible = false;
-			this->dataGridViewRepeater->Size = System::Drawing::Size(826, 513);
+			this->dataGridViewRepeater->Size = System::Drawing::Size(826, 460);
 			this->dataGridViewRepeater->TabIndex = 0;
 			// 
 			// ColumnIndex1
@@ -343,7 +370,7 @@ namespace WinUI {
 			this->tabPageWLRepeater->Location = System::Drawing::Point(4, 27);
 			this->tabPageWLRepeater->Name = L"tabPageWLRepeater";
 			this->tabPageWLRepeater->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageWLRepeater->Size = System::Drawing::Size(832, 519);
+			this->tabPageWLRepeater->Size = System::Drawing::Size(832, 466);
 			this->tabPageWLRepeater->TabIndex = 2;
 			this->tabPageWLRepeater->Text = L"WLRepeater (C)";
 			this->tabPageWLRepeater->UseVisualStyleBackColor = true;
@@ -362,7 +389,7 @@ namespace WinUI {
 			this->dataGridViewWLRepeater->Name = L"dataGridViewWLRepeater";
 			this->dataGridViewWLRepeater->ReadOnly = true;
 			this->dataGridViewWLRepeater->RowHeadersVisible = false;
-			this->dataGridViewWLRepeater->Size = System::Drawing::Size(826, 513);
+			this->dataGridViewWLRepeater->Size = System::Drawing::Size(826, 460);
 			this->dataGridViewWLRepeater->TabIndex = 1;
 			// 
 			// ColumnIndex2
@@ -396,7 +423,7 @@ namespace WinUI {
 			this->tabPageSwitch->Location = System::Drawing::Point(4, 27);
 			this->tabPageSwitch->Name = L"tabPageSwitch";
 			this->tabPageSwitch->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageSwitch->Size = System::Drawing::Size(832, 519);
+			this->tabPageSwitch->Size = System::Drawing::Size(832, 466);
 			this->tabPageSwitch->TabIndex = 3;
 			this->tabPageSwitch->Text = L"Switch (C)";
 			this->tabPageSwitch->UseVisualStyleBackColor = true;
@@ -415,7 +442,7 @@ namespace WinUI {
 			this->dataGridViewSwitch->Name = L"dataGridViewSwitch";
 			this->dataGridViewSwitch->ReadOnly = true;
 			this->dataGridViewSwitch->RowHeadersVisible = false;
-			this->dataGridViewSwitch->Size = System::Drawing::Size(826, 513);
+			this->dataGridViewSwitch->Size = System::Drawing::Size(826, 460);
 			this->dataGridViewSwitch->TabIndex = 1;
 			// 
 			// ColumnIndex3
@@ -449,7 +476,7 @@ namespace WinUI {
 			this->tabPageGateway->Location = System::Drawing::Point(4, 27);
 			this->tabPageGateway->Name = L"tabPageGateway";
 			this->tabPageGateway->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageGateway->Size = System::Drawing::Size(832, 519);
+			this->tabPageGateway->Size = System::Drawing::Size(832, 466);
 			this->tabPageGateway->TabIndex = 4;
 			this->tabPageGateway->Text = L"Gateway (C)";
 			this->tabPageGateway->UseVisualStyleBackColor = true;
@@ -468,7 +495,7 @@ namespace WinUI {
 			this->dataGridViewGateway->Name = L"dataGridViewGateway";
 			this->dataGridViewGateway->ReadOnly = true;
 			this->dataGridViewGateway->RowHeadersVisible = false;
-			this->dataGridViewGateway->Size = System::Drawing::Size(826, 513);
+			this->dataGridViewGateway->Size = System::Drawing::Size(826, 460);
 			this->dataGridViewGateway->TabIndex = 1;
 			// 
 			// ColumnIndex4
@@ -502,7 +529,7 @@ namespace WinUI {
 			this->tabPageRouter->Location = System::Drawing::Point(4, 27);
 			this->tabPageRouter->Name = L"tabPageRouter";
 			this->tabPageRouter->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageRouter->Size = System::Drawing::Size(832, 519);
+			this->tabPageRouter->Size = System::Drawing::Size(832, 466);
 			this->tabPageRouter->TabIndex = 5;
 			this->tabPageRouter->Text = L"Router (C)";
 			this->tabPageRouter->UseVisualStyleBackColor = true;
@@ -521,7 +548,7 @@ namespace WinUI {
 			this->dataGridViewRouter->Name = L"dataGridViewRouter";
 			this->dataGridViewRouter->ReadOnly = true;
 			this->dataGridViewRouter->RowHeadersVisible = false;
-			this->dataGridViewRouter->Size = System::Drawing::Size(826, 513);
+			this->dataGridViewRouter->Size = System::Drawing::Size(826, 460);
 			this->dataGridViewRouter->TabIndex = 1;
 			// 
 			// ColumnIndex5
@@ -565,7 +592,7 @@ namespace WinUI {
 			// 
 			this->buttonAdd->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->buttonAdd->Location = System::Drawing::Point(6, 486);
+			this->buttonAdd->Location = System::Drawing::Point(5, 434);
 			this->buttonAdd->Name = L"buttonAdd";
 			this->buttonAdd->Size = System::Drawing::Size(80, 23);
 			this->buttonAdd->TabIndex = 3;
@@ -626,7 +653,7 @@ namespace WinUI {
 			// textBoxMAC
 			// 
 			this->textBoxMAC->Enabled = false;
-			this->textBoxMAC->Location = System::Drawing::Point(6, 216);
+			this->textBoxMAC->Location = System::Drawing::Point(5, 164);
 			this->textBoxMAC->Name = L"textBoxMAC";
 			this->textBoxMAC->Size = System::Drawing::Size(163, 24);
 			this->textBoxMAC->TabIndex = 11;
@@ -638,37 +665,16 @@ namespace WinUI {
 			this->textBox6->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox6->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox6->Location = System::Drawing::Point(6, 193);
+			this->textBox6->Location = System::Drawing::Point(5, 141);
 			this->textBox6->Name = L"textBox6";
 			this->textBox6->Size = System::Drawing::Size(87, 17);
 			this->textBox6->TabIndex = 12;
 			this->textBox6->Text = L"MAC-Адрес";
 			// 
-			// textBoxBytes
-			// 
-			this->textBoxBytes->Enabled = false;
-			this->textBoxBytes->Location = System::Drawing::Point(6, 163);
-			this->textBoxBytes->Name = L"textBoxBytes";
-			this->textBoxBytes->Size = System::Drawing::Size(343, 24);
-			this->textBoxBytes->TabIndex = 13;
-			// 
-			// textBox8
-			// 
-			this->textBox8->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
-				static_cast<System::Int32>(static_cast<System::Byte>(249)));
-			this->textBox8->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBox8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox8->Location = System::Drawing::Point(6, 140);
-			this->textBox8->Name = L"textBox8";
-			this->textBox8->Size = System::Drawing::Size(87, 17);
-			this->textBox8->TabIndex = 14;
-			this->textBox8->Text = L"Байты";
-			// 
 			// textBoxCapacity
 			// 
 			this->textBoxCapacity->Enabled = false;
-			this->textBoxCapacity->Location = System::Drawing::Point(6, 428);
+			this->textBoxCapacity->Location = System::Drawing::Point(5, 376);
 			this->textBoxCapacity->Name = L"textBoxCapacity";
 			this->textBoxCapacity->Size = System::Drawing::Size(50, 24);
 			this->textBoxCapacity->TabIndex = 15;
@@ -681,7 +687,7 @@ namespace WinUI {
 			this->textBox10->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox10->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox10->Location = System::Drawing::Point(7, 405);
+			this->textBox10->Location = System::Drawing::Point(6, 353);
 			this->textBox10->Name = L"textBox10";
 			this->textBox10->Size = System::Drawing::Size(105, 17);
 			this->textBox10->TabIndex = 16;
@@ -694,7 +700,7 @@ namespace WinUI {
 			this->textBox11->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox11->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox11->Location = System::Drawing::Point(6, 246);
+			this->textBox11->Location = System::Drawing::Point(5, 194);
 			this->textBox11->Name = L"textBox11";
 			this->textBox11->Size = System::Drawing::Size(105, 17);
 			this->textBox11->TabIndex = 18;
@@ -703,7 +709,7 @@ namespace WinUI {
 			// textBoxProtocol
 			// 
 			this->textBoxProtocol->Enabled = false;
-			this->textBoxProtocol->Location = System::Drawing::Point(6, 269);
+			this->textBoxProtocol->Location = System::Drawing::Point(5, 217);
 			this->textBoxProtocol->Name = L"textBoxProtocol";
 			this->textBoxProtocol->Size = System::Drawing::Size(120, 24);
 			this->textBoxProtocol->TabIndex = 17;
@@ -716,7 +722,7 @@ namespace WinUI {
 			this->textBox13->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox13->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox13->Location = System::Drawing::Point(6, 299);
+			this->textBox13->Location = System::Drawing::Point(5, 247);
 			this->textBox13->Name = L"textBox13";
 			this->textBox13->Size = System::Drawing::Size(105, 17);
 			this->textBox13->TabIndex = 20;
@@ -725,7 +731,7 @@ namespace WinUI {
 			// textBoxSSID
 			// 
 			this->textBoxSSID->Enabled = false;
-			this->textBoxSSID->Location = System::Drawing::Point(6, 322);
+			this->textBoxSSID->Location = System::Drawing::Point(5, 270);
 			this->textBoxSSID->Name = L"textBoxSSID";
 			this->textBoxSSID->Size = System::Drawing::Size(119, 24);
 			this->textBoxSSID->TabIndex = 19;
@@ -735,7 +741,7 @@ namespace WinUI {
 			// 
 			this->checkBoxWPS->AutoSize = true;
 			this->checkBoxWPS->Enabled = false;
-			this->checkBoxWPS->Location = System::Drawing::Point(6, 458);
+			this->checkBoxWPS->Location = System::Drawing::Point(5, 406);
 			this->checkBoxWPS->Name = L"checkBoxWPS";
 			this->checkBoxWPS->Size = System::Drawing::Size(104, 22);
 			this->checkBoxWPS->TabIndex = 21;
@@ -748,16 +754,18 @@ namespace WinUI {
 				| System::Windows::Forms::AnchorStyles::Left));
 			this->tabControl2->Controls->Add(this->tabPage3);
 			this->tabControl2->Controls->Add(this->tabPageContainers);
+			this->tabControl2->Controls->Add(this->tabPageClient);
 			this->tabControl2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->tabControl2->Location = System::Drawing::Point(2, 2);
 			this->tabControl2->Name = L"tabControl2";
 			this->tabControl2->SelectedIndex = 0;
-			this->tabControl2->Size = System::Drawing::Size(368, 550);
+			this->tabControl2->Size = System::Drawing::Size(368, 497);
 			this->tabControl2->TabIndex = 22;
 			// 
 			// tabPage3
 			// 
+			this->tabPage3->Controls->Add(this->buttonMACGen);
 			this->tabPage3->Controls->Add(this->buttonLoadFile);
 			this->tabPage3->Controls->Add(this->textBox2);
 			this->tabPage3->Controls->Add(this->textBoxPasswd);
@@ -771,9 +779,7 @@ namespace WinUI {
 			this->tabPage3->Controls->Add(this->textBox6);
 			this->tabPage3->Controls->Add(this->textBox3);
 			this->tabPage3->Controls->Add(this->textBoxSSID);
-			this->tabPage3->Controls->Add(this->textBoxBytes);
 			this->tabPage3->Controls->Add(this->comboBoxClass);
-			this->tabPage3->Controls->Add(this->textBox8);
 			this->tabPage3->Controls->Add(this->textBox11);
 			this->tabPage3->Controls->Add(this->textBoxCapacity);
 			this->tabPage3->Controls->Add(this->textBox10);
@@ -781,16 +787,29 @@ namespace WinUI {
 			this->tabPage3->Location = System::Drawing::Point(4, 27);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(360, 519);
+			this->tabPage3->Size = System::Drawing::Size(360, 466);
 			this->tabPage3->TabIndex = 0;
 			this->tabPage3->Text = L"Объект";
 			this->tabPage3->UseVisualStyleBackColor = true;
+			// 
+			// buttonMACGen
+			// 
+			this->buttonMACGen->Enabled = false;
+			this->buttonMACGen->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonMACGen->Location = System::Drawing::Point(174, 166);
+			this->buttonMACGen->Name = L"buttonMACGen";
+			this->buttonMACGen->Size = System::Drawing::Size(120, 23);
+			this->buttonMACGen->TabIndex = 29;
+			this->buttonMACGen->Text = L"Сгенерировать";
+			this->buttonMACGen->UseVisualStyleBackColor = true;
+			this->buttonMACGen->Click += gcnew System::EventHandler(this, &GUI::buttonMACGen_Click);
 			// 
 			// buttonLoadFile
 			// 
 			this->buttonLoadFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->buttonLoadFile->Location = System::Drawing::Point(92, 486);
+			this->buttonLoadFile->Location = System::Drawing::Point(91, 434);
 			this->buttonLoadFile->Name = L"buttonLoadFile";
 			this->buttonLoadFile->Size = System::Drawing::Size(149, 23);
 			this->buttonLoadFile->TabIndex = 28;
@@ -805,7 +824,7 @@ namespace WinUI {
 			this->textBox2->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox2->Location = System::Drawing::Point(7, 352);
+			this->textBox2->Location = System::Drawing::Point(6, 300);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(105, 17);
 			this->textBox2->TabIndex = 27;
@@ -814,7 +833,7 @@ namespace WinUI {
 			// textBoxPasswd
 			// 
 			this->textBoxPasswd->Enabled = false;
-			this->textBoxPasswd->Location = System::Drawing::Point(6, 375);
+			this->textBoxPasswd->Location = System::Drawing::Point(5, 323);
 			this->textBoxPasswd->Name = L"textBoxPasswd";
 			this->textBoxPasswd->PasswordChar = '*';
 			this->textBoxPasswd->Size = System::Drawing::Size(119, 24);
@@ -868,7 +887,7 @@ namespace WinUI {
 			this->tabPageContainers->Location = System::Drawing::Point(4, 27);
 			this->tabPageContainers->Name = L"tabPageContainers";
 			this->tabPageContainers->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageContainers->Size = System::Drawing::Size(360, 519);
+			this->tabPageContainers->Size = System::Drawing::Size(360, 466);
 			this->tabPageContainers->TabIndex = 1;
 			this->tabPageContainers->Text = L"Контейнер";
 			this->tabPageContainers->UseVisualStyleBackColor = true;
@@ -954,6 +973,171 @@ namespace WinUI {
 			this->textBox1->TabIndex = 15;
 			this->textBox1->Text = L"Критерий (поле)";
 			// 
+			// tabPageClient
+			// 
+			this->tabPageClient->Controls->Add(this->textBoxConCriteria);
+			this->tabPageClient->Controls->Add(this->textBoxConnectText);
+			this->tabPageClient->Controls->Add(this->textBoxBytes);
+			this->tabPageClient->Controls->Add(this->textBox18);
+			this->tabPageClient->Controls->Add(this->buttonConnect);
+			this->tabPageClient->Controls->Add(this->textBox16);
+			this->tabPageClient->Controls->Add(this->comboBoxCType);
+			this->tabPageClient->Controls->Add(this->textBox14);
+			this->tabPageClient->Controls->Add(this->textBox7);
+			this->tabPageClient->Controls->Add(this->textBoxCName);
+			this->tabPageClient->Controls->Add(this->buttonMACGenC);
+			this->tabPageClient->Controls->Add(this->textBoxMACC);
+			this->tabPageClient->Controls->Add(this->textBox5);
+			this->tabPageClient->Location = System::Drawing::Point(4, 27);
+			this->tabPageClient->Name = L"tabPageClient";
+			this->tabPageClient->Padding = System::Windows::Forms::Padding(3);
+			this->tabPageClient->Size = System::Drawing::Size(360, 466);
+			this->tabPageClient->TabIndex = 2;
+			this->tabPageClient->Text = L"Клиент";
+			this->tabPageClient->UseVisualStyleBackColor = true;
+			// 
+			// textBoxConCriteria
+			// 
+			this->textBoxConCriteria->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBoxConCriteria->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBoxConCriteria->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->textBoxConCriteria->Location = System::Drawing::Point(8, 286);
+			this->textBoxConCriteria->Name = L"textBoxConCriteria";
+			this->textBoxConCriteria->Size = System::Drawing::Size(87, 17);
+			this->textBoxConCriteria->TabIndex = 43;
+			this->textBoxConCriteria->Text = L"MAC-Адрес";
+			// 
+			// textBoxConnectText
+			// 
+			this->textBoxConnectText->Location = System::Drawing::Point(101, 283);
+			this->textBoxConnectText->Name = L"textBoxConnectText";
+			this->textBoxConnectText->Size = System::Drawing::Size(248, 24);
+			this->textBoxConnectText->TabIndex = 42;
+			// 
+			// textBoxBytes
+			// 
+			this->textBoxBytes->Enabled = false;
+			this->textBoxBytes->Location = System::Drawing::Point(6, 197);
+			this->textBoxBytes->Name = L"textBoxBytes";
+			this->textBoxBytes->Size = System::Drawing::Size(343, 24);
+			this->textBoxBytes->TabIndex = 40;
+			// 
+			// textBox18
+			// 
+			this->textBox18->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox18->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox18->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox18->Location = System::Drawing::Point(6, 174);
+			this->textBox18->Name = L"textBox18";
+			this->textBox18->Size = System::Drawing::Size(87, 17);
+			this->textBox18->TabIndex = 41;
+			this->textBox18->Text = L"Байты";
+			// 
+			// buttonConnect
+			// 
+			this->buttonConnect->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonConnect->Location = System::Drawing::Point(8, 315);
+			this->buttonConnect->Name = L"buttonConnect";
+			this->buttonConnect->Size = System::Drawing::Size(98, 23);
+			this->buttonConnect->TabIndex = 39;
+			this->buttonConnect->Text = L"Подключить";
+			this->buttonConnect->UseVisualStyleBackColor = true;
+			this->buttonConnect->Click += gcnew System::EventHandler(this, &GUI::buttonConnect_Click);
+			// 
+			// textBox16
+			// 
+			this->textBox16->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox16->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox16->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox16->Location = System::Drawing::Point(6, 260);
+			this->textBox16->Name = L"textBox16";
+			this->textBox16->Size = System::Drawing::Size(122, 17);
+			this->textBox16->TabIndex = 37;
+			this->textBox16->Text = L"Подключить к:";
+			// 
+			// comboBoxCType
+			// 
+			this->comboBoxCType->FormattingEnabled = true;
+			this->comboBoxCType->Items->AddRange(gcnew cli::array< System::Object^  >(2) { L"Проводной", L"Беспроводной" });
+			this->comboBoxCType->Location = System::Drawing::Point(6, 138);
+			this->comboBoxCType->Name = L"comboBoxCType";
+			this->comboBoxCType->Size = System::Drawing::Size(175, 26);
+			this->comboBoxCType->TabIndex = 36;
+			this->comboBoxCType->Text = L"Проводной";
+			this->comboBoxCType->SelectedIndexChanged += gcnew System::EventHandler(this, &GUI::comboBoxCType_SelectedIndexChanged);
+			// 
+			// textBox14
+			// 
+			this->textBox14->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox14->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox14->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox14->Location = System::Drawing::Point(6, 115);
+			this->textBox14->Name = L"textBox14";
+			this->textBox14->Size = System::Drawing::Size(87, 17);
+			this->textBox14->TabIndex = 35;
+			this->textBox14->Text = L"Тип";
+			// 
+			// textBox7
+			// 
+			this->textBox7->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox7->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox7->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox7->Location = System::Drawing::Point(6, 8);
+			this->textBox7->Name = L"textBox7";
+			this->textBox7->Size = System::Drawing::Size(87, 17);
+			this->textBox7->TabIndex = 34;
+			this->textBox7->Text = L"Имя";
+			// 
+			// textBoxCName
+			// 
+			this->textBoxCName->Location = System::Drawing::Point(6, 31);
+			this->textBoxCName->Name = L"textBoxCName";
+			this->textBoxCName->Size = System::Drawing::Size(163, 24);
+			this->textBoxCName->TabIndex = 33;
+			// 
+			// buttonMACGenC
+			// 
+			this->buttonMACGenC->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonMACGenC->Location = System::Drawing::Point(175, 87);
+			this->buttonMACGenC->Name = L"buttonMACGenC";
+			this->buttonMACGenC->Size = System::Drawing::Size(120, 23);
+			this->buttonMACGenC->TabIndex = 32;
+			this->buttonMACGenC->Text = L"Сгенерировать";
+			this->buttonMACGenC->UseVisualStyleBackColor = true;
+			this->buttonMACGenC->Click += gcnew System::EventHandler(this, &GUI::buttonMACGenC_Click);
+			// 
+			// textBoxMACC
+			// 
+			this->textBoxMACC->Location = System::Drawing::Point(6, 85);
+			this->textBoxMACC->Name = L"textBoxMACC";
+			this->textBoxMACC->Size = System::Drawing::Size(163, 24);
+			this->textBoxMACC->TabIndex = 30;
+			// 
+			// textBox5
+			// 
+			this->textBox5->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox5->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox5->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox5->Location = System::Drawing::Point(6, 62);
+			this->textBox5->Name = L"textBox5";
+			this->textBox5->Size = System::Drawing::Size(87, 17);
+			this->textBox5->TabIndex = 31;
+			this->textBox5->Text = L"MAC-Адрес";
+			// 
 			// openFileDialog1
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
@@ -962,7 +1146,7 @@ namespace WinUI {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1213, 552);
+			this->ClientSize = System::Drawing::Size(1213, 499);
 			this->Controls->Add(this->tabControl2);
 			this->Controls->Add(this->tabControl1);
 			this->Name = L"GUI";
@@ -986,6 +1170,8 @@ namespace WinUI {
 			this->tabPage3->PerformLayout();
 			this->tabPageContainers->ResumeLayout(false);
 			this->tabPageContainers->PerformLayout();
+			this->tabPageClient->ResumeLayout(false);
+			this->tabPageClient->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -1047,6 +1233,7 @@ private:
 	System::Void resetFields() {
 		textBoxBytes->Enabled = false;
 		textBoxMAC->Enabled = false;
+		buttonMACGen->Enabled = false;
 		textBoxCapacity->Enabled = false;
 		// TODO: Текстбокс клиентов
 		textBoxProtocol->Enabled = false;
@@ -1056,8 +1243,8 @@ private:
 	}
 
 	System::Void buttonAdd_Click(System::Object^ sender, System::EventArgs^ e) {
-		const unsigned char* bytes = { 0 }; // TODO: заполнение поля bytes
-		std::vector<Client> clients = { Client() }; // TODO: заполнение поля clients
+		const unsigned char* bytes = {};
+		std::vector<Client> clients = {};
 		MAC_Address address = textBoxMAC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMAC->Text));
 		std::string protocol = to_string(textBoxProtocol->Text);
 		std::string ssid = to_string(textBoxSSID->Text);
@@ -1091,22 +1278,26 @@ private:
 		if (comboBoxClass->Text == "Repeater") {
 			textBoxBytes->Enabled = true;
 			textBoxMAC->Enabled = true;
+			buttonMACGen->Enabled = true;
 		}
 		else if (comboBoxClass->Text == "WLRepeater") {
 			textBoxBytes->Enabled = true;
 			textBoxMAC->Enabled = true;
+			buttonMACGen->Enabled = true;
 			textBoxSSID->Enabled = true;
 			textBoxPasswd->Enabled = true;
 		}
 		else if (comboBoxClass->Text == "Switch") {
 			textBoxBytes->Enabled = true;
 			textBoxMAC->Enabled = true;
+			buttonMACGen->Enabled = true;
 			textBoxCapacity->Enabled = true;
 			// TODO: Текстбокс клиентов
 		}
 		else if (comboBoxClass->Text == "Gateway") {
 			textBoxBytes->Enabled = true;
 			textBoxMAC->Enabled = true;
+			buttonMACGen->Enabled = true;
 			textBoxCapacity->Enabled = true;
 			// TODO: Текстбокс клиентов
 			textBoxProtocol->Enabled = true;
@@ -1114,6 +1305,7 @@ private:
 		else if (comboBoxClass->Text == "Router") {
 			textBoxBytes->Enabled = true;
 			textBoxMAC->Enabled = true;
+			buttonMACGen->Enabled = true;
 			textBoxCapacity->Enabled = true;
 			// TODO: Текстбокс клиентов
 			textBoxProtocol->Enabled = true;
@@ -1259,6 +1451,47 @@ private:
 			updateAllTables();
 		} while (reader->Peek() != -1);
 		reader->Close();
+	}
+
+	System::Void buttonMACGen_Click(System::Object^ sender, System::EventArgs^ e) {
+		textBoxMAC->Text = gcnew String(MAC_Address().as_string().c_str());
+	}
+
+	System::Void buttonMACGenC_Click(System::Object^ sender, System::EventArgs^ e) {
+		textBoxMACC->Text = gcnew String(MAC_Address().as_string().c_str());
+	}
+
+	System::Void comboBoxCType_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		if (comboBoxCType->Text == "Проводной")
+			textBoxConCriteria->Text = "MAC-Адрес";
+		if (comboBoxCType->Text == "Беспроводной")
+			textBoxConCriteria->Text = "Имя сети";
+	}
+
+	System::Void buttonConnect_Click(System::Object^ sender, System::EventArgs^ e) {
+		std::string name = to_string(textBoxCName->Text);
+		MAC_Address address = textBoxMACC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMACC->Text));
+		unsigned char* bytes = {}; // TODO: Заполнение поля байт
+		ClientType type = comboBoxCType->Text == "Беспроводной" ? ClientType::Wireless : ClientType::Wired;
+		Client* client = new Client(name, address, bytes, type);
+
+		std::vector<void*> vec = contB->get_vector();
+		Router* net_device = nullptr;
+		for (int i = 0; i < vec.size(); i++) {
+			//if (comboBoxConType->Text == "Адресу")
+				//net_device = static_cast<ServerRoom<Router>*>(vec[i])->search(MAC_Address(to_string(textBoxConnectText->Text)))[0];
+			//if (comboBoxConType->Text == "SSID")
+				//net_device = static_cast<ServerRoom<Router>*>(vec[i])->search(to_string(textBoxConnectText->Text), SearchMode::SSID)[0];
+		}
+
+		if (comboBoxCType->Text == "Проводной") {
+			//net_device->connect(*client);
+		}	
+		if (comboBoxCType->Text == "Беспроводной") {
+			ShowWLANDialog();
+			//net_device->connect(client);
+		}
+		updateAllTables();
 	}
 };
 }

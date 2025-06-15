@@ -18,9 +18,15 @@
     <ClCompile Include="GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WLANDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WLANDialog.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

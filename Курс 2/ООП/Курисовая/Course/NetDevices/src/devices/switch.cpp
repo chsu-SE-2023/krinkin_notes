@@ -218,7 +218,7 @@ int Switch::clients_count() const {
 * @param подключаемый клиент
 */
 void Switch::connect(Client client) {
-    if (client.get_type() == WIRED)
+    if (client.get_type() == ClientType::Wired)
         this->clients.push_back(client);
     else
         throw std::invalid_argument("This device does not support wireless connection");

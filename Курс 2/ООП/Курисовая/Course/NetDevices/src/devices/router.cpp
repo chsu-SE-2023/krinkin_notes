@@ -188,9 +188,9 @@ void Router::wps_init() {
 * @param подключаемый клиент
 */
 void Router::connect(Client client) {
-    if (client.get_type() == WIRED)
+    if (client.get_type() == ClientType::Wired)
         this->clients.push_back(client);
-    if (client.get_type() == WIRELESS) {
+    if (client.get_type() == ClientType::Wireless) {
         if (wps) {
             this->clients.push_back(client);
             this->wps = false;

@@ -165,15 +165,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GUI.cpp" />
+    <ClCompile Include="WLANDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="WLANDialog.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GUI.resx">
       <DependentUpon>GUI.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WLANDialog.resx">
+      <DependentUpon>WLANDialog.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

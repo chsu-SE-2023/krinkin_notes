@@ -7,7 +7,7 @@ Client::Client() {
 	this->name = "";
 	this->address = MAC_Address();
 	this->bytes = nullptr;
-	this->type = WIRED;
+	this->type = ClientType::Wired;
 }
 
 /**
@@ -19,7 +19,7 @@ Client::Client(std::string name) {
 	this->name = name;
 	this->address = MAC_Address();
 	this->bytes = nullptr;
-	this->type = WIRED;
+	this->type = ClientType::Wired;
 }
 
 /**
@@ -31,7 +31,7 @@ Client::Client(MAC_Address address) {
 	this->name = "";
 	this->address = address;
 	this->bytes = nullptr;
-	this->type = WIRED;
+	this->type = ClientType::Wired;
 }
 
 /**
@@ -43,7 +43,7 @@ Client::Client(unsigned char* bytes) {
 	this->name = "";
 	this->address = MAC_Address();
 	this->bytes = bytes;
-	this->type = WIRED;
+	this->type = ClientType::Wired;
 }
 
 /**
@@ -54,7 +54,7 @@ Client::Client(unsigned char* bytes) {
 * @param ������ ����
 * @param ��� ����������� (0 - WIRED, 1 - WIRELESS)
 */
-Client::Client(std::string name, MAC_Address address, unsigned char* bytes, char type) {
+Client::Client(std::string name, MAC_Address address, unsigned char* bytes, ClientType type) {
 	this->name = name;
 	this->address = address;
 	this->bytes = bytes;
@@ -114,7 +114,7 @@ std::string Client::get_name() const {
 *
 * @return ��� ����������� (0 - WIRED, 1 - WIRELESS)
 */
-char Client::get_type() const {
+ClientType Client::get_type() const {
 	return this->type;
 }
 
@@ -141,7 +141,7 @@ void Client::set_name(std::string) {
 *
 * @param ��� ����������� (0 - WIRED, 1 - WIRELESS)
 */
-void Client::set_type(char type) {
+void Client::set_type(ClientType type) {
 	this->type = type;
 }
 
