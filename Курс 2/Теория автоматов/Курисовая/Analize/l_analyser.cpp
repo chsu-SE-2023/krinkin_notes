@@ -3,6 +3,76 @@
 #include <vector>
 #include "l_analyser.h"
 
+Analyser::Analyser() {
+	this->buffer = "";
+	this->is_id = false;
+	this->state = 0;
+}
+
+Analyser::Analyser(Analyser* copy) {
+	this->buffer = copy->buffer;
+	this->is_id = copy->is_id;
+	this->state = copy->state;
+	this->check_next = copy->check_next;
+}
+
+/**
+* Метод, сбрасывающий состояние конечного автомата
+*/
+void Analyser::clear_state() {
+	this->state = 0;
+	this->buffer = "";
+	this->is_id = false;
+}
+
+/*
+* Метод, возвращающий есть ли в строке 
+* специальные символы
+*
+* @param проверяемая строка
+* @return результат проверки
+*/
+bool Analyser::check_special(System::String^ string) {
+	std::string signs = "!\"@#№$%:^?&*\\/|~`";
+	for each (char c in string) {
+		if (std::count(signs.begin(), signs.end(), c) > 0)
+			return true;
+	}
+	return false;
+}
+
+/**
+* Метод, возвращающий последнюю ошибку конечного автомата
+*
+* @return ошибка автомата
+*/
+std::string Analyser::get_error() {
+	return this->error;
+};
+
+/**
+* Метод, возвращающий количество строк в тексте
+*
+* @param считаемый текст
+* @return количество строк
+*/
+int Analyser::get_lines_count(System::String^ text) {
+	int res = 1;
+	for (int i = 0; i < text->Length; i++)
+		if (text[i] == '\n')
+			res++;
+	return res;
+}
+
+/**
+* Метод, возвращающий состояние конечного автомата
+*
+* @return состояние автомата
+*/
+int Analyser::get_state() const {
+	return this->state;
+}
+
 /**
 * Метод, возвращающий является ли разделителем
 * заданный символ
@@ -26,6 +96,39 @@ bool Analyser::is_delim(char c) {
 
 /*
 * Метод, возвращающий является ли знаком
+* заданный символ по состояниям
+*
+* @return результат проверки
+*/
+bool Analyser::is_multisign() {
+	std::vector<int> n_states = {
+		11, 13, 16, 21, 23, 25, 27,
+		29, 33, 37, 40, 43, 44, 46,
+		48, 49, 51, 52, 53
+	};
+	return std::count(n_states.begin(), n_states.end(), state) == 0;
+}
+
+/*
+* Метод, возвращающий входит ли следующий символ в валидную лексему
+*
+* @param проверяемый символ
+* @return результат проверки
+*/
+bool Analyser::is_next_valid(char c) {
+	if (check_next) {
+		Analyser* checker = new Analyser(this);
+		checker->check_next = false;
+		checker->lexem_filter(c, c);
+		int state = checker->state;
+		delete checker;
+		return state > 0 && state <= 6 && state != 3;
+	}
+	return true;
+}
+
+/*
+* Метод, возвращающий является ли знаком
 * заданный символ
 * 
 * @param проверяемый символ
@@ -45,112 +148,9 @@ bool Analyser::is_sign(char c) {
 	return std::count(signs.begin(), signs.end(), c) > 0;
 }
 
-/*
-* Метод, возвращающий является ли специальным
-* заданный символ
-*
-* @param проверяемый символ
-* @return результат проверки
-*/
-bool Analyser::check_special(System::String^ string) {
-	std::string signs = "!\"@#№$%:^?&*\\/|~`";
-	for each (char c in string) {
-		if (std::count(signs.begin(), signs.end(), c) > 0)
-			return true;
-	}
-	return false;
-}
-
-/*
-* Метод, возвращающий входит ли следующий символ в валидную лексему
-* 
-* @param проверяемый символ
-* @return результат проверки
-*/
-bool Analyser::is_next_valid(char c) {
-	if (check_next) {
-		Analyser* checker = new Analyser(this);
-		checker->check_next = false;
-		checker->lexem_filter(c, c);
-		int state = checker->state;
-		delete checker;
-		return state > 0 && state <= 6 && state != 3;
-	}
-	return true;
-}
-
-/*
-* Метод, возвращающий является ли знаком
-* заданный символ по состояниям
-* 
-* @return результат проверки
-*/
-bool Analyser::is_multisign() {
-	std::vector<int> n_states = { 
-		11, 13, 16, 21, 23, 25, 27, 
-		29, 33, 37, 40, 43, 44, 46, 
-		48, 49, 51, 52, 53
-	};
-	return std::count(n_states.begin(), n_states.end(), state) == 0;
-}
-
-Analyser::Analyser() {
-	this->buffer = "";
-	this->is_id = false;
-	this->state = 0;
-}
-
-Analyser::Analyser(Analyser* copy) {
-	this->buffer = copy->buffer;
-	this->is_id = copy->is_id;
-	this->state = copy->state;
-	this->check_next = copy->check_next;
-}
-
-/**
-* Метод, сбрасывающий состояние конечного автомата
-*/
-void Analyser::clear_state() {
-	this->state = 0;
-	this->buffer = "";
-	this->is_id = false;
-}
-
-/**
-* Метод, последнюю ошибку конечного автомата
-*
-* @return ошибка автомата
-*/
-std::string Analyser::get_error() {
-	return this->error;
-};
-
-/**
-* Метод, возвращающий количество строк в тексте
-* 
-* @param считаемый текст
-* @return количество строк
-*/
-int Analyser::get_lines_count(System::String^ text) {
-	int res = 1;
-	for (int i = 0; i < text->Length; i++)
-		if (text[i] == '\n')
-			res++;
-	return res;
-}
-
-/**
-* Метод, возвращающий состояние конечного автомата
-* 
-* @return состояние автомата
-*/
-int Analyser::get_state() const {
-	return this->state;
-}
-
 /**
 * Метод, устанавливающий состояние конечного автомата
-* 
+*
 * @param состояние автомата
 */
 void Analyser::set_state(int state) {

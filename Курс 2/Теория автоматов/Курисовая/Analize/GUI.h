@@ -49,8 +49,6 @@ namespace Analize {
 	private: System::Windows::Forms::TabPage^ tabPageSource;
 	private: System::Windows::Forms::TabPage^ tabPageLexems;
 	private: System::Windows::Forms::TextBox^ outBox;
-
-
 	private: System::Windows::Forms::DataGridView^ dataGridViewKeys;
 	private: System::Windows::Forms::DataGridView^ dataGridViewConst;
 	private: System::Windows::Forms::DataGridView^ dataGridViewIDs;
@@ -88,7 +86,6 @@ namespace Analize {
 	private: System::Windows::Forms::TextBox^ linesNum;
 	private: System::Windows::Forms::TextBox^ textBox4;
 	private: System::Windows::Forms::TextBox^ outBoxL;
-
 	Analyser* analyser;
 
 #pragma region Windows Form Designer generated code
@@ -728,14 +725,17 @@ namespace Analize {
 #pragma endregion
 private: 
 	int line = 0;
-	System::Void clear();
-	String^ spaces(int);
+	int currentLine = 0;
+	System::Void addLineCounts();
 	String^ Analize::GUI::addLineNum(String^);
-	System::Void stripSource();
+	System::Void addToTable(int, String^);
+	System::Void buildCodes(int, String^, String^, DataGridView^);
+	System::Void clear();
+	System::Void determineLexems();
 	int getFromTable(String^, DataGridView^);
 	System::Void error(String^, String^);
-	System::Void buildCodes(int, String^, String^, DataGridView^);
-	System::Void addToTable(int, String^);
+	String^ spaces(int);
+	System::Void stripSource();
 	System::Void openFileButton_Click(System::Object^, System::EventArgs^ e);
 	System::Void processButton_Click(System::Object^, System::EventArgs^ e);
 };
