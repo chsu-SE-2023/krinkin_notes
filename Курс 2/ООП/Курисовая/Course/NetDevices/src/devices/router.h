@@ -6,7 +6,6 @@
 
 class Router: public Gateway, public WLRepeater {
 protected:
-    bool wps;
     void set_defaults();
 public:
     Router();
@@ -22,12 +21,10 @@ public:
     MAC_Address get_address() const;
     std::string get_info();
     const unsigned char* get_bytes() const;
-    bool is_wps() const;
     void print_info() const;
     void set_address(MAC_Address);
-    void wps_init();
-    void connect(Client);
-    void connect(Client, std::string, std::string);
+    void connect(Client&);
+    void connect(Client&, std::string, std::string);
     void receive(const unsigned char*&);
     void reset();
 };

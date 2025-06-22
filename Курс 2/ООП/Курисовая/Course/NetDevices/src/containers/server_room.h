@@ -39,7 +39,7 @@ public:
     std::vector<T*> search(MAC_Address);
     std::vector<T*> search(int, int);
     std::vector<T*> search(std::string, SearchMode);
-    std::vector<Router*> search(bool);
+    std::vector<T*> search(bool);
     int size();
     int cli_total();
 };

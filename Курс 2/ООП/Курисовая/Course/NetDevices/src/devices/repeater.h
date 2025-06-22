@@ -1,11 +1,14 @@
 #pragma once
+#include <vector>
 #include "net_device.h"
+#include "../misc/client.h"
 
 class Repeater: public NetDevice_I {
 protected:
     MAC_Address address;
     const unsigned char* bytes;
     void set_defaults();
+    std::vector<Client> clients;
 public:
     Repeater();
     Repeater(MAC_Address);
@@ -20,6 +23,8 @@ public:
     friend bool operator==(const Repeater&, const Repeater&);
     friend bool operator!=(const Repeater&, const Repeater&);
     int clients_count() const;
+    void connect(Client&);
+    void disconnect(Client&);
     MAC_Address get_address() const;
     std::string get_info();
     const unsigned char* get_bytes() const;

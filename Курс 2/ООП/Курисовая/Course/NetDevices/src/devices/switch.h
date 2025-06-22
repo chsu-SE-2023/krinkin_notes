@@ -7,7 +7,6 @@ class Switch: public Repeater {
 
 protected:
     static int cli_cap;
-    std::vector<Client> clients;
     void set_defaults();
 public:
     Switch();
@@ -25,8 +24,7 @@ public:
     friend bool operator==(const Switch&, const Switch&);
     friend bool operator!=(const Switch&, const Switch&);
     int clients_count() const;
-    void connect(Client);
-    void disconnect(Client);
+    void connect(Client&);
     std::vector<Client> get_clients() const;
     std::string get_info();
     static void set_capacity(int);

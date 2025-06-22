@@ -153,6 +153,9 @@ namespace WinUI {
 
 		}
 #pragma endregion
+public:
+	String^ passwd = "";
+	Windows::Forms::DialogResult result = Windows::Forms::DialogResult::None;
 private:
 	WinUI::GUI^ ownerForm = (WinUI::GUI^)Application::OpenForms["GUI"];
 
@@ -161,7 +164,8 @@ private:
 	}
 
 	System::Void buttonConnect_Click(System::Object^ sender, System::EventArgs^ e) {
-
+		passwd = textBoxPasswd->Text;
+		result = Windows::Forms::DialogResult::OK;
 	}
 };
 }

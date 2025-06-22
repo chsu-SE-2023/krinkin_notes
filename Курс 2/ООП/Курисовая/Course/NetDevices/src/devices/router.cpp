@@ -81,7 +81,7 @@ Router::Router(const unsigned char*& bytes, std::vector<Client>& clients, MAC_Ad
 *
 * @param экземпл€р Router
 */
-Router::Router(const Router& copy) : Gateway(const_cast<const unsigned char*&>(copy.Gateway::bytes), const_cast<std::vector<Client>&>(copy.clients), copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
+Router::Router(const Router& copy) : Gateway(const_cast<const unsigned char*&>(copy.Gateway::bytes), const_cast<std::vector<Client>&>(copy.Gateway::clients), copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
     this->wps = copy.wps;
 }
 
@@ -140,15 +140,6 @@ std::string Router::get_info() {
 }
 
 /**
-* ћетод возвращающиц активирован ли на устройстве режим WPS подключени€
-* 
-* @return булевое значение активации режима WPS подключени€
-*/
-bool Router::is_wps() const {
-    return wps;
-}
-
-/**
 * ћетод, печатающий информацию об устройстве в консоль
 */
 void Router::print_info() const {
@@ -175,27 +166,24 @@ void Router::set_address(MAC_Address address) {
     Repeater::set_address(address);
 }
 
-/**
-* ћетод активирующий режим WPS подключени€ на устройстве
-*/
-void Router::wps_init() {
-    this->wps = true;
-}
-
 /*
 * ћетод подключающий клиента по WPS и отключающий режим WPS
 * 
 * @param подключаемый клиент
 */
-void Router::connect(Client client) {
-    if (client.get_type() == ClientType::Wired)
-        this->clients.push_back(client);
-    if (client.get_type() == ClientType::Wireless) {
-        if (wps) {
-            this->clients.push_back(client);
-            this->wps = false;
+void Router::connect(Client& client) {
+    if (Gateway::clients.size() <= cli_cap) {
+        if (client.get_type() == ClientType::Wired)
+            this->Gateway::clients.push_back(client);
+        if (client.get_type() == ClientType::Wireless) {
+            if (wps) {
+                this->Gateway::clients.push_back(client);
+                this->wps = false;
+            }
+            else throw std::invalid_argument("Device will be in WPS mode to connect wireless client without credentials");
         }
-        else throw std::invalid_argument("Device will be in WPS mode to connect wireless client without credentials");
+    } else {
+        throw std::overflow_error("There is not enouth capacity for new client");
     }
 }
 
@@ -206,8 +194,12 @@ void Router::connect(Client client) {
 * @param SSID сети устройства
 * @param пароль сети устройства
 */
-void Router::connect(Client client, std::string ssid, std::string passwd) {
-    if (this->ssid == ssid && this->passwd == passwd)
-        this->clients.push_back(client);
-    else throw std::invalid_argument("Wrong credentials provided!");
+void Router::connect(Client& client, std::string ssid, std::string passwd) {
+    if (Gateway::clients.size() <= cli_cap) {
+        if (this->ssid == ssid && this->passwd == passwd)
+            this->Gateway::clients.push_back(client);
+        else throw std::invalid_argument("Wrong credentials provided!");
+    } else {
+        throw std::overflow_error("There is not enouth capacity for new client");
+    }
 }

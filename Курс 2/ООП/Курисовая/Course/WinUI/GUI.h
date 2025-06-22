@@ -9,7 +9,7 @@
 #include "../NetDevices/src/containers/data_center.h"
 #include "../NetDevices/src/containers/server_room.h"
 
-void ShowWLANDialog();
+std::string ShowWLANDialog();
 
 namespace WinUI {
 
@@ -1176,6 +1176,11 @@ namespace WinUI {
 
 		}
 #pragma endregion
+public:
+	static std::string to_string(String^ string) {
+		msclr::interop::marshal_context context;
+		return context.marshal_as<std::string>(string);
+	}
 private: 
 	DataCenter* contB;
 	ServerRoom<Repeater>* contRepeater;
@@ -1183,11 +1188,6 @@ private:
 	ServerRoom<Switch>* contSwitch;
 	ServerRoom<Gateway>* contGateway;
 	ServerRoom<Router>* contRouter;
-
-	std::string to_string(String^ string) {
-		msclr::interop::marshal_context context;
-		return context.marshal_as<std::string>(string);
-	}
 
 	template <typename T>
 	System::Void addBTableRow(ServerRoom<T>* container) {
@@ -1363,17 +1363,39 @@ private:
 		std::vector<void*> vec = contB->get_vector();
 		std::vector<void*> founded = {};
 		int count = 0;
-		for (int i = 0; i < vec.size(); i++) {
-			if (comboBoxCriteria->Text == "address")
+		//for (int i = 0; i < vec.size(); i++) {
+		//	if (comboBoxCriteria->Text == "address")
+		//		count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(MAC_Address(to_string(textBoxValue->Text))).size();
+		//	if (comboBoxCriteria->Text == "clients_count")
+		//		count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(Int32::Parse(textBoxValue->Text), Int32::Parse(textBoxValue->Text)).size();
+		//	if (comboBoxCriteria->Text == "protocol")
+		//		count += static_cast<ServerRoom<Gateway>*>(vec[i])->search(to_string(textBoxValue->Text), SearchMode::Protocol).size();
+		//	if (comboBoxCriteria->Text == "ssid")
+		//		count += static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(to_string(textBoxValue->Text), SearchMode::SSID).size();
+		//	if (comboBoxCriteria->Text == "wps")
+		//		count += static_cast<ServerRoom<Router>*>(vec[i])->search(bool::Parse(textBoxValue->Text)).size();
+		//}
+		if (comboBoxCriteria->Text == "address") {
+			for (int i = 0; i < vec.size(); i++) {
 				count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(MAC_Address(to_string(textBoxValue->Text))).size();
-			if (comboBoxCriteria->Text == "clients_count")
+			}
+		}
+		if (comboBoxCriteria->Text == "clients_count") {
+			for (int i = 0; i < vec.size(); i++) {
 				count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(Int32::Parse(textBoxValue->Text), Int32::Parse(textBoxValue->Text)).size();
-			if (comboBoxCriteria->Text == "protocol")
-				count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(to_string(textBoxValue->Text), SearchMode::Protocol).size();
-			if (comboBoxCriteria->Text == "ssid")
-				count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(to_string(textBoxValue->Text), SearchMode::SSID).size();
-			if (comboBoxCriteria->Text == "wps")
-				count += static_cast<ServerRoom<Router>*>(vec[i])->search(bool::Parse(textBoxValue->Text)).size();
+			}
+		}
+		if (comboBoxCriteria->Text == "protocol") {
+			count += static_cast<ServerRoom<Gateway>*>(vec[3])->search(to_string(textBoxValue->Text), SearchMode::Protocol).size();
+			count += static_cast<ServerRoom<Router>*>(vec[4])->search(to_string(textBoxValue->Text), SearchMode::Protocol).size();
+		}
+		if (comboBoxCriteria->Text == "ssid") {
+			count += static_cast<ServerRoom<WLRepeater>*>(vec[1])->search(to_string(textBoxValue->Text), SearchMode::SSID).size();
+			count += static_cast<ServerRoom<Router>*>(vec[4])->search(to_string(textBoxValue->Text), SearchMode::SSID).size();
+		}
+		if (comboBoxCriteria->Text == "wps") {
+			count += static_cast<ServerRoom<WLRepeater>*>(vec[1])->search(bool::Parse(textBoxValue->Text)).size();
+			count += static_cast<ServerRoom<Router>*>(vec[4])->search(bool::Parse(textBoxValue->Text)).size();
 		}
 		textBoxResult->Text = "Найдено " + count + " объектов";
 	}
@@ -1476,20 +1498,41 @@ private:
 		Client* client = new Client(name, address, bytes, type);
 
 		std::vector<void*> vec = contB->get_vector();
-		Router* net_device = nullptr;
+		WLRepeater* net_device = nullptr;
 		for (int i = 0; i < vec.size(); i++) {
-			//if (comboBoxConType->Text == "Адресу")
-				//net_device = static_cast<ServerRoom<Router>*>(vec[i])->search(MAC_Address(to_string(textBoxConnectText->Text)))[0];
-			//if (comboBoxConType->Text == "SSID")
-				//net_device = static_cast<ServerRoom<Router>*>(vec[i])->search(to_string(textBoxConnectText->Text), SearchMode::SSID)[0];
+			if (comboBoxCType->Text == "Проводной") {
+				std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(MAC_Address(to_string(textBoxConnectText->Text)));
+				if (result.size() > 0)
+					net_device = static_cast<WLRepeater*>(result[0]);
+			}
+			if (comboBoxCType->Text == "Беспроводной") {
+				if (i == 1 || i == 4) {
+					std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(to_string(textBoxConnectText->Text), SearchMode::SSID);
+					if (result.size() > 0)
+						net_device = static_cast<WLRepeater*>(result[0]);
+				}
+			}
 		}
 
 		if (comboBoxCType->Text == "Проводной") {
-			//net_device->connect(*client);
-		}	
+			if (net_device == nullptr) {
+				MessageBox::Show("Устройство с указанным адресом не найдено!");
+				return;
+			}
+			net_device->connect(*client);
+		}
 		if (comboBoxCType->Text == "Беспроводной") {
-			ShowWLANDialog();
-			//net_device->connect(client);
+			if (net_device == nullptr) {
+				MessageBox::Show("Указанная сеть не найдена!");
+				return;
+			}
+			if (net_device->is_wps()) {
+				net_device->connect(*client);
+			}
+			else {
+				std::string passwd = ShowWLANDialog();
+				net_device->connect(*client, net_device->get_ssid(), passwd);
+			}
 		}
 		updateAllTables();
 	}

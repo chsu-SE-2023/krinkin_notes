@@ -66,6 +66,7 @@ WLRepeater::WLRepeater(const unsigned char*& bytes, MAC_Address address, std::st
 * @param экземпл€р WLRepeater
 */
 WLRepeater::WLRepeater(const WLRepeater& copy) : Repeater(const_cast<const unsigned char*&>(copy.bytes), const_cast<MAC_Address&>(copy.address)) {
+    set_defaults();
     this->ssid = copy.ssid;
     this->passwd = copy.passwd;
 }
@@ -77,6 +78,44 @@ WLRepeater::~WLRepeater() {
     Repeater::~Repeater();
     this->ssid = "";
     this->passwd = "";
+}
+
+/*
+* ћетод подключающий клиента по WPS и отключающий режим WPS
+*
+* @param подключаемый клиент
+*/
+void WLRepeater::connect(Client& client) {
+    if (clients.size() == 0) {
+        if (client.get_type() == ClientType::Wired)
+            this->clients.push_back(client);
+        if (client.get_type() == ClientType::Wireless) {
+            if (wps) {
+                this->clients.push_back(client);
+                this->wps = false;
+            }
+            else throw std::invalid_argument("Device will be in WPS mode to connect wireless client without credentials");
+        }
+    } else {
+        throw std::overflow_error("This device does not support multiple clients");
+    }
+}
+
+/*
+* ћетод подключающий клиента к беспроводной сети
+*
+* @param подключаемый клиент
+* @param SSID сети устройства
+* @param пароль сети устройства
+*/
+void WLRepeater::connect(Client& client, std::string ssid, std::string passwd) {
+    if (clients.size() == 0) {
+        if (this->ssid == ssid && this->passwd == passwd) {
+            this->clients.push_back(client);   
+        } else throw std::invalid_argument("Wrong credentials provided!");
+    } else {
+        throw std::overflow_error("This device does not support multiple clients");
+    }
 }
 
 /**
@@ -96,6 +135,15 @@ std::string WLRepeater::get_info() {
 */
 std::string WLRepeater::get_ssid() const {
     return this->ssid;
+}
+
+/**
+* ћетод возвращающиц активирован ли на устройстве режим WPS подключени€
+*
+* @return булевое значение активации режима WPS подключени€
+*/
+bool WLRepeater::is_wps() const {
+    return wps;
 }
 
 /**
@@ -134,4 +182,11 @@ void WLRepeater::set_passwd(std::string passwd) {
 void WLRepeater::reset() {
     Repeater::reset();
     set_defaults();
+}
+
+/**
+* ћетод активирующий режим WPS подключени€ на устройстве
+*/
+void WLRepeater::wps_init() {
+    this->wps = true;
 }

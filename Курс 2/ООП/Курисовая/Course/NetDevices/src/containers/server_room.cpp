@@ -21,7 +21,6 @@ template void ServerRoom<Repeater>::seek(int);
 template void ServerRoom<Repeater>::sort();
 template std::vector<Repeater*> ServerRoom<Repeater>::search(MAC_Address);
 template std::vector <Repeater*> ServerRoom<Repeater>::search(int, int);
-template std::vector <Repeater*> ServerRoom<Repeater>::search(std::string, SearchMode);
 template int ServerRoom<Repeater>::size();
 template int ServerRoom<Repeater>::cli_total();
 #pragma endregion
@@ -67,7 +66,6 @@ template void ServerRoom<Switch>::seek(int);
 template void ServerRoom<Switch>::sort();
 template std::vector <Switch*> ServerRoom<Switch>::search(MAC_Address);
 template std::vector <Switch*> ServerRoom<Switch>::search(int, int);
-template std::vector <Switch*> ServerRoom<Switch>::search(std::string, SearchMode);
 template int ServerRoom<Switch>::size();
 template int ServerRoom<Switch>::cli_total();
 #pragma endregion
@@ -374,18 +372,73 @@ std::vector <T*> ServerRoom<T>::search(int start, int end) {
     return vec;
 }
 
-template<typename T>
-std::vector <T*> ServerRoom<T>::search(std::string str, SearchMode mode) {
+/**
+* Метод поиска экземпляра WLRepeater по диапазону клиентов
+*
+* @param искомая строка
+* @param режим поиска
+* @return вектор указатель на найденные объекты
+*/
+template<>
+std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(std::string str, SearchMode mode) {
     int count = 0;
-    std::vector<T*> vec = {};
+    std::vector<WLRepeater*> vec = {};
     std::string search_str = "";
     Node* current = this->first;
 
     while (current != nullptr) {
-        //if (mode == SearchMode::Protocol) search_str = current->device->get_protocol();
-        //if (mode == SearchMode::SSID) search_str = current->device->get_ssid();
+        if (mode == SearchMode::SSID) search_str = current->device->get_ssid();
         if (current->device != nullptr)
-            if (search_str != str)
+            if (search_str == str)
+                vec.emplace_back(current->device);
+        current = current->next;
+    }
+    return vec;
+}
+
+/**
+* Метод поиска экземпляра Gateway по диапазону клиентов
+*
+* @param искомая строка
+* @param режим поиска
+* @return вектор указатель на найденные объекты
+*/
+template<>
+std::vector <Gateway*> ServerRoom<Gateway>::search(std::string str, SearchMode mode) {
+    int count = 0;
+    std::vector<Gateway*> vec = {};
+    std::string search_str = "";
+    Node* current = this->first;
+
+    while (current != nullptr) {
+        if (mode == SearchMode::Protocol) search_str = current->device->get_protocol();
+        if (current->device != nullptr)
+            if (search_str == str)
+                vec.emplace_back(current->device);
+        current = current->next;
+    }
+    return vec;
+}
+
+/**
+* Метод поиска экземпляра Router по диапазону клиентов
+*
+* @param искомая строка
+* @param режим поиска
+* @return вектор указатель на найденные объекты
+*/
+template<>
+std::vector <Router*> ServerRoom<Router>::search(std::string str, SearchMode mode) {
+    int count = 0;
+    std::vector<Router*> vec = {};
+    std::string search_str = "";
+    Node* current = this->first;
+
+    while (current != nullptr) {
+        if (mode == SearchMode::Protocol) search_str = current->device->get_protocol();
+        if (mode == SearchMode::SSID) search_str = current->device->get_ssid();
+        if (current->device != nullptr)
+            if (search_str == str)
                 vec.emplace_back(current->device);
         current = current->next;
     }
@@ -401,6 +454,26 @@ std::vector <T*> ServerRoom<T>::search(std::string str, SearchMode mode) {
 std::vector<Router*> ServerRoom<Router>::search(bool wps) {
     int count = 0;
     std::vector<Router*> vec = {};
+    Node* current = this->first;
+
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            if (current->device->is_wps() != wps)
+                vec.emplace_back(current->device);
+        current = current->next;
+    }
+    return vec;
+}
+
+/**
+* Метод поиска экземпляра по статусу WPS
+*
+* @param address объекта
+* @return вектор указатель на найденные объекты
+*/
+std::vector<WLRepeater*> ServerRoom<WLRepeater>::search(bool wps) {
+    int count = 0;
+    std::vector<WLRepeater*> vec = {};
     Node* current = this->first;
 
     while (current != nullptr) {

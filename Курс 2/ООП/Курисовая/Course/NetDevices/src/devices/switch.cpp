@@ -217,21 +217,17 @@ int Switch::clients_count() const {
 *
 * @param подключаемый клиент
 */
-void Switch::connect(Client client) {
-    if (client.get_type() == ClientType::Wired)
-        this->clients.push_back(client);
-    else
-        throw std::invalid_argument("This device does not support wireless connection");
+void Switch::connect(Client& client) {
+    if (clients.size() <= cli_cap) {
+        if (client.get_type() == ClientType::Wired)
+            this->clients.push_back(client);
+        else
+            throw std::invalid_argument("This device does not support wireless connection");
+    }
+    else {
+        throw std::overflow_error("There is not enouth capacity for new client");
+    }
 };
-
-/**
-* Метод отключающий клиента от устройства
-*
-* @param отключаемый клиент
-*/
-void Switch::disconnect(Client client) {
-    clients.erase(std::find(clients.begin(), clients.end(), client));
-}
 
 /**
 * Публичный метод, сбрасывающий устройство до значений по умолчанию

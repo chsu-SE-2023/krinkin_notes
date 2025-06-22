@@ -138,7 +138,32 @@ bool operator!=(const Repeater& first, const Repeater& second) {
 * @return количество клиентов, подключенных к устройству
 */
 int Repeater::clients_count() const {
-    return 1;
+    if (clients.size()) return 1;
+    else return 0;
+}
+
+/**
+* Метод подключающий клиента к устройству
+*
+* @param подключаемый клиент
+*/
+void Repeater::connect(Client& client) {
+    if (client.get_type() == ClientType::Wired)
+        if (clients.size() == 0)
+            this->clients.push_back(client);
+        else
+            throw std::overflow_error("This device does not support multiple clients");
+    else
+        throw std::invalid_argument("This device does not support wireless connection");
+}
+
+/**
+* Метод отключающий клиента от устройства
+*
+* @param отключаемый клиент
+*/
+void Repeater::disconnect(Client& client) {
+    clients.erase(std::find(clients.begin(), clients.end(), client));
 }
 
 /**

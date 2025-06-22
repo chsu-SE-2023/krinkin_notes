@@ -15,8 +15,11 @@ int main(array<String^>^ args)
 	Application::Run(% form);
 }
 
-void ShowWLANDialog()
+std::string ShowWLANDialog()
 {
 	WinUI::WLANDialog^ form = gcnew WinUI::WLANDialog();
 	form->Show();
+	if (form->result == Windows::Forms::DialogResult::OK)
+		return WinUI::GUI::to_string(form->passwd);
+	else return "";
 }
