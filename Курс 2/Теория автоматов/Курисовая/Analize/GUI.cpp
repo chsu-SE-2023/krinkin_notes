@@ -26,12 +26,12 @@ String^ Analize::GUI::addLineNum(String^ target) {
 	line = 0;
 	// Количество разрядов длины
 	int count = (analyser->get_lines_count(target) + 1).ToString()->Length;
-	target = ++line + spaces(count - 1) + "  " + target;
+	target = ++line + spaces(count - 1) + "  " + target; // Добавление номера к первой строке
 	String^ out = gcnew String("");
 	for (int i = 0; i < target->Length; i++) {
 		if (target[i] == '\n') {
-			std::cout << line << " " << count - (line.ToString()->Length) << std::endl;
-			out += "\n" + ++line + spaces(count - (line.ToString()->Length)) + "  ";
+			line++;
+			out += "\n" + line + spaces(count - (line.ToString()->Length)) + "  ";
 			continue;
 		}
 		out += target[i];
@@ -112,6 +112,7 @@ System::Void Analize::GUI::buildCodes(int state, String^ lexem, String^ code, Da
 */
 System::Void Analize::GUI::clear() {
 	this->outBox->Text = "";
+	this->outBoxL->Text = "";
 	this->textBoxPseudo->Text = "";
 	this->textBoxDescript->Text = "";
 	this->textBoxErrors->Text = "";
@@ -211,6 +212,7 @@ System::Void Analize::GUI::stripSource() {
 	currentLine = 1;
 	int commentLine = 1;
 	analyser->clear_state();
+	sourceBox->Text = sourceBox->Text + " \r\n";
 	sourceBox->Text = sourceBox->Text->Replace(" \r\n", "\n");
 	char prev = sourceBox->Text[0];
 	for (int i = 1; i < sourceBox->Text->Length; i++) {
@@ -238,14 +240,16 @@ System::Void Analize::GUI::stripSource() {
 System::Void Analize::GUI::openFileButton_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->openFileDialog1->FileName = "";
 	this->openFileDialog1->ShowDialog();
-	this->fileNameBox->Text = openFileDialog1->FileName;
-	this->sourceBox->Text = "";
+	if (this->openFileDialog1->FileName != "") {
+		this->fileNameBox->Text = openFileDialog1->FileName;
+		this->sourceBox->Text = "";
 
-	StreamReader^ reader = gcnew StreamReader(openFileDialog1->FileName, Encoding::GetEncoding("windows-1251"));
-	do {
-		this->sourceBox->Text += reader->ReadLine() + " \r\n";
-	} while (reader->Peek() != -1);
-	this->sourceBox->BackColor = System::Drawing::SystemColors::Window;
+		StreamReader^ reader = gcnew StreamReader(openFileDialog1->FileName, Encoding::GetEncoding("windows-1251"));
+		do {
+			this->sourceBox->Text += reader->ReadLine() + " \r\n";
+		} while (reader->Peek() != -1);
+		reader->Close();
+	}
 }
 
 /**
