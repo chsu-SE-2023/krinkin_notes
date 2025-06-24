@@ -81,15 +81,6 @@ int Analyser::get_state() const {
 * @return результат проверки
 */
 bool Analyser::is_delim(char c) {
-	/*if (check_next) {
-		Analyser* checker = new Analyser();
-		checker->check_next = false;
-		checker->lexem_filter(c, c);
-		int state = checker->state;
-		delete checker;
-		return state == 6;
-	}
-	return false;*/
 	std::string delimers = " ,:;(){}'\"\n\0";
 	return std::count(delimers.begin(), delimers.end(), c) > 0;
 }
@@ -135,15 +126,6 @@ bool Analyser::is_next_valid(char c) {
 * @return результат проверки
 */
 bool Analyser::is_sign(char c) {
-	/*if (check_next) {
-		Analyser* checker = new Analyser();
-		checker->check_next = false;
-		checker->lexem_filter(c, c);
-		int state = checker->state;
-		delete checker;
-		return (state == 4 || state == 5);
-	}
-	return false;*/
 	std::string signs = ".:[]<>+-/*=#&";
 	return std::count(signs.begin(), signs.end(), c) > 0;
 }
