@@ -70,7 +70,7 @@ namespace WinUI {
 	private: System::Windows::Forms::TextBox^ textBox11;
 	private: System::Windows::Forms::TextBox^ textBoxProtocol;
 	private: System::Windows::Forms::TextBox^ textBox10;
-	private: System::Windows::Forms::TextBox^ textBoxCapacity;
+
 	private: System::Windows::Forms::TextBox^ textBox6;
 	private: System::Windows::Forms::TextBox^ textBoxMAC;
 	private: System::Windows::Forms::TextBox^ textBox13;
@@ -95,7 +95,7 @@ namespace WinUI {
 	private: System::Windows::Forms::DataGridView^ dataGridViewRouter;
 	private: System::Windows::Forms::Button^ buttonGet;
 	private: System::Windows::Forms::TextBox^ textBox12;
-	private: System::Windows::Forms::TextBox^ textBoxIndex;
+
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnType;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnDevices;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnClients;
@@ -119,7 +119,6 @@ namespace WinUI {
 	private: System::Windows::Forms::TextBox^ textBoxResult;
 	private: System::Windows::Forms::Button^ buttonReset;
 	private: System::Windows::Forms::Button^ buttonDeleteAll;
-	private: System::Windows::Forms::Button^ buttonLoadFile;
 	private: System::Windows::Forms::OpenFileDialog^ openFileDialog1;
 	private: System::Windows::Forms::TabPage^ tabPageClient;
 	private: System::Windows::Forms::Button^ buttonMACGen;
@@ -136,6 +135,15 @@ namespace WinUI {
 	private: System::Windows::Forms::TextBox^ textBox18;
 	public: System::Windows::Forms::TextBox^ textBoxConnectText;
 	private: System::Windows::Forms::TextBox^ textBoxConCriteria;
+	private: System::Windows::Forms::TextBox^ textBox4;
+	private: System::Windows::Forms::Button^ buttonSaveFileC;
+	private: System::Windows::Forms::Button^ buttonLoadFileC;
+	private: System::Windows::Forms::Button^ buttonLoadFile;
+	private: System::Windows::Forms::Button^ buttonSaveFile;
+	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
+private: System::Windows::Forms::NumericUpDown^ numericUpDownIndex;
+private: System::Windows::Forms::NumericUpDown^ numericUpDownCapacity;
+private: System::Windows::Forms::TextBox^ textBox8;
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -188,7 +196,6 @@ namespace WinUI {
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxMAC = (gcnew System::Windows::Forms::TextBox());
 			this->textBox6 = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxCapacity = (gcnew System::Windows::Forms::TextBox());
 			this->textBox10 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox11 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxProtocol = (gcnew System::Windows::Forms::TextBox());
@@ -197,14 +204,18 @@ namespace WinUI {
 			this->checkBoxWPS = (gcnew System::Windows::Forms::CheckBox());
 			this->tabControl2 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPage3 = (gcnew System::Windows::Forms::TabPage());
+			this->numericUpDownCapacity = (gcnew System::Windows::Forms::NumericUpDown());
+			this->numericUpDownIndex = (gcnew System::Windows::Forms::NumericUpDown());
 			this->buttonMACGen = (gcnew System::Windows::Forms::Button());
-			this->buttonLoadFile = (gcnew System::Windows::Forms::Button());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxPasswd = (gcnew System::Windows::Forms::TextBox());
 			this->buttonGet = (gcnew System::Windows::Forms::Button());
 			this->textBox12 = (gcnew System::Windows::Forms::TextBox());
-			this->textBoxIndex = (gcnew System::Windows::Forms::TextBox());
 			this->tabPageContainers = (gcnew System::Windows::Forms::TabPage());
+			this->textBox8 = (gcnew System::Windows::Forms::TextBox());
+			this->buttonLoadFile = (gcnew System::Windows::Forms::Button());
+			this->buttonSaveFile = (gcnew System::Windows::Forms::Button());
+			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
 			this->buttonDeleteAll = (gcnew System::Windows::Forms::Button());
 			this->buttonReset = (gcnew System::Windows::Forms::Button());
 			this->textBoxResult = (gcnew System::Windows::Forms::TextBox());
@@ -213,6 +224,8 @@ namespace WinUI {
 			this->textBoxValue = (gcnew System::Windows::Forms::TextBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->tabPageClient = (gcnew System::Windows::Forms::TabPage());
+			this->buttonSaveFileC = (gcnew System::Windows::Forms::Button());
+			this->buttonLoadFileC = (gcnew System::Windows::Forms::Button());
 			this->textBoxConCriteria = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxConnectText = (gcnew System::Windows::Forms::TextBox());
 			this->textBoxBytes = (gcnew System::Windows::Forms::TextBox());
@@ -227,6 +240,7 @@ namespace WinUI {
 			this->textBoxMACC = (gcnew System::Windows::Forms::TextBox());
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
 			this->tabControl1->SuspendLayout();
 			this->tabPageContainerB->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewB))->BeginInit();
@@ -242,14 +256,15 @@ namespace WinUI {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewRouter))->BeginInit();
 			this->tabControl2->SuspendLayout();
 			this->tabPage3->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownCapacity))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownIndex))->BeginInit();
 			this->tabPageContainers->SuspendLayout();
 			this->tabPageClient->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// tabControl1
 			// 
-			this->tabControl1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
-				| System::Windows::Forms::AnchorStyles::Left)
+			this->tabControl1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->tabControl1->Controls->Add(this->tabPageContainerB);
 			this->tabControl1->Controls->Add(this->tabPageRepeater);
@@ -262,7 +277,7 @@ namespace WinUI {
 			this->tabControl1->Location = System::Drawing::Point(372, 2);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(840, 497);
+			this->tabControl1->Size = System::Drawing::Size(841, 497);
 			this->tabControl1->TabIndex = 0;
 			// 
 			// tabPageContainerB
@@ -271,7 +286,7 @@ namespace WinUI {
 			this->tabPageContainerB->Location = System::Drawing::Point(4, 27);
 			this->tabPageContainerB->Name = L"tabPageContainerB";
 			this->tabPageContainerB->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageContainerB->Size = System::Drawing::Size(832, 466);
+			this->tabPageContainerB->Size = System::Drawing::Size(833, 466);
 			this->tabPageContainerB->TabIndex = 0;
 			this->tabPageContainerB->Text = L"Контейнер B";
 			this->tabPageContainerB->UseVisualStyleBackColor = true;
@@ -290,7 +305,7 @@ namespace WinUI {
 			this->dataGridViewB->Name = L"dataGridViewB";
 			this->dataGridViewB->ReadOnly = true;
 			this->dataGridViewB->RowHeadersVisible = false;
-			this->dataGridViewB->Size = System::Drawing::Size(826, 460);
+			this->dataGridViewB->Size = System::Drawing::Size(827, 460);
 			this->dataGridViewB->TabIndex = 0;
 			// 
 			// ColumnType
@@ -317,7 +332,7 @@ namespace WinUI {
 			this->tabPageRepeater->Location = System::Drawing::Point(4, 27);
 			this->tabPageRepeater->Name = L"tabPageRepeater";
 			this->tabPageRepeater->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageRepeater->Size = System::Drawing::Size(832, 466);
+			this->tabPageRepeater->Size = System::Drawing::Size(1925, 466);
 			this->tabPageRepeater->TabIndex = 1;
 			this->tabPageRepeater->Text = L"Repeater (C)";
 			this->tabPageRepeater->UseVisualStyleBackColor = true;
@@ -336,7 +351,7 @@ namespace WinUI {
 			this->dataGridViewRepeater->Name = L"dataGridViewRepeater";
 			this->dataGridViewRepeater->ReadOnly = true;
 			this->dataGridViewRepeater->RowHeadersVisible = false;
-			this->dataGridViewRepeater->Size = System::Drawing::Size(826, 460);
+			this->dataGridViewRepeater->Size = System::Drawing::Size(1919, 460);
 			this->dataGridViewRepeater->TabIndex = 0;
 			// 
 			// ColumnIndex1
@@ -370,7 +385,7 @@ namespace WinUI {
 			this->tabPageWLRepeater->Location = System::Drawing::Point(4, 27);
 			this->tabPageWLRepeater->Name = L"tabPageWLRepeater";
 			this->tabPageWLRepeater->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageWLRepeater->Size = System::Drawing::Size(832, 466);
+			this->tabPageWLRepeater->Size = System::Drawing::Size(1925, 466);
 			this->tabPageWLRepeater->TabIndex = 2;
 			this->tabPageWLRepeater->Text = L"WLRepeater (C)";
 			this->tabPageWLRepeater->UseVisualStyleBackColor = true;
@@ -389,7 +404,7 @@ namespace WinUI {
 			this->dataGridViewWLRepeater->Name = L"dataGridViewWLRepeater";
 			this->dataGridViewWLRepeater->ReadOnly = true;
 			this->dataGridViewWLRepeater->RowHeadersVisible = false;
-			this->dataGridViewWLRepeater->Size = System::Drawing::Size(826, 460);
+			this->dataGridViewWLRepeater->Size = System::Drawing::Size(1919, 460);
 			this->dataGridViewWLRepeater->TabIndex = 1;
 			// 
 			// ColumnIndex2
@@ -423,7 +438,7 @@ namespace WinUI {
 			this->tabPageSwitch->Location = System::Drawing::Point(4, 27);
 			this->tabPageSwitch->Name = L"tabPageSwitch";
 			this->tabPageSwitch->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageSwitch->Size = System::Drawing::Size(832, 466);
+			this->tabPageSwitch->Size = System::Drawing::Size(1925, 466);
 			this->tabPageSwitch->TabIndex = 3;
 			this->tabPageSwitch->Text = L"Switch (C)";
 			this->tabPageSwitch->UseVisualStyleBackColor = true;
@@ -442,7 +457,7 @@ namespace WinUI {
 			this->dataGridViewSwitch->Name = L"dataGridViewSwitch";
 			this->dataGridViewSwitch->ReadOnly = true;
 			this->dataGridViewSwitch->RowHeadersVisible = false;
-			this->dataGridViewSwitch->Size = System::Drawing::Size(826, 460);
+			this->dataGridViewSwitch->Size = System::Drawing::Size(1919, 460);
 			this->dataGridViewSwitch->TabIndex = 1;
 			// 
 			// ColumnIndex3
@@ -476,7 +491,7 @@ namespace WinUI {
 			this->tabPageGateway->Location = System::Drawing::Point(4, 27);
 			this->tabPageGateway->Name = L"tabPageGateway";
 			this->tabPageGateway->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageGateway->Size = System::Drawing::Size(832, 466);
+			this->tabPageGateway->Size = System::Drawing::Size(1925, 466);
 			this->tabPageGateway->TabIndex = 4;
 			this->tabPageGateway->Text = L"Gateway (C)";
 			this->tabPageGateway->UseVisualStyleBackColor = true;
@@ -495,7 +510,7 @@ namespace WinUI {
 			this->dataGridViewGateway->Name = L"dataGridViewGateway";
 			this->dataGridViewGateway->ReadOnly = true;
 			this->dataGridViewGateway->RowHeadersVisible = false;
-			this->dataGridViewGateway->Size = System::Drawing::Size(826, 460);
+			this->dataGridViewGateway->Size = System::Drawing::Size(1919, 460);
 			this->dataGridViewGateway->TabIndex = 1;
 			// 
 			// ColumnIndex4
@@ -529,7 +544,7 @@ namespace WinUI {
 			this->tabPageRouter->Location = System::Drawing::Point(4, 27);
 			this->tabPageRouter->Name = L"tabPageRouter";
 			this->tabPageRouter->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageRouter->Size = System::Drawing::Size(832, 466);
+			this->tabPageRouter->Size = System::Drawing::Size(1925, 466);
 			this->tabPageRouter->TabIndex = 5;
 			this->tabPageRouter->Text = L"Router (C)";
 			this->tabPageRouter->UseVisualStyleBackColor = true;
@@ -548,7 +563,7 @@ namespace WinUI {
 			this->dataGridViewRouter->Name = L"dataGridViewRouter";
 			this->dataGridViewRouter->ReadOnly = true;
 			this->dataGridViewRouter->RowHeadersVisible = false;
-			this->dataGridViewRouter->Size = System::Drawing::Size(826, 460);
+			this->dataGridViewRouter->Size = System::Drawing::Size(1919, 460);
 			this->dataGridViewRouter->TabIndex = 1;
 			// 
 			// ColumnIndex5
@@ -580,7 +595,7 @@ namespace WinUI {
 			// 
 			this->buttonSort->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->buttonSort->Location = System::Drawing::Point(6, 254);
+			this->buttonSort->Location = System::Drawing::Point(6, 166);
 			this->buttonSort->Name = L"buttonSort";
 			this->buttonSort->Size = System::Drawing::Size(109, 23);
 			this->buttonSort->TabIndex = 5;
@@ -617,7 +632,7 @@ namespace WinUI {
 			// 
 			this->buttonSearch->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->buttonSearch->Location = System::Drawing::Point(6, 169);
+			this->buttonSearch->Location = System::Drawing::Point(6, 91);
 			this->buttonSearch->Name = L"buttonSearch";
 			this->buttonSearch->Size = System::Drawing::Size(109, 23);
 			this->buttonSearch->TabIndex = 7;
@@ -632,7 +647,7 @@ namespace WinUI {
 				L"address", L"clients_count", L"protocol",
 					L"ssid", L"wps"
 			});
-			this->comboBoxCriteria->Location = System::Drawing::Point(6, 84);
+			this->comboBoxCriteria->Location = System::Drawing::Point(6, 29);
 			this->comboBoxCriteria->Name = L"comboBoxCriteria";
 			this->comboBoxCriteria->Size = System::Drawing::Size(175, 26);
 			this->comboBoxCriteria->TabIndex = 8;
@@ -670,15 +685,6 @@ namespace WinUI {
 			this->textBox6->Size = System::Drawing::Size(87, 17);
 			this->textBox6->TabIndex = 12;
 			this->textBox6->Text = L"MAC-Адрес";
-			// 
-			// textBoxCapacity
-			// 
-			this->textBoxCapacity->Enabled = false;
-			this->textBoxCapacity->Location = System::Drawing::Point(5, 376);
-			this->textBoxCapacity->Name = L"textBoxCapacity";
-			this->textBoxCapacity->Size = System::Drawing::Size(50, 24);
-			this->textBoxCapacity->TabIndex = 15;
-			this->textBoxCapacity->Text = L"32";
 			// 
 			// textBox10
 			// 
@@ -765,13 +771,13 @@ namespace WinUI {
 			// 
 			// tabPage3
 			// 
+			this->tabPage3->Controls->Add(this->numericUpDownCapacity);
+			this->tabPage3->Controls->Add(this->numericUpDownIndex);
 			this->tabPage3->Controls->Add(this->buttonMACGen);
-			this->tabPage3->Controls->Add(this->buttonLoadFile);
 			this->tabPage3->Controls->Add(this->textBox2);
 			this->tabPage3->Controls->Add(this->textBoxPasswd);
 			this->tabPage3->Controls->Add(this->buttonGet);
 			this->tabPage3->Controls->Add(this->textBox12);
-			this->tabPage3->Controls->Add(this->textBoxIndex);
 			this->tabPage3->Controls->Add(this->buttonAdd);
 			this->tabPage3->Controls->Add(this->checkBoxWPS);
 			this->tabPage3->Controls->Add(this->textBoxMAC);
@@ -781,7 +787,6 @@ namespace WinUI {
 			this->tabPage3->Controls->Add(this->textBoxSSID);
 			this->tabPage3->Controls->Add(this->comboBoxClass);
 			this->tabPage3->Controls->Add(this->textBox11);
-			this->tabPage3->Controls->Add(this->textBoxCapacity);
 			this->tabPage3->Controls->Add(this->textBox10);
 			this->tabPage3->Controls->Add(this->textBoxProtocol);
 			this->tabPage3->Location = System::Drawing::Point(4, 27);
@@ -791,6 +796,21 @@ namespace WinUI {
 			this->tabPage3->TabIndex = 0;
 			this->tabPage3->Text = L"Объект";
 			this->tabPage3->UseVisualStyleBackColor = true;
+			// 
+			// numericUpDownCapacity
+			// 
+			this->numericUpDownCapacity->Enabled = false;
+			this->numericUpDownCapacity->Location = System::Drawing::Point(6, 376);
+			this->numericUpDownCapacity->Name = L"numericUpDownCapacity";
+			this->numericUpDownCapacity->Size = System::Drawing::Size(54, 24);
+			this->numericUpDownCapacity->TabIndex = 31;
+			// 
+			// numericUpDownIndex
+			// 
+			this->numericUpDownIndex->Location = System::Drawing::Point(6, 29);
+			this->numericUpDownIndex->Name = L"numericUpDownIndex";
+			this->numericUpDownIndex->Size = System::Drawing::Size(54, 24);
+			this->numericUpDownIndex->TabIndex = 30;
 			// 
 			// buttonMACGen
 			// 
@@ -804,18 +824,6 @@ namespace WinUI {
 			this->buttonMACGen->Text = L"Сгенерировать";
 			this->buttonMACGen->UseVisualStyleBackColor = true;
 			this->buttonMACGen->Click += gcnew System::EventHandler(this, &GUI::buttonMACGen_Click);
-			// 
-			// buttonLoadFile
-			// 
-			this->buttonLoadFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->buttonLoadFile->Location = System::Drawing::Point(91, 434);
-			this->buttonLoadFile->Name = L"buttonLoadFile";
-			this->buttonLoadFile->Size = System::Drawing::Size(149, 23);
-			this->buttonLoadFile->TabIndex = 28;
-			this->buttonLoadFile->Text = L"Загрузить из файла";
-			this->buttonLoadFile->UseVisualStyleBackColor = true;
-			this->buttonLoadFile->Click += gcnew System::EventHandler(this, &GUI::buttonLoadFile_Click);
 			// 
 			// textBox2
 			// 
@@ -865,15 +873,12 @@ namespace WinUI {
 			this->textBox12->TabIndex = 24;
 			this->textBox12->Text = L"Индекс";
 			// 
-			// textBoxIndex
-			// 
-			this->textBoxIndex->Location = System::Drawing::Point(6, 29);
-			this->textBoxIndex->Name = L"textBoxIndex";
-			this->textBoxIndex->Size = System::Drawing::Size(43, 24);
-			this->textBoxIndex->TabIndex = 23;
-			// 
 			// tabPageContainers
 			// 
+			this->tabPageContainers->Controls->Add(this->textBox8);
+			this->tabPageContainers->Controls->Add(this->buttonLoadFile);
+			this->tabPageContainers->Controls->Add(this->buttonSaveFile);
+			this->tabPageContainers->Controls->Add(this->textBox4);
 			this->tabPageContainers->Controls->Add(this->buttonDeleteAll);
 			this->tabPageContainers->Controls->Add(this->buttonReset);
 			this->tabPageContainers->Controls->Add(this->textBoxResult);
@@ -892,11 +897,59 @@ namespace WinUI {
 			this->tabPageContainers->Text = L"Контейнер";
 			this->tabPageContainers->UseVisualStyleBackColor = true;
 			// 
+			// textBox8
+			// 
+			this->textBox8->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox8->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox8->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox8->Location = System::Drawing::Point(6, 6);
+			this->textBox8->Name = L"textBox8";
+			this->textBox8->Size = System::Drawing::Size(160, 17);
+			this->textBox8->TabIndex = 48;
+			this->textBox8->Text = L"Поиск объектов";
+			// 
+			// buttonLoadFile
+			// 
+			this->buttonLoadFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonLoadFile->Location = System::Drawing::Point(6, 435);
+			this->buttonLoadFile->Name = L"buttonLoadFile";
+			this->buttonLoadFile->Size = System::Drawing::Size(149, 23);
+			this->buttonLoadFile->TabIndex = 47;
+			this->buttonLoadFile->Text = L"Загрузить из файла";
+			this->buttonLoadFile->UseVisualStyleBackColor = true;
+			this->buttonLoadFile->Click += gcnew System::EventHandler(this, &GUI::buttonLoadFile_Click);
+			// 
+			// buttonSaveFile
+			// 
+			this->buttonSaveFile->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonSaveFile->Location = System::Drawing::Point(161, 435);
+			this->buttonSaveFile->Name = L"buttonSaveFile";
+			this->buttonSaveFile->Size = System::Drawing::Size(140, 23);
+			this->buttonSaveFile->TabIndex = 46;
+			this->buttonSaveFile->Text = L"Сохранить в файл";
+			this->buttonSaveFile->UseVisualStyleBackColor = true;
+			this->buttonSaveFile->Click += gcnew System::EventHandler(this, &GUI::buttonSaveFile_Click);
+			// 
+			// textBox4
+			// 
+			this->textBox4->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
+				static_cast<System::Int32>(static_cast<System::Byte>(249)));
+			this->textBox4->BorderStyle = System::Windows::Forms::BorderStyle::None;
+			this->textBox4->Location = System::Drawing::Point(121, 167);
+			this->textBox4->Name = L"textBox4";
+			this->textBox4->Size = System::Drawing::Size(100, 17);
+			this->textBox4->TabIndex = 29;
+			this->textBox4->Text = L"(По адресу)";
+			// 
 			// buttonDeleteAll
 			// 
 			this->buttonDeleteAll->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->buttonDeleteAll->Location = System::Drawing::Point(6, 312);
+			this->buttonDeleteAll->Location = System::Drawing::Point(6, 224);
 			this->buttonDeleteAll->Name = L"buttonDeleteAll";
 			this->buttonDeleteAll->Size = System::Drawing::Size(109, 23);
 			this->buttonDeleteAll->TabIndex = 28;
@@ -908,7 +961,7 @@ namespace WinUI {
 			// 
 			this->buttonReset->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->buttonReset->Location = System::Drawing::Point(6, 283);
+			this->buttonReset->Location = System::Drawing::Point(6, 195);
 			this->buttonReset->Name = L"buttonReset";
 			this->buttonReset->Size = System::Drawing::Size(109, 23);
 			this->buttonReset->TabIndex = 27;
@@ -921,10 +974,10 @@ namespace WinUI {
 			this->textBoxResult->BackColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(249)), static_cast<System::Int32>(static_cast<System::Byte>(249)),
 				static_cast<System::Int32>(static_cast<System::Byte>(249)));
 			this->textBoxResult->BorderStyle = System::Windows::Forms::BorderStyle::None;
-			this->textBoxResult->Location = System::Drawing::Point(121, 170);
+			this->textBoxResult->Location = System::Drawing::Point(121, 92);
 			this->textBoxResult->Name = L"textBoxResult";
 			this->textBoxResult->ReadOnly = true;
-			this->textBoxResult->Size = System::Drawing::Size(267, 17);
+			this->textBoxResult->Size = System::Drawing::Size(233, 17);
 			this->textBoxResult->TabIndex = 26;
 			// 
 			// textBox9
@@ -934,9 +987,9 @@ namespace WinUI {
 			this->textBox9->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox9->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox9->Location = System::Drawing::Point(6, 8);
+			this->textBox9->Location = System::Drawing::Point(6, 140);
 			this->textBox9->Name = L"textBox9";
-			this->textBox9->Size = System::Drawing::Size(160, 17);
+			this->textBox9->Size = System::Drawing::Size(175, 17);
 			this->textBox9->TabIndex = 23;
 			this->textBox9->Text = L"Обработка объектов";
 			// 
@@ -947,7 +1000,7 @@ namespace WinUI {
 			this->textBox15->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox15->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox15->Location = System::Drawing::Point(6, 119);
+			this->textBox15->Location = System::Drawing::Point(270, 64);
 			this->textBox15->Name = L"textBox15";
 			this->textBox15->Size = System::Drawing::Size(87, 17);
 			this->textBox15->TabIndex = 17;
@@ -955,9 +1008,9 @@ namespace WinUI {
 			// 
 			// textBoxValue
 			// 
-			this->textBoxValue->Location = System::Drawing::Point(6, 139);
+			this->textBoxValue->Location = System::Drawing::Point(6, 61);
 			this->textBoxValue->Name = L"textBoxValue";
-			this->textBoxValue->Size = System::Drawing::Size(267, 24);
+			this->textBoxValue->Size = System::Drawing::Size(258, 24);
 			this->textBoxValue->TabIndex = 16;
 			// 
 			// textBox1
@@ -967,7 +1020,7 @@ namespace WinUI {
 			this->textBox1->BorderStyle = System::Windows::Forms::BorderStyle::None;
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox1->Location = System::Drawing::Point(6, 61);
+			this->textBox1->Location = System::Drawing::Point(187, 32);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(121, 17);
 			this->textBox1->TabIndex = 15;
@@ -975,6 +1028,8 @@ namespace WinUI {
 			// 
 			// tabPageClient
 			// 
+			this->tabPageClient->Controls->Add(this->buttonSaveFileC);
+			this->tabPageClient->Controls->Add(this->buttonLoadFileC);
 			this->tabPageClient->Controls->Add(this->textBoxConCriteria);
 			this->tabPageClient->Controls->Add(this->textBoxConnectText);
 			this->tabPageClient->Controls->Add(this->textBoxBytes);
@@ -995,6 +1050,28 @@ namespace WinUI {
 			this->tabPageClient->TabIndex = 2;
 			this->tabPageClient->Text = L"Клиент";
 			this->tabPageClient->UseVisualStyleBackColor = true;
+			// 
+			// buttonSaveFileC
+			// 
+			this->buttonSaveFileC->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonSaveFileC->Location = System::Drawing::Point(161, 435);
+			this->buttonSaveFileC->Name = L"buttonSaveFileC";
+			this->buttonSaveFileC->Size = System::Drawing::Size(140, 23);
+			this->buttonSaveFileC->TabIndex = 45;
+			this->buttonSaveFileC->Text = L"Сохранить в файл";
+			this->buttonSaveFileC->UseVisualStyleBackColor = true;
+			// 
+			// buttonLoadFileC
+			// 
+			this->buttonLoadFileC->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonLoadFileC->Location = System::Drawing::Point(6, 435);
+			this->buttonLoadFileC->Name = L"buttonLoadFileC";
+			this->buttonLoadFileC->Size = System::Drawing::Size(149, 23);
+			this->buttonLoadFileC->TabIndex = 44;
+			this->buttonLoadFileC->Text = L"Загрузить из файла";
+			this->buttonLoadFileC->UseVisualStyleBackColor = true;
 			// 
 			// textBoxConCriteria
 			// 
@@ -1149,6 +1226,8 @@ namespace WinUI {
 			this->ClientSize = System::Drawing::Size(1213, 499);
 			this->Controls->Add(this->tabControl2);
 			this->Controls->Add(this->tabControl1);
+			this->MaximumSize = System::Drawing::Size(9999, 538);
+			this->MinimumSize = System::Drawing::Size(390, 538);
 			this->Name = L"GUI";
 			this->Text = L"GUI";
 			this->Load += gcnew System::EventHandler(this, &GUI::GUI_Load);
@@ -1168,6 +1247,8 @@ namespace WinUI {
 			this->tabControl2->ResumeLayout(false);
 			this->tabPage3->ResumeLayout(false);
 			this->tabPage3->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownCapacity))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDownIndex))->EndInit();
 			this->tabPageContainers->ResumeLayout(false);
 			this->tabPageContainers->PerformLayout();
 			this->tabPageClient->ResumeLayout(false);
@@ -1234,43 +1315,61 @@ private:
 		textBoxBytes->Enabled = false;
 		textBoxMAC->Enabled = false;
 		buttonMACGen->Enabled = false;
-		textBoxCapacity->Enabled = false;
-		// TODO: Текстбокс клиентов
+		numericUpDownCapacity->Enabled = false;
 		textBoxProtocol->Enabled = false;
 		textBoxSSID->Enabled = false;
 		textBoxPasswd->Enabled = false;
 		checkBoxWPS->Enabled = false;
 	}
 
+	System::Void error(System::String^ message) {
+		MessageBox::Show(message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
+
+	System::Void warning(System::String^ message) {
+		MessageBox::Show(message, "Внимание", MessageBoxButtons::OK, MessageBoxIcon::Warning);
+	}
+
 	System::Void buttonAdd_Click(System::Object^ sender, System::EventArgs^ e) {
 		const unsigned char* bytes = {};
 		std::vector<Client> clients = {};
-		MAC_Address address = textBoxMAC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMAC->Text));
-		std::string protocol = to_string(textBoxProtocol->Text);
-		std::string ssid = to_string(textBoxSSID->Text);
-		std::string passwd = to_string(textBoxPasswd->Text);
-		Switch::set_capacity(Int32::Parse(textBoxCapacity->Text));
-		bool wps = checkBoxWPS->Checked;
+		try {
+			MAC_Address address = textBoxMAC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMAC->Text));
+			std::string protocol = to_string(textBoxProtocol->Text);
+			std::string ssid = to_string(textBoxSSID->Text);
+			std::string passwd = to_string(textBoxPasswd->Text);
+			Switch::set_capacity(Int32::Parse(numericUpDownCapacity->Text));
+			bool wps = checkBoxWPS->Checked;
 
-		if (comboBoxClass->Text == "Repeater") {
-			contRepeater->add(*(new Repeater(bytes, address)));
-			updateTable(contRepeater->get_vector(), dataGridViewRepeater);
+			if (comboBoxClass->Text == "Repeater") {
+				contRepeater->add(*(new Repeater(bytes, address)));
+				updateTable(contRepeater->get_vector(), dataGridViewRepeater);
+			}
+			else if (comboBoxClass->Text == "WLRepeater") {
+				contWLRepeater->add(*(new WLRepeater(bytes, address, ssid, passwd)));
+				updateTable(contWLRepeater->get_vector(), dataGridViewWLRepeater);
+			}
+			else if (comboBoxClass->Text == "Switch") {
+				contSwitch->add(*(new Switch(bytes, clients, address)));
+				updateTable(contSwitch->get_vector(), dataGridViewSwitch);
+			}
+			else if (comboBoxClass->Text == "Gateway") {
+				contGateway->add(*(new Gateway(bytes, clients, address, protocol)));
+				updateTable(contGateway->get_vector(), dataGridViewGateway);
+			}
+			else if (comboBoxClass->Text == "Router") {
+				contRouter->add(*(new Router(bytes, clients, address, protocol, ssid, passwd)));
+				updateTable(contRouter->get_vector(), dataGridViewRouter);
+			}
 		}
-		else if (comboBoxClass->Text == "WLRepeater") {
-			contWLRepeater->add(*(new WLRepeater(bytes, address, ssid, passwd)));
-			updateTable(contWLRepeater->get_vector(), dataGridViewWLRepeater);
+		catch (std::length_error) {
+			error("Введён невалидный MAC-Адрес (неполная строка)");
 		}
-		else if (comboBoxClass->Text == "Switch") {
-			contSwitch->add(*(new Switch(bytes, clients, address)));
-			updateTable(contSwitch->get_vector(), dataGridViewSwitch);
+		catch (std::overflow_error) {
+			error("Введён невалидный MAC-Адрес (переполнение)");
 		}
-		else if (comboBoxClass->Text == "Gateway") {
-			contGateway->add(*(new Gateway(bytes, clients, address, protocol)));
-			updateTable(contGateway->get_vector(), dataGridViewGateway);
-		}
-		else if (comboBoxClass->Text == "Router") {
-			contRouter->add(*(new Router(bytes, clients, address, protocol, ssid, passwd)));
-			updateTable(contRouter->get_vector(), dataGridViewRouter);
+		catch (std::invalid_argument) {
+			error("Введён невалидный MAC-Адрес (неверный символ)");
 		}
 	}
 
@@ -1291,23 +1390,20 @@ private:
 			textBoxBytes->Enabled = true;
 			textBoxMAC->Enabled = true;
 			buttonMACGen->Enabled = true;
-			textBoxCapacity->Enabled = true;
-			// TODO: Текстбокс клиентов
+			numericUpDownCapacity->Enabled = true;
 		}
 		else if (comboBoxClass->Text == "Gateway") {
 			textBoxBytes->Enabled = true;
 			textBoxMAC->Enabled = true;
 			buttonMACGen->Enabled = true;
-			textBoxCapacity->Enabled = true;
-			// TODO: Текстбокс клиентов
+			numericUpDownCapacity->Enabled = true;
 			textBoxProtocol->Enabled = true;
 		}
 		else if (comboBoxClass->Text == "Router") {
 			textBoxBytes->Enabled = true;
 			textBoxMAC->Enabled = true;
 			buttonMACGen->Enabled = true;
-			textBoxCapacity->Enabled = true;
-			// TODO: Текстбокс клиентов
+			numericUpDownCapacity->Enabled = true;
 			textBoxProtocol->Enabled = true;
 			textBoxSSID->Enabled = true;
 			textBoxPasswd->Enabled = true;
@@ -1316,7 +1412,7 @@ private:
 	}
 
 	System::Void buttonGet_Click(System::Object^ sender, System::EventArgs^ e) {
-		int index = Int32::Parse(textBoxIndex->Text);
+		int index = Decimal::ToInt32(numericUpDownIndex->Value);
 		if (comboBoxClass->Text == "Repeater") {
 			Repeater* rep = (*contRepeater)[index];
 			textBoxBytes->Enabled = true; // TODO: bytes
@@ -1332,57 +1428,64 @@ private:
 			Switch* sw = (*contSwitch)[index];
 			textBoxBytes->Enabled = true;  // TODO: bytes
 			textBoxMAC->Text = gcnew String(sw->get_address().as_string().c_str());
-			textBoxCapacity->Enabled = true;
-			// TODO: Текстбокс клиентов
+			numericUpDownCapacity->Enabled = true;
 		}
 		else if (comboBoxClass->Text == "Gateway") {
 			Gateway* gw = (*contGateway)[index];
 			textBoxBytes->Enabled = true;  // TODO: bytes
 			textBoxMAC->Text = gcnew String(gw->get_address().as_string().c_str());
-			textBoxCapacity->Enabled = true;
-			// TODO: Текстбокс клиентов
+			numericUpDownCapacity->Enabled = true;
 			textBoxProtocol->Text = gcnew String(gw->get_protocol().c_str());
 		}
 		else if (comboBoxClass->Text == "Router") {
 			Router* ro = (*contRouter)[index];
 			textBoxBytes->Enabled = true;  // TODO: bytes
 			textBoxMAC->Text = gcnew String(ro->get_address().as_string().c_str());
-			textBoxCapacity->Enabled = true;
-			// TODO: Текстбокс клиентов
+			numericUpDownCapacity->Enabled = true;
 			textBoxProtocol->Text = gcnew String(ro->get_protocol().c_str());
 			textBoxSSID->Text = gcnew String(ro->get_ssid().c_str());
 			checkBoxWPS->Checked = ro->is_wps();
 		}
-	}
-	System::Void GUI_Load(System::Object^ sender, System::EventArgs^ e) {
-		updateTable(contRepeater->get_vector(), dataGridViewRepeater);
-		updateBTable();
+		else {
+			error("Не указан тип получаемого объекта");
+		}
 	}
 
 	System::Void buttonSearch_Click(System::Object^ sender, System::EventArgs^ e) {
 		std::vector<void*> vec = contB->get_vector();
 		std::vector<void*> founded = {};
 		int count = 0;
-		//for (int i = 0; i < vec.size(); i++) {
-		//	if (comboBoxCriteria->Text == "address")
-		//		count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(MAC_Address(to_string(textBoxValue->Text))).size();
-		//	if (comboBoxCriteria->Text == "clients_count")
-		//		count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(Int32::Parse(textBoxValue->Text), Int32::Parse(textBoxValue->Text)).size();
-		//	if (comboBoxCriteria->Text == "protocol")
-		//		count += static_cast<ServerRoom<Gateway>*>(vec[i])->search(to_string(textBoxValue->Text), SearchMode::Protocol).size();
-		//	if (comboBoxCriteria->Text == "ssid")
-		//		count += static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(to_string(textBoxValue->Text), SearchMode::SSID).size();
-		//	if (comboBoxCriteria->Text == "wps")
-		//		count += static_cast<ServerRoom<Router>*>(vec[i])->search(bool::Parse(textBoxValue->Text)).size();
-		//}
+
 		if (comboBoxCriteria->Text == "address") {
-			for (int i = 0; i < vec.size(); i++) {
-				count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(MAC_Address(to_string(textBoxValue->Text))).size();
+			try {
+				for (int i = 0; i < vec.size(); i++) {
+					count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(MAC_Address(to_string(textBoxValue->Text))).size();
+				}
+			}
+			catch (std::length_error) {
+				error("Введён невалидный MAC-Адрес (неполная строка)");
+			}
+			catch (std::overflow_error) {
+				error("Введён невалидный MAC-Адрес (переполнение)");
+			}
+			catch (std::invalid_argument) {
+				error("Введён невалидный MAC-Адрес (неверный символ)");
 			}
 		}
 		if (comboBoxCriteria->Text == "clients_count") {
-			for (int i = 0; i < vec.size(); i++) {
-				count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(Int32::Parse(textBoxValue->Text), Int32::Parse(textBoxValue->Text)).size();
+			try {
+				int first = Int32::Parse(textBoxValue->Text->Split('-')[0]->Trim(' '));
+				int second = first;
+				if (textBoxValue->Text->Split('-')->Length > 1) second = Int32::Parse(textBoxValue->Text->Split('-')[1]->Trim(' '));
+				for (int i = 0; i < vec.size(); i++) {
+					count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(first, second).size();
+				}
+			}
+			catch (System::FormatException^) {
+				error("Введено значение в неверном формате (принимается: целое число или диапазон)");
+			}
+			catch (std::invalid_argument) {
+				error("Введён неверный диапазон (верхняя граница меньше нижней)");
 			}
 		}
 		if (comboBoxCriteria->Text == "protocol") {
@@ -1394,8 +1497,13 @@ private:
 			count += static_cast<ServerRoom<Router>*>(vec[4])->search(to_string(textBoxValue->Text), SearchMode::SSID).size();
 		}
 		if (comboBoxCriteria->Text == "wps") {
-			count += static_cast<ServerRoom<WLRepeater>*>(vec[1])->search(bool::Parse(textBoxValue->Text)).size();
-			count += static_cast<ServerRoom<Router>*>(vec[4])->search(bool::Parse(textBoxValue->Text)).size();
+			try {
+				count += static_cast<ServerRoom<WLRepeater>*>(vec[1])->search(bool::Parse(textBoxValue->Text)).size();
+				count += static_cast<ServerRoom<Router>*>(vec[4])->search(bool::Parse(textBoxValue->Text)).size();
+			}
+			catch (System::FormatException^) {
+				error("Введено значение в неверном формате (принимается: true, false)");
+			}
 		}
 		textBoxResult->Text = "Найдено " + count + " объектов";
 	}
@@ -1433,45 +1541,53 @@ private:
 		openFileDialog1->ShowDialog();
 
 		StreamReader^ reader = gcnew StreamReader(openFileDialog1->FileName, Encoding::GetEncoding("windows-1251"));
+		bool error = false;
 		do {
 			System::String^ line = reader->ReadLine();
 			cli::array<System::String^>^ data = line->Split(',');
-			if (data[0] == "Repeater") {
-				Repeater* obj = new Repeater();
-				obj->set_address(MAC_Address(to_string(data[1])));
-				contRepeater->add(*obj);
+			try {
+				String^ type = data[0]->Trim(' ');
+				if (type == "Repeater") {
+					Repeater* obj = new Repeater();
+					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
+					contRepeater->add(*obj);
+				}
+				else if (type == "WLRepeater") {
+					WLRepeater* obj = new WLRepeater();
+					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
+					obj->set_ssid(to_string(data[4]->Trim(' ')));
+					obj->set_passwd(to_string(data[5]->Trim(' ')));
+					contWLRepeater->add(*obj);
+				}
+				else if (type == "Switch") {
+					Switch* obj = new Switch();
+					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
+					obj->set_capacity(Int32::Parse(data[2]->Trim(' ')));
+					contSwitch->add(*obj);
+				}
+				else if (type == "Gateway") {
+					Gateway* obj = new Gateway();
+					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
+					obj->set_protocol(to_string(data[3]->Trim(' ')));
+					contGateway->add(*obj);
+				}
+				else if (type == "Router") {
+					Router* obj = new Router();
+					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
+					obj->set_capacity(Int32::Parse(data[2]->Trim(' ')));
+					obj->set_protocol(to_string(data[3]->Trim(' ')));
+					obj->set_ssid(to_string(data[4]->Trim(' ')));
+					obj->set_passwd(to_string(data[5]->Trim(' ')));
+					if (bool::Parse(data[6]->Trim(' '))) obj->wps_init();
+					contRouter->add(*obj);
+				}
 			}
-			else if (data[0] == "WLRepeater") {
-				WLRepeater* obj = new WLRepeater();
-				obj->set_address(MAC_Address(to_string(data[1])));
-				obj->set_ssid(to_string(data[4]));
-				obj->set_passwd(to_string(data[5]));
-				contWLRepeater->add(*obj);
+			catch (std::exception) {
+				error = true;
 			}
-			else if (data[0] == "Switch") {
-				Switch* obj = new Switch();
-				obj->set_address(MAC_Address(to_string(data[1])));
-				obj->set_capacity(Int32::Parse(data[2]));
-				contSwitch->add(*obj);
-			}
-			else if (data[0] == "Gateway") {
-				Gateway* obj = new Gateway();
-				obj->set_address(MAC_Address(to_string(data[1])));
-				obj->set_protocol(to_string(data[3]));
-				contGateway->add(*obj);
-			}
-			else if (data[0] == "Router") {
-				Router* obj = new Router();
-				obj->set_address(MAC_Address(to_string(data[1])));
-				obj->set_capacity(Int32::Parse(data[2]));
-				obj->set_protocol(to_string(data[3]));
-				obj->set_ssid(to_string(data[4]));
-				obj->set_passwd(to_string(data[5]));
-				if (bool::Parse(data[6])) obj->wps_init();
-				contRouter->add(*obj);
-			}
-			updateAllTables();
 		} while (reader->Peek() != -1);
+		updateAllTables();
+		if (error) warning("Не удалось загрузить некоторые из объектов в файле");
 		reader->Close();
 	}
 
@@ -1491,50 +1607,100 @@ private:
 	}
 
 	System::Void buttonConnect_Click(System::Object^ sender, System::EventArgs^ e) {
-		std::string name = to_string(textBoxCName->Text);
-		MAC_Address address = textBoxMACC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMACC->Text));
-		unsigned char* bytes = {}; // TODO: Заполнение поля байт
-		ClientType type = comboBoxCType->Text == "Беспроводной" ? ClientType::Wireless : ClientType::Wired;
-		Client* client = new Client(name, address, bytes, type);
+		try {
+			std::string name = to_string(textBoxCName->Text);
+			MAC_Address address = textBoxMACC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMACC->Text));
+			unsigned char* bytes = {}; // TODO: Заполнение поля байт
+			ClientType type = comboBoxCType->Text == "Беспроводной" ? ClientType::Wireless : ClientType::Wired;
+			Client* client = new Client(name, address, bytes, type);
 
-		std::vector<void*> vec = contB->get_vector();
-		WLRepeater* net_device = nullptr;
-		for (int i = 0; i < vec.size(); i++) {
-			if (comboBoxCType->Text == "Проводной") {
-				std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(MAC_Address(to_string(textBoxConnectText->Text)));
-				if (result.size() > 0)
-					net_device = static_cast<WLRepeater*>(result[0]);
-			}
-			if (comboBoxCType->Text == "Беспроводной") {
-				if (i == 1 || i == 4) {
-					std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(to_string(textBoxConnectText->Text), SearchMode::SSID);
+			std::vector<void*> vec = contB->get_vector();
+			WLRepeater* net_device = nullptr;
+			for (int i = 0; i < vec.size(); i++) {
+				if (comboBoxCType->Text == "Проводной") {
+					std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(MAC_Address(to_string(textBoxConnectText->Text)));
 					if (result.size() > 0)
 						net_device = static_cast<WLRepeater*>(result[0]);
 				}
+				if (comboBoxCType->Text == "Беспроводной") {
+					if (i == 1) {
+						std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(to_string(textBoxConnectText->Text), SearchMode::SSID);
+						if (result.size() > 0)
+							net_device = static_cast<WLRepeater*>(result[0]);
+					}
+					if (i == 4) {
+						std::vector<Router*> result = static_cast<ServerRoom<Router>*>(vec[i])->search(to_string(textBoxConnectText->Text), SearchMode::SSID);
+						if (result.size() > 0)
+							net_device = static_cast<WLRepeater*>(result[0]);
+					}
+				}
 			}
-		}
 
-		if (comboBoxCType->Text == "Проводной") {
-			if (net_device == nullptr) {
-				MessageBox::Show("Устройство с указанным адресом не найдено!");
-				return;
-			}
-			net_device->connect(*client);
-		}
-		if (comboBoxCType->Text == "Беспроводной") {
-			if (net_device == nullptr) {
-				MessageBox::Show("Указанная сеть не найдена!");
-				return;
-			}
-			if (net_device->is_wps()) {
+			if (comboBoxCType->Text == "Проводной") {
+				if (net_device == nullptr) {
+					warning("Устройство с указанным адресом не найдено!");
+					return;
+				}
 				net_device->connect(*client);
 			}
-			else {
-				std::string passwd = ShowWLANDialog();
-				net_device->connect(*client, net_device->get_ssid(), passwd);
+			if (comboBoxCType->Text == "Беспроводной") {
+				if (net_device == nullptr) {
+					warning("Указанная сеть не найдена!");
+					return;
+				}
+				if (net_device->is_wps()) {
+					net_device->connect(*client);
+				}
+				else {
+					std::string passwd = ShowWLANDialog();
+					net_device->connect(*client, net_device->get_ssid(), passwd);
+				}
 			}
+			updateAllTables();
 		}
-		updateAllTables();
+		catch (std::length_error) {
+			error("Введён невалидный MAC-Адрес (неполная строка)");
+		}
+		catch (std::overflow_error) {
+			error("Введён невалидный MAC-Адрес (переполнение)");
+		}
+		catch (std::invalid_argument) {
+			error("Введён невалидный MAC-Адрес (неверный символ)");
+		}
+	}
+
+	System::Void buttonSaveFile_Click(System::Object^ sender, System::EventArgs^ e) {
+		saveFileDialog1->FileName = "";
+		saveFileDialog1->ShowDialog();
+
+		if (saveFileDialog1->FileName != "") {
+			StreamWriter^ writer = gcnew StreamWriter(saveFileDialog1->FileName);
+			writer->WriteLine("type,mac,cli_cap,protocol,ssid,passwd,wps"); // Заголовок
+
+			std::vector<void*> vec = contB->get_vector();
+			for (int i = 0; i < vec.size(); i++) {
+				ServerRoom<Repeater>* devices = static_cast<ServerRoom<Repeater>*>(vec[i]);
+				for (int j = 0; j < devices->size(); j++) {
+					Repeater* device = (*devices)[j];
+					std::string type_name = device->type_name();
+
+					String^ line = "";
+					line += gcnew String(type_name.c_str()) + ",";
+					line += gcnew String(device->get_address().as_string().c_str()) + ",";
+					line += (dynamic_cast<Switch*>(device) ? dynamic_cast<Switch*>(device)->get_capacity().ToString() : "") + ",";
+					line += gcnew String(dynamic_cast<Gateway*>(device) ? dynamic_cast<Gateway*>(device)->get_protocol().c_str() : "") + ",";
+					line += dynamic_cast<WLRepeater*>(device) ? gcnew String(dynamic_cast<WLRepeater*>(device)->get_ssid().c_str()) + ",[REDACTED]," : ",,";
+					
+					writer->WriteLine(line);
+				}
+			}
+			writer->Close();
+		}
+	}
+
+	System::Void GUI_Load(System::Object^ sender, System::EventArgs^ e) {
+		updateTable(contRepeater->get_vector(), dataGridViewRepeater);
+		updateBTable();
 	}
 };
 }

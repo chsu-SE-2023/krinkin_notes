@@ -166,6 +166,7 @@ private:
 	System::Void buttonConnect_Click(System::Object^ sender, System::EventArgs^ e) {
 		passwd = textBoxPasswd->Text;
 		result = Windows::Forms::DialogResult::OK;
+		this->Close();
 	}
 };
 }

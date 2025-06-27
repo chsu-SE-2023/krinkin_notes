@@ -34,6 +34,7 @@ MAC_Address::MAC_Address(std::string str) {
 		values[size] = value;
 		size++;
 	}
+	if (size != 6) throw std::length_error("MAC Address string was incorrect");
 }
 
 /**

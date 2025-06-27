@@ -16,9 +16,9 @@ public:
     Gateway(const unsigned char*&, std::vector<Client>&, MAC_Address, std::string);
     Gateway(const Gateway&);
     ~Gateway();
-    std::string get_info();
-    std::string get_protocol() const;
-    void set_protocol(std::string);
-    void print_info();
-    void reset();
+    virtual std::string get_info() override;
+    virtual std::string get_protocol() const;
+    virtual void set_protocol(std::string);
+    virtual void reset() override;
+    virtual std::string type_name() override;
 };

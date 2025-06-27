@@ -155,14 +155,12 @@ bool operator!=(const Switch& first, const Switch& second) {
 }
 
 /**
-* Метод, печатающий информацию об устройстве в консоль
+* Метод, возвращающий вместимость устройства
+*
+* @return вместимость устройства
 */
-void Switch::print_info() {
-    Repeater::print_info();
-    std::cout << "   - Connected devices (" << this->clients.size() << "): ";
-    for (int i = 0; i < this->clients.size(); i++)
-        std::cout << this->clients[i].get_name() << " ";
-    std::cout << std::endl;
+int Switch::get_capacity() {
+    return Switch::cli_cap;
 }
 
 /**
@@ -235,4 +233,11 @@ void Switch::connect(Client& client) {
 void Switch::reset() {
     Repeater::reset();
     set_defaults();
+}
+
+/**
+* Метод, возвращающий имя типа данных
+*/
+std::string Switch::type_name() {
+    return "Switch";
 }

@@ -138,8 +138,7 @@ bool operator!=(const Repeater& first, const Repeater& second) {
 * @return количество клиентов, подключенных к устройству
 */
 int Repeater::clients_count() const {
-    if (clients.size()) return 1;
-    else return 0;
+    return clients.size();
 }
 
 /**
@@ -214,16 +213,15 @@ void Repeater::set_address(MAC_Address address) {
 };
 
 /**
-* Метод, печатающий информацию об устройстве в консоль
-*/
-void Repeater::print_info() {
-    std::cout << "Device info: " << std::endl;
-    std::cout << "   - MAC Address: " << address.as_string() << " " << std::endl;
-};
-
-/**
 * Публичный метод, сбрасывающий устройство до значений по умолчанию
 */
 void Repeater::reset() {
     set_defaults();
+}
+
+/**
+* Метод, возвращающий имя типа данных
+*/
+std::string Repeater::type_name() {
+    return "Repeater";
 }

@@ -102,23 +102,45 @@ int Router::clients_count() const {
     return Gateway::clients_count();
 }
 
-/**
-* Метод, возвращающий хранимый массив пакетов
+/*
+* Метод подключающий клиента по WPS и отключающий режим WPS
 *
-* @return массив пакетов
+* @param подключаемый клиент
 */
-const unsigned char* Router::get_bytes() const {
-    return Repeater::get_bytes();
-};
+void Router::connect(Client& client) {
+    if (Gateway::clients.size() <= cli_cap) {
+        if (client.get_type() == ClientType::Wired)
+            this->Gateway::clients.push_back(client);
+        if (client.get_type() == ClientType::Wireless) {
+            if (wps) {
+                this->Gateway::clients.push_back(client);
+                this->wps = false;
+            }
+            else throw std::invalid_argument("Device will be in WPS mode to connect wireless client without credentials");
+        }
+    }
+    else {
+        throw std::overflow_error("There is not enouth capacity for new client");
+    }
+}
 
-/**
-* Метод, для получения пакетов
+/*
+* Метод подключающий клиента к беспроводной сети
 *
-* @param принимаемый массив пакетов
+* @param подключаемый клиент
+* @param SSID сети устройства
+* @param пароль сети устройства
 */
-void Router::receive(const unsigned char*& bytes) {
-    Repeater::receive(bytes);
-};
+void Router::connect(Client& client, std::string ssid, std::string passwd) {
+    if (Gateway::clients.size() <= cli_cap) {
+        if (this->ssid == ssid && this->passwd == passwd)
+            this->Gateway::clients.push_back(client);
+        else throw std::invalid_argument("Wrong credentials provided!");
+    }
+    else {
+        throw std::overflow_error("There is not enouth capacity for new client");
+    }
+}
 
 /**
 * Метод, возвращающий MAC-адрес устройства
@@ -127,6 +149,15 @@ void Router::receive(const unsigned char*& bytes) {
 */
 MAC_Address Router::get_address() const {
     return Repeater::get_address();
+};
+
+/**
+* Метод, возвращающий хранимый массив пакетов
+*
+* @return массив пакетов
+*/
+const unsigned char* Router::get_bytes() const {
+    return Repeater::get_bytes();
 };
 
 /**
@@ -140,13 +171,13 @@ std::string Router::get_info() {
 }
 
 /**
-* Метод, печатающий информацию об устройстве в консоль
+* Метод, для получения пакетов
+*
+* @param принимаемый массив пакетов
 */
-void Router::print_info() const {
-    std::cout << "   - WPS: ";
-    this->wps ? std::cout << "enabled" : std::cout << "disabled";
-    std::cout << std::endl;
-}
+void Router::receive(const unsigned char*& bytes) {
+    Repeater::receive(bytes);
+};
 
 /**
 * Публичный метод, сбрасывающий устройство до значений по умолчанию
@@ -166,40 +197,9 @@ void Router::set_address(MAC_Address address) {
     Repeater::set_address(address);
 }
 
-/*
-* Метод подключающий клиента по WPS и отключающий режим WPS
-* 
-* @param подключаемый клиент
+/**
+* Метод, возвращающий имя типа данных
 */
-void Router::connect(Client& client) {
-    if (Gateway::clients.size() <= cli_cap) {
-        if (client.get_type() == ClientType::Wired)
-            this->Gateway::clients.push_back(client);
-        if (client.get_type() == ClientType::Wireless) {
-            if (wps) {
-                this->Gateway::clients.push_back(client);
-                this->wps = false;
-            }
-            else throw std::invalid_argument("Device will be in WPS mode to connect wireless client without credentials");
-        }
-    } else {
-        throw std::overflow_error("There is not enouth capacity for new client");
-    }
-}
-
-/*
-* Метод подключающий клиента к беспроводной сети
-*
-* @param подключаемый клиент
-* @param SSID сети устройства
-* @param пароль сети устройства
-*/
-void Router::connect(Client& client, std::string ssid, std::string passwd) {
-    if (Gateway::clients.size() <= cli_cap) {
-        if (this->ssid == ssid && this->passwd == passwd)
-            this->Gateway::clients.push_back(client);
-        else throw std::invalid_argument("Wrong credentials provided!");
-    } else {
-        throw std::overflow_error("There is not enouth capacity for new client");
-    }
+std::string Router::type_name() {
+    return "Router";
 }

@@ -338,7 +338,6 @@ void ServerRoom<T>::sort() {
 */
 template<typename T>
 std::vector<T*> ServerRoom<T>::search(MAC_Address address) {
-    int count = 0;
     std::vector<T*> vec = {};
     Node* current = this->first;
 
@@ -359,21 +358,23 @@ std::vector<T*> ServerRoom<T>::search(MAC_Address address) {
 */
 template<typename T>
 std::vector <T*> ServerRoom<T>::search(int start, int end) {
-    int count = 0;
     std::vector<T*> vec = {};
     Node* current = this->first;
 
+    if (end < start) throw std::invalid_argument("The upper limit cannot be less than the lower one");
+
     while (current != nullptr) {
-        if (current->device != nullptr)
-            if (start < current->device->clients_count() < end)
+        if (current->device != nullptr) {
+            if (start <= current->device->clients_count() && current->device->clients_count() <= end)
                 vec.emplace_back(current->device);
+        }
         current = current->next;
     }
     return vec;
 }
 
 /**
-* Метод поиска экземпляра WLRepeater по диапазону клиентов
+* Метод поиска экземпляра WLRepeater
 *
 * @param искомая строка
 * @param режим поиска
@@ -381,7 +382,6 @@ std::vector <T*> ServerRoom<T>::search(int start, int end) {
 */
 template<>
 std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(std::string str, SearchMode mode) {
-    int count = 0;
     std::vector<WLRepeater*> vec = {};
     std::string search_str = "";
     Node* current = this->first;
@@ -405,7 +405,6 @@ std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(std::string str, Search
 */
 template<>
 std::vector <Gateway*> ServerRoom<Gateway>::search(std::string str, SearchMode mode) {
-    int count = 0;
     std::vector<Gateway*> vec = {};
     std::string search_str = "";
     Node* current = this->first;
@@ -429,7 +428,6 @@ std::vector <Gateway*> ServerRoom<Gateway>::search(std::string str, SearchMode m
 */
 template<>
 std::vector <Router*> ServerRoom<Router>::search(std::string str, SearchMode mode) {
-    int count = 0;
     std::vector<Router*> vec = {};
     std::string search_str = "";
     Node* current = this->first;
@@ -452,7 +450,6 @@ std::vector <Router*> ServerRoom<Router>::search(std::string str, SearchMode mod
 * @return вектор указатель на найденные объекты
 */
 std::vector<Router*> ServerRoom<Router>::search(bool wps) {
-    int count = 0;
     std::vector<Router*> vec = {};
     Node* current = this->first;
 
@@ -472,7 +469,6 @@ std::vector<Router*> ServerRoom<Router>::search(bool wps) {
 * @return вектор указатель на найденные объекты
 */
 std::vector<WLRepeater*> ServerRoom<WLRepeater>::search(bool wps) {
-    int count = 0;
     std::vector<WLRepeater*> vec = {};
     Node* current = this->first;
 

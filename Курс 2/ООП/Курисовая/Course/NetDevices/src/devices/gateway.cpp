@@ -113,17 +113,16 @@ void Gateway::set_protocol(std::string protocol) {
 };
 
 /**
-* Метод, печатающий информацию об устройстве в консоль
-*/
-void Gateway::print_info() {
-    Switch::print_info();
-    std::cout << "Protocol - " << this->protocol << std::endl;
-};
-
-/**
 * Публичный метод, сбрасывающий устройство до значений по умолчанию
 */
 void Gateway::reset() {
     Switch::reset();
     set_defaults();
 };
+
+/**
+* Метод, возвращающий имя типа данных
+*/
+std::string Gateway::type_name() {
+    return "Gateway";
+}

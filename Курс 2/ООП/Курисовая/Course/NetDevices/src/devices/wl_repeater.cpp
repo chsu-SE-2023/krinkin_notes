@@ -147,18 +147,6 @@ bool WLRepeater::is_wps() const {
 }
 
 /**
-* Метод, печатающий информацию об устройстве в консоль
-*/
-void WLRepeater::print_info() const {
-    /*
-    * Метод печатает информацию об устройстве
-    */
-    std::cout << "   - SSID: ";
-    this->ssid.empty() ? std::cout << this->ssid : std::cout << "None";
-    std::cout << std::endl;
-}
-
-/**
 * Метод устанавливающий SSID сети устройства
 * 
 * @param SSID сети устройства
@@ -182,6 +170,13 @@ void WLRepeater::set_passwd(std::string passwd) {
 void WLRepeater::reset() {
     Repeater::reset();
     set_defaults();
+}
+
+/**
+* Метод, возвращающий имя типа данных
+*/
+std::string WLRepeater::type_name() {
+    return "WLRepeater";
 }
 
 /**
