@@ -70,7 +70,6 @@ namespace WinUI {
 	private: System::Windows::Forms::TextBox^ textBox11;
 	private: System::Windows::Forms::TextBox^ textBoxProtocol;
 	private: System::Windows::Forms::TextBox^ textBox10;
-
 	private: System::Windows::Forms::TextBox^ textBox6;
 	private: System::Windows::Forms::TextBox^ textBoxMAC;
 	private: System::Windows::Forms::TextBox^ textBox13;
@@ -95,7 +94,6 @@ namespace WinUI {
 	private: System::Windows::Forms::DataGridView^ dataGridViewRouter;
 	private: System::Windows::Forms::Button^ buttonGet;
 	private: System::Windows::Forms::TextBox^ textBox12;
-
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnType;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnDevices;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnClients;
@@ -141,9 +139,9 @@ namespace WinUI {
 	private: System::Windows::Forms::Button^ buttonLoadFile;
 	private: System::Windows::Forms::Button^ buttonSaveFile;
 	private: System::Windows::Forms::SaveFileDialog^ saveFileDialog1;
-private: System::Windows::Forms::NumericUpDown^ numericUpDownIndex;
-private: System::Windows::Forms::NumericUpDown^ numericUpDownCapacity;
-private: System::Windows::Forms::TextBox^ textBox8;
+	private: System::Windows::Forms::NumericUpDown^ numericUpDownIndex;
+	private: System::Windows::Forms::NumericUpDown^ numericUpDownCapacity;
+	private: System::Windows::Forms::TextBox^ textBox8;
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -1258,10 +1256,7 @@ private: System::Windows::Forms::TextBox^ textBox8;
 		}
 #pragma endregion
 public:
-	static std::string to_string(String^ string) {
-		msclr::interop::marshal_context context;
-		return context.marshal_as<std::string>(string);
-	}
+	static std::string to_string(String^);
 private: 
 	DataCenter* contB;
 	ServerRoom<Repeater>* contRepeater;
@@ -1270,437 +1265,28 @@ private:
 	ServerRoom<Gateway>* contGateway;
 	ServerRoom<Router>* contRouter;
 
-	template <typename T>
-	System::Void addBTableRow(ServerRoom<T>* container) {
-		int count = dataGridViewB->RowCount++;
-		dataGridViewB->Rows[count - 1]->Cells[0]->Value = gcnew String(typeid(T).name());
-		dataGridViewB->Rows[count - 1]->Cells[1]->Value = container->size();
-		dataGridViewB->Rows[count - 1]->Cells[2]->Value = container->cli_total();
-	}
-
-	System::Void updateBTable() {
-		dataGridViewB->RowCount = 1;
-		std::vector<void*> vec = contB->get_vector();
-		addBTableRow(static_cast<ServerRoom<Repeater>*>(vec[0]));
-		addBTableRow(static_cast<ServerRoom<WLRepeater>*>(vec[1]));
-		addBTableRow(static_cast<ServerRoom<Switch>*>(vec[2]));
-		addBTableRow(static_cast<ServerRoom<Gateway>*>(vec[3]));
-		addBTableRow(static_cast<ServerRoom<Router>*>(vec[4]));
-	}
-
-	template <typename T>
-	System::Void updateTable(std::vector<T*> vec, DataGridView^ table) {
-		table->RowCount = 1;
-		for (int i = 0; i < vec.size(); i++) {
-			int count = table->RowCount++;
-			const void* address = static_cast<const void*>(vec[i]);
-			std::stringstream ss;
-			ss << address;
-			table->Rows[count - 1]->Cells[0]->Value = count - 1;
-			table->Rows[count - 1]->Cells[1]->Value = "0x" + gcnew String(ss.str().c_str());
-			table->Rows[count - 1]->Cells[2]->Value = "{" + gcnew String(vec[i]->get_info().c_str()) + "}";
-		}
-		updateBTable();
-	}
-
-	System::Void updateAllTables() {
-		updateTable(contRepeater->get_vector(), dataGridViewRepeater);
-		updateTable(contWLRepeater->get_vector(), dataGridViewWLRepeater);
-		updateTable(contSwitch->get_vector(), dataGridViewSwitch);
-		updateTable(contGateway->get_vector(), dataGridViewGateway);
-		updateTable(contRouter->get_vector(), dataGridViewRouter);
-	}
-
-	System::Void resetFields() {
-		textBoxBytes->Enabled = false;
-		textBoxMAC->Enabled = false;
-		buttonMACGen->Enabled = false;
-		numericUpDownCapacity->Enabled = false;
-		textBoxProtocol->Enabled = false;
-		textBoxSSID->Enabled = false;
-		textBoxPasswd->Enabled = false;
-		checkBoxWPS->Enabled = false;
-	}
-
-	System::Void error(System::String^ message) {
-		MessageBox::Show(message, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
-	}
-
-	System::Void warning(System::String^ message) {
-		MessageBox::Show(message, "Внимание", MessageBoxButtons::OK, MessageBoxIcon::Warning);
-	}
-
-	System::Void buttonAdd_Click(System::Object^ sender, System::EventArgs^ e) {
-		const unsigned char* bytes = {};
-		std::vector<Client> clients = {};
-		try {
-			MAC_Address address = textBoxMAC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMAC->Text));
-			std::string protocol = to_string(textBoxProtocol->Text);
-			std::string ssid = to_string(textBoxSSID->Text);
-			std::string passwd = to_string(textBoxPasswd->Text);
-			Switch::set_capacity(Int32::Parse(numericUpDownCapacity->Text));
-			bool wps = checkBoxWPS->Checked;
-
-			if (comboBoxClass->Text == "Repeater") {
-				contRepeater->add(*(new Repeater(bytes, address)));
-				updateTable(contRepeater->get_vector(), dataGridViewRepeater);
-			}
-			else if (comboBoxClass->Text == "WLRepeater") {
-				contWLRepeater->add(*(new WLRepeater(bytes, address, ssid, passwd)));
-				updateTable(contWLRepeater->get_vector(), dataGridViewWLRepeater);
-			}
-			else if (comboBoxClass->Text == "Switch") {
-				contSwitch->add(*(new Switch(bytes, clients, address)));
-				updateTable(contSwitch->get_vector(), dataGridViewSwitch);
-			}
-			else if (comboBoxClass->Text == "Gateway") {
-				contGateway->add(*(new Gateway(bytes, clients, address, protocol)));
-				updateTable(contGateway->get_vector(), dataGridViewGateway);
-			}
-			else if (comboBoxClass->Text == "Router") {
-				contRouter->add(*(new Router(bytes, clients, address, protocol, ssid, passwd)));
-				updateTable(contRouter->get_vector(), dataGridViewRouter);
-			}
-		}
-		catch (std::length_error) {
-			error("Введён невалидный MAC-Адрес (неполная строка)");
-		}
-		catch (std::overflow_error) {
-			error("Введён невалидный MAC-Адрес (переполнение)");
-		}
-		catch (std::invalid_argument) {
-			error("Введён невалидный MAC-Адрес (неверный символ)");
-		}
-	}
-
-	System::Void comboBoxClass_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (comboBoxClass->Text == "Repeater") {
-			textBoxBytes->Enabled = true;
-			textBoxMAC->Enabled = true;
-			buttonMACGen->Enabled = true;
-		}
-		else if (comboBoxClass->Text == "WLRepeater") {
-			textBoxBytes->Enabled = true;
-			textBoxMAC->Enabled = true;
-			buttonMACGen->Enabled = true;
-			textBoxSSID->Enabled = true;
-			textBoxPasswd->Enabled = true;
-		}
-		else if (comboBoxClass->Text == "Switch") {
-			textBoxBytes->Enabled = true;
-			textBoxMAC->Enabled = true;
-			buttonMACGen->Enabled = true;
-			numericUpDownCapacity->Enabled = true;
-		}
-		else if (comboBoxClass->Text == "Gateway") {
-			textBoxBytes->Enabled = true;
-			textBoxMAC->Enabled = true;
-			buttonMACGen->Enabled = true;
-			numericUpDownCapacity->Enabled = true;
-			textBoxProtocol->Enabled = true;
-		}
-		else if (comboBoxClass->Text == "Router") {
-			textBoxBytes->Enabled = true;
-			textBoxMAC->Enabled = true;
-			buttonMACGen->Enabled = true;
-			numericUpDownCapacity->Enabled = true;
-			textBoxProtocol->Enabled = true;
-			textBoxSSID->Enabled = true;
-			textBoxPasswd->Enabled = true;
-			checkBoxWPS->Enabled = true;
-		}
-	}
-
-	System::Void buttonGet_Click(System::Object^ sender, System::EventArgs^ e) {
-		int index = Decimal::ToInt32(numericUpDownIndex->Value);
-		if (comboBoxClass->Text == "Repeater") {
-			Repeater* rep = (*contRepeater)[index];
-			textBoxBytes->Enabled = true; // TODO: bytes
-			textBoxMAC->Text = gcnew String(rep->get_address().as_string().c_str());
-		}
-		else if (comboBoxClass->Text == "WLRepeater") {
-			WLRepeater* wlrep = (*contWLRepeater)[index];
-			textBoxBytes->Enabled = true;  // TODO: bytes
-			textBoxMAC->Text = gcnew String(wlrep->get_address().as_string().c_str());
-			textBoxSSID->Text = gcnew String(wlrep->get_ssid().c_str());
-		}
-		else if (comboBoxClass->Text == "Switch") {
-			Switch* sw = (*contSwitch)[index];
-			textBoxBytes->Enabled = true;  // TODO: bytes
-			textBoxMAC->Text = gcnew String(sw->get_address().as_string().c_str());
-			numericUpDownCapacity->Enabled = true;
-		}
-		else if (comboBoxClass->Text == "Gateway") {
-			Gateway* gw = (*contGateway)[index];
-			textBoxBytes->Enabled = true;  // TODO: bytes
-			textBoxMAC->Text = gcnew String(gw->get_address().as_string().c_str());
-			numericUpDownCapacity->Enabled = true;
-			textBoxProtocol->Text = gcnew String(gw->get_protocol().c_str());
-		}
-		else if (comboBoxClass->Text == "Router") {
-			Router* ro = (*contRouter)[index];
-			textBoxBytes->Enabled = true;  // TODO: bytes
-			textBoxMAC->Text = gcnew String(ro->get_address().as_string().c_str());
-			numericUpDownCapacity->Enabled = true;
-			textBoxProtocol->Text = gcnew String(ro->get_protocol().c_str());
-			textBoxSSID->Text = gcnew String(ro->get_ssid().c_str());
-			checkBoxWPS->Checked = ro->is_wps();
-		}
-		else {
-			error("Не указан тип получаемого объекта");
-		}
-	}
-
-	System::Void buttonSearch_Click(System::Object^ sender, System::EventArgs^ e) {
-		std::vector<void*> vec = contB->get_vector();
-		std::vector<void*> founded = {};
-		int count = 0;
-
-		if (comboBoxCriteria->Text == "address") {
-			try {
-				for (int i = 0; i < vec.size(); i++) {
-					count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(MAC_Address(to_string(textBoxValue->Text))).size();
-				}
-			}
-			catch (std::length_error) {
-				error("Введён невалидный MAC-Адрес (неполная строка)");
-			}
-			catch (std::overflow_error) {
-				error("Введён невалидный MAC-Адрес (переполнение)");
-			}
-			catch (std::invalid_argument) {
-				error("Введён невалидный MAC-Адрес (неверный символ)");
-			}
-		}
-		if (comboBoxCriteria->Text == "clients_count") {
-			try {
-				int first = Int32::Parse(textBoxValue->Text->Split('-')[0]->Trim(' '));
-				int second = first;
-				if (textBoxValue->Text->Split('-')->Length > 1) second = Int32::Parse(textBoxValue->Text->Split('-')[1]->Trim(' '));
-				for (int i = 0; i < vec.size(); i++) {
-					count += static_cast<ServerRoom<Repeater>*>(vec[i])->search(first, second).size();
-				}
-			}
-			catch (System::FormatException^) {
-				error("Введено значение в неверном формате (принимается: целое число или диапазон)");
-			}
-			catch (std::invalid_argument) {
-				error("Введён неверный диапазон (верхняя граница меньше нижней)");
-			}
-		}
-		if (comboBoxCriteria->Text == "protocol") {
-			count += static_cast<ServerRoom<Gateway>*>(vec[3])->search(to_string(textBoxValue->Text), SearchMode::Protocol).size();
-			count += static_cast<ServerRoom<Router>*>(vec[4])->search(to_string(textBoxValue->Text), SearchMode::Protocol).size();
-		}
-		if (comboBoxCriteria->Text == "ssid") {
-			count += static_cast<ServerRoom<WLRepeater>*>(vec[1])->search(to_string(textBoxValue->Text), SearchMode::SSID).size();
-			count += static_cast<ServerRoom<Router>*>(vec[4])->search(to_string(textBoxValue->Text), SearchMode::SSID).size();
-		}
-		if (comboBoxCriteria->Text == "wps") {
-			try {
-				count += static_cast<ServerRoom<WLRepeater>*>(vec[1])->search(bool::Parse(textBoxValue->Text)).size();
-				count += static_cast<ServerRoom<Router>*>(vec[4])->search(bool::Parse(textBoxValue->Text)).size();
-			}
-			catch (System::FormatException^) {
-				error("Введено значение в неверном формате (принимается: true, false)");
-			}
-		}
-		textBoxResult->Text = "Найдено " + count + " объектов";
-	}
-
-	System::Void buttonSort_Click(System::Object^ sender, System::EventArgs^ e) {
-		std::vector<void*> vec = contB->get_vector();
-		for (int i = 0; i < vec.size(); i++) {
-			static_cast<ServerRoom<Repeater>*>(vec[i])->sort();
-		}
-		updateAllTables();
-	}
-
-	System::Void buttonReset_Click(System::Object^ sender, System::EventArgs^ e) {
-		std::vector<void*> vec = contB->get_vector();
-		for (int i = 0; i < vec.size(); i++) {
-			ServerRoom<Repeater>* cont = static_cast<ServerRoom<Repeater>*>(vec[i]);
-			for (int i = 0; i < cont->size(); i++) {
-				(*cont)[i]->reset();
-			}
-		}
-		updateAllTables();
-	}
-
-	System::Void buttonDeleteAll_Click(System::Object^ sender, System::EventArgs^ e) {
-		std::vector<void*> vec = contB->get_vector();
-		for (int i = 0; i < vec.size(); i++) {
-			ServerRoom<Repeater>* cont = static_cast<ServerRoom<Repeater>*>(vec[i]);
-			cont->seek(cont->size());
-		}
-		updateAllTables();
-	}
-
-	System::Void buttonLoadFile_Click(System::Object^ sender, System::EventArgs^ e) {
-		openFileDialog1->FileName = "";
-		openFileDialog1->ShowDialog();
-
-		StreamReader^ reader = gcnew StreamReader(openFileDialog1->FileName, Encoding::GetEncoding("windows-1251"));
-		bool error = false;
-		do {
-			System::String^ line = reader->ReadLine();
-			cli::array<System::String^>^ data = line->Split(',');
-			try {
-				String^ type = data[0]->Trim(' ');
-				if (type == "Repeater") {
-					Repeater* obj = new Repeater();
-					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
-					contRepeater->add(*obj);
-				}
-				else if (type == "WLRepeater") {
-					WLRepeater* obj = new WLRepeater();
-					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
-					obj->set_ssid(to_string(data[4]->Trim(' ')));
-					obj->set_passwd(to_string(data[5]->Trim(' ')));
-					contWLRepeater->add(*obj);
-				}
-				else if (type == "Switch") {
-					Switch* obj = new Switch();
-					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
-					obj->set_capacity(Int32::Parse(data[2]->Trim(' ')));
-					contSwitch->add(*obj);
-				}
-				else if (type == "Gateway") {
-					Gateway* obj = new Gateway();
-					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
-					obj->set_protocol(to_string(data[3]->Trim(' ')));
-					contGateway->add(*obj);
-				}
-				else if (type == "Router") {
-					Router* obj = new Router();
-					obj->set_address(MAC_Address(to_string(data[1]->Trim(' '))));
-					obj->set_capacity(Int32::Parse(data[2]->Trim(' ')));
-					obj->set_protocol(to_string(data[3]->Trim(' ')));
-					obj->set_ssid(to_string(data[4]->Trim(' ')));
-					obj->set_passwd(to_string(data[5]->Trim(' ')));
-					if (bool::Parse(data[6]->Trim(' '))) obj->wps_init();
-					contRouter->add(*obj);
-				}
-			}
-			catch (std::exception) {
-				error = true;
-			}
-		} while (reader->Peek() != -1);
-		updateAllTables();
-		if (error) warning("Не удалось загрузить некоторые из объектов в файле");
-		reader->Close();
-	}
-
-	System::Void buttonMACGen_Click(System::Object^ sender, System::EventArgs^ e) {
-		textBoxMAC->Text = gcnew String(MAC_Address().as_string().c_str());
-	}
-
-	System::Void buttonMACGenC_Click(System::Object^ sender, System::EventArgs^ e) {
-		textBoxMACC->Text = gcnew String(MAC_Address().as_string().c_str());
-	}
-
-	System::Void comboBoxCType_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
-		if (comboBoxCType->Text == "Проводной")
-			textBoxConCriteria->Text = "MAC-Адрес";
-		if (comboBoxCType->Text == "Беспроводной")
-			textBoxConCriteria->Text = "Имя сети";
-	}
-
-	System::Void buttonConnect_Click(System::Object^ sender, System::EventArgs^ e) {
-		try {
-			std::string name = to_string(textBoxCName->Text);
-			MAC_Address address = textBoxMACC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMACC->Text));
-			unsigned char* bytes = {}; // TODO: Заполнение поля байт
-			ClientType type = comboBoxCType->Text == "Беспроводной" ? ClientType::Wireless : ClientType::Wired;
-			Client* client = new Client(name, address, bytes, type);
-
-			std::vector<void*> vec = contB->get_vector();
-			WLRepeater* net_device = nullptr;
-			for (int i = 0; i < vec.size(); i++) {
-				if (comboBoxCType->Text == "Проводной") {
-					std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(MAC_Address(to_string(textBoxConnectText->Text)));
-					if (result.size() > 0)
-						net_device = static_cast<WLRepeater*>(result[0]);
-				}
-				if (comboBoxCType->Text == "Беспроводной") {
-					if (i == 1) {
-						std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(to_string(textBoxConnectText->Text), SearchMode::SSID);
-						if (result.size() > 0)
-							net_device = static_cast<WLRepeater*>(result[0]);
-					}
-					if (i == 4) {
-						std::vector<Router*> result = static_cast<ServerRoom<Router>*>(vec[i])->search(to_string(textBoxConnectText->Text), SearchMode::SSID);
-						if (result.size() > 0)
-							net_device = static_cast<WLRepeater*>(result[0]);
-					}
-				}
-			}
-
-			if (comboBoxCType->Text == "Проводной") {
-				if (net_device == nullptr) {
-					warning("Устройство с указанным адресом не найдено!");
-					return;
-				}
-				net_device->connect(*client);
-			}
-			if (comboBoxCType->Text == "Беспроводной") {
-				if (net_device == nullptr) {
-					warning("Указанная сеть не найдена!");
-					return;
-				}
-				if (net_device->is_wps()) {
-					net_device->connect(*client);
-				}
-				else {
-					std::string passwd = ShowWLANDialog();
-					net_device->connect(*client, net_device->get_ssid(), passwd);
-				}
-			}
-			updateAllTables();
-		}
-		catch (std::length_error) {
-			error("Введён невалидный MAC-Адрес (неполная строка)");
-		}
-		catch (std::overflow_error) {
-			error("Введён невалидный MAC-Адрес (переполнение)");
-		}
-		catch (std::invalid_argument) {
-			error("Введён невалидный MAC-Адрес (неверный символ)");
-		}
-	}
-
-	System::Void buttonSaveFile_Click(System::Object^ sender, System::EventArgs^ e) {
-		saveFileDialog1->FileName = "";
-		saveFileDialog1->ShowDialog();
-
-		if (saveFileDialog1->FileName != "") {
-			StreamWriter^ writer = gcnew StreamWriter(saveFileDialog1->FileName);
-			writer->WriteLine("type,mac,cli_cap,protocol,ssid,passwd,wps"); // Заголовок
-
-			std::vector<void*> vec = contB->get_vector();
-			for (int i = 0; i < vec.size(); i++) {
-				ServerRoom<Repeater>* devices = static_cast<ServerRoom<Repeater>*>(vec[i]);
-				for (int j = 0; j < devices->size(); j++) {
-					Repeater* device = (*devices)[j];
-					std::string type_name = device->type_name();
-
-					String^ line = "";
-					line += gcnew String(type_name.c_str()) + ",";
-					line += gcnew String(device->get_address().as_string().c_str()) + ",";
-					line += (dynamic_cast<Switch*>(device) ? dynamic_cast<Switch*>(device)->get_capacity().ToString() : "") + ",";
-					line += gcnew String(dynamic_cast<Gateway*>(device) ? dynamic_cast<Gateway*>(device)->get_protocol().c_str() : "") + ",";
-					line += dynamic_cast<WLRepeater*>(device) ? gcnew String(dynamic_cast<WLRepeater*>(device)->get_ssid().c_str()) + ",[REDACTED]," : ",,";
-					
-					writer->WriteLine(line);
-				}
-			}
-			writer->Close();
-		}
-	}
-
-	System::Void GUI_Load(System::Object^ sender, System::EventArgs^ e) {
-		updateTable(contRepeater->get_vector(), dataGridViewRepeater);
-		updateBTable();
-	}
+	template <typename T> 
+	System::Void addBTableRow(ServerRoom<T>*);
+	System::Void updateBTable();
+	template <typename T> 
+	System::Void updateTable(std::vector<T*>, DataGridView^);
+	System::Void updateAllTables();
+	System::Void resetFields();
+	System::Void error(System::String^);
+	System::Void warning(System::String^);
+	System::Void buttonAdd_Click(System::Object^, System::EventArgs^);
+	System::Void comboBoxClass_SelectedIndexChanged(System::Object^, System::EventArgs^);
+	System::Void buttonGet_Click(System::Object^, System::EventArgs^);
+	System::Void buttonSearch_Click(System::Object^, System::EventArgs^);
+	System::Void buttonSort_Click(System::Object^, System::EventArgs^);
+	System::Void buttonReset_Click(System::Object^, System::EventArgs^);
+	System::Void buttonDeleteAll_Click(System::Object^, System::EventArgs^);
+	System::Void buttonLoadFile_Click(System::Object^, System::EventArgs^);
+	System::Void buttonMACGen_Click(System::Object^, System::EventArgs^);
+	System::Void buttonMACGenC_Click(System::Object^, System::EventArgs^);
+	System::Void comboBoxCType_SelectedIndexChanged(System::Object^, System::EventArgs^);
+	System::Void buttonConnect_Click(System::Object^, System::EventArgs^);
+	System::Void buttonSaveFile_Click(System::Object^, System::EventArgs^);
+	System::Void GUI_Load(System::Object^, System::EventArgs^);
 };
 }
