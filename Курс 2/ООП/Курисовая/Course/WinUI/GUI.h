@@ -51,12 +51,6 @@ namespace WinUI {
 		~GUI()
 		{
 			if (components) delete components;
-			if (contB) delete contB;
-			//if (contRepeater) delete contRepeater;
-			//if (contWLRepeater) delete contWLRepeater;
-			//if (contSwitch) delete contSwitch;
-			//if (contGateway) delete contGateway;
-			//if (contRouter) delete contRouter;
 		}
 	private: System::Windows::Forms::TabControl^ tabControl1;
 	private: System::Windows::Forms::TabPage^ tabPageContainerB;
@@ -94,9 +88,9 @@ namespace WinUI {
 	private: System::Windows::Forms::DataGridView^ dataGridViewRouter;
 	private: System::Windows::Forms::Button^ buttonGet;
 	private: System::Windows::Forms::TextBox^ textBox12;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnType;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnDevices;
-	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnClients;
+
+
+
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::TextBox^ textBoxPasswd;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnIndex5;
@@ -142,6 +136,11 @@ namespace WinUI {
 	private: System::Windows::Forms::NumericUpDown^ numericUpDownIndex;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDownCapacity;
 	private: System::Windows::Forms::TextBox^ textBox8;
+private: System::Windows::Forms::Button^ buttonLoadBin;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnType;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnDevices;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnClients;
+private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnBytes;
 	private:
 		/// <summary>
 		/// Required designer variable.
@@ -158,9 +157,6 @@ namespace WinUI {
 			this->tabControl1 = (gcnew System::Windows::Forms::TabControl());
 			this->tabPageContainerB = (gcnew System::Windows::Forms::TabPage());
 			this->dataGridViewB = (gcnew System::Windows::Forms::DataGridView());
-			this->ColumnType = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ColumnDevices = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->ColumnClients = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tabPageRepeater = (gcnew System::Windows::Forms::TabPage());
 			this->dataGridViewRepeater = (gcnew System::Windows::Forms::DataGridView());
 			this->ColumnIndex1 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -222,6 +218,7 @@ namespace WinUI {
 			this->textBoxValue = (gcnew System::Windows::Forms::TextBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->tabPageClient = (gcnew System::Windows::Forms::TabPage());
+			this->buttonLoadBin = (gcnew System::Windows::Forms::Button());
 			this->buttonSaveFileC = (gcnew System::Windows::Forms::Button());
 			this->buttonLoadFileC = (gcnew System::Windows::Forms::Button());
 			this->textBoxConCriteria = (gcnew System::Windows::Forms::TextBox());
@@ -239,6 +236,10 @@ namespace WinUI {
 			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
 			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->ColumnType = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ColumnDevices = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ColumnClients = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->ColumnBytes = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->tabControl1->SuspendLayout();
 			this->tabPageContainerB->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewB))->BeginInit();
@@ -294,9 +295,9 @@ namespace WinUI {
 			this->dataGridViewB->AllowUserToDeleteRows = false;
 			this->dataGridViewB->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
 			this->dataGridViewB->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
-			this->dataGridViewB->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(3) {
+			this->dataGridViewB->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(4) {
 				this->ColumnType,
-					this->ColumnDevices, this->ColumnClients
+					this->ColumnDevices, this->ColumnClients, this->ColumnBytes
 			});
 			this->dataGridViewB->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->dataGridViewB->Location = System::Drawing::Point(3, 3);
@@ -305,24 +306,6 @@ namespace WinUI {
 			this->dataGridViewB->RowHeadersVisible = false;
 			this->dataGridViewB->Size = System::Drawing::Size(827, 460);
 			this->dataGridViewB->TabIndex = 0;
-			// 
-			// ColumnType
-			// 
-			this->ColumnType->HeaderText = L"Тип";
-			this->ColumnType->Name = L"ColumnType";
-			this->ColumnType->ReadOnly = true;
-			// 
-			// ColumnDevices
-			// 
-			this->ColumnDevices->HeaderText = L"Устройств";
-			this->ColumnDevices->Name = L"ColumnDevices";
-			this->ColumnDevices->ReadOnly = true;
-			// 
-			// ColumnClients
-			// 
-			this->ColumnClients->HeaderText = L"Клиентов";
-			this->ColumnClients->Name = L"ColumnClients";
-			this->ColumnClients->ReadOnly = true;
 			// 
 			// tabPageRepeater
 			// 
@@ -1026,6 +1009,7 @@ namespace WinUI {
 			// 
 			// tabPageClient
 			// 
+			this->tabPageClient->Controls->Add(this->buttonLoadBin);
 			this->tabPageClient->Controls->Add(this->buttonSaveFileC);
 			this->tabPageClient->Controls->Add(this->buttonLoadFileC);
 			this->tabPageClient->Controls->Add(this->textBoxConCriteria);
@@ -1048,6 +1032,18 @@ namespace WinUI {
 			this->tabPageClient->TabIndex = 2;
 			this->tabPageClient->Text = L"Клиент";
 			this->tabPageClient->UseVisualStyleBackColor = true;
+			// 
+			// buttonLoadBin
+			// 
+			this->buttonLoadBin->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonLoadBin->Location = System::Drawing::Point(263, 197);
+			this->buttonLoadBin->Name = L"buttonLoadBin";
+			this->buttonLoadBin->Size = System::Drawing::Size(86, 23);
+			this->buttonLoadBin->TabIndex = 46;
+			this->buttonLoadBin->Text = L"Загрузить";
+			this->buttonLoadBin->UseVisualStyleBackColor = true;
+			this->buttonLoadBin->Click += gcnew System::EventHandler(this, &GUI::buttonLoadBin_Click);
 			// 
 			// buttonSaveFileC
 			// 
@@ -1095,10 +1091,9 @@ namespace WinUI {
 			// 
 			// textBoxBytes
 			// 
-			this->textBoxBytes->Enabled = false;
 			this->textBoxBytes->Location = System::Drawing::Point(6, 197);
 			this->textBoxBytes->Name = L"textBoxBytes";
-			this->textBoxBytes->Size = System::Drawing::Size(343, 24);
+			this->textBoxBytes->Size = System::Drawing::Size(251, 24);
 			this->textBoxBytes->TabIndex = 40;
 			// 
 			// textBox18
@@ -1219,6 +1214,30 @@ namespace WinUI {
 			// 
 			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
+			// ColumnType
+			// 
+			this->ColumnType->HeaderText = L"Тип";
+			this->ColumnType->Name = L"ColumnType";
+			this->ColumnType->ReadOnly = true;
+			// 
+			// ColumnDevices
+			// 
+			this->ColumnDevices->HeaderText = L"Устройств";
+			this->ColumnDevices->Name = L"ColumnDevices";
+			this->ColumnDevices->ReadOnly = true;
+			// 
+			// ColumnClients
+			// 
+			this->ColumnClients->HeaderText = L"Клиентов";
+			this->ColumnClients->Name = L"ColumnClients";
+			this->ColumnClients->ReadOnly = true;
+			// 
+			// ColumnBytes
+			// 
+			this->ColumnBytes->HeaderText = L"Байт";
+			this->ColumnBytes->Name = L"ColumnBytes";
+			this->ColumnBytes->ReadOnly = true;
+			// 
 			// GUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -1277,7 +1296,7 @@ private:
 	System::Void error(System::String^);
 	System::Void warning(System::String^);
 	System::Void connectTo(Client&, String^, bool, String^);
-	unsigned char* loadBinary(String^);
+	std::vector<unsigned char> loadBinary(String^);
 	System::Void buttonAdd_Click(System::Object^, System::EventArgs^);
 	System::Void comboBoxClass_SelectedIndexChanged(System::Object^, System::EventArgs^);
 	System::Void buttonGet_Click(System::Object^, System::EventArgs^);
@@ -1294,5 +1313,6 @@ private:
 	System::Void GUI_Load(System::Object^, System::EventArgs^);
 	System::Void buttonLoadFileC_Click(System::Object^, System::EventArgs^);
 	System::Void buttonSaveFileC_Click(System::Object^, System::EventArgs^);
+	System::Void buttonLoadBin_Click(System::Object^, System::EventArgs^);
 };
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include "address.h"
 #include "../devices/net_device.h"
 
@@ -11,15 +12,15 @@ class Client {
 private:
 	std::string name;
 	MAC_Address address;
-	const unsigned char* bytes;
+	std::vector<unsigned char> bytes;
 	ClientType type;
 
 public:
 	Client();
 	Client(std::string);
 	Client(MAC_Address);
-	Client(unsigned char*);
-	Client(std::string, MAC_Address, unsigned char*, ClientType);
+	Client(std::vector<unsigned char>);
+	Client(std::string, MAC_Address, std::vector<unsigned char>, ClientType);
 	Client(const Client&);
 	~Client();
 	friend bool operator==(const Client&, const Client&);
@@ -30,5 +31,5 @@ public:
 	void set_name(std::string);
 	void set_type(ClientType);
 	void send_to(NetDevice_I*);
-	const unsigned char* receive_from(NetDevice_I*);
+	std::vector<unsigned char> receive_from(NetDevice_I*);
 };

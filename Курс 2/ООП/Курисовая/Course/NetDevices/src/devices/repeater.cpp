@@ -5,7 +5,7 @@
 * ѕриватный метод, задающий значени€ по умолчанию
 */
 void Repeater::set_defaults() {
-    this->bytes = nullptr;
+    this->bytes = {};
     this->address = MAC_Address();
 }
 
@@ -31,7 +31,7 @@ Repeater::Repeater(MAC_Address address) {
 *
 * @param массив байт
 */
-Repeater::Repeater(const unsigned char*& bytes) {
+Repeater::Repeater(std::vector<unsigned char>& bytes) {
     set_defaults();
     this->bytes = bytes;
 };
@@ -42,7 +42,7 @@ Repeater::Repeater(const unsigned char*& bytes) {
 * @param массив байт
 * @param MAC-адрес
 */
-Repeater::Repeater(const unsigned char*& bytes, MAC_Address address) {
+Repeater::Repeater(std::vector<unsigned char>& bytes, MAC_Address address) {
     set_defaults();
     this->bytes = bytes;
     this->address = address;
@@ -62,7 +62,7 @@ Repeater::Repeater(const Repeater& copy) {
 * ƒеконструктор
 */
 Repeater::~Repeater() {
-    if (bytes) delete bytes;
+    
 };
 
 /**
@@ -169,7 +169,7 @@ void Repeater::disconnect(Client& client) {
 * 
 * @return массив пакетов
 */
-const unsigned char* Repeater::get_bytes() const {
+std::vector<unsigned char> Repeater::get_bytes() const {
     return bytes;
 };
 
@@ -183,11 +183,20 @@ std::vector<Client> Repeater::get_clients() {
 };
 
 /**
+* ћетод, возвращающий количество хранимых байт
+*
+* @return количество хранимых байт
+*/
+int Repeater::package_size() const {
+    return bytes.size();
+}
+
+/**
 * ћетод дл€ получени€ байт
 *
 * @param принимаемый массив байт
 */
-void Repeater::receive(const unsigned char*& bytes) {
+void Repeater::receive(std::vector<unsigned char>& bytes) {
     this->bytes = bytes;
 };
 
@@ -198,9 +207,9 @@ void Repeater::receive(const unsigned char*& bytes) {
 * @return текст о пол€х объекта
 */
 std::string Repeater::get_info() {
-    // TODO: печать bytes
-    return "address: " + address.as_string() + 
-        ", clients: vector<Client> {size: " + std::to_string(clients.size()) + "}";
+    return "bytes: {size: " + std::to_string(bytes.size()) + "}, " + 
+        "address: " + address.as_string() +
+        ", clients: {size: " + std::to_string(clients.size()) + "}";
 }
 
 /**

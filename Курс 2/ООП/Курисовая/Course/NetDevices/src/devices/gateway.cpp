@@ -21,7 +21,7 @@ Gateway::Gateway() : Switch() {
 *
 * @param массив пакетов
 */
-Gateway::Gateway(const unsigned char*& bytes) : Switch(bytes) {
+Gateway::Gateway(std::vector<unsigned char>& bytes) : Switch(bytes) {
     set_defaults();
 }
 
@@ -61,7 +61,7 @@ Gateway::Gateway(std::vector<Client>& clients, MAC_Address address) : Switch(cli
 * @param MAC-адресс
 * @param протокол
 */
-Gateway::Gateway(const unsigned char*& bytes, std::vector<Client>& clients, MAC_Address address, std::string protocol) : Switch(bytes, clients, address) {
+Gateway::Gateway(std::vector<unsigned char>& bytes, std::vector<Client>& clients, MAC_Address address, std::string protocol) : Switch(bytes, clients, address) {
     set_defaults();
     this->protocol = protocol;
 };
@@ -71,7 +71,7 @@ Gateway::Gateway(const unsigned char*& bytes, std::vector<Client>& clients, MAC_
 *
 * @param экземпл€р Gateway
 */
-Gateway::Gateway(const Gateway& copy) : Switch(const_cast<const unsigned char*&>(copy.bytes), const_cast<std::vector<Client>&>(copy.clients), copy.address) {
+Gateway::Gateway(const Gateway& copy) : Switch(const_cast<std::vector<unsigned char>&>(copy.bytes), const_cast<std::vector<Client>&>(copy.clients), copy.address) {
     this->protocol = copy.protocol;
 };
 

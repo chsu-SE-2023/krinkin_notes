@@ -6,14 +6,14 @@
 class Repeater: public NetDevice_I {
 protected:
     MAC_Address address;
-    const unsigned char* bytes;
+    std::vector<unsigned char> bytes;
     void set_defaults();
     std::vector<Client> clients;
 public:
     Repeater();
     Repeater(MAC_Address);
-    Repeater(const unsigned char*&);
-    Repeater(const unsigned char*&, MAC_Address);
+    Repeater(std::vector<unsigned char>&);
+    Repeater(std::vector<unsigned char>&, MAC_Address);
     Repeater(const Repeater&);
     ~Repeater();
     friend bool operator>(const Repeater&, const Repeater&);
@@ -28,9 +28,10 @@ public:
     virtual MAC_Address get_address() const override;
     virtual std::vector<Client> get_clients();
     virtual std::string get_info() override;
-    virtual const unsigned char* get_bytes() const override;
+    virtual std::vector<unsigned char> get_bytes() const override;
+    virtual int package_size() const override;
     virtual void set_address(const MAC_Address) override;
-    virtual void receive(const unsigned char*&) override;
+    virtual void receive(std::vector<unsigned char>&) override;
     virtual void reset() override;
     virtual std::string type_name();
 };

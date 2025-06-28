@@ -51,6 +51,7 @@ System::Void WinUI::GUI::addBTableRow(ServerRoom<T>* container) {
 	dataGridViewB->Rows[count - 1]->Cells[0]->Value = gcnew String(typeid(T).name());
 	dataGridViewB->Rows[count - 1]->Cells[1]->Value = container->size();
 	dataGridViewB->Rows[count - 1]->Cells[2]->Value = container->cli_total();
+	dataGridViewB->Rows[count - 1]->Cells[3]->Value = container->bytes_total();
 }
 
 /**
@@ -130,6 +131,77 @@ System::Void WinUI::GUI::warning(System::String^ message) {
 	MessageBox::Show(message, "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 }
 
+System::Void WinUI::GUI::connectTo(Client& client, String^ criteria, bool gui, String^ passwd) {
+	std::vector<void*> vec = contB->get_vector();
+	WLRepeater* net_device = nullptr;
+	ClientType cli_type = client.get_type();
+	for (int i = 0; i < vec.size(); i++) {
+		// Поиск устройства по критерию
+		if (cli_type == ClientType::Wired) {
+			std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(MAC_Address(to_string(criteria)));
+			if (result.size() > 0)
+				net_device = static_cast<WLRepeater*>(result[0]);
+		}
+		if (cli_type == ClientType::Wireless) {
+			if (i == 1) {
+				std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(to_string(criteria), SearchMode::SSID);
+				if (result.size() > 0)
+					net_device = static_cast<WLRepeater*>(result[0]);
+			}
+			if (i == 4) {
+				std::vector<Router*> result = static_cast<ServerRoom<Router>*>(vec[i])->search(to_string(criteria), SearchMode::SSID);
+				if (result.size() > 0)
+					net_device = static_cast<WLRepeater*>(result[0]);
+			}
+		}
+	}
+
+	if (cli_type == ClientType::Wired) {
+		if (net_device == nullptr) {
+			if (gui)
+				warning("Устройство с указанным адресом не найдено!");
+			return;
+		}
+		net_device->connect(client);
+		client.send_to(net_device);
+	}
+	if (cli_type == ClientType::Wireless) {
+		if (net_device == nullptr) {
+			if (gui)
+				warning("Указанная сеть не найдена!");
+			return;
+		}
+		if (net_device->is_wps()) {
+			net_device->connect(client);
+			client.send_to(net_device);
+		}
+		else {
+			if (passwd == "" && gui)
+				passwd = gcnew String(ShowWLANDialog().c_str());
+			net_device->connect(client, net_device->get_ssid(), to_string(passwd));
+			client.send_to(net_device);
+		}
+	}
+}
+
+/**
+* Метод, возвращающий вектор байт из файла
+*
+* @param имя файла
+* @return вектор байт
+*/
+std::vector<unsigned char> WinUI::GUI::loadBinary(String^ filename) {
+	Stream^ stream = File::Open(filename, FileMode::Open);
+	BinaryReader^ reader = gcnew BinaryReader(stream);
+	array<unsigned char>^ arr = reader->ReadBytes(stream->Length);
+	std::vector<unsigned char> bytes;
+	reader->Close();
+
+	pin_ptr<unsigned char> pinned = &arr[0];
+	bytes.assign((unsigned char*)pinned, (unsigned char*)pinned + arr->Length);
+	return bytes;
+}
+
 /**
 * Метод, генерирующий случайный MAC-адрес
 */
@@ -201,7 +273,7 @@ System::Void WinUI::GUI::comboBoxClass_SelectedIndexChanged(System::Object^ send
 * по нажатию соответствующей кнопки
 */
 System::Void WinUI::GUI::buttonAdd_Click(System::Object^ sender, System::EventArgs^ e) {
-	const unsigned char* bytes = {};
+	std::vector<unsigned char> bytes = {};
 	std::vector<Client> clients = {};
 	try {
 		MAC_Address address = textBoxMAC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMAC->Text));
@@ -251,31 +323,26 @@ System::Void WinUI::GUI::buttonGet_Click(System::Object^ sender, System::EventAr
 	int index = Decimal::ToInt32(numericUpDownIndex->Value);
 	if (comboBoxClass->Text == "Repeater") {
 		Repeater* rep = (*contRepeater)[index];
-		textBoxBytes->Enabled = true; // TODO: bytes
 		textBoxMAC->Text = gcnew String(rep->get_address().as_string().c_str());
 	}
 	else if (comboBoxClass->Text == "WLRepeater") {
 		WLRepeater* wlrep = (*contWLRepeater)[index];
-		textBoxBytes->Enabled = true;  // TODO: bytes
 		textBoxMAC->Text = gcnew String(wlrep->get_address().as_string().c_str());
 		textBoxSSID->Text = gcnew String(wlrep->get_ssid().c_str());
 	}
 	else if (comboBoxClass->Text == "Switch") {
 		Switch* sw = (*contSwitch)[index];
-		textBoxBytes->Enabled = true;  // TODO: bytes
 		textBoxMAC->Text = gcnew String(sw->get_address().as_string().c_str());
 		numericUpDownCapacity->Enabled = true;
 	}
 	else if (comboBoxClass->Text == "Gateway") {
 		Gateway* gw = (*contGateway)[index];
-		textBoxBytes->Enabled = true;  // TODO: bytes
 		textBoxMAC->Text = gcnew String(gw->get_address().as_string().c_str());
 		numericUpDownCapacity->Enabled = true;
 		textBoxProtocol->Text = gcnew String(gw->get_protocol().c_str());
 	}
 	else if (comboBoxClass->Text == "Router") {
 		Router* ro = (*contRouter)[index];
-		textBoxBytes->Enabled = true;  // TODO: bytes
 		textBoxMAC->Text = gcnew String(ro->get_address().as_string().c_str());
 		numericUpDownCapacity->Enabled = true;
 		textBoxProtocol->Text = gcnew String(ro->get_protocol().c_str());
@@ -384,56 +451,6 @@ System::Void WinUI::GUI::buttonDeleteAll_Click(System::Object^ sender, System::E
 	updateAllTables();
 }
 
-System::Void WinUI::GUI::connectTo(Client& client, String^ criteria, bool gui, String^ passwd) {
-	std::vector<void*> vec = contB->get_vector();
-	WLRepeater* net_device = nullptr;
-	ClientType cli_type = client.get_type();
-	for (int i = 0; i < vec.size(); i++) {
-		// Поиск устройства по критерию
-		if (cli_type == ClientType::Wired) {
-			std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(MAC_Address(to_string(criteria)));
-			if (result.size() > 0)
-				net_device = static_cast<WLRepeater*>(result[0]);
-		}
-		if (cli_type == ClientType::Wireless) {
-			if (i == 1) {
-				std::vector<WLRepeater*> result = static_cast<ServerRoom<WLRepeater>*>(vec[i])->search(to_string(criteria), SearchMode::SSID);
-				if (result.size() > 0)
-					net_device = static_cast<WLRepeater*>(result[0]);
-			}
-			if (i == 4) {
-				std::vector<Router*> result = static_cast<ServerRoom<Router>*>(vec[i])->search(to_string(criteria), SearchMode::SSID);
-				if (result.size() > 0)
-					net_device = static_cast<WLRepeater*>(result[0]);
-			}
-		}
-	}
-
-	if (cli_type == ClientType::Wired) {
-		if (net_device == nullptr) {
-			if (gui)
-				warning("Устройство с указанным адресом не найдено!");
-			return;
-		}
-		net_device->connect(client);
-	}
-	if (cli_type == ClientType::Wireless) {
-		if (net_device == nullptr) {
-			if (gui)
-				warning("Указанная сеть не найдена!");
-			return;
-		}
-		if (net_device->is_wps()) {
-			net_device->connect(client);
-		}
-		else {
-			if (passwd == "" && gui)
-				passwd = gcnew String(ShowWLANDialog().c_str());
-			net_device->connect(client, net_device->get_ssid(), to_string(passwd));
-		}
-	}
-}
-
 /**
 * Метод, подключающий клиента к сетевому устройству
 * Вызывается нажатием на соотвествующую кнопку
@@ -442,7 +459,8 @@ System::Void WinUI::GUI::buttonConnect_Click(System::Object^ sender, System::Eve
 	try {
 		std::string name = to_string(textBoxCName->Text);
 		MAC_Address address = textBoxMACC->Text == "" ? MAC_Address() : MAC_Address(to_string(textBoxMACC->Text));
-		unsigned char* bytes = {}; // TODO: Заполнение поля байт
+		std::vector<unsigned char> bytes = {};
+		if (textBoxBytes->Text != "") bytes = loadBinary(textBoxBytes->Text);
 		ClientType type = comboBoxCType->Text == "Беспроводной" ? ClientType::Wireless : ClientType::Wired;
 		Client client = Client(name, address, bytes, type);
 
@@ -462,6 +480,9 @@ System::Void WinUI::GUI::buttonConnect_Click(System::Object^ sender, System::Eve
 	}
 	catch (std::invalid_argument) {
 		error("Введён невалидный MAC-Адрес (неверный символ)");
+	}
+	catch (System::IO::IOException^) {
+		error("Не удалось прочитать байты");
 	}
 }
 
@@ -573,10 +594,9 @@ System::Void WinUI::GUI::buttonLoadFileC_Click(System::Object^ sender, System::E
 				if (line == "name,address,bytes,type,connect_to,passwd") continue;
 				cli::array<System::String^>^ data = line->Split(',');
 				try {
-					Client cli = Client();
+					Client cli = data[2]->Trim(' ') != "" ? Client(loadBinary(data[2]->Trim(' '))) : Client();
 					cli.set_name(to_string(data[0]->Trim(' ')));
 					cli.set_address(MAC_Address(to_string(data[1]->Trim(' '))));
-					// TODO: bytes
 					cli.set_type(Int32::Parse(data[3]->Trim(' ')) == 1 ? ClientType::Wireless : ClientType::Wired);
 					connectTo(cli, data[4]->Trim(' '), false, data[5]->Trim(' '));
 				}
@@ -592,16 +612,6 @@ System::Void WinUI::GUI::buttonLoadFileC_Click(System::Object^ sender, System::E
 		if (error) warning("Не удалось подключить некоторых клиентов из файла");
 		reader->Close();
 	}
-}
-
-unsigned char* WinUI::GUI::loadBinary(String^ filename) {
-	Stream^ stream = File::Open(filename, FileMode::Open);
-	BinaryReader^ reader = gcnew BinaryReader(stream);
-	array<unsigned char>^ arr =  reader->ReadBytes(stream->Length);
-	unsigned char* bytes = new unsigned char[stream->Length];
-	for (int i = 0; i < stream->Length; i++)
-		bytes[i] = arr[i];
-	return bytes;
 }
 
 /**
@@ -638,6 +648,18 @@ System::Void WinUI::GUI::buttonSaveFileC_Click(System::Object^ sender, System::E
 			}
 		}
 		writer->Close();
+	}
+}
+
+/**
+* Метод, запоминающий путь до бинарного файла для создания клиента.
+* Вызывается соотвествующей кнопкой "Загрузить"
+*/
+System::Void WinUI::GUI::buttonLoadBin_Click(System::Object^ sender, System::EventArgs^ e) {
+	openFileDialog1->FileName = "";
+	openFileDialog1->ShowDialog();
+	if (openFileDialog1->FileName != "") {
+		textBoxBytes->Text = openFileDialog1->FileName;
 	}
 }
 

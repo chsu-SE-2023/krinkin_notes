@@ -6,7 +6,7 @@
 Client::Client() {
 	this->name = "";
 	this->address = MAC_Address();
-	this->bytes = nullptr;
+	this->bytes = {};
 	this->type = ClientType::Wired;
 }
 
@@ -18,7 +18,7 @@ Client::Client() {
 Client::Client(std::string name) {
 	this->name = name;
 	this->address = MAC_Address();
-	this->bytes = nullptr;
+	this->bytes = {};
 	this->type = ClientType::Wired;
 }
 
@@ -30,7 +30,7 @@ Client::Client(std::string name) {
 Client::Client(MAC_Address address) {
 	this->name = "";
 	this->address = address;
-	this->bytes = nullptr;
+	this->bytes = {};
 	this->type = ClientType::Wired;
 }
 
@@ -39,7 +39,7 @@ Client::Client(MAC_Address address) {
 *
 * @param массив байт
 */
-Client::Client(unsigned char* bytes) {
+Client::Client(std::vector<unsigned char> bytes) {
 	this->name = "";
 	this->address = MAC_Address();
 	this->bytes = bytes;
@@ -54,7 +54,7 @@ Client::Client(unsigned char* bytes) {
 * @param массив байт
 * @param тип подключения (0 - WIRED, 1 - WIRELESS)
 */
-Client::Client(std::string name, MAC_Address address, unsigned char* bytes, ClientType type) {
+Client::Client(std::string name, MAC_Address address, std::vector<unsigned char> bytes, ClientType type) {
 	this->name = name;
 	this->address = address;
 	this->bytes = bytes;
@@ -77,7 +77,6 @@ Client::Client(const Client& copy) {
 */
 Client::~Client() {
 	name = "";
-	if (bytes) delete bytes;
 }
 
 /**
@@ -163,7 +162,7 @@ void Client::send_to(NetDevice_I* device) {
 * @param сетевое устройство
 * @return массив байт
 */
-const unsigned char* Client::receive_from(NetDevice_I* device) {
+std::vector<unsigned char> Client::receive_from(NetDevice_I* device) {
 	this->bytes = device->get_bytes();
 	return this->bytes;
 }

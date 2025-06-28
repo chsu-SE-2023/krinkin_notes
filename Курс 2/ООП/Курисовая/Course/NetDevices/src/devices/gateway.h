@@ -9,11 +9,11 @@ protected:
     void set_defaults();
 public:
     Gateway();
-    Gateway(const unsigned char*&);
+    Gateway(std::vector<unsigned char>&);
     Gateway(std::vector<Client>&);
     Gateway(MAC_Address);
     Gateway(std::vector<Client>&, MAC_Address);
-    Gateway(const unsigned char*&, std::vector<Client>&, MAC_Address, std::string);
+    Gateway(std::vector<unsigned char>&, std::vector<Client>&, MAC_Address, std::string);
     Gateway(const Gateway&);
     ~Gateway();
     virtual std::string get_info() override;

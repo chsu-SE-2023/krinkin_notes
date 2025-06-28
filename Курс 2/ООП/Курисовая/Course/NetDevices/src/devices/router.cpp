@@ -48,7 +48,7 @@ Router::Router(MAC_Address address) : Gateway(address), WLRepeater() {
 *
 * @param массив пакетов
 */
-Router::Router(const unsigned char*& bytes) : Gateway(bytes) {
+Router::Router(std::vector<unsigned char>& bytes) : Gateway(bytes) {
     set_defaults();
 }
 
@@ -72,7 +72,7 @@ Router::Router(std::vector<Client>& clients, MAC_Address address) : Gateway(clie
 * @param SSID беспроводной сети
 * @param пароль беспроводной сети
 */
-Router::Router(const unsigned char*& bytes, std::vector<Client>& clients, MAC_Address address, std::string protocol, std::string ssid, std::string passwd) : Gateway(bytes, clients, address, protocol), WLRepeater(ssid, passwd) {
+Router::Router(std::vector<unsigned char>& bytes, std::vector<Client>& clients, MAC_Address address, std::string protocol, std::string ssid, std::string passwd) : Gateway(bytes, clients, address, protocol), WLRepeater(ssid, passwd) {
     set_defaults();
 }
 
@@ -81,7 +81,7 @@ Router::Router(const unsigned char*& bytes, std::vector<Client>& clients, MAC_Ad
 *
 * @param экземпл€р Router
 */
-Router::Router(const Router& copy) : Gateway(const_cast<const unsigned char*&>(copy.Gateway::bytes), const_cast<std::vector<Client>&>(copy.Gateway::clients), copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
+Router::Router(const Router& copy) : Gateway(const_cast<std::vector<unsigned char>&>(copy.Gateway::bytes), const_cast<std::vector<Client>&>(copy.Gateway::clients), copy.Gateway::address, copy.protocol), WLRepeater(copy.ssid, copy.passwd) {
     this->wps = copy.wps;
 }
 
@@ -156,9 +156,18 @@ MAC_Address Router::get_address() const {
 *
 * @return массив пакетов
 */
-const unsigned char* Router::get_bytes() const {
+std::vector<unsigned char> Router::get_bytes() const {
     return Repeater::get_bytes();
 };
+
+/**
+* ћетод, возвращающий количество хранимых байт
+*
+* @return количество хранимых байт
+*/
+int Router::package_size() const {
+    return Gateway::bytes.size();
+}
 
 /**
 * ћетод, возвращающий вектор подключенных клиентов
@@ -184,7 +193,7 @@ std::string Router::get_info() {
 *
 * @param принимаемый массив пакетов
 */
-void Router::receive(const unsigned char*& bytes) {
+void Router::receive(std::vector<unsigned char>& bytes) {
     Repeater::receive(bytes);
 };
 

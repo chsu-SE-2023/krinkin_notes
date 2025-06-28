@@ -41,5 +41,6 @@ public:
     std::vector<T*> search(std::string, SearchMode);
     std::vector<T*> search(bool);
     int size();
+    int bytes_total();
     int cli_total();
 };

@@ -23,6 +23,7 @@ template std::vector<Repeater*> ServerRoom<Repeater>::search(MAC_Address);
 template std::vector <Repeater*> ServerRoom<Repeater>::search(int, int);
 template int ServerRoom<Repeater>::size();
 template int ServerRoom<Repeater>::cli_total();
+template int ServerRoom<Repeater>::bytes_total();
 #pragma endregion
 
 #pragma region Instancing for WLRepeater
@@ -46,6 +47,7 @@ template std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(int, int);
 template std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(std::string, SearchMode);
 template int ServerRoom<WLRepeater>::size();
 template int ServerRoom<WLRepeater>::cli_total();
+template int ServerRoom<WLRepeater>::bytes_total();
 #pragma endregion
 
 #pragma region Instancing for Switch
@@ -68,6 +70,7 @@ template std::vector <Switch*> ServerRoom<Switch>::search(MAC_Address);
 template std::vector <Switch*> ServerRoom<Switch>::search(int, int);
 template int ServerRoom<Switch>::size();
 template int ServerRoom<Switch>::cli_total();
+template int ServerRoom<Switch>::bytes_total();
 #pragma endregion
 
 #pragma region Instancing for Gateway
@@ -91,6 +94,7 @@ template std::vector <Gateway*> ServerRoom<Gateway>::search(int, int);
 template std::vector <Gateway*> ServerRoom<Gateway>::search(std::string, SearchMode);
 template int ServerRoom<Gateway>::size();
 template int ServerRoom<Gateway>::cli_total();
+template int ServerRoom<Gateway>::bytes_total();
 #pragma endregion
 
 #pragma region Instancing for Router
@@ -114,6 +118,7 @@ template std::vector <Router*> ServerRoom<Router>::search(int, int);
 template std::vector <Router*> ServerRoom<Router>::search(std::string, SearchMode);
 template int ServerRoom<Router>::size();
 template int ServerRoom<Router>::cli_total();
+template int ServerRoom<Router>::bytes_total();
 #pragma endregion
 
 /**
@@ -511,6 +516,24 @@ int ServerRoom<T>::cli_total() {
     while (current != nullptr) {
         if (current->device != nullptr)
             count += current->device->clients_count();
+        current = current->next;
+    }
+    return count;
+}
+
+/**
+* Функция возвращает количество байт
+* по всем устроствам в комнате
+*
+* @return количество байт
+*/
+template <typename T>
+int ServerRoom<T>::bytes_total() {
+    int count = 0;
+    Node* current = this->first;
+    while (current != nullptr) {
+        if (current->device != nullptr)
+            count += current->device->package_size();
         current = current->next;
     }
     return count;

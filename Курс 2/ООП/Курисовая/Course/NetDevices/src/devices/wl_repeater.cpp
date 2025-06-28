@@ -43,7 +43,7 @@ WLRepeater::WLRepeater(MAC_Address address) : Repeater(address) {
 *
 * @param массив байт
 */
-WLRepeater::WLRepeater(const unsigned char*& bytes) : Repeater(bytes) {
+WLRepeater::WLRepeater(std::vector<unsigned char>& bytes) : Repeater(bytes) {
     set_defaults();
 }
 
@@ -55,7 +55,7 @@ WLRepeater::WLRepeater(const unsigned char*& bytes) : Repeater(bytes) {
 * @param SSID беспроводной сети
 * @param пароль беспроводной сети
 */
-WLRepeater::WLRepeater(const unsigned char*& bytes, MAC_Address address, std::string ssid, std::string passwd) : Repeater(bytes, address) {
+WLRepeater::WLRepeater(std::vector<unsigned char>& bytes, MAC_Address address, std::string ssid, std::string passwd) : Repeater(bytes, address) {
     set_defaults();
     this->ssid = ssid;
     this->passwd = passwd;
@@ -66,7 +66,7 @@ WLRepeater::WLRepeater(const unsigned char*& bytes, MAC_Address address, std::st
 *
 * @param экземпл€р WLRepeater
 */
-WLRepeater::WLRepeater(const WLRepeater& copy) : Repeater(const_cast<const unsigned char*&>(copy.bytes), const_cast<MAC_Address&>(copy.address)) {
+WLRepeater::WLRepeater(const WLRepeater& copy) : Repeater(const_cast<std::vector<unsigned char>&>(copy.bytes), const_cast<MAC_Address&>(copy.address)) {
     set_defaults();
     this->ssid = copy.ssid;
     this->passwd = copy.passwd;

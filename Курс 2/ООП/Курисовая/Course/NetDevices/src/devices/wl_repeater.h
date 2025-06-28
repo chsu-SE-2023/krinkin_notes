@@ -12,8 +12,8 @@ public:
     WLRepeater();
     WLRepeater(std::string, std::string);
     WLRepeater(MAC_Address);
-    WLRepeater(const unsigned char*&);
-    WLRepeater(const unsigned char*&, MAC_Address, std::string, std::string);
+    WLRepeater(std::vector<unsigned char>&);
+    WLRepeater(std::vector<unsigned char>&, MAC_Address, std::string, std::string);
     WLRepeater(const WLRepeater&);
     ~WLRepeater();
     virtual void connect(Client&) override;
