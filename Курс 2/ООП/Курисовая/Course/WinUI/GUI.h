@@ -131,7 +131,7 @@ namespace WinUI {
 	private: System::Windows::Forms::Button^ buttonConnect;
 	private: System::Windows::Forms::TextBox^ textBoxBytes;
 	private: System::Windows::Forms::TextBox^ textBox18;
-	public: System::Windows::Forms::TextBox^ textBoxConnectText;
+	public:  System::Windows::Forms::TextBox^ textBoxConnectText;
 	private: System::Windows::Forms::TextBox^ textBoxConCriteria;
 	private: System::Windows::Forms::TextBox^ textBox4;
 	private: System::Windows::Forms::Button^ buttonSaveFileC;
@@ -330,7 +330,7 @@ namespace WinUI {
 			this->tabPageRepeater->Location = System::Drawing::Point(4, 27);
 			this->tabPageRepeater->Name = L"tabPageRepeater";
 			this->tabPageRepeater->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageRepeater->Size = System::Drawing::Size(1925, 466);
+			this->tabPageRepeater->Size = System::Drawing::Size(833, 466);
 			this->tabPageRepeater->TabIndex = 1;
 			this->tabPageRepeater->Text = L"Repeater (C)";
 			this->tabPageRepeater->UseVisualStyleBackColor = true;
@@ -349,7 +349,7 @@ namespace WinUI {
 			this->dataGridViewRepeater->Name = L"dataGridViewRepeater";
 			this->dataGridViewRepeater->ReadOnly = true;
 			this->dataGridViewRepeater->RowHeadersVisible = false;
-			this->dataGridViewRepeater->Size = System::Drawing::Size(1919, 460);
+			this->dataGridViewRepeater->Size = System::Drawing::Size(827, 460);
 			this->dataGridViewRepeater->TabIndex = 0;
 			// 
 			// ColumnIndex1
@@ -383,7 +383,7 @@ namespace WinUI {
 			this->tabPageWLRepeater->Location = System::Drawing::Point(4, 27);
 			this->tabPageWLRepeater->Name = L"tabPageWLRepeater";
 			this->tabPageWLRepeater->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageWLRepeater->Size = System::Drawing::Size(1925, 466);
+			this->tabPageWLRepeater->Size = System::Drawing::Size(833, 466);
 			this->tabPageWLRepeater->TabIndex = 2;
 			this->tabPageWLRepeater->Text = L"WLRepeater (C)";
 			this->tabPageWLRepeater->UseVisualStyleBackColor = true;
@@ -402,7 +402,7 @@ namespace WinUI {
 			this->dataGridViewWLRepeater->Name = L"dataGridViewWLRepeater";
 			this->dataGridViewWLRepeater->ReadOnly = true;
 			this->dataGridViewWLRepeater->RowHeadersVisible = false;
-			this->dataGridViewWLRepeater->Size = System::Drawing::Size(1919, 460);
+			this->dataGridViewWLRepeater->Size = System::Drawing::Size(827, 460);
 			this->dataGridViewWLRepeater->TabIndex = 1;
 			// 
 			// ColumnIndex2
@@ -436,7 +436,7 @@ namespace WinUI {
 			this->tabPageSwitch->Location = System::Drawing::Point(4, 27);
 			this->tabPageSwitch->Name = L"tabPageSwitch";
 			this->tabPageSwitch->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageSwitch->Size = System::Drawing::Size(1925, 466);
+			this->tabPageSwitch->Size = System::Drawing::Size(833, 466);
 			this->tabPageSwitch->TabIndex = 3;
 			this->tabPageSwitch->Text = L"Switch (C)";
 			this->tabPageSwitch->UseVisualStyleBackColor = true;
@@ -455,7 +455,7 @@ namespace WinUI {
 			this->dataGridViewSwitch->Name = L"dataGridViewSwitch";
 			this->dataGridViewSwitch->ReadOnly = true;
 			this->dataGridViewSwitch->RowHeadersVisible = false;
-			this->dataGridViewSwitch->Size = System::Drawing::Size(1919, 460);
+			this->dataGridViewSwitch->Size = System::Drawing::Size(827, 460);
 			this->dataGridViewSwitch->TabIndex = 1;
 			// 
 			// ColumnIndex3
@@ -489,7 +489,7 @@ namespace WinUI {
 			this->tabPageGateway->Location = System::Drawing::Point(4, 27);
 			this->tabPageGateway->Name = L"tabPageGateway";
 			this->tabPageGateway->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageGateway->Size = System::Drawing::Size(1925, 466);
+			this->tabPageGateway->Size = System::Drawing::Size(833, 466);
 			this->tabPageGateway->TabIndex = 4;
 			this->tabPageGateway->Text = L"Gateway (C)";
 			this->tabPageGateway->UseVisualStyleBackColor = true;
@@ -508,7 +508,7 @@ namespace WinUI {
 			this->dataGridViewGateway->Name = L"dataGridViewGateway";
 			this->dataGridViewGateway->ReadOnly = true;
 			this->dataGridViewGateway->RowHeadersVisible = false;
-			this->dataGridViewGateway->Size = System::Drawing::Size(1919, 460);
+			this->dataGridViewGateway->Size = System::Drawing::Size(827, 460);
 			this->dataGridViewGateway->TabIndex = 1;
 			// 
 			// ColumnIndex4
@@ -542,7 +542,7 @@ namespace WinUI {
 			this->tabPageRouter->Location = System::Drawing::Point(4, 27);
 			this->tabPageRouter->Name = L"tabPageRouter";
 			this->tabPageRouter->Padding = System::Windows::Forms::Padding(3);
-			this->tabPageRouter->Size = System::Drawing::Size(1925, 466);
+			this->tabPageRouter->Size = System::Drawing::Size(833, 466);
 			this->tabPageRouter->TabIndex = 5;
 			this->tabPageRouter->Text = L"Router (C)";
 			this->tabPageRouter->UseVisualStyleBackColor = true;
@@ -561,7 +561,7 @@ namespace WinUI {
 			this->dataGridViewRouter->Name = L"dataGridViewRouter";
 			this->dataGridViewRouter->ReadOnly = true;
 			this->dataGridViewRouter->RowHeadersVisible = false;
-			this->dataGridViewRouter->Size = System::Drawing::Size(1919, 460);
+			this->dataGridViewRouter->Size = System::Drawing::Size(827, 460);
 			this->dataGridViewRouter->TabIndex = 1;
 			// 
 			// ColumnIndex5
@@ -1059,6 +1059,7 @@ namespace WinUI {
 			this->buttonSaveFileC->TabIndex = 45;
 			this->buttonSaveFileC->Text = L"Сохранить в файл";
 			this->buttonSaveFileC->UseVisualStyleBackColor = true;
+			this->buttonSaveFileC->Click += gcnew System::EventHandler(this, &GUI::buttonSaveFileC_Click);
 			// 
 			// buttonLoadFileC
 			// 
@@ -1070,6 +1071,7 @@ namespace WinUI {
 			this->buttonLoadFileC->TabIndex = 44;
 			this->buttonLoadFileC->Text = L"Загрузить из файла";
 			this->buttonLoadFileC->UseVisualStyleBackColor = true;
+			this->buttonLoadFileC->Click += gcnew System::EventHandler(this, &GUI::buttonLoadFileC_Click);
 			// 
 			// textBoxConCriteria
 			// 
@@ -1274,6 +1276,8 @@ private:
 	System::Void resetFields();
 	System::Void error(System::String^);
 	System::Void warning(System::String^);
+	System::Void connectTo(Client&, String^, bool, String^);
+	unsigned char* loadBinary(String^);
 	System::Void buttonAdd_Click(System::Object^, System::EventArgs^);
 	System::Void comboBoxClass_SelectedIndexChanged(System::Object^, System::EventArgs^);
 	System::Void buttonGet_Click(System::Object^, System::EventArgs^);
@@ -1288,5 +1292,7 @@ private:
 	System::Void buttonConnect_Click(System::Object^, System::EventArgs^);
 	System::Void buttonSaveFile_Click(System::Object^, System::EventArgs^);
 	System::Void GUI_Load(System::Object^, System::EventArgs^);
+	System::Void buttonLoadFileC_Click(System::Object^, System::EventArgs^);
+	System::Void buttonSaveFileC_Click(System::Object^, System::EventArgs^);
 };
 }

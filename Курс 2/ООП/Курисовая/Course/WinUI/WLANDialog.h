@@ -19,9 +19,6 @@ namespace WinUI {
 		WLANDialog(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:

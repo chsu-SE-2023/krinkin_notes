@@ -19,6 +19,7 @@ public:
     ~Router();
     virtual int clients_count() const override;
     virtual MAC_Address get_address() const override;
+    virtual std::vector<Client> get_clients() override;
     virtual std::string get_info() override;
     virtual const unsigned char* get_bytes() const override;
     virtual void set_address(MAC_Address) override;

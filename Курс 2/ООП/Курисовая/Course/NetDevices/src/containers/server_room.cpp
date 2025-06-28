@@ -134,7 +134,7 @@ ServerRoom<T>::Node::Node(T* device) {
 */
 template <typename T>
 ServerRoom<T>::Node::~Node() {
-    if (device) delete device; // TODO: Нужно ли удалять девайс в принципе?
+    if (device) delete device;
     if (next) delete next;
     if (prev != nullptr) prev->next = nullptr;
 }

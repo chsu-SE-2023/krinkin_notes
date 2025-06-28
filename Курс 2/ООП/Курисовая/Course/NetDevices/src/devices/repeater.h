@@ -26,6 +26,7 @@ public:
     virtual void connect(Client&);
     virtual void disconnect(Client&);
     virtual MAC_Address get_address() const override;
+    virtual std::vector<Client> get_clients();
     virtual std::string get_info() override;
     virtual const unsigned char* get_bytes() const override;
     virtual void set_address(const MAC_Address) override;

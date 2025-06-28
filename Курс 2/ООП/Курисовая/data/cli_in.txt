@@ -1,0 +1,5 @@
+name,address,bytes,type,connect_to,passwd
+Gneg,DC:75:F5:D3:23:BB,,1,ASUS,my_torrent
+Ivan,66:AC:CE:EA:3E:0D,,0,6F:B7:0D:A7:AE:60,
+Nikolay,4B:BD:1E:D8:48:41,,0,E6:F3:63:7E:DF:EB,
+Remik,C3:EC:2B:19:06:3B,,1,CHSU_WORK,HofSDHifs

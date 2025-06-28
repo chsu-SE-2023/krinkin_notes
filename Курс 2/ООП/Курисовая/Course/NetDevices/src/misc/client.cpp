@@ -1,7 +1,7 @@
 #include "client.h"
 
 /**
-* ����������� �� ���������
+* Конструктор по умолчанию
 */
 Client::Client() {
 	this->name = "";
@@ -11,9 +11,9 @@ Client::Client() {
 }
 
 /**
-* ����������� � �����������
+* Конструктор с параметрами
 *
-* @param ��� �������
+* @param имя клиента
 */
 Client::Client(std::string name) {
 	this->name = name;
@@ -23,9 +23,9 @@ Client::Client(std::string name) {
 }
 
 /**
-* ����������� � �����������
+* Коструктор с параметрами
 *
-* @param MAC-�����
+* @param MAC-адрес
 */
 Client::Client(MAC_Address address) {
 	this->name = "";
@@ -35,9 +35,9 @@ Client::Client(MAC_Address address) {
 }
 
 /**
-* ����������� � �����������
+* Конструктор с параметрами
 *
-* @param ������ ����
+* @param массив байт
 */
 Client::Client(unsigned char* bytes) {
 	this->name = "";
@@ -47,12 +47,12 @@ Client::Client(unsigned char* bytes) {
 }
 
 /**
-* ����������� � �����������
+* Конструктор с параметрами
 *
-* @param ��� �������
-* @param MAC-�����
-* @param ������ ����
-* @param ��� ����������� (0 - WIRED, 1 - WIRELESS)
+* @param имя клиента
+* @param MAC-адрес
+* @param массив байт
+* @param тип подключения (0 - WIRED, 1 - WIRELESS)
 */
 Client::Client(std::string name, MAC_Address address, unsigned char* bytes, ClientType type) {
 	this->name = name;
@@ -61,9 +61,9 @@ Client::Client(std::string name, MAC_Address address, unsigned char* bytes, Clie
 	this->type = type;
 }
 /**
-* ���������� ����������
+* Копирующий конструтор
 *
-* @param ��������� Client
+* @param экземляр Client
 */
 Client::Client(const Client& copy) {
 	this->name = copy.name;
@@ -73,7 +73,7 @@ Client::Client(const Client& copy) {
 }
 
 /**
-* �������������
+* Деконструктор
 */
 Client::~Client() {
 	name = "";
@@ -81,87 +81,87 @@ Client::~Client() {
 }
 
 /**
-* ���������� ��������� ==
+* Перегрузка оператора ==
 * 
-* @param ������ ������
-* @param ������ ������
-* @return ��������� ���������
+* @param первый объект
+* @param второй объект
+* @return результат сравнения
 */
 bool operator==(const Client& first, const Client& second) {
 	return first.address == second.address;
 }
 
 /**
-* �����, ������������ MAC-����� �������
+* Метод, возвращающий MAC-адрес клиента
 *
-* @return MAC-�����
+* @return MAC-адрес
 */
 MAC_Address Client::get_address() const {
 	return address;
 }
 
 /**
-* �����, ������������ ��� �������
+* Метод, возвращающий имя клиента
 *
-* @return ��� �������
+* @return имя клиента
 */
 std::string Client::get_name() const {
 	return name;
 }
 
 /**
-* �����, ������������ ��� ����������� �������
+* Метод, возвращающий тип подключения клиента
 *
-* @return ��� ����������� (0 - WIRED, 1 - WIRELESS)
+* @return тип подключения (0 - WIRED, 1 - WIRELESS)
 */
 ClientType Client::get_type() const {
 	return this->type;
 }
 
 /**
-* �����, ��������������� MAC-����� �������
+* Метод, устанавливающий MAC-адрес клиента
 *
-* @param MAC-�����
+* @param MAC-адрес
 */
 void Client::set_address(MAC_Address address) {
 	this->address = address;
 }
 
 /**
-* �����, ��������������� ��� �������
+* Метод, устанавливающий имя клиента
 *
-* @param ��� �������
+* @param имя клиента
 */
-void Client::set_name(std::string) {
+void Client::set_name(std::string name) {
 	this->name = name;
 }
 
 /**
-* �����, ��������������� ��� ����������� �������
+* Метод, устанавливающий тип подключения клиента
 *
-* @param ��� ����������� (0 - WIRED, 1 - WIRELESS)
+* @param тип подключения (0 - WIRED, 1 - WIRELESS)
 */
 void Client::set_type(ClientType type) {
 	this->type = type;
 }
 
 /**
-* �����, ������������ ����� �� ������� ����������
+* Метод, отправляющий байты на сетевое устройство
 *
-* @param ������� ����������
+* @param сетевое устройство
 */
 void Client::send_to(NetDevice_I* device) {
 	device->receive(this->bytes);
 }
 
 /**
-* �����, ����������� ����� �� �������� ����������
-* 
-* ��������� ���������� ����� ������� � ���� �������,
-* � ����� ���������� ��� ��������
+* Метод, принимающий байты от сетевого устройства
 *
-* @param ������� ����������
-* @return ������ ����
+* Сохраняет полученный адрес массива в поле объекта,
+* а также возвращает его значение
+*
+* @param сетевое устройство
+* @return массив байт
 */
 const unsigned char* Client::receive_from(NetDevice_I* device) {
 	this->bytes = device->get_bytes();

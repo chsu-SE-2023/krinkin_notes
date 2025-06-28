@@ -161,6 +161,15 @@ const unsigned char* Router::get_bytes() const {
 };
 
 /**
+* Метод, возвращающий вектор подключенных клиентов
+*
+* @return вектор подключенных клиентов
+*/
+std::vector<Client> Router::get_clients() {
+    return Gateway::clients;
+}
+
+/**
 * Метод, возвращающий информацию об объекте
 * в виде текста о его полях
 *

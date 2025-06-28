@@ -26,6 +26,7 @@ Container::Node::Node(void*& data) {
 * òàêæå óäàëÿåò è ñëåäóşùèé çà íèì, à òàêæå ñâÿçü ñ ïğåäûäóùèì
 */
 Container::Node::~Node() {
+	//FIXME: Access violation
 	if (data) delete data;
 	if (next) delete next;
 }
@@ -68,7 +69,7 @@ Container::Node* Container::get_node(int index) {
 * @param èíäåêñ ıëåìåíòà
 * @return óêàçàòåëü íà ıëåìåíò
 */
-const void* Container::operator[](int index) {
+void* Container::operator[](int index) {
 	try {
 		return get_node(index)->data;
 	}

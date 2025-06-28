@@ -15,9 +15,9 @@ DataCenter::DataCenter() : Container() {
 * @param индекс элемента
 * @return указатель на элемент
 */
-//NetDevice_I*& ServerRoom::operator[](int index) {
-//	return Container::operator[](index);
-//}
+NetDevice_I* DataCenter::operator[](int index) {
+	return static_cast<NetDevice_I*>(Container::operator[](index));
+}
 
 /**
 * Метод, добавляющий элемент в контейнер

@@ -62,8 +62,7 @@ Repeater::Repeater(const Repeater& copy) {
 * Деконструктор
 */
 Repeater::~Repeater() {
-    // HACK: А нужно ли вообще удалять внешние данные?
-    // if (packets) delete packets;
+    if (bytes) delete bytes;
 };
 
 /**
@@ -175,6 +174,15 @@ const unsigned char* Repeater::get_bytes() const {
 };
 
 /**
+* Метод, возвращающий вектор подключенных клиентов
+*
+* @return вектор подключенных клиентов
+*/
+std::vector<Client> Repeater::get_clients() {
+    return clients;
+};
+
+/**
 * Метод для получения байт
 *
 * @param принимаемый массив байт
@@ -191,7 +199,8 @@ void Repeater::receive(const unsigned char*& bytes) {
 */
 std::string Repeater::get_info() {
     // TODO: печать bytes
-    return "address: " + address.as_string();
+    return "address: " + address.as_string() + 
+        ", clients: vector<Client> {size: " + std::to_string(clients.size()) + "}";
 }
 
 /**

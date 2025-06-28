@@ -17,7 +17,7 @@ private:
 public:
 	Container();
 	~Container();
-	const void* operator[](int);
+	void* operator[](int);
 	void add(void*);
 	int count(void*);
 	std::vector<void*> get_vector();

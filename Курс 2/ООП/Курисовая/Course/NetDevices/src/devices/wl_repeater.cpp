@@ -7,6 +7,7 @@
 void WLRepeater::set_defaults() {
     this->ssid = "admin";
     this->passwd = "admin";
+    this->wps = false;
 }
 
 /**
@@ -125,7 +126,7 @@ void WLRepeater::connect(Client& client, std::string ssid, std::string passwd) {
 * @return текст о полях объекта
 */
 std::string WLRepeater::get_info() {
-    return Repeater::get_info() + ", ssid: " + ssid + ", passwd: " + passwd;
+    return Repeater::get_info() + ", ssid: " + ssid + ", passwd: " + passwd + ", wps: " + std::to_string(wps);
 }
 
 /**

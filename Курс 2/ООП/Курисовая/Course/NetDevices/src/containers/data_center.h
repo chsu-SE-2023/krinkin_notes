@@ -7,7 +7,7 @@ private:
 	int clients_total;
 public:
 	DataCenter();
-	//NetDevice_I*& operator[](int);
+	NetDevice_I* operator[](int);
 	void add(void*);
 	void clear();
 	int count(void*);
