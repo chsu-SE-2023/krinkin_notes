@@ -26,8 +26,6 @@ Container::Node::Node(void*& data) {
 * также удаляет и следующий за ним, а также связь с предыдущим
 */
 Container::Node::~Node() {
-	//FIXME: Access violation
-	if (data) delete data;
 	if (next) delete next;
 }
 
@@ -152,10 +150,11 @@ void Container::seek(int count) {
 * @return размер контейнера
 */
 int Container::size() {
-	Node* current = first;
 	int count = 0;
-	while (current->next != nullptr) {
-		count++;
+	Node* current = this->first;
+	while (current != nullptr) {
+		if (current->data != nullptr)
+			count++;
 		current = current->next;
 	}
 	return count;

@@ -143,6 +143,15 @@ void Router::connect(Client& client, std::string ssid, std::string passwd) {
 }
 
 /**
+* Метод отключающий клиента от устройства
+*
+* @param отключаемый клиент
+*/
+void Router::disconnect(Client& client) {
+    Gateway::disconnect(client);
+}
+
+/**
 * Метод, возвращающий MAC-адрес устройства
 *
 * @return MAC-адрес

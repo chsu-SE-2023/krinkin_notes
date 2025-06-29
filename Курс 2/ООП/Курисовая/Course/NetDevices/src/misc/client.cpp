@@ -91,6 +91,17 @@ bool operator==(const Client& first, const Client& second) {
 }
 
 /**
+* Перегрузка оператора !=
+*
+* @param первый объект
+* @param второй объект
+* @return результат сравнения
+*/
+bool operator!=(const Client& first, const Client& second) {
+	return first.address != second.address;
+}
+
+/**
 * Метод, возвращающий MAC-адрес клиента
 *
 * @return MAC-адрес

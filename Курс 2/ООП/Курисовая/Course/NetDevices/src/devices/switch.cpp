@@ -85,7 +85,6 @@ Switch::Switch(const Switch& sw) : Repeater(const_cast<std::vector<unsigned char
 */
 Switch::~Switch() {
     Repeater::~Repeater();
-    this->clients = {};
 }
 
 /**
@@ -96,7 +95,7 @@ Switch::~Switch() {
 * @return результат сравнения
 */
 bool operator>(const Switch& first, const Switch& second) {
-    return first.clients.size() > first.clients.size();
+    return first.clients.size() > second.clients.size();
 }
 
 /**
@@ -107,7 +106,7 @@ bool operator>(const Switch& first, const Switch& second) {
 * @return результат сравнения
 */
 bool operator<(const Switch& first, const Switch& second) {
-    return first.clients.size() < first.clients.size();
+    return first.clients.size() < second.clients.size();
 }
 
 /**
@@ -118,7 +117,7 @@ bool operator<(const Switch& first, const Switch& second) {
 * @return результат сравнения
 */
 bool operator>=(const Switch& first, const Switch& second) {
-    return first.clients.size() >= first.clients.size();
+    return first.clients.size() >= second.clients.size();
 }
 
 /**
@@ -129,7 +128,7 @@ bool operator>=(const Switch& first, const Switch& second) {
 * @return результат сравнения
 */
 bool operator<=(const Switch& first, const Switch& second) {
-    return first.clients.size() <= first.clients.size();
+    return first.clients.size() <= second.clients.size();
 }
 
 /**
@@ -140,7 +139,7 @@ bool operator<=(const Switch& first, const Switch& second) {
 * @return результат сравнения
 */
 bool operator==(const Switch& first, const Switch& second) {
-    return first.clients.size() == first.clients.size();
+    return first.clients.size() == second.clients.size();
 }
 
 /**
@@ -151,7 +150,7 @@ bool operator==(const Switch& first, const Switch& second) {
 * @return результат сравнения
 */
 bool operator!=(const Switch& first, const Switch& second) {
-    return first.clients.size() != first.clients.size();
+    return first.clients.size() != second.clients.size();
 }
 
 /**

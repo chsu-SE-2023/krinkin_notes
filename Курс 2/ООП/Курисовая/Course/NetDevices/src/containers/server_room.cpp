@@ -3,6 +3,54 @@
 #include "../misc/address.h"
 #include <iostream>
 
+#pragma region Instancing of friend operators
+/**
+* Оператор проверяет равны ли две комнаты по размеру
+*
+* @param первый сравниваемый экземпляр ServerRoom
+* @param второй сравниваемый экземпляр ServerRoom
+* @return булево значение - результат сравнения
+*/
+bool operator==(const ServerRoom<Repeater>& first, const ServerRoom<Repeater>& second) {
+    return const_cast<ServerRoom<Repeater>&>(first).size() == const_cast<ServerRoom<Repeater>&>(second).size();
+}
+bool operator==(const ServerRoom<WLRepeater>& first, const ServerRoom<WLRepeater>& second) {
+    return const_cast<ServerRoom<WLRepeater>&>(first).size() == const_cast<ServerRoom<WLRepeater>&>(second).size();
+}
+bool operator==(const ServerRoom<Switch>& first, const ServerRoom<Switch>& second) {
+    return const_cast<ServerRoom<Switch>&>(first).size() == const_cast<ServerRoom<Switch>&>(second).size();
+}
+bool operator==(const ServerRoom<Gateway>& first, const ServerRoom<Gateway>& second) {
+    return const_cast<ServerRoom<Gateway>&>(first).size() == const_cast<ServerRoom<Gateway>&>(second).size();
+}
+bool operator==(const ServerRoom<Router>& first, const ServerRoom<Router>& second) {
+    return const_cast<ServerRoom<Router>&>(first).size() == const_cast<ServerRoom<Router>&>(second).size();
+}
+
+/**
+ * Оператор проверяет различны ли две комнаты по размеру
+ *
+ * @param первый сравниваемый экземпляр ServerRoom
+ * @param второй сравниваемый экземпляр ServerRoom
+ * @return булево значение - результат сравнения
+ */
+bool operator!=(const ServerRoom<Repeater>& first, const ServerRoom<Repeater>& second) {
+    return const_cast<ServerRoom<Repeater>&>(first).size() != const_cast<ServerRoom<Repeater>&>(second).size();
+}
+bool operator!=(const ServerRoom<WLRepeater>& first, const ServerRoom<WLRepeater>& second) {
+    return const_cast<ServerRoom<WLRepeater>&>(first).size() != const_cast<ServerRoom<WLRepeater>&>(second).size();
+}
+bool operator!=(const ServerRoom<Switch>& first, const ServerRoom<Switch>& second) {
+    return const_cast<ServerRoom<Switch>&>(first).size() != const_cast<ServerRoom<Switch>&>(second).size();
+}
+bool operator!=(const ServerRoom<Gateway>& first, const ServerRoom<Gateway>& second) {
+    return const_cast<ServerRoom<Gateway>&>(first).size() != const_cast<ServerRoom<Gateway>&>(second).size();
+}
+bool operator!=(const ServerRoom<Router>& first, const ServerRoom<Router>& second) {
+    return const_cast<ServerRoom<Router>&>(first).size() != const_cast<ServerRoom<Router>&>(second).size();
+}
+#pragma endregion
+
 #pragma region Instancing for Repeater
 template class ServerRoom<Repeater>;
 template ServerRoom<Repeater>::Node::Node(Repeater*);
@@ -13,14 +61,12 @@ template ServerRoom<Repeater>::ServerRoom(Repeater&);
 template ServerRoom<Repeater>::~ServerRoom();
 template ServerRoom<Repeater>& ServerRoom<Repeater>::operator--(int);
 template Repeater* ServerRoom<Repeater>::operator[](int);
-template bool operator== (const ServerRoom<Repeater>&, const ServerRoom<Repeater>&);
-template bool operator!= (const ServerRoom<Repeater>&, const ServerRoom<Repeater>&);
 template void ServerRoom<Repeater>::add(Repeater&);
 template std::vector<Repeater*> ServerRoom<Repeater>::get_vector();
 template void ServerRoom<Repeater>::seek(int);
 template void ServerRoom<Repeater>::sort();
 template std::vector<Repeater*> ServerRoom<Repeater>::search(MAC_Address);
-template std::vector <Repeater*> ServerRoom<Repeater>::search(int, int);
+template std::vector<Repeater*> ServerRoom<Repeater>::search(int, int);
 template int ServerRoom<Repeater>::size();
 template int ServerRoom<Repeater>::cli_total();
 template int ServerRoom<Repeater>::bytes_total();
@@ -36,8 +82,6 @@ template ServerRoom<WLRepeater>::ServerRoom(WLRepeater&);
 template ServerRoom<WLRepeater>::~ServerRoom();
 template ServerRoom<WLRepeater>& ServerRoom<WLRepeater>::operator--(int);
 template WLRepeater* ServerRoom<WLRepeater>::operator[](int);
-template bool operator== (const ServerRoom<WLRepeater>&, const ServerRoom<WLRepeater>&);
-template bool operator!= (const ServerRoom<WLRepeater>&, const ServerRoom<WLRepeater>&);
 template void ServerRoom<WLRepeater>::add(WLRepeater&);
 template std::vector<WLRepeater*> ServerRoom<WLRepeater>::get_vector();
 template void ServerRoom<WLRepeater>::seek(int);
@@ -60,8 +104,6 @@ template ServerRoom<Switch>::ServerRoom(Switch&);
 template ServerRoom<Switch>::~ServerRoom();
 template ServerRoom<Switch>& ServerRoom<Switch>::operator--(int);
 template Switch* ServerRoom<Switch>::operator[](int);
-template bool operator== (const ServerRoom<Switch>&, const ServerRoom<Switch>&);
-template bool operator!= (const ServerRoom<Switch>&, const ServerRoom<Switch>&);
 template void ServerRoom<Switch>::add(Switch&);
 template std::vector<Switch*> ServerRoom<Switch>::get_vector();
 template void ServerRoom<Switch>::seek(int);
@@ -83,8 +125,6 @@ template ServerRoom<Gateway>::ServerRoom(Gateway&);
 template ServerRoom<Gateway>::~ServerRoom();
 template ServerRoom<Gateway>& ServerRoom<Gateway>::operator--(int);
 template Gateway* ServerRoom<Gateway>::operator[](int);
-template bool operator== (const ServerRoom<Gateway>&, const ServerRoom<Gateway>&);
-template bool operator!= (const ServerRoom<Gateway>&, const ServerRoom<Gateway>&);
 template void ServerRoom<Gateway>::add(Gateway&);
 template std::vector<Gateway*> ServerRoom<Gateway>::get_vector();
 template void ServerRoom<Gateway>::seek(int);
@@ -107,8 +147,6 @@ template ServerRoom<Router>::ServerRoom(Router&);
 template ServerRoom<Router>::~ServerRoom();
 template ServerRoom<Router>& ServerRoom<Router>::operator--(int);
 template Router* ServerRoom<Router>::operator[](int);
-template bool operator== (const ServerRoom<Router>&, const ServerRoom<Router>&);
-template bool operator!= (const ServerRoom<Router>&, const ServerRoom<Router>&);
 template void ServerRoom<Router>::add(Router&);
 template std::vector<Router*> ServerRoom<Router>::get_vector();
 template void ServerRoom<Router>::seek(int);
@@ -139,9 +177,8 @@ ServerRoom<T>::Node::Node(T* device) {
 */
 template <typename T>
 ServerRoom<T>::Node::~Node() {
-    if (device) delete device;
     if (next) delete next;
-    if (prev != nullptr) prev->next = nullptr;
+    if (prev) prev->next = nullptr;
 }
 
 /**
@@ -187,7 +224,6 @@ ServerRoom<T>::ServerRoom(const ServerRoom<T>& copy) {
 template <typename T>
 ServerRoom<T>::~ServerRoom() {
     if (first) delete first;
-    if (last) delete last;
 }
 
 /**
@@ -217,7 +253,7 @@ typename ServerRoom<T>::Node* ServerRoom<T>::get_node(ServerRoom<T>* room, int i
 */
 template <typename T>
 ServerRoom<T>& ServerRoom<T>::operator--(int count) {
-    this->seek(count);
+    this->seek(1);
     return *this;
 }
 
@@ -236,30 +272,6 @@ T* ServerRoom<T>::operator[](int index) {
     catch (std::range_error err) {
         throw std::range_error(err.what());
     }
-}
-
-/**
-* Оператор проверяет равны ли две комнаты по размеру
-*
-* @param первый сравниваемый экземпляр ServerRoom
-* @param второй сравниваемый экземпляр ServerRoom
-* @return булево значение - результат сравнения
-*/
-template <typename T>
-bool operator==(const ServerRoom<T>& first, const ServerRoom<T>& second) {
-    return first.size() == second.size();
-}
-
-/**
- * Оператор проверяет различны ли две комнаты по размеру
- *
- * @param первый сравниваемый экземпляр ServerRoom
- * @param второй сравниваемый экземпляр ServerRoom
- * @return булево значение - результат сравнения
- */
-template <typename T>
-bool operator!=(const ServerRoom<T>& first, const ServerRoom<T>& second) {
-    return first.size() != second.size();
 }
 
 /**
@@ -379,7 +391,19 @@ std::vector <T*> ServerRoom<T>::search(int start, int end) {
 }
 
 /**
-* Метод поиска экземпляра WLRepeater
+* Метод поиска экземпляра Repeater по строке
+*
+* @param искомая строка
+* @param режим поиска
+* @return вектор указатель на найденные объекты
+*/
+template<>
+std::vector <Repeater*> ServerRoom<Repeater>::search(std::string str, SearchMode mode) {
+    return {};
+}
+
+/**
+* Метод поиска экземпляра WLRepeater по строке
 *
 * @param искомая строка
 * @param режим поиска
@@ -402,7 +426,19 @@ std::vector <WLRepeater*> ServerRoom<WLRepeater>::search(std::string str, Search
 }
 
 /**
-* Метод поиска экземпляра Gateway по диапазону клиентов
+* Метод поиска экземпляра Switch по строке
+*
+* @param искомая строка
+* @param режим поиска
+* @return вектор указатель на найденные объекты
+*/
+template<>
+std::vector <Switch*> ServerRoom<Switch>::search(std::string str, SearchMode mode) {
+    return {};
+}
+
+/**
+* Метод поиска экземпляра Gateway по строке
 *
 * @param искомая строка
 * @param режим поиска
@@ -425,7 +461,7 @@ std::vector <Gateway*> ServerRoom<Gateway>::search(std::string str, SearchMode m
 }
 
 /**
-* Метод поиска экземпляра Router по диапазону клиентов
+* Метод поиска экземпляра Router по строке
 *
 * @param искомая строка
 * @param режим поиска
@@ -451,11 +487,21 @@ std::vector <Router*> ServerRoom<Router>::search(std::string str, SearchMode mod
 /**
 * Метод поиска экземпляра по статусу WPS
 *
-* @param address объекта
+* @param wps объекта
 * @return вектор указатель на найденные объекты
 */
-std::vector<Router*> ServerRoom<Router>::search(bool wps) {
-    std::vector<Router*> vec = {};
+std::vector<Repeater*> ServerRoom<Repeater>::search(bool wps) {
+    return {};
+}
+
+/**
+* Метод поиска экземпляра по статусу WPS
+*
+* @param wps объекта
+* @return вектор указатель на найденные объекты
+*/
+std::vector<WLRepeater*> ServerRoom<WLRepeater>::search(bool wps) {
+    std::vector<WLRepeater*> vec = {};
     Node* current = this->first;
 
     while (current != nullptr) {
@@ -470,11 +516,31 @@ std::vector<Router*> ServerRoom<Router>::search(bool wps) {
 /**
 * Метод поиска экземпляра по статусу WPS
 *
-* @param address объекта
+* @param wps объекта
 * @return вектор указатель на найденные объекты
 */
-std::vector<WLRepeater*> ServerRoom<WLRepeater>::search(bool wps) {
-    std::vector<WLRepeater*> vec = {};
+std::vector<Switch*> ServerRoom<Switch>::search(bool wps) {
+    return {};
+}
+
+/**
+* Метод поиска экземпляра по статусу WPS
+*
+* @param wps объекта
+* @return вектор указатель на найденные объекты
+*/
+std::vector<Gateway*> ServerRoom<Gateway>::search(bool wps) {
+    return {};
+}
+
+/**
+* Метод поиска экземпляра по статусу WPS
+*
+* @param wps объекта
+* @return вектор указатель на найденные объекты
+*/
+std::vector<Router*> ServerRoom<Router>::search(bool wps) {
+    std::vector<Router*> vec = {};
     Node* current = this->first;
 
     while (current != nullptr) {

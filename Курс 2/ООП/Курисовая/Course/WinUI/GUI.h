@@ -88,9 +88,6 @@ namespace WinUI {
 	private: System::Windows::Forms::DataGridView^ dataGridViewRouter;
 	private: System::Windows::Forms::Button^ buttonGet;
 	private: System::Windows::Forms::TextBox^ textBox12;
-
-
-
 	private: System::Windows::Forms::TextBox^ textBox2;
 	private: System::Windows::Forms::TextBox^ textBoxPasswd;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnIndex5;
@@ -136,11 +133,11 @@ namespace WinUI {
 	private: System::Windows::Forms::NumericUpDown^ numericUpDownIndex;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDownCapacity;
 	private: System::Windows::Forms::TextBox^ textBox8;
-private: System::Windows::Forms::Button^ buttonLoadBin;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnType;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnDevices;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnClients;
-private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnBytes;
+	private: System::Windows::Forms::Button^ buttonLoadBin;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnType;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnDevices;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnClients;
+	private: System::Windows::Forms::DataGridViewTextBoxColumn^ ColumnBytes;
 	private:
 		/// <summary>
 		/// Required designer variable.

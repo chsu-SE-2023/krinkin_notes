@@ -1,17 +1,16 @@
 #pragma once
-#include "../devices/net_device.h"
+#include "../devices/repeater.h"
 #include "container.h"
+#include "server_room.h"
 
 class DataCenter : private Container {
-private:
-	int clients_total;
 public:
 	DataCenter();
-	NetDevice_I* operator[](int);
+	ServerRoom<Repeater>* operator[](int);
 	void add(void*);
 	void clear();
 	int count(void*);
-	int get_total_devices() const;
+	int get_total_devices();
 	std::vector<void*> get_vector();
 	void seek(int);
 	int size();

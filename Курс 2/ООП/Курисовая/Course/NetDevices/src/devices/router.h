@@ -26,6 +26,7 @@ public:
     virtual void set_address(MAC_Address) override;
     virtual void connect(Client&) override;
     virtual void connect(Client&, std::string, std::string) override;
+    virtual void disconnect(Client&) override;
     virtual void receive(std::vector<unsigned char>&) override;
     virtual void reset() override;
     virtual std::string type_name() override;

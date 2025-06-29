@@ -1,24 +1,27 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../QtProject/src/repeater.h"
-#include "../QtProject/src/wl_repeater.h"
-#include "../QtProject/src/switch.h"
-#include "../QtProject/src/gateway.h"
-#include "../QtProject/src/router.h"
-#include "../QtProject/src/net_room.h"
-#include "../QtProject/src/stats.h"
+#include "../NetDevices/src/devices/repeater.h"
+#include "../NetDevices/src/devices/wl_repeater.h"
+#include "../NetDevices/src/devices/switch.h"
+#include "../NetDevices/src/devices/gateway.h"
+#include "../NetDevices/src/devices/router.h"
+#include "../NetDevices/src/containers/data_center.h"
+#include "../NetDevices/src/containers/server_room.h"
+#include "../NetDevices/src/misc/address.h"
+#include "../NetDevices/src/misc/client.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace Classes
+namespace NetDevices
 {
 	TEST_CLASS(MAllocTest)
 	{
-	public:
-		/*
+		/**
 		* В тестируемых методах проверяется работают ли
 		* конструкторы и деструкторы (выделение и очистка памяти)
 		*/
+
+	public:
 		TEST_METHOD(WLRepeaterAlloc)
 		{
 			WLRepeater* wl_rep = new WLRepeater();
@@ -42,441 +45,745 @@ namespace Classes
 			Router* r = new Router();
 			delete r;
 		}
-
-		TEST_METHOD(ServerRoomAlloc)
-		{
-			Router* r = new Router();
-			ServerRoom<Router>* sr = new ServerRoom<Router>(*r);
-			delete sr;
-			delete r;
-		}
 	};
 
-	TEST_CLASS(DataTest)
+	TEST_CLASS(GetTest)
 	{
-	public:
-
-		/*
+		/**
 		* В тестируемых методах проверяется правильно ли
 		* в объектах классов сохраняются данные
 		*/
 
-		TEST_METHOD(RepeaterData)
+	private:
+		MAC_Address address = MAC_Address(std::array<unsigned char, 6> { 10, 11, 12, 13, 14 });
+		std::vector<unsigned char> bytes = { 15, 10, 54, 45, 31, 4, 45, 2, 24, 32 };
+		std::vector<Client> clients = { Client(), Client(), Client() };
+		std::string ssid = "CoolWLAN";
+		std::string passwd = "qwerty123";
+		std::string protocol = "sftp://";
+
+	public:
+		TEST_METHOD(CLS_Repeater)
 		{
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			Repeater rep(packets, address);
-			for (int i = 0; i < 5; i++)
-				Assert::AreEqual(rep.get_address()[i], address[i]);
-			Assert::AreEqual(rep.get_packets(), packets);
+			Repeater rep(bytes, address);
+			Assert::AreEqual(rep.get_address().as_string(), address.as_string());
+			if (rep.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			if (rep.get_clients() != std::vector<Client>{}) Assert::Fail(L"Clients are not empty");
 		}
 
-		TEST_METHOD(WLRepeaterData)
+		TEST_METHOD(CLS_WLRepeater)
 		{
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			std::string ssid = "CoolWLAN";
-			std::string passwd = "qwerty123";
-			WLRepeater wl_rep(packets, address, ssid, passwd);
-			for (int i = 0; i < 5; i++)
-				Assert::AreEqual(wl_rep.get_address()[i], address[i]);
-			Assert::AreEqual(wl_rep.get_packets(), packets);
+			WLRepeater wl_rep(bytes, address, ssid, passwd);
+			Assert::AreEqual(wl_rep.get_address().as_string(), address.as_string());
+			if (wl_rep.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			if (wl_rep.get_clients() != std::vector<Client>{}) Assert::Fail(L"Clients are not empty");
 			Assert::AreEqual(wl_rep.get_ssid(), ssid);
 		}
 
-		TEST_METHOD(SwitchData)
+		TEST_METHOD(CLS_Switch)
 		{
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			Switch sw(packets, clients, address);
-			for (int i = 0; i < 5; i++)
-				Assert::AreEqual(sw.get_address()[i], address[i]);
-			Assert::AreEqual(sw.get_packets(), packets);
-			for (int i = 0; i < clients.size(); i++)
-				Assert::AreEqual(sw.get_clients()[i], clients[i]);
+			Switch sw(bytes, clients, address);
+			Assert::AreEqual(sw.get_address().as_string(), address.as_string());
+			if (sw.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			Assert::AreEqual(sw.get_capacity(), 32);
+			if (sw.get_clients() != clients) Assert::Fail(L"Clients are not the same");
 		}
 
-		TEST_METHOD(GatewayData)
+		TEST_METHOD(CLS_Gateway)
 		{
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			std::string protocol = "sftp://";
-			Gateway gw(packets, clients, address, protocol);
-			for (int i = 0; i < 5; i++)
-				Assert::AreEqual(gw.get_address()[i], address[i]);
-			Assert::AreEqual(gw.get_packets(), packets);
+			Gateway gw(bytes, clients, address, protocol);
+			Assert::AreEqual(gw.get_address().as_string(), address.as_string());
+			if (gw.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			Assert::AreEqual(gw.get_capacity(), 32);
 			if (gw.get_clients() != clients) Assert::Fail(L"Clients are not the same");
 			Assert::AreEqual(gw.get_protocol(), protocol);
 		}
 
-		TEST_METHOD(RouterData)
+		TEST_METHOD(CLS_Router)
 		{
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			std::string protocol = "sftp://";
-			std::string ssid = "CoolWLAN";
-			std::string passwd = "qwerty123";
-			Router r(packets, clients, address, protocol, ssid, passwd);
-			for (int i = 0; i < 5; i++)
-				Assert::AreEqual(r.get_address()[i], address[i]);
-			Assert::AreEqual(r.get_packets(), packets);
-			std::vector<int> test = r.get_clients();
-			if (test != clients) Assert::Fail(L"Clients are not the same");
-			Assert::AreEqual(r.get_protocol(), protocol);
-			Assert::AreEqual(r.get_ssid(), ssid);
-		}
-
-		TEST_METHOD(ServerRoomData)
-		{
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			std::string protocol = "sftp://";
-			std::string ssid = "CoolWLAN";
-			std::string passwd = "qwerty123";
-			Router r(packets, clients, address, protocol, ssid, passwd);
-			ServerRoom<Router> sr(r);
-			const Router** out = sr.get_array();
-			for (int i = 0; i < 5; i++)
-				Assert::AreEqual(out[0]->get_address()[i], address[i]);
-			Assert::AreEqual(out[0]->get_packets(), packets);
-			if (out[0]->get_clients() != clients) Assert::Fail(L"Clients are not the same");
-			Assert::AreEqual(out[0]->get_protocol(), protocol);
-			Assert::AreEqual(out[0]->get_ssid(), ssid);
-		}
-	};
-
-	TEST_CLASS(StatsTest) {
-	public:
-
-		/*
-		* В тестируемых методах производится проверка
-		* работы класса Stats
-		*/
-
-		TEST_METHOD(RouterObj) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			std::string ssid = "CoolWLAN";
-			std::string passwd = "qwerty123";
-			std::string protocol = "sftp://";
-			Router* r_def = new Router(packets, clients, address, protocol, ssid, passwd);
-			Router** r_units = new Router * [3] {
-				new Router(ssid, passwd),
-					new Router(*r_def),
-					new Router(packets, clients, address, protocol, ssid, passwd)
-				};
-			Stats* stats = new Stats();
-			ServerRoom<Router>* room = new ServerRoom<Router>();
-			for (int i = 0; i < 3; i++) {
-				room->add(*r_units[i]);
-			}
-			stats->to_map(room, 3, 2, true);
-			Assert::AreNotEqual(stats->get_total_devices(), 0);
-			stats->clear();
-			Assert::AreEqual(stats->get_total_devices(), 0);
-			delete stats;
-			stats = new Stats();
-			stats->to_map(r_units[0], 3);
-			Assert::AreNotEqual(stats->get_total_devices(), 0);
-			stats->increase(r_units[0], 3);
-			Assert::AreEqual(stats->get_count(r_units[0]), 6);
-			stats->decrease(r_units[0], 5);
-			Assert::AreEqual(stats->get_count(r_units[0]), 1);
-			stats->remove(r_units[0]);
-			Assert::AreEqual(stats->get_total_devices(), 0);
-			Assert::AreEqual(stats->get_total(), 0);
-		}
-	};
-
-	TEST_CLASS(Inheritance) {
-	public:
-
-		/*
-		* В тестируемых методах производится проверка
-		* работы класса Stats
-		*/
-
-		TEST_METHOD(IerarhyTest) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			std::string protocol = "sftp://";
-			std::string ssid = "CoolWLAN";
-			std::string passwd = "qwerty123";
-			Router r(packets, clients, address, protocol, ssid, passwd);
-			for (int i = 0; i < 5; i++)
-				Assert::AreEqual(r.get_address()[i], address[i]);
-			Assert::AreEqual(r.get_packets(), packets);
+			Router r(bytes, clients, address, protocol, ssid, passwd);
+			Assert::AreEqual(r.get_address().as_string(), address.as_string());
+			if (r.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			Assert::AreEqual(r.get_capacity(), 32);
 			if (r.get_clients() != clients) Assert::Fail(L"Clients are not the same");
 			Assert::AreEqual(r.get_protocol(), protocol);
 			Assert::AreEqual(r.get_ssid(), ssid);
 		}
 	};
 
-	TEST_CLASS(Exceptions) {
-	public:
+	TEST_CLASS(SetTest)
+	{
 
-		/*
-		* Тестовые методы этого проверяют работу различных 
-		* исключений в классах
+		/**
+		* В тестируемых методах проверяется правильно ли
+		* в объекты передаются данные
 		*/
 
-		TEST_METHOD(ClientsOverflow) {			
-			Assert::ExpectException<std::overflow_error>([] {
-				std::vector<int> clients;
-				clients.resize(40);
-				Switch sw = Switch(clients);
-				});
-			Assert::ExpectException<std::overflow_error>([] {
-				std::vector<int> clients;
-				clients.resize(40);
-				Gateway gw = Gateway(clients);
-				});
-			Assert::ExpectException<std::overflow_error>([] {
-				std::vector<int> clients;
-				clients.resize(40);
-				Router gw = Router(clients);
-				});
+	private:
+		MAC_Address address = MAC_Address(std::array<unsigned char, 6> { 10, 11, 12, 13, 14 });
+		std::vector<unsigned char> bytes = { 15, 10, 54, 45, 31, 4, 45, 2, 24, 32 };
+		std::vector<Client> clients = { Client(), Client(), Client() };
+		std::string ssid = "CoolWLAN";
+		std::string passwd = "qwerty123";
+		std::string protocol = "sftp://";
+
+	public:
+		TEST_METHOD(CLS_Repeater)
+		{
+			Repeater rep = Repeater();
+			rep.receive(bytes);
+			rep.set_address(address);
+			Assert::AreEqual(rep.get_address().as_string(), address.as_string());
+			if (rep.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			if (rep.get_clients() != std::vector<Client>{}) Assert::Fail(L"Clients are not empty");
 		}
 
-		TEST_METHOD(ContainerArrayZero) {
-			Assert::ExpectException<std::length_error>([] {
-				ServerRoom<Router> sr_r = ServerRoom<Router>();
-				const Router** arr = sr_r.get_array();
-				});
+		TEST_METHOD(CLS_WLRepeater)
+		{
+			WLRepeater wl_rep = WLRepeater();
+			wl_rep.receive(bytes);
+			wl_rep.set_address(address);
+			wl_rep.set_ssid(ssid);
+			wl_rep.set_passwd(passwd);
+			Assert::AreEqual(wl_rep.get_address().as_string(), address.as_string());
+			if (wl_rep.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			if (wl_rep.get_clients() != std::vector<Client>{}) Assert::Fail(L"Clients are not empty");
+			Assert::AreEqual(wl_rep.get_ssid(), ssid);
+		}
+
+		TEST_METHOD(CLS_Switch)
+		{
+			Switch sw = Switch();
+			sw.set_address(address);
+			sw.receive(bytes);
+			sw.set_capacity(16);
+			sw.set_clients(clients);
+			Assert::AreEqual(sw.get_address().as_string(), address.as_string());
+			if (sw.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			Assert::AreEqual(sw.get_capacity(), 16);
+			if (sw.get_clients() != clients) Assert::Fail(L"Clients are not the same");
+		}
+
+		TEST_METHOD(CLS_Gateway)
+		{
+			Gateway gw = Gateway();
+			gw.receive(bytes);
+			gw.set_address(address);
+			gw.set_capacity(18);
+			gw.set_clients(clients);
+			gw.set_protocol(protocol);
+			Assert::AreEqual(gw.get_address().as_string(), address.as_string());
+			if (gw.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			Assert::AreEqual(gw.get_capacity(), 18);
+			if (gw.get_clients() != clients) Assert::Fail(L"Clients are not the same");
+			Assert::AreEqual(gw.get_protocol(), protocol);
+		}
+
+		TEST_METHOD(CLS_Router)
+		{
+			Router r = Router();
+			r.receive(bytes);
+			r.set_address(address);
+			r.set_capacity(20);
+			r.set_clients(clients);
+			r.set_protocol(protocol);
+			r.set_ssid(ssid);
+			r.set_passwd(passwd);
+			Assert::AreEqual(r.get_address().as_string(), address.as_string());
+			if (r.get_bytes() != bytes) Assert::Fail(L"Bytes are not the same");
+			Assert::AreEqual(r.get_capacity(), 20);
+			if (r.get_clients() != clients) Assert::Fail(L"Clients are not the same");
+			Assert::AreEqual(r.get_protocol(), protocol);
+			Assert::AreEqual(r.get_ssid(), ssid);
+		}
+	};
+
+	TEST_CLASS(ConnectTest) {
+
+		/**
+		* В тестируемых методах проверяется правильно ли
+		* работает логика подключения клиентов к устройствам
+		*/
+
+	private:
+		std::vector<Client> clients = { Client(), Client(), Client() };
+		std::vector<Client> wl_clients = { 
+			Client("1", MAC_Address(), {}, ClientType::Wireless), 
+			Client("2", MAC_Address(), {}, ClientType::Wireless),
+			Client("3", MAC_Address(), {}, ClientType::Wireless)
+		};
+		std::string ssid = "CoolWLAN";
+		std::string passwd = "qwerty123";
+		std::string bad_passwd = "qwerty1234";
+
+	public:
+		TEST_METHOD(RepeaterObj) {
+			Repeater r = Repeater();
+
+			// Подключение
+			r.connect(clients[0]);
+			Assert::AreEqual(r.clients_count(), 1);
+			try {
+				r.connect(clients[1]);
+				Assert::Fail(L"Device pass multiple clients");
+			}
+			catch (std::overflow_error) {}
+
+			// Отключение
+			Assert::AreEqual(r.clients_count(), 1);
+			r.disconnect(clients[0]);
+			Assert::AreEqual(r.clients_count(), 0);
+		}
+
+		TEST_METHOD(WLRepeaterObj) {
+			WLRepeater r = WLRepeater(ssid, passwd);
+
+			// Подключение
+			r.connect(wl_clients[0], ssid, passwd);
+			Assert::AreEqual(r.clients_count(), 1);
+			try {
+				r.connect(wl_clients[1], ssid, passwd);
+				Assert::Fail(L"Device pass multiple clients");
+			}
+			catch (std::overflow_error) {}
+
+			// Отключение
+			Assert::AreEqual(r.clients_count(), 1);
+			r.disconnect(wl_clients[0]);
+			Assert::AreEqual(r.clients_count(), 0);
+
+			// Подключение с неверным паролем
+			try {
+				r.connect(wl_clients[1], ssid, bad_passwd);
+				Assert::Fail(L"Device passes bad passwd");
+			}
+			catch (std::invalid_argument) {}
+
+			// Подключение по WPS
+			r.wps_init();
+			r.connect(wl_clients[1]);
+			Assert::AreEqual(r.is_wps(), false);
+		}
+
+		TEST_METHOD(SwitchObj) {
+			Switch sw = Switch();
+
+			// Подключение
+			for (int i = 0; i < clients.size(); i++)
+				sw.connect(clients[i]);
+			Assert::AreEqual(sw.clients_count(), (int)clients.size());
+
+			// Отключение
+			for (int i = 0; i < clients.size(); i++)
+				sw.disconnect(clients[i]);
+			Assert::AreEqual(sw.clients_count(), 0);
+		}
+
+		TEST_METHOD(GatewayObj) {
+			Gateway g = Gateway();
+
+			// Подключение
+			for (int i = 0; i < clients.size(); i++)
+				g.connect(clients[i]);
+			Assert::AreEqual(g.clients_count(), (int)clients.size());
+
+			// Отключение
+			for (int i = 0; i < clients.size(); i++)
+				g.disconnect(clients[i]);
+			Assert::AreEqual(g.clients_count(), 0);
+		}
+
+		TEST_METHOD(RouterObj) {
+			Router r = Router(ssid, passwd);
+
+			// Подключение
+			for (int i = 0; i < clients.size(); i++)
+				r.connect(clients[i]);
+			Assert::AreEqual(r.clients_count(), (int)clients.size());
+
+			// Отключение
+			for (int i = 0; i < clients.size(); i++)
+				r.disconnect(clients[i]);
+			Assert::AreEqual(r.clients_count(), 0);
+
+			// Подключение
+			for (int i = 0; i < clients.size(); i++)
+				r.connect(wl_clients[i], ssid, passwd);
+			Assert::AreEqual(r.clients_count(), (int)clients.size());
+
+			// Отключение
+			for (int i = 0; i < clients.size(); i++)
+				r.disconnect(wl_clients[i]);
+			Assert::AreEqual(r.clients_count(), 0);
+
+			// Подключение с неверным паролем
+			try {
+				r.connect(wl_clients[1], ssid, bad_passwd);
+				Assert::Fail(L"Device passes bad passwd");
+			}
+			catch (std::invalid_argument) {}
+
+			// Подключение по WPS
+			r.wps_init();
+			r.connect(wl_clients[1]);
+			Assert::AreEqual(r.is_wps(), false);
+		}
+	};
+
+	TEST_CLASS(Polymorph) {
+	public:
+
+		TEST_METHOD(OBJ_Repeater) {
+			Gateway* obj = static_cast<Gateway*>(new Repeater());
+			Assert::AreEqual(obj->type_name(), std::string("Repeater"));
+		}
+
+		TEST_METHOD(OBJ_WLRepeater) {
+			Repeater* obj = dynamic_cast<Repeater*>(new WLRepeater());
+			Assert::AreEqual(obj->type_name(), std::string("WLRepeater"));
+		}
+
+		TEST_METHOD(OBJ_Switch) {
+			Router* obj = static_cast<Router*>(new Switch());
+			Assert::AreEqual(obj->type_name(), std::string("Switch"));
+		}
+
+		TEST_METHOD(OBJ_Gateway) {
+			Router* obj = static_cast<Router*>(new Gateway());
+			Assert::AreEqual(obj->type_name(), std::string("Gateway"));
+		}
+
+		TEST_METHOD(OBJ_Router) {
+			Gateway* obj = dynamic_cast<Gateway*>(new Router());
+			Assert::AreEqual(obj->type_name(), std::string("Router"));
 		}
 	};
 }
 
-namespace Container {
+namespace Containers {
 
-	TEST_CLASS(Storing) {
+	namespace ServerRoomContainer {
+		TEST_CLASS(Storing) {
 
-	public:
+			/*
+			* В тестируемых методах проверяется правильно ли
+			* в	классе-контейнере сорханены объекты классов
+			*/
 
-		/*
-		* В тестируемых методах проверяется правильно ли
-		* в	классе-контейнере сорханены объекты классов
-		*/
-
-		TEST_METHOD(SwitchObj) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			Switch* s_def = new Switch(packets, clients, address);
-			Switch** s_units = new Switch * [5] {
-				new Switch(clients),
-				new Switch(address),
-				new Switch(clients, address),
-				new Switch(packets, clients, address),
-				new Switch(*s_def)
-			};
-
-			ServerRoom<Switch> s_cont = ServerRoom<Switch>();
-			for (int i = 0; i < 5; i++)
-				s_cont = s_cont + *s_units[i];
-
-			for (int i = 0; i < 5; i++)
-				if (s_cont.get_array()[i] != s_units[i]) Assert::Fail(L"Wrong object getted from the contaner");
-		}
-
-		TEST_METHOD(RouterObj) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
+		private:
+			MAC_Address address = MAC_Address(std::array<unsigned char, 6> { 10, 11, 12, 13, 14 });
+			std::vector<unsigned char> bytes = { 15, 10, 54, 45, 31, 4, 45, 2, 24, 32 };
+			std::vector<Client> clients = { Client(), Client(), Client() };
 			std::string ssid = "CoolWLAN";
 			std::string passwd = "qwerty123";
 			std::string protocol = "sftp://";
-			Router* r_def = new Router(packets, clients, address, protocol, ssid, passwd);
-			Router** r_units = new Router * [3] {
-				new Router(ssid, passwd),
-				new Router(*r_def),
-				new Router(packets, clients, address, protocol, ssid, passwd)
-			};
 
-			ServerRoom<Router> r_cont = ServerRoom<Router>();
-			for (int i = 0; i < 3; i++)
-				r_cont = r_cont + *r_units[i];
+		public:
+			TEST_METHOD(SwitchObj) {
+				Switch s_def = Switch(bytes, clients, address);
+				std::vector <Switch*> s_units = {
+					new Switch(clients),
+					new Switch(address),
+					new Switch(clients, address),
+					new Switch(bytes, clients, address),
+					new Switch(s_def)
+				};
 
-			for (int i = 0; i < 3; i++)
-			{
-				const Router* test = r_cont.get_array()[i];
-				const Router* test1 = r_units[i];
-				if (test != test1) Assert::Fail(L"Wrong object getted from the contaner");
+				ServerRoom<Switch> s_cont = ServerRoom<Switch>();
+				for (int i = 0; i < s_units.size(); i++)
+					s_cont.add(*s_units[i]);
+
+				for (int i = 0; i < s_units.size(); i++)
+					if (s_cont.get_vector()[i] != s_units[i])
+						Assert::Fail(L"Wrong object getted from the contaner");
 			}
-		}
-	};
 
-	TEST_CLASS(Search) {
-	public:
+			TEST_METHOD(RouterObj) {
+				Router r_def = Router(bytes, clients, address, protocol, ssid, passwd);
+				std::vector<Router*> r_units = {
+					new Router(ssid, passwd),
+					new Router(r_def),
+					new Router(bytes, clients, address, protocol, ssid, passwd)
+				};
 
-		/*
-		* В тестируемых методах проверяется правильно производится
-		* поиск объектов по контейнеру
-		*/
+				ServerRoom<Router> r_cont = ServerRoom<Router>();
+				for (int i = 0; i < r_units.size(); i++)
+					r_cont.add(*r_units[i]);
 
-		TEST_METHOD(SwitchObj) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			Switch* s_def = new Switch(packets, clients, address);
-			Switch** s_units = new Switch * [5] {
-				new Switch(clients),
-				new Switch(address),
-				new Switch(clients, address),
-				new Switch(packets, clients, address),
-				new Switch(*s_def)
-			};
-			ServerRoom<Switch> s_cont = ServerRoom<Switch>();
-			for (int i = 0; i < 5; i++)
-				s_cont = s_cont + *s_units[i];
-			const Switch* sw = s_cont.search(address);
-			if (sw != s_units[1]) Assert::Fail(L"Objects are not the same");
-		}
+				for (int i = 0; i < 3; i++)
+				{
+					if (r_cont.get_vector()[i] != r_units[i])
+						Assert::Fail(L"Wrong object getted from the contaner");
+				}
+			}
+		};
 
-		TEST_METHOD(RouterObj) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
+		TEST_CLASS(Search) {
+
+			/*
+			* В тестируемых методах проверяется правильно производится
+			* поиск объектов по контейнеру
+			*/
+
+		private:
+			MAC_Address address = MAC_Address(std::array<unsigned char, 6> { 10, 11, 12, 13, 14 });
+			std::vector<unsigned char> bytes = { 15, 10, 54, 45, 31, 4, 45, 2, 24, 32 };
+			std::vector<Client> clients = { Client(), Client(), Client() };
 			std::string ssid = "CoolWLAN";
 			std::string passwd = "qwerty123";
 			std::string protocol = "sftp://";
-			Router* r_def = new Router(packets, clients, address, protocol, ssid, passwd);
-			Router** r_units = new Router * [3] {
-				new Router(ssid, passwd),
-				new Router(*r_def),
-				new Router(packets, clients, address, protocol, ssid, passwd)
-			};
-			ServerRoom<Router> r_cont = ServerRoom<Router>();
-			for (int i = 0; i < 5; i++)
-				r_cont = r_cont + *r_units[i];
-			const Router* rt = r_cont.search(address);
-			if (rt != r_units[1]) Assert::Fail(L"Objects are not the same");
-		}
-	};
 
-	TEST_CLASS(Sort) {
-	public:
+		public:
 
-		/*
-		* В тестируемых методах правильно ли производится
-		* сортировка объектов в контейнере
-		*/
+			TEST_METHOD(SwitchObj) {
+				Switch s_def = Switch(bytes, clients, address);
+				std::vector<Switch*> s_units = {
+					new Switch(clients),
+					new Switch(address),
+					new Switch(clients, address),
+					new Switch(bytes, clients, address),
+					new Switch(s_def)
+				};
+				ServerRoom<Switch> s_cont = ServerRoom<Switch>();
+				for (int i = 0; i < s_units.size(); i++)
+					s_cont.add(*s_units[i]);
+				std::vector<Switch*> v_sw = s_cont.search(address);
+				if (v_sw[0] != s_units[1]) Assert::Fail(L"Objects are not the same");
+			}
 
-		TEST_METHOD(SwitchObj) {
-			std::vector<int> clients1 = { 1, 2, 3 };
-			std::vector<int> clients2 = { 1, 2, 3, 4 };
-			std::vector<int> clients3 = { 1, 2, 3, 4, 5 };
-			Switch** ls_units = new Switch * [3] {
-				new Switch(clients1),
-				new Switch(clients2),
-				new Switch(clients3)
-			};
-			ServerRoom<Switch> s_cont = ServerRoom<Switch>();
-			for (int i = 0; i < 3; i++)
-				s_cont = s_cont + *ls_units[i];
-			s_cont.sort();
-			Assert::AreEqual(s_cont.get_array()[0]->clients_count(), 3);
-			Assert::AreEqual(s_cont.get_array()[2]->clients_count(), 5);
-		}
+			TEST_METHOD(RouterObj) {
+				Router r_def = Router(bytes, clients, address, protocol, ssid, passwd);
+				std::vector<Router*> r_units = {
+					new Router(ssid, passwd),
+					new Router(r_def),
+					new Router(bytes, clients, address, protocol, ssid, passwd)
+				};
+				ServerRoom<Router> r_cont = ServerRoom<Router>();
+				for (int i = 0; i < r_units.size(); i++)
+					r_cont.add(*r_units[i]);
+				std::vector<Router*> v_rt = r_cont.search(address);
+				if (v_rt[0] != r_units[1]) Assert::Fail(L"Objects are not the same");
+			}
+		};
 
-		TEST_METHOD(RouterObj) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients1 = { 1, 2, 3 };
-			std::vector<int> clients2 = { 1, 2, 3, 4 };
-			std::vector<int> clients3 = { 1, 2, 3, 4, 5 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
+		TEST_CLASS(Sort) {
+
+			/*
+			* В тестируемых методах проверяется правильно ли производится
+			* сортировка объектов в контейнере
+			*/
+
+		private:
+			MAC_Address address1 = MAC_Address(std::array<unsigned char, 6>{3, 2, 1, 6, 5, 4});
+			MAC_Address address2 = MAC_Address(std::array<unsigned char, 6>{1, 2, 3, 4, 5, 6});
+			MAC_Address address3 = MAC_Address(std::array<unsigned char, 6>{6, 5, 4, 3, 2, 1});
+
+		public:
+
+			TEST_METHOD(RepeaterObj) {
+				std::vector<Repeater*> r_units = {
+					new Repeater(address1),
+					new Repeater(address2),
+					new Repeater(address3)
+				};
+				ServerRoom<Repeater> r_cont = ServerRoom<Repeater>();
+				for (int i = 0; i < r_units.size(); i++)
+					r_cont.add(*r_units[i]);
+				r_cont.sort();
+				if (r_cont.get_vector()[0]->get_address() != address2) Assert::Fail(L"Address is not the same");
+				if (r_cont.get_vector()[2]->get_address() != address3) Assert::Fail(L"Address is not the same");
+			}
+			TEST_METHOD(SwitchObj) {
+				std::vector<Switch*> s_units = {
+					new Switch(std::vector<Client>{Client(), Client()}),
+					new Switch(std::vector<Client>{Client()}),
+					new Switch(std::vector<Client>{Client(), Client(), Client()})
+				};
+				ServerRoom<Switch> s_cont = ServerRoom<Switch>();
+				for (int i = 0; i < s_units.size(); i++)
+					s_cont.add(*s_units[i]);
+				s_cont.sort();
+				if (s_cont.get_vector()[0]->clients_count() != 1) Assert::Fail(L"Client count is not the same");
+				if (s_cont.get_vector()[2]->clients_count() != 3) Assert::Fail(L"Client count is not the same");
+			}
+		};
+
+		TEST_CLASS(Operators) {
+
+		private:
+			MAC_Address address = MAC_Address(std::array<unsigned char, 6> { 10, 11, 12, 13, 14 });
+			std::vector<unsigned char> bytes = { 15, 10, 54, 45, 31, 4, 45, 2, 24, 32 };
+			std::vector<Client> clients = { Client(), Client(), Client() };
 			std::string ssid = "CoolWLAN";
 			std::string passwd = "qwerty123";
 			std::string protocol = "sftp://";
-			Router** lr_units = new Router * [3] {
-				new Router(packets, clients1, address, protocol, ssid, passwd),
-				new Router(packets, clients2, address, protocol, ssid, passwd),
-				new Router(packets, clients3, address, protocol, ssid, passwd)
-			};
-			ServerRoom<Router> r_cont = ServerRoom<Router>();
-			for (int i = 0; i < 3; i++)
-				r_cont = r_cont + *lr_units[i];
-			r_cont.sort();
-			Assert::AreEqual(r_cont.get_array()[0]->clients_count(), 3);
-			Assert::AreEqual(r_cont.get_array()[2]->clients_count(), 5);
+
+			/*
+			* В тестируемых методах производится проверка
+			* работы перегруженных операторов в объектах
+			*/
+
+		public:
+
+			TEST_METHOD(SwitchObj) {
+				Switch s_def = Switch(bytes, clients, address);
+				std::vector<Switch*> s_units = {
+					new Switch(clients),
+					new Switch(address),
+					new Switch(clients, address),
+					new Switch(bytes, clients, address),
+					new Switch(s_def)
+				};
+				Switch sw = Switch();
+				ServerRoom<Switch> c_sw = ServerRoom<Switch>();
+
+				c_sw.add(sw);
+				c_sw--;
+				Assert::AreEqual(c_sw.size(), 0);
+
+				ServerRoom<Switch> s_cont_1 = ServerRoom<Switch>();
+				for (int i = 0; i < s_units.size(); i++)
+					s_cont_1.add(*s_units[i]);
+				ServerRoom<Switch> s_cont_2 = ServerRoom<Switch>();
+				for (int i = 0; i < s_units.size(); i++)
+					s_cont_2.add(*s_units[i]);
+				if (!(s_cont_1 == s_cont_2)) Assert::Fail(L"Operator == does not work properly");
+				if (s_cont_1 != s_cont_2) Assert::Fail(L"Operator != does not work properly");
+			}
+
+			TEST_METHOD(RouterObj) {
+				Router r_def = Router(bytes, clients, address, protocol, ssid, passwd);
+				std::vector<Router*> r_units = {
+					new Router(ssid, passwd),
+					new Router(r_def),
+					new Router(bytes, clients, address, protocol, ssid, passwd)
+				};
+				Router rt = Router();
+				ServerRoom<Router> c_rt = ServerRoom<Router>();
+
+				c_rt.add(rt);
+				c_rt--;
+				Assert::AreEqual(c_rt.size(), 0);
+
+				ServerRoom<Router> r_cont_1 = ServerRoom<Router>();
+				for (int i = 0; i < r_units.size(); i++)
+					r_cont_1.add(*r_units[i]);
+				ServerRoom<Router> r_cont_2 = ServerRoom<Router>();
+				for (int i = 0; i < r_units.size(); i++)
+					r_cont_2.add(*r_units[i]);
+				if (!(r_cont_2 == r_cont_2)) Assert::Fail(L"Operator == does not work properly");
+				if (r_cont_2 != r_cont_2) Assert::Fail(L"Operator != does not work properly");
+			}
+		};
+	}
+
+	namespace DataCenterContainer {
+
+		MAC_Address address = MAC_Address(std::array<unsigned char, 6> { 10, 11, 12, 13, 14 });
+		std::vector<unsigned char> bytes = { 15, 10, 54, 45, 31, 4, 45, 2, 24, 32 };
+		std::vector<Client> clients = { Client(), Client(), Client() };
+		std::string ssid = "CoolWLAN";
+		std::string passwd = "qwerty123";
+		std::string protocol = "sftp://";
+		Switch s_def = Switch(bytes, clients, address);
+		std::vector <Switch*> s_units = {
+			new Switch(clients),
+			new Switch(address),
+			new Switch(clients, address),
+			new Switch(bytes, clients, address),
+			new Switch(s_def)
+		};
+		Router r_def = Router(bytes, clients, address, protocol, ssid, passwd);
+		std::vector<Router*> r_units = {
+			new Router(ssid, passwd),
+			new Router(r_def),
+			new Router(bytes, clients, address, protocol, ssid, passwd)
+		};
+
+		TEST_CLASS(Adding) {
+
+			/*
+			* В тестируемых методах проверяется правильно ли
+			* в	класс-контейнер добавляются объекты
+			*/
+
+		public:
+			TEST_METHOD(SwitchObj) {
+				ServerRoom<Switch> s_cont = ServerRoom<Switch>();
+				for (int i = 0; i < s_units.size(); i++)
+					s_cont.add(*s_units[i]);
+
+				DataCenter srv_cont = DataCenter();
+				srv_cont.add(&s_cont);
+				Assert::AreEqual(srv_cont.size(), 1);
+			}
+
+			TEST_METHOD(RouterObj) {
+				ServerRoom<Router> r_cont = ServerRoom<Router>();
+				for (int i = 0; i < r_units.size(); i++)
+					r_cont.add(*r_units[i]);
+
+				DataCenter srv_cont = DataCenter();
+				srv_cont.add(&r_cont);
+				Assert::AreEqual(srv_cont.size(), 1);
+			}
+		};
+
+		TEST_CLASS(Getting) {
+
+			/*
+			* В тестируемых методах проверяется правильно ли
+			* в	классе-контейнере сохранены объекты
+			*/
+
+		public:
+			TEST_METHOD(SwitchObj) {
+				ServerRoom<Switch> s_cont = ServerRoom<Switch>();
+				for (int i = 0; i < s_units.size(); i++)
+					s_cont.add(*s_units[i]);
+
+				DataCenter srv_cont = DataCenter();
+				srv_cont.add(&s_cont);
+
+				std::vector<void*> v_ptr = srv_cont.get_vector();
+				if (*static_cast<ServerRoom<Switch>*>(v_ptr[0]) != s_cont)
+					Assert::Fail(L"Objects are not the same");
+
+				Assert::AreEqual(srv_cont.get_total_devices(), 5);
+			}
+
+			TEST_METHOD(RouterObj) {
+				ServerRoom<Router> r_cont = ServerRoom<Router>();
+				for (int i = 0; i < r_units.size(); i++)
+					r_cont.add(*r_units[i]);
+
+				DataCenter srv_cont = DataCenter();
+				srv_cont.add(&r_cont);
+
+				std::vector<void*> v_ptr = srv_cont.get_vector();
+				if (*static_cast<ServerRoom<Router>*>(v_ptr[0]) != r_cont)
+					Assert::Fail(L"Objects are not the same");
+
+				Assert::AreEqual(srv_cont.get_total_devices(), 3);
+			}
+		};
+
+		TEST_CLASS(Clearing) {
+
+			/*
+			* В тестируемых методах проверяется правильно ли
+			* в	классе-контейнере сохранены объекты
+			*/
+
+		public:
+			TEST_METHOD(SwitchObj) {
+				ServerRoom<Switch> s_cont = ServerRoom<Switch>();
+				for (int i = 0; i < s_units.size(); i++)
+					s_cont.add(*s_units[i]);
+
+				DataCenter srv_cont = DataCenter();
+				srv_cont.add(&s_cont);
+				Assert::AreEqual(srv_cont.size(), 1);
+
+				srv_cont.clear();
+				Assert::AreEqual(srv_cont.size(), 0);
+			}
+
+			TEST_METHOD(RouterObj) {
+				ServerRoom<Router> r_cont = ServerRoom<Router>();
+				for (int i = 0; i < r_units.size(); i++)
+					r_cont.add(*r_units[i]);
+
+				DataCenter srv_cont = DataCenter();
+				srv_cont.add(&r_cont);
+				Assert::AreEqual(srv_cont.size(), 1);
+
+				srv_cont.clear();
+				Assert::AreEqual(srv_cont.size(), 0);
+			}
+		};
+	}
+}
+
+namespace Misc {
+
+	TEST_CLASS(Address) {
+
+		/*
+		* В тестируемых методах правильно ли работает
+		* тип данных MAC_Address
+		*/
+
+	public:
+
+		TEST_METHOD(Create) {
+			MAC_Address mac1 = MAC_Address();
+			MAC_Address mac2 = MAC_Address("75:C8:58:A2:55:CF");
+			try {
+				MAC_Address mac3 = MAC_Address("75:C8:58:");
+				Assert::Fail(L"Address passes the non valid string");
+			}
+			catch (std::length_error) {}
+			try {
+				MAC_Address mac4 = MAC_Address("75:C8:58:A2:55:999");
+				Assert::Fail(L"Address passes the non valid string");
+			}
+			catch (std::overflow_error) {}
+			try {
+				MAC_Address mac5 = MAC_Address("75:C8:58:ZZ:55:CF");
+				Assert::Fail(L"Address passes the non valid string");
+			}
+			catch (std::invalid_argument) {}
+		}
+
+		TEST_METHOD(String) {
+			MAC_Address mac1 = MAC_Address("75:C8:58:A2:55:CF");
+			Assert::AreEqual(mac1.as_string(), std::string("75:C8:58:A2:55:CF"));
+			MAC_Address mac2 = MAC_Address("AA:BB:CC:DD:EE:FF");
+			Assert::AreEqual(mac2.as_string(), std::string("AA:BB:CC:DD:EE:FF"));
+			MAC_Address mac3 = MAC_Address("00:00:00:00:00:00");
+			Assert::AreEqual(mac3.as_string(), std::string("00:00:00:00:00:00"));
+		}
+
+		TEST_METHOD(Generate) {
+			MAC_Address mac = MAC_Address();
+			std::string first = mac.as_string();
+			mac.generate();
+			std::string second = mac.as_string();
+			Assert::AreNotEqual(first, second);
 		}
 	};
 
-	TEST_CLASS(Operators) {
-	public:
+	TEST_CLASS(Clients) {
 
 		/*
-		* В тестируемых методах производится проверка
-		* работы перегруженных операторов в объектах
+		* В тестируемых методах правильно ли работает
+		* тип данных Client
 		*/
 
-		TEST_METHOD(SwitchObj) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			Switch* s_def = new Switch(packets, clients, address);
-			Switch** s_units = new Switch * [5] {
-				new Switch(clients),
-				new Switch(address),
-				new Switch(clients, address),
-				new Switch(packets, clients, address),
-				new Switch(*s_def)
-			};
-			Switch* sw = new Switch();
-			ServerRoom<Switch> c_sw = ServerRoom<Switch>();
-			c_sw = c_sw + *sw;
-			if (c_sw.get_array()[0] != sw) Assert::Fail(L"Objects are not the same");
-			c_sw--;
-			Assert::AreEqual(c_sw.get_size(), 0);
-			ServerRoom<Switch> s_cont = ServerRoom<Switch>();
-			for (int i = 0; i < 3; i++)
-				s_cont = s_cont + *s_units[i];
-			if (s_cont[2] != s_units[2]) Assert::Fail(L"Objects are not the same");
-			ServerRoom<Switch> s_cont_1 = ServerRoom<Switch>();
-			for (int i = 0; i < 3; i++)
-				s_cont_1 = s_cont_1 + *s_units[i];
-			ServerRoom<Switch> s_cont_2 = ServerRoom<Switch>();
-			for (int i = 0; i < 3; i++)
-				s_cont_2 = s_cont_2 + *s_units[i];
-			if (!(s_cont_1 == s_cont_2)) Assert::Fail(L"Objects are not the same");
+	private:
+		std::string name = "SomeName";
+		MAC_Address address = MAC_Address("75:C8:58:A2:55:CF");
+
+	public:
+		TEST_METHOD(GetSetTest) {
+			Client cli = Client();
+			cli.set_name(name);
+			cli.set_address(address);
+			cli.set_type(ClientType::Wireless);
+			Assert::AreEqual(cli.get_name(), name);
+			if (cli.get_address() != address) Assert::Fail();
+			if (cli.get_type() != ClientType::Wireless) Assert::Fail();
 		}
 
-		TEST_METHOD(RouterObj) {
-			const double* packets = new double[10] {15.6, 10.4, 54.32, 4.54, 31.542, 4.5, 45.7, 2.5, 24.5, 3.2};
-			std::vector<int> clients = { 1, 2, 3 };
-			std::array<int, 5> address = { 10, 11, 12, 13, 14 };
-			std::string ssid = "CoolWLAN";
-			std::string passwd = "qwerty123";
-			std::string protocol = "sftp://";
-			Router* r_def = new Router(packets, clients, address, protocol, ssid, passwd);
-			Router** r_units = new Router * [3] {
-				new Router(ssid, passwd),
-				new Router(*r_def),
-				new Router(packets, clients, address, protocol, ssid, passwd)
-			};
-			Router* rt = new Router();
-			ServerRoom<Router> c_rt = ServerRoom<Router>();
-			c_rt = c_rt + *rt;
-			if (c_rt.get_array()[0] != rt) Assert::Fail(L"Operator + does not add object");
-			c_rt--;
-			Assert::AreEqual(c_rt.get_size(), 0);
-			ServerRoom<Router> r_cont = ServerRoom<Router>();
-			for (int i = 0; i < 3; i++)
-				r_cont = r_cont + *r_units[i];
-			if (r_cont[2] != r_units[2]) Assert::Fail(L"Operator + does not add object");
-			ServerRoom<Router> r_cont_1 = ServerRoom<Router>();
-			for (int i = 0; i < 3; i++)
-				r_cont_1 = r_cont_1 + *r_units[i];
-			ServerRoom<Router> r_cont_2 = ServerRoom<Router>();
-			for (int i = 0; i < 3; i++)
-				r_cont_2 = r_cont_2 + *r_units[i];
-			if (!(r_cont_2 == r_cont_2)) Assert::Fail(L"Operator == does not work properly");
+		TEST_METHOD(Operators) {
+			Client cli1 = Client(address);
+			Client cli2 = Client(address);
+			Client cli3 = Client();
+			if (!(cli1 == cli2)) Assert::Fail(L"Operator == does not work properly");
+			if (cli1 == cli3) Assert::Fail(L"Operator == does not work properly");
+			if (!(cli1 != cli3)) Assert::Fail(L"Operator != does not work properly");
+			if (cli1 != cli2) Assert::Fail(L"Operator != does not work properly");
 		}
 	};
 

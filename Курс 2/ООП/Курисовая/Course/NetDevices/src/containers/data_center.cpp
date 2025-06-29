@@ -6,7 +6,7 @@
 * Коструктор по умолчанию
 */
 DataCenter::DataCenter() : Container() {
-	this->clients_total = 0;
+	
 }
 
 /**
@@ -15,8 +15,8 @@ DataCenter::DataCenter() : Container() {
 * @param индекс элемента
 * @return указатель на элемент
 */
-NetDevice_I* DataCenter::operator[](int index) {
-	return static_cast<NetDevice_I*>(Container::operator[](index));
+ServerRoom<Repeater>* DataCenter::operator[](int index) {
+	return static_cast<ServerRoom<Repeater>*>(Container::operator[](index));
 }
 
 /**
@@ -50,8 +50,11 @@ int DataCenter::count(void* item) {
 *
 * @return общее количество устройств
 */
-int DataCenter::get_total_devices() const {
-	return clients_total;
+int DataCenter::get_total_devices() {
+	int count = 0;
+	for (int i = 0; i < Container::size(); i++)
+		count += static_cast<ServerRoom<Repeater>*>(Container::operator[](i))->size();
+	return count;
 }
 
 /**

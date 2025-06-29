@@ -24,6 +24,7 @@ public:
 	Client(const Client&);
 	~Client();
 	friend bool operator==(const Client&, const Client&);
+	friend bool operator!=(const Client&, const Client&);
 	MAC_Address get_address() const;
 	std::string get_name() const;
 	ClientType get_type() const;

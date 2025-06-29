@@ -62,7 +62,7 @@ Repeater::Repeater(const Repeater& copy) {
 * Деконструктор
 */
 Repeater::~Repeater() {
-    
+    this->clients = {};
 };
 
 /**
