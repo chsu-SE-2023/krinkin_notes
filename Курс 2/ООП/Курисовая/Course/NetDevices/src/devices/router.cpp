@@ -220,7 +220,7 @@ void Router::reset() {
 *
 * @param MAC-адрес
 */
-void Router::set_address(MAC_Address address) {
+void Router::set_address(const MAC_Address& address) {
     Repeater::set_address(address);
 }
 

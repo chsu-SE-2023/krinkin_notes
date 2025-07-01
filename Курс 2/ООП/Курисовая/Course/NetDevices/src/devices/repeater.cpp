@@ -226,7 +226,7 @@ MAC_Address Repeater::get_address() const {
 *
 * @param MAC-адрес
 */
-void Repeater::set_address(MAC_Address address) {
+void Repeater::set_address(const MAC_Address& address) {
     this->address = address;
 };
 

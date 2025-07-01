@@ -1,0 +1,182 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Страница — 1" id="eYokPE7z5bRcVEWuuHJ7">
+    <mxGraphModel dx="1073" dy="768" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vuz5UwaR6WBDqahTynom-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-1" target="vuz5UwaR6WBDqahTynom-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=0;" parent="1" source="vuz5UwaR6WBDqahTynom-1" target="vuz5UwaR6WBDqahTynom-10" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="400" y="120" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="60" />
+              <mxPoint x="390" y="110" />
+              <mxPoint x="580" y="110" />
+              <mxPoint x="580" y="60" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-1" value="Класс-интерфейс&lt;br&gt;&lt;b&gt;NetDevice_I&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="40" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="vuz5UwaR6WBDqahTynom-2" target="vuz5UwaR6WBDqahTynom-1" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-2" value="&lt;div&gt;Повторитель (БК)&lt;/div&gt;&lt;div&gt;&lt;b&gt;Repeater&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="120" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="vuz5UwaR6WBDqahTynom-3" target="vuz5UwaR6WBDqahTynom-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-3" value="&lt;div&gt;Разветвитель&lt;/div&gt;&lt;div&gt;&lt;b&gt;Switch&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="240" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="vuz5UwaR6WBDqahTynom-4" target="vuz5UwaR6WBDqahTynom-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-4" value="&lt;div&gt;Сетевой шлюз&lt;/div&gt;&lt;div&gt;&lt;b&gt;Gateway&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="320" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="vuz5UwaR6WBDqahTynom-5" target="vuz5UwaR6WBDqahTynom-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="vuz5UwaR6WBDqahTynom-5" target="vuz5UwaR6WBDqahTynom-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-5" value="&lt;div&gt;Маршрутизатор&lt;/div&gt;&lt;div&gt;&lt;b&gt;Router&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="240" y="400" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="vuz5UwaR6WBDqahTynom-6" target="vuz5UwaR6WBDqahTynom-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="435" y="180" />
+              <mxPoint x="322" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-6" value="&lt;div&gt;БП. Повторитель&lt;/div&gt;&lt;div&gt;&lt;b&gt;WLRepeater&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="380" y="200" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-7" target="vuz5UwaR6WBDqahTynom-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-7" target="vuz5UwaR6WBDqahTynom-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="60" />
+              <mxPoint x="210" y="50" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-7" target="vuz5UwaR6WBDqahTynom-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="60" />
+              <mxPoint x="210" y="130" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-7" target="vuz5UwaR6WBDqahTynom-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="60" />
+              <mxPoint x="210" y="250" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-7" target="vuz5UwaR6WBDqahTynom-4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="60" />
+              <mxPoint x="210" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-7" target="vuz5UwaR6WBDqahTynom-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="60" />
+              <mxPoint x="210" y="410" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-7" target="vuz5UwaR6WBDqahTynom-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="60" />
+              <mxPoint x="210" y="210" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-7" value="MAC-адрес&lt;br&gt;&lt;b&gt;MAC_Address&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="40" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-8" target="vuz5UwaR6WBDqahTynom-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="180" />
+              <mxPoint x="180" y="70" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-8" target="vuz5UwaR6WBDqahTynom-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="180" />
+              <mxPoint x="180" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-8" target="vuz5UwaR6WBDqahTynom-3" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="180" />
+              <mxPoint x="180" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-8" target="vuz5UwaR6WBDqahTynom-4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="180" />
+              <mxPoint x="180" y="350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-8" target="vuz5UwaR6WBDqahTynom-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="180" />
+              <mxPoint x="180" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;" parent="1" source="vuz5UwaR6WBDqahTynom-8" target="vuz5UwaR6WBDqahTynom-6" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="180" />
+              <mxPoint x="180" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-8" value="Клиент&lt;br&gt;&lt;b&gt;Client&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="40" y="160" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-9" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Контейнер C&lt;/div&gt;&lt;div&gt;&lt;b&gt;ServerRoom&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="440" y="40" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-10" value="void* контейнер&lt;br&gt;&lt;b&gt;Container&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="40" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=block;endFill=0;" parent="1" source="vuz5UwaR6WBDqahTynom-11" target="vuz5UwaR6WBDqahTynom-10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vuz5UwaR6WBDqahTynom-11" value="Контейнер B&lt;br&gt;&lt;b&gt;DataCanter&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="600" y="160" width="110" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

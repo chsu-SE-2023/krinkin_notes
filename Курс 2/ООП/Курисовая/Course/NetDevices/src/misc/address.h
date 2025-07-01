@@ -10,8 +10,8 @@ private:
 public:
 	MAC_Address();
 	MAC_Address(std::array<unsigned char, 6>);
-	MAC_Address(const MAC_Address&);
 	MAC_Address(std::string);
+	MAC_Address(const MAC_Address&);
 	friend bool operator>(const MAC_Address&, const MAC_Address&);
 	friend bool operator<(const MAC_Address&, const MAC_Address&);
 	friend bool operator>=(const MAC_Address&, const MAC_Address&);

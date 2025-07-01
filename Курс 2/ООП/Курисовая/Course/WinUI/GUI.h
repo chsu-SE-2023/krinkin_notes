@@ -9,8 +9,6 @@
 #include "../NetDevices/src/containers/data_center.h"
 #include "../NetDevices/src/containers/server_room.h"
 
-std::string ShowWLANDialog();
-
 namespace WinUI {
 
 	using namespace System;
@@ -1313,3 +1311,5 @@ private:
 	System::Void buttonLoadBin_Click(System::Object^, System::EventArgs^);
 };
 }
+
+std::string ShowWLANDialog();

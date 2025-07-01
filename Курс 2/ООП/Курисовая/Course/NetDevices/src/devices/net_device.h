@@ -14,5 +14,5 @@ public:
 	virtual std::string get_info() = 0;
 	virtual void receive(std::vector<unsigned char>&) = 0;
 	virtual void reset() = 0;
-	virtual void set_address(MAC_Address) = 0;
+	virtual void set_address(const MAC_Address&) = 0;
 };

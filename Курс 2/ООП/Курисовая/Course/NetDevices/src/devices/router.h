@@ -23,7 +23,7 @@ public:
     virtual std::string get_info() override;
     virtual std::vector<unsigned char> get_bytes() const override;
     virtual int package_size() const override;
-    virtual void set_address(MAC_Address) override;
+    virtual void set_address(const MAC_Address&) override;
     virtual void connect(Client&) override;
     virtual void connect(Client&, std::string, std::string) override;
     virtual void disconnect(Client&) override;

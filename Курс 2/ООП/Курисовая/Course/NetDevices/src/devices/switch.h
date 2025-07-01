@@ -23,10 +23,8 @@ public:
     friend bool operator<=(const Switch&, const Switch&);
     friend bool operator==(const Switch&, const Switch&);
     friend bool operator!=(const Switch&, const Switch&);
-    virtual int clients_count() const override;
     virtual void connect(Client&) override;
     static int get_capacity();
-    virtual std::vector<Client> get_clients() const;
     virtual std::string get_info() override;
     static void set_capacity(int);
     virtual void set_clients(std::vector<Client>&);

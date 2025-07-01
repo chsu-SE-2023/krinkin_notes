@@ -163,15 +163,6 @@ int Switch::get_capacity() {
 }
 
 /**
-* Метод, возвращающий вектор подключенных клиентов
-* 
-* @return вектор подключенных клиентов 
-*/
-std::vector<Client> Switch::get_clients() const {
-    return this->clients;
-}
-
-/**
 * Метод, возвращающий информацию об объекте
 * в виде текста о его полях
 *
@@ -197,15 +188,6 @@ void Switch::set_capacity(int value) {
 void Switch::set_clients(std::vector<Client>& clients) {
     if (clients.size() > cli_cap) throw std::length_error("clients vector is too big");
     this->clients = clients;
-}
-
-/**
-* Метод, возвращающий количество клиентов, подключенных к устройству
-*
-* @return количество клиентов, подключенных к устройству
-*/
-int Switch::clients_count() const {
-    return this->clients.size();
 }
 
 /**

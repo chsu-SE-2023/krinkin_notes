@@ -73,13 +73,6 @@ Client::Client(const Client& copy) {
 }
 
 /**
-* Деконструктор
-*/
-Client::~Client() {
-	name = "";
-}
-
-/**
 * Перегрузка оператора ==
 * 
 * @param первый объект

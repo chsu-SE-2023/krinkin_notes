@@ -131,6 +131,14 @@ System::Void WinUI::GUI::warning(System::String^ message) {
 	MessageBox::Show(message, "Предупреждение", MessageBoxButtons::OK, MessageBoxIcon::Warning);
 }
 
+/**
+* Метод, подключающий созданного клиента к устройству по критерию
+*
+* @param клиент
+* @param критерий
+* @param работать ли с интерфейсом
+* @param пароль для подключения
+*/
 System::Void WinUI::GUI::connectTo(Client& client, String^ criteria, bool gui, String^ passwd) {
 	std::vector<void*> vec = contB->get_vector();
 	WLRepeater* net_device = nullptr;

@@ -22,7 +22,6 @@ public:
 	Client(std::vector<unsigned char>);
 	Client(std::string, MAC_Address, std::vector<unsigned char>, ClientType);
 	Client(const Client&);
-	~Client();
 	friend bool operator==(const Client&, const Client&);
 	friend bool operator!=(const Client&, const Client&);
 	MAC_Address get_address() const;
