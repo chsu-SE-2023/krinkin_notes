@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QRLib", "QRLib\QRLib.csproj", "{43D7BDD2-41D4-48FB-A9FF-C044802DFD9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLI", "CLI\CLI.csproj", "{C72D1950-F9FA-4E49-A6A5-5D28E202BCCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43D7BDD2-41D4-48FB-A9FF-C044802DFD9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43D7BDD2-41D4-48FB-A9FF-C044802DFD9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43D7BDD2-41D4-48FB-A9FF-C044802DFD9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43D7BDD2-41D4-48FB-A9FF-C044802DFD9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C72D1950-F9FA-4E49-A6A5-5D28E202BCCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C72D1950-F9FA-4E49-A6A5-5D28E202BCCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C72D1950-F9FA-4E49-A6A5-5D28E202BCCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C72D1950-F9FA-4E49-A6A5-5D28E202BCCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
