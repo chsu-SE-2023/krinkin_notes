@@ -10,9 +10,9 @@ public enum EncodingMode : byte
     /// <summary> 
     /// Caps english + numbers 
     /// </summary> 	    
-    /// AlphaNumeric,     
+    AlphaNumeric,     
     /// <summary> 
-    /// Everything 
+    /// Everything
     /// </summary> 
     Binary, 
     /// <summary> 

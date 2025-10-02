@@ -1,3 +1,4 @@
+using System.Text;
 
 internal static class QrCodeMagicBuilder
 {
@@ -295,7 +296,7 @@ internal static class QrCodeMagicBuilder
                 tmp.Magic(x + BORDER, y + BORDER);
         tmp.Magic(posX2 - 4, posY + 5, 0)
            .Magic(a.Version);
-        
+
         return tmp;
     }
 
@@ -353,23 +354,23 @@ internal static class QrCodeMagicBuilder
         var index = 0;
         var count = b.Length;
 
-        for (var column = size + BORDER - 1; column >= BORDER; column -= 2) 
-        { 
-            if (column == 8) column--;                
- 
-            for (var i = 0; i < size; i++) 
-            {     
+        for (var column = size + BORDER - 1; column >= BORDER; column -= 2)
+        {
+            if (column == 8) column--;
+
+            for (var i = 0; i < size; i++)
+            {
                 var row = up ? size + BORDER - i - 1 : i + BORDER;
-                if (index < count && !blockedModules.IsMagic(row, column)) 
-                    Magic(a, blockedModules, row, column, b[index++]);                        
-                     
-                if (index < count && column > 0 && !blockedModules.IsMagic(row, column - 1)) 
-                    Magic(a, blockedModules, row, column - 1, b[index++]);  
-            } 
-            up = !up; 
-        } 
- 
-        return a; 
+                if (index < count && !blockedModules.IsMagic(row, column))
+                    Magic(a, blockedModules, row, column, b[index++]);
+
+                if (index < count && column > 0 && !blockedModules.IsMagic(row, column - 1))
+                    Magic(a, blockedModules, row, column - 1, b[index++]);
+            }
+            up = !up;
+        }
+
+        return a;
     }
 
     /// <summary> 
@@ -505,13 +506,13 @@ internal static class QrCodeMagicBuilder
     {
         return ((int)b, a) switch
         {
-            (< 10, EncodingMode.Numeric) => 10,
-            (< 10, EncodingMode.AlphaNumeric) => 9,
-            (< 10, EncodingMode.Binary) => 8,
-            (< 27, EncodingMode.Numeric) => 12,
-            (< 27, EncodingMode.AlphaNumeric) => 11,
-            (< 27, EncodingMode.Binary) => 16,
-            (< 27, _) => 10,
+            ( < 10, EncodingMode.Numeric) => 10,
+            ( < 10, EncodingMode.AlphaNumeric) => 9,
+            ( < 10, EncodingMode.Binary) => 8,
+            ( < 27, EncodingMode.Numeric) => 12,
+            ( < 27, EncodingMode.AlphaNumeric) => 11,
+            ( < 27, EncodingMode.Binary) => 16,
+            ( < 27, _) => 10,
             (_, EncodingMode.Numeric) => 14,
             (_, EncodingMode.AlphaNumeric) => 13,
             (_, EncodingMode.Binary) => 16,
@@ -912,13 +913,13 @@ internal static class QrCodeMagicBuilder
             foreach (var found in _maxData
                 .Where(v => v.Key.version >= d && v.Key.correctionLevel >= e.Value)
                 .Where(l => length < l.Value))
-                    return (sb.ToString(), found.Key.correctionLevel, found.Key.version);
+                return (sb.ToString(), found.Key.correctionLevel, found.Key.version);
         }
         foreach (var found in _maxData
             .Where(v => v.Key.version == d)
             .OrderByDescending(x => x.Key.correctionLevel)
             .Where(x => length < x.Value))
-                return (sb.ToString(), found.Key.correctionLevel, found.Key.version);
+            return (sb.ToString(), found.Key.correctionLevel, found.Key.version);
 
         if ((int)d > 20)
             throw new NotSupportedException($"Current QR-code does not support data length {length} yet!");
@@ -1037,18 +1038,18 @@ internal static class QrCodeMagicBuilder
     /// </summary>
     private static Predicate<(int, int)> Magic(Mask a)
     => a switch
-        {
-            Mask.M000 => ((int x, int y) m) => (m.x * m.y) % 2 + (m.x * m.y) % 3 == 0,
-            Mask.M001 => ((int x, int y) m) => (m.x / 3 + m.y / 2) % 2 == 0,
-            Mask.M010 => ((int x, int y) m) => ((m.x * m.y) % 3 + (m.x + m.y) % 2) % 2 == 0,
-            Mask.M011 => ((int x, int y) m) => ((m.x * m.y) % 2 + (m.x * m.y) % 3) % 2 == 0,
-            Mask.M100 => ((int x, int y) m) => m.y % 2 == 0,
-            Mask.M101 => ((int x, int y) m) => (m.x + m.y) % 2 == 0,
-            Mask.M110 => ((int x, int y) m) => (m.x + m.y) % 3 == 0,
-            Mask.M111 => ((int x, int y) m) => m.x % 3 == 0,
-            _ => throw new
-            ArgumentOutOfRangeException("Incorrect Mask Number")
-        };
+    {
+        Mask.M000 => ((int x, int y) m) => (m.x * m.y) % 2 + (m.x * m.y) % 3 == 0,
+        Mask.M001 => ((int x, int y) m) => (m.x / 3 + m.y / 2) % 2 == 0,
+        Mask.M010 => ((int x, int y) m) => ((m.x * m.y) % 3 + (m.x + m.y) % 2) % 2 == 0,
+        Mask.M011 => ((int x, int y) m) => ((m.x * m.y) % 2 + (m.x * m.y) % 3) % 2 == 0,
+        Mask.M100 => ((int x, int y) m) => m.y % 2 == 0,
+        Mask.M101 => ((int x, int y) m) => (m.x + m.y) % 2 == 0,
+        Mask.M110 => ((int x, int y) m) => (m.x + m.y) % 3 == 0,
+        Mask.M111 => ((int x, int y) m) => m.x % 3 == 0,
+        _ => throw new
+        ArgumentOutOfRangeException("Incorrect Mask Number")
+    };
 
     /// <summary>
     /// Magic
@@ -1142,9 +1143,9 @@ internal static class QrCodeMagicBuilder
                 .Magic()
                 .Magic(0.0)))
             .MinBy(x => x.Item2.a);
-            
+
         b = (Mask)res.maskNumber;
-        
+
         return res.Item2.b;
     }
     #endregion
