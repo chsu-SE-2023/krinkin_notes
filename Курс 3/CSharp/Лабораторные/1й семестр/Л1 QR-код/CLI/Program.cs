@@ -1,2 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+QRCode code = new("Hello, World!");
+
+Console.WriteLine(code.QRData.Data);
+Console.WriteLine(code.ToString());

@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../QRLib/QRLib.csproj" />
+  </ItemGroup>
+
 </Project>

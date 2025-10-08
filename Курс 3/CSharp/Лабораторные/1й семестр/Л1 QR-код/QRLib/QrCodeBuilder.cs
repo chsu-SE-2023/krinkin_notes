@@ -10,15 +10,21 @@ internal static class QrCodeMagicBuilder
     {
         // Этап 1. Полный блок с данными + подходящий уровень коррекции ошибок + нужная версия QR-кода
         // Тут нужно вызвать 2 функции Magic
+        var dataStream = BuildDataBlock(text, ref codeType);
+        (text, needCorrectionLevel, qrCodeVersion) = AppendServiceFields(dataStream, dataStream, EncodingMode.Binary, qrCodeVersion, needCorrectionLevel);
         // Этап 2. Блоки с данными + байты коррекции
         // А тут целых 4 разных функций Magic
+        int blockCount = _correctionLevelBlocksCount[(EccLevel)needCorrectionLevel][(int)qrCodeVersion];
+        
         // Этап 3. Создание матрицы QR кода c лучшей маской
         // В зависимости от ситуации тут нужно вызвать одну из двух функций Magic
         // Этап 4. Получение строки QR кода
         // Есть функция Magic которая возвращает QR-код в виде строки
         return text;
     }
+
     #endregion
+    
     #region Magic
 
     /// <summary> 
@@ -394,7 +400,7 @@ internal static class QrCodeMagicBuilder
 
     #region Magic  
     private const string END_OF_DATA = "0000";
-    private static string Magic(string text, ref EncodingMode? codeType)
+    private static string BuildDataBlock(string text, ref EncodingMode? codeType)
     {
         if (string.IsNullOrEmpty(text))
             throw new InvalidDataException("No data to encode!");
@@ -416,9 +422,9 @@ internal static class QrCodeMagicBuilder
         }
         var sb = codeType switch
         {
-            EncodingMode.Numeric => Magic(text, (10, 7, 4)),
-            EncodingMode.AlphaNumeric => Magic(text.ToUpper(), 0, 45, 11),
-            EncodingMode.Binary => Magic(text, [8]),
+            EncodingMode.Numeric => BuildStreamNumberic(text, (10, 7, 4)),
+            EncodingMode.AlphaNumeric => BuildStreamAlphaNumberic(text.ToUpper(), 0, 45, 11),
+            EncodingMode.Binary => BuildStreamBytes(text, [8]),
             _ => throw new NotSupportedException("Current type of encoding not supported!"),
         };
 
@@ -439,7 +445,10 @@ internal static class QrCodeMagicBuilder
         sb.Append(str.PadLeft(lengthType, '0'));
     }
 
-    private static StringBuilder Magic(string a, int b, int c, byte d)
+    /// <summary>
+    /// Возвращает поток данных для текста закодированного в текстовом режиме
+    /// </summary>
+    private static StringBuilder BuildStreamAlphaNumberic(string a, int b, int c, byte d)
     {
         StringBuilder sb = new();
 
@@ -462,7 +471,10 @@ internal static class QrCodeMagicBuilder
         return sb;
     }
 
-    private static StringBuilder Magic(string text, (byte a, byte b, byte c) b)
+    /// <summary>
+    /// Возвращает поток данных для текста закодированного в числовом режиме
+    /// </summary>
+    private static StringBuilder BuildStreamNumberic(string text, (byte a, byte b, byte c) b)
     {
         StringBuilder sb = new();
         var pos = 0;
@@ -485,7 +497,10 @@ internal static class QrCodeMagicBuilder
         return sb;
     }
 
-    private static StringBuilder Magic(string text, byte[] b)
+    /// <summary>
+    /// Возвращает поток данных для текста закодированного в бинарном режиме
+    /// </summary>
+    private static StringBuilder BuildStreamBytes(string text, byte[] b)
     {
         StringBuilder sb = new();
         var bytes = Encoding.UTF8.GetBytes(text);
@@ -495,6 +510,7 @@ internal static class QrCodeMagicBuilder
         }
         return sb;
     }
+    
     private static readonly Dictionary<EncodingMode, string> _codeTypeMode = new()
     {
         {EncodingMode.Numeric,      "0001"},
@@ -502,9 +518,12 @@ internal static class QrCodeMagicBuilder
         {EncodingMode.Binary,       "0100"}
     };
 
-    private static byte Magic(EncodingMode a, QR b)
+    /// <summary>
+    /// Возвращает длину поля количества данных
+    /// </summary>
+    private static byte DataBitLenght(EncodingMode encMode, QR version)
     {
-        return ((int)b, a) switch
+        return ((int)version, encMode) switch
         {
             ( < 10, EncodingMode.Numeric) => 10,
             ( < 10, EncodingMode.AlphaNumeric) => 9,
@@ -513,42 +532,45 @@ internal static class QrCodeMagicBuilder
             ( < 27, EncodingMode.AlphaNumeric) => 11,
             ( < 27, EncodingMode.Binary) => 16,
             ( < 27, _) => 10,
-            (_, EncodingMode.Numeric) => 14,
-            (_, EncodingMode.AlphaNumeric) => 13,
-            (_, EncodingMode.Binary) => 16,
-            (_, _) => 12,
+            ( _, EncodingMode.Numeric) => 14,
+            ( _, EncodingMode.AlphaNumeric) => 13,
+            ( _, EncodingMode.Binary) => 16,
+            ( _, _) => 12,
         };
     }
 
-    private static string Magic(EncodingMode a, QR b, string c)
+    private static string GetDataLenght(EncodingMode encMode, QR version, string data)
     {
-        var length = a switch
+        var length = encMode switch
         {
-            EncodingMode.Binary => Encoding.UTF8.GetBytes(c).Length,
-            _ => c.Length,
+            EncodingMode.Binary => Encoding.UTF8.GetBytes(data).Length,
+            _ => data.Length,
         };
-        var size = Magic(a, b);
+        var size = DataBitLenght(encMode, version);
         var str = Convert.ToString(length, 2).PadLeft(size, '0');
         return str;
     }
 
-    private static StringBuilder Magic(this StringBuilder a, EncodingMode b, QR c, string d)
+    private static StringBuilder AppendServicePrefix(this StringBuilder a, EncodingMode encMode, QR version, string data)
     {
-        return a.Append(Magic(b, c, d, _codeTypeMode));
+        return a.Append(AppendCodeTypeMode(encMode, version, data, _codeTypeMode));
     }
 
-    private static string Magic(EncodingMode a, QR b, string c, Dictionary<EncodingMode, string> d)
+    private static string AppendCodeTypeMode(EncodingMode encMode, QR version, string data, Dictionary<EncodingMode, string> codeTypeMode)
     {
-        return d[a] + Magic(a, b, c);
+        return codeTypeMode[encMode] + GetDataLenght(encMode, version, data);
     }
 
     private static readonly string[] _magicTextArray = ["11101100", "00010001"];
 
-    private static StringBuilder Magic(this StringBuilder a)
+    /// <summary>
+    /// Добавляет к блоку данных нули, чтобы количество данных было кратно 8
+    /// </summary>
+    private static StringBuilder AppendZeros(this StringBuilder data)
     {
-        while (a.Length % 8 != 0)
-            a.Append('0');
-        return a;
+        while (data.Length % 8 != 0)
+            data.Append('0');
+        return data;
     }
 
     private static string Magic(string a, int b)
@@ -562,21 +584,21 @@ internal static class QrCodeMagicBuilder
         return sb.ToString();
     }
 
-    public static List<byte[]> Magic(string a, int b, int c)
+    public static List<byte[]> DelimData(string data, int blockCount, int c)
     {
         List<byte> tmp = [];
-        var str = Enumerable.Range(0, a.Length / 8).Select(i => a.Substring(i * 8, 8));
+        var str = Enumerable.Range(0, data.Length / 8).Select(i => data.Substring(i * 8, 8));
 
         foreach (var line in str)
         {
             tmp.Add(Convert.ToByte(line, 2));
         }
 
-        var size = a.Length / 8 / b;
-        var extraSize = a.Length / 8 % b;
+        var size = data.Length / 8 / blockCount;
+        var extraSize = data.Length / 8 % blockCount;
 
         List<byte[]> list = [];
-        for (int i = b - 1; i >= 0; i--)
+        for (int i = blockCount - 1; i >= 0; i--)
         {
             var currentSize = size + (extraSize-- > 0 ? 1 : 0);
             list.Insert(0, new byte[currentSize]);
@@ -891,40 +913,40 @@ internal static class QrCodeMagicBuilder
     };
 
     /// <summary> 
-    /// Magic     
+    /// Возвращает поток данных с добавленой информацией о номере версии, коррекции ошибок     
     /// </summary> 
-    private static (string a, EccLevel b, QR c) Magic(string a, string b, EncodingMode c, QR d, EccLevel? e = null)
+    private static (string data, EccLevel ecc, QR version) AppendServiceFields(string data, string secondData, EncodingMode encMode, QR version, EccLevel? ecc = null)
     {
-        if (d == NA)
+        if (version == NA)
             throw new NotSupportedException("QR-code version start with 1!");
 
         var sb = new StringBuilder();
-        sb.Magic(c, d, a)
-          .Append(b)
-          .Magic();
+        sb.AppendServicePrefix(encMode, version, data)
+          .Append(secondData)
+          .AppendZeros();
 
         var length = sb.Length;
 
-        if ((int)d > 20)
-            throw new NotSupportedException($"Current QR-code does not support version {d} yet!");
+        if ((int)version > 20)
+            throw new NotSupportedException($"Current QR-code does not support version {version} yet!");
 
-        if (e.HasValue)
+        if (ecc.HasValue)
         {
             foreach (var found in _maxData
-                .Where(v => v.Key.version >= d && v.Key.correctionLevel >= e.Value)
+                .Where(v => v.Key.version >= version && v.Key.correctionLevel >= ecc.Value)
                 .Where(l => length < l.Value))
                 return (sb.ToString(), found.Key.correctionLevel, found.Key.version);
         }
         foreach (var found in _maxData
-            .Where(v => v.Key.version == d)
+            .Where(v => v.Key.version == version)
             .OrderByDescending(x => x.Key.correctionLevel)
             .Where(x => length < x.Value))
             return (sb.ToString(), found.Key.correctionLevel, found.Key.version);
 
-        if ((int)d > 20)
+        if ((int)version > 20)
             throw new NotSupportedException($"Current QR-code does not support data length {length} yet!");
 
-        return Magic(a, b, c, d + 1, e);
+        return AppendServiceFields(data, secondData, encMode, version + 1, ecc);
     }
 
     #endregion
@@ -973,8 +995,7 @@ internal static class QrCodeMagicBuilder
     /// <summary>
     /// Информация о маске и уровне коррекции
     /// </summary>
-    private static List<byte[]> Magic(this
-    List<byte[]> a, QR b, Mask c, EccLevel d)
+    private static List<byte[]> Magic(this List<byte[]> a, QR b, Mask c, EccLevel d)
     {
         var maskNumAndCorrectionLevel = _masksAndCorrectionLevel[(d, c)];
         Magic(a, b, maskNumAndCorrectionLevel);
