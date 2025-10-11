@@ -83,9 +83,9 @@ public class QRCode
 
             QrCodeData data = new()
             {
+                Data = QrCodeBuilder.GetQrCode(text, ref _version, ref _mode, ref _ecc, ref _mask),
                 Version = Version,
-                CorrectionLevel = Ecc,
-                Data = QrCodeMagicBuilder.GetQrCode(text, ref _version, ref _mode, ref _ecc, ref _mask)
+                CorrectionLevel = Ecc
             };
 
             return data;
