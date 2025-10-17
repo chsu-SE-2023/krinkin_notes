@@ -1,0 +1,5 @@
+n, f = map(int, open("input.txt", "r").readlines())
+if f == 0: print((n-2)**3)
+if f == 1: print((n-2)**2*6)
+if f == 2: print((n-2)*12)
+if f == 3: print(8)
