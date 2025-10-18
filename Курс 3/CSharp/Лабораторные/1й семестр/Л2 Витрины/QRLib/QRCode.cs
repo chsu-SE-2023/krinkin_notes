@@ -8,12 +8,12 @@ public class QRCode
 	/// </summary>
 	public string Text { private get; set; }
 
-	public static QrCodeType Type { get; set; } = QrCodeType.Full;
+	public static QrCodeType Type { get; set; } = QrCodeType.QrCode;
 
 	/// <summary>
 	/// Свойство с версией QR. Если значение не установлено, то устанавливается оптимальное
 	/// </summary>
-	private QR _version = QR.V3;
+	private QR _version = QR.V1;
 	public QR Version
 	{
 		get => _version;

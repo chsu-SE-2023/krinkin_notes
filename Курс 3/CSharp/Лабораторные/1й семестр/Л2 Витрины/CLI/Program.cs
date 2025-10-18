@@ -1,18 +1,28 @@
-﻿
-Console.Write("1. Текстовый\n2. Только рисунок\n3. Рисунок и текст\nТип вывода информации: ");
-QRCode.Type = Enum.Parse<QrCodeType>(Console.ReadLine());
+﻿using Shelves;
+using Goods;
 
-while (true)
+Console.WriteLine("".PadLeft(80, '='));
+
+Shelve shelve = 13;
+
+var sample = new Router(1000, "TP-Link Archer AX1500", 4, 6, 1267);
+var samples = new List<Product>
 {
-	Console.Write("Введите текст (для выхода введите пустой символ): ");
-	var input = Console.ReadLine();
+    new Router(2000, "Keenetic Air KN-1613", 3, 5, 1167),
+    new Router(3000, "Xiaomi Router AX3200 RB01", 3, 6, 3202),
+    new Router(4000, "ASUS RT-BE50", 3, 7, 3570)
+};
 
-	if (input != null)
-	{
-		QRCode code = new(input);
-		Console.WriteLine(code.ToString());
-	} else
-	{
-		break;
-	}
+foreach (var product in samples)
+{
+    shelve.Add(product);
 }
+shelve[4] = sample;
+
+sample.ID++;
+Console.WriteLine(sample);
+
+shelve.OrderByName();
+
+shelve.ID++;
+Console.WriteLine(shelve);

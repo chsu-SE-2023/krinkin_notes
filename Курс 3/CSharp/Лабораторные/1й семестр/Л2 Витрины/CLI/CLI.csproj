@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../Goods/Goods.csproj" />
     <ProjectReference Include="../QRLib/QRLib.csproj" />
+    <ProjectReference Include="../Shelves/Shelves.csproj" />
   </ItemGroup>
 
 </Project>
