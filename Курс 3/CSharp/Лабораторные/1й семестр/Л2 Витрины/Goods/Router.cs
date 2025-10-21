@@ -5,11 +5,14 @@ namespace Goods;
 /// <summary>
 /// Товар - роутер
 /// </summary>
-public class Router : Product
+/// <remarks>
+/// Конструктор класса
+/// </remarks>
+public class Router(int id, string name, int lanCount, int maxWifiVersion, int bandwidth) : Product(id, name)
 {
-    public int MaxWiFiVersion { get; init; }
-    public int LanCount { get; init; }
-    public int Bandwidth { get; init; }
+    public int MaxWiFiVersion { get; init; } = maxWifiVersion;
+    public int LanCount { get; init; } = lanCount;
+    public int Bandwidth { get; init; } = bandwidth;
 
     /// <summary>
     /// Переопределение типа и информации о свойствах
@@ -26,15 +29,5 @@ public class Router : Product
             sb.Append($"Пропускная способность: {Bandwidth} Mbit\n");
             return sb.ToString();
         }
-    }
-
-    /// <summary>
-    /// Конструктор класса
-    /// </summary>
-    public Router(int id, string name, int lanCount, int maxWifiVersion, int bandwidth) : base(id, name)
-    {
-        LanCount = lanCount;
-        MaxWiFiVersion = maxWifiVersion;
-        Bandwidth = bandwidth;
     }
 }

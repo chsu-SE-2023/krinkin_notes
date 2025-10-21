@@ -1,28 +1,54 @@
 ﻿using Shelves;
 using Goods;
 
-Console.WriteLine("".PadLeft(80, '='));
+Console.WriteLine("".PadLeft(120, '='));
 
-Shelve shelve = 13;
-
-var sample = new Router(1000, "TP-Link Archer AX1500", 4, 6, 1267);
-var samples = new List<Product>
+Dictionary<int, (string, Command)> main_commands = new()
 {
-    new Router(2000, "Keenetic Air KN-1613", 3, 5, 1167),
-    new Router(3000, "Xiaomi Router AX3200 RB01", 3, 6, 3202),
-    new Router(4000, "ASUS RT-BE50", 3, 7, 3570)
+    { 1, ( "Добавить товар на витрину", () => throw new NotImplementedException() ) },
+    { 2, ( "Убрать товар с витрины", () => throw new NotImplementedException() ) },
+    { 3, ( "Поменять товары местами", () => throw new NotImplementedException() ) },
+    { 4, ( "Заменить товар", () => throw new NotImplementedException() ) },
+    { 5, ( "Найти товар", () => commands = search_commands ) },
+    { 6, ( "Выход", () => Environment.Exit(0) ) },
 };
 
-foreach (var product in samples)
+Dictionary<int, (string, Command)> search_commands = new()
 {
-    shelve.Add(product);
+    { 1, ( "По идентификатору", () => throw new NotImplementedException() ) },
+    { 2, ( "По имени", () => throw new NotImplementedException() ) },
+    { 6, ( "Выход", () => Environment.Exit(0) ) },
+};
+
+int cmd_index = 0;
+var commands = main_commands;
+
+void SearchDialogByID()
+{
+    Console.WriteLine("");
 }
-shelve[4] = sample;
 
-sample.ID++;
-Console.WriteLine(sample);
+void SearchDialogByName()
+{
+    Console.WriteLine();
+}
 
-shelve.OrderByName();
+while (true)
+{
+    Console.Clear();
+    for (var i = 1; i <= commands.Count; i++)
+    {
+        Console.BackgroundColor = (cmd_index == i ? ConsoleColor.White : ConsoleColor.Black);
+        Console.ForegroundColor = (cmd_index == i ? ConsoleColor.Black : ConsoleColor.White);
+        Console.WriteLine($" * {commands[i].Item1}");
+        Console.ResetColor();
+    }
+    switch (Console.ReadKey().Key)
+    {
+        case ConsoleKey.UpArrow: cmd_index--; break;
+        case ConsoleKey.DownArrow: cmd_index++; break;
+        case ConsoleKey.Enter: commands[cmd_index].Item2(); break;
+    }
+}
 
-shelve.ID++;
-Console.WriteLine(shelve);
+delegate void Command();

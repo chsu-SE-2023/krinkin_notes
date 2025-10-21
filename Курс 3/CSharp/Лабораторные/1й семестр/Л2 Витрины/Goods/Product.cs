@@ -10,8 +10,8 @@ abstract public class Product
     /// <summary>
     /// Свойство, хранящее QR код
     /// </summary>
-    private QRCode? QR;
-    public QrCodeType QRType
+    public QRCode qRCode = new("");
+    public static QrCodeType QRType
     {
         get => QRCode.Type;
         set => QRCode.Type = value;
@@ -26,7 +26,7 @@ abstract public class Product
         get => _id;
         set
         {
-            QR = new QRCode(value.ToString());
+            qRCode.Text = value.ToString();
             _id = value;
         }
     }
@@ -39,7 +39,7 @@ abstract public class Product
     /// <summary>
     /// Конструктор товара
     /// </summary>
-    public Product(int id, string name)
+    protected Product(int id, string name)
     {
         ID = id;
         Name = name;
@@ -60,7 +60,7 @@ abstract public class Product
         StringBuilder sb = new();
         sb.Append($"{Type}: {Name}\n");
         sb.Append(Info);
-        sb.Append(QR?.ToString());
+        sb.Append(qRCode?.ToString());
         return sb.ToString();
     }
 }

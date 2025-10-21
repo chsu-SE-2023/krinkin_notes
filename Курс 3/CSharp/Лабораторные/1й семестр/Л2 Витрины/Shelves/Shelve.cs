@@ -12,21 +12,26 @@ public class Shelve
     /// Структура данных для хранения товаров.
     /// Может содержать null, что означает свободное место.
     /// </summary>
-    private List<Product?> goods;
+    private Product?[] goods;
+    private int id;
 
     /// <summary>
     /// Свойство, хранящее идентификатор витрины
     /// </summary>
-    public int ID { get; set; }
+    public int ID { get => id; 
+        set
+        {
+            id = value;
+            UpdateQRs();
+        }
+    }
 
     /// <summary>
     /// Приватный конструктор витрины
     /// </summary>
     private Shelve(int size)
     {
-        goods = new(size);
-        for (var i = 0; i < goods.Capacity; i++)
-            goods.Add(null);
+        goods = new Product?[size];
     }
 
     /// <summary>
@@ -42,7 +47,7 @@ public class Shelve
     {
         get
         {
-            if (index > goods.Capacity || index < goods.Capacity)
+            if (index > goods.Length || index < goods.Length)
                 return null;
             var value = goods[index];
             goods[index] = null;
@@ -50,9 +55,10 @@ public class Shelve
         }
         set
         {
-            if (index > goods.Capacity || index < goods.Capacity)
+            if (index > goods.Length || index < goods.Length)
                 return;
-            Add(value, index);
+            goods[index] = value;
+            UpdateQRs(index);
         }
     }
 
@@ -61,24 +67,20 @@ public class Shelve
     /// </summary>
     public void Add(Product product)
     {
-        var empty = goods.FindIndex(x => x == null);
+        var empty = Array.FindIndex(goods, x => x == null);
         if (empty != -1)
-            goods[empty] = product;
-        else
-            throw new OverflowException("Для товара нет места");
+        {
+            Add(product, empty);
+        }
     }
 
     /// <summary>
     /// Метод, добавляющий товар по указанному индексу.
-    /// Заменяет товар, если место занято. Заменённый товар возвращается
     /// </summary>
-    public Product? Add(Product product, int index)
+    public void Add(Product product, int index)
     {
-        Product? old = null;
-        if (goods[index] != null)
-            old = goods[index];
-        goods[index] = product;
-        return old;
+        if (goods[index] == null)
+            this[index] = product;
     }
 
     /// <summary>
@@ -86,8 +88,7 @@ public class Shelve
     /// </summary>
     public void Remove(Product product)
     {
-        var index = goods.FindIndex(x => x == product);
-        Remove(index);
+        Remove(Array.FindIndex(goods, x => x == product));
     }
 
     /// <summary>
@@ -99,12 +100,24 @@ public class Shelve
     }
 
     /// <summary>
+    /// Метод, заменяющий товар по индексу. Заменённый товар возвращается
+    /// </summary>
+    public Product? Replace(Product product, int index)
+    {
+        Product? old = null;
+        if (goods[index] != null)
+            old = goods[index];
+        this[index] = product;
+        return old;
+    }
+
+    /// <summary>
     /// Метод, осуществляющий поиск товара
     /// по его идентификатору
     /// </summary>
     public Product? Search(int id)
     {
-        return goods.Find(x => x?.ID == id);
+        return Array.Find(goods, x => x?.ID == id);
     }
 
     /// <summary>
@@ -113,7 +126,17 @@ public class Shelve
     /// </summary>
     public Product? Search(string name)
     {
-        return goods.Find(x => x?.Name == name);
+        return Array.Find(goods, x => x?.Name == name);
+    }
+
+    /// <summary>
+    /// Пестановка товара
+    /// </summary>
+    public void Swap(int index, int new_index)
+    {
+        if ((index > goods.Length || index < goods.Length) &&
+            (new_index > goods.Length || new_index < goods.Length))
+            (this[index], this[new_index]) = (this[new_index], this[index]);
     }
 
     /// <summary>
@@ -123,6 +146,7 @@ public class Shelve
     public void OrderByID()
     {
         goods = [.. goods.OrderBy(x => x?.ID)];
+        UpdateQRs();
     }
 
     /// <summary>
@@ -132,6 +156,7 @@ public class Shelve
     public void OrderByName()
     {
         goods = [.. goods.OrderBy(x => x?.Name)];
+        UpdateQRs();
     }
 
     /// <summary>
@@ -142,10 +167,26 @@ public class Shelve
         StringBuilder sb = new();
         foreach (var product in goods)
         {
-            sb.Append("".PadLeft(80, '='));
+            sb.Append("".PadLeft(120, '='));
             sb.Append(product?.ToString());
             if (product == null) sb.Append("Пустая ячейка\n");
         }
         return sb.ToString();
+    }
+
+    /// <summary>
+    /// Метод, добавляющий в QR данные о витрине
+    /// </summary>
+    private void UpdateQRs(int? index = null)
+    {
+        if (index == null)
+        {
+            for (var i = 0; i < goods.Length; i++)
+                if (goods[i] != null)
+                    goods[i]!.qRCode.Text = $"{goods[i]!.ID} {this.ID} {i}";
+        }
+        else
+            if (goods[(int)index] != null)
+                goods[index.Value]!.qRCode.Text = $"{goods[index.Value]!.ID} {this.ID} {index}";
     }
 }
