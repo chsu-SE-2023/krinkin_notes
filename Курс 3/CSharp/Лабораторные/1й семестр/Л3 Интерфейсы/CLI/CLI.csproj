@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Test.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Goods/Goods.csproj" />
+    <ProjectReference Include="../QRLib/QRLib.csproj" />
+    <ProjectReference Include="../Shelves/Shelves.csproj" />
+  </ItemGroup>
+
+</Project>

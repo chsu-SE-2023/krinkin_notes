@@ -167,7 +167,8 @@ public class Shelve
         StringBuilder sb = new();
         foreach (var product in goods)
         {
-            sb.Append("".PadLeft(120, '='));
+            sb.Append("".PadLeft(20, '='));
+            sb.Append('\n');
             sb.Append(product?.ToString());
             if (product == null) sb.Append("Пустая ячейка\n");
         }
@@ -187,6 +188,11 @@ public class Shelve
         }
         else
             if (goods[(int)index] != null)
-                goods[index.Value]!.qRCode.Text = $"{goods[index.Value]!.ID}{this.ID}{index}";
+            goods[index.Value]!.qRCode.Text = $"{goods[index.Value]!.ID}{this.ID}{index}";
+    }
+    
+    public Product?[] GetList()
+    {
+        return goods;
     }
 }
