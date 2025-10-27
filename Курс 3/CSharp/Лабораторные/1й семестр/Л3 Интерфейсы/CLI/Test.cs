@@ -1,31 +1,47 @@
 ﻿using Shelves;
 using Goods;
+using QRLib;
 
 Console.WriteLine("".PadLeft(120, '='));
-
-Shelve shelve = 13;
-shelve.ID = 10;
-
-Product.QRType = QrCodeType.Full;
-
-var sample = new Router(1000, "TP-Link Archer AX1500", 4, 6, 1267);
-var samples = new List<Product>
+var samples = new List<IProduct>
 {
-    new Router(2000, "Keenetic Air KN-1613", 3, 5, 1167),
-    new Router(3000, "Xiaomi Router AX3200 RB01", 3, 6, 3202),
-    new Router(4000, "ASUS RT-BE50", 3, 7, 3570)
+    new Switch(3000, "D-Link DGS-1024D/J1A", 24, 1000),
+    new Switch(1000, "MikroTik CRS326-24G-2S+RM", 24, 1000),
+    new Switch(2000, "Keenetic PoE+ Switch 5 KN-4610", 5, 1000)
 };
+var r_samples = new List<Router>
+{
+    new Router(5555, "Keenetic Air KN-1613", 3, 5, 1167),
+    new Router(6666, "ASUS RT-BE50", 3, 7, 3570)
+};
+
+IQRCode.Type = QrCodeType.Full;
+
+Shelve<IProduct> shelve = 13; shelve.ID = 1;
+Shelve<Router> r_shelve = (11, 2);
 
 foreach (var product in samples)
 {
     shelve.Add(product);
 }
-shelve[4] = sample;
-
-sample.ID++;
-Console.WriteLine(sample);
-
+foreach (var product in r_samples)
+{
+    shelve.Add(product);
+}
 shelve.OrderByName();
 
-shelve.ID++;
+var sample1 = new Router(7777, "Xiaomi Router AX3200 RB01", 3, 6, 3202);
+var sample2 = new Router(4000, "Keenetic Speedster KN-3013", 3, 5, 1167);
+
+r_shelve[0] = sample1;
+shelve[5] = r_shelve[0];
+shelve[6] = sample2;
+
+shelve.ID = 2;
+sample1.ID++;
+sample2.ID++;
+
 Console.WriteLine(shelve);
+
+r_shelve[0] = (Router) shelve[5];
+Console.WriteLine(r_shelve);

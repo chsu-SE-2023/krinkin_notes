@@ -1,3 +1,5 @@
+using QRLib;
+
 using System.Text;
 
 namespace Goods;
@@ -8,11 +10,10 @@ namespace Goods;
 /// <remarks>
 /// Конструктор класса
 /// </remarks>
-public class Router(int id, string name, int lanCount, int maxWifiVersion, int bandwidth) : Product(id, name)
+public sealed class Router(int id, string name, int lanCount, int bandwidth, int maxWifiVersion) : Switch(id, name, lanCount, bandwidth)
 {
     public int MaxWiFiVersion { get; init; } = maxWifiVersion;
-    public int LanCount { get; init; } = lanCount;
-    public int Bandwidth { get; init; } = bandwidth;
+    public IQRCode QRCode { get; init; } = new QRRecord("");
 
     /// <summary>
     /// Переопределение типа и информации о свойствах
@@ -24,9 +25,8 @@ public class Router(int id, string name, int lanCount, int maxWifiVersion, int b
         get
         {
             StringBuilder sb = new();
+            sb.Append(base.Info);
             sb.Append($"Максимальная версия WiFi: WiFi {MaxWiFiVersion}\n");
-            sb.Append($"Количество LAN портов: {LanCount}\n");
-            sb.Append($"Пропускная способность: {Bandwidth} Mbit\n");
             return sb.ToString();
         }
     }

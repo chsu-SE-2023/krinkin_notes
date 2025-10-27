@@ -6,16 +6,17 @@ namespace Goods;
 /// <summary>
 /// Абстрактный класс товара
 /// </summary>
-abstract public class Product
+abstract public class Product : IProduct
 {
     /// <summary>
     /// Свойство, хранящее QR код
     /// </summary>
-    public QRCode qRCode = new("");
+    public IQRCode QRData { get; set; } = new QRCode("");
+
     public static QrCodeType QRType
     {
-        get => QRCode.Type;
-        set => QRCode.Type = value;
+        get => IQRCode.Type;
+        set => IQRCode.Type = value;
     }
 
     /// <summary>
@@ -27,7 +28,7 @@ abstract public class Product
         get => _id;
         set
         {
-            qRCode.Text = value.ToString();
+            QRData.Text = value.ToString();
             _id = value;
         }
     }
@@ -61,7 +62,7 @@ abstract public class Product
         StringBuilder sb = new();
         sb.Append($"{Type}: {Name}\n");
         sb.Append(Info);
-        sb.Append(qRCode?.ToString());
+        sb.Append(QRData?.ToString());
         return sb.ToString();
     }
 }

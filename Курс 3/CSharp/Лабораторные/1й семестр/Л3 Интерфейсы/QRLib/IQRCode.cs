@@ -3,13 +3,7 @@ namespace QRLib;
 
 public interface IQRCode
 {
-    static abstract QrCodeType Type { get; set; }
+    public static QrCodeType Type { get; set; } = QrCodeType.QrCode;
     string Text { set; }
-    QR Version { get; set; }
-    EccLevel Ecc { get; set; }
-    Mask Mask { get; set; }
-    EncodingMode Mode { get; set; }
     QrCodeData QRData { get; }
-
-    string ToString();
 }

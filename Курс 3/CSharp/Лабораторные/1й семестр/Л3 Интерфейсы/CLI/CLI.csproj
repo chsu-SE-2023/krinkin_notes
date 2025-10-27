@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Test.cs" />
+    <Compile Remove="Program.cs" />
   </ItemGroup>
 
   <ItemGroup>

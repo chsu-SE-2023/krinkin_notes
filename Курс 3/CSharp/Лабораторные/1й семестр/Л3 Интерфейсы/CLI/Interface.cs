@@ -19,7 +19,7 @@ public class Interface
     }
 
     private const int SHELVE_SIZE = 13;
-    private Shelve shelve = SHELVE_SIZE;
+    private Shelve<Router> shelve = SHELVE_SIZE;
     private int cmd_index = 1;
 
 

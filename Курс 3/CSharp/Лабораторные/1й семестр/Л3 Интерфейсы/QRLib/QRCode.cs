@@ -10,8 +10,6 @@ public class QRCode : IQRCode
 	/// </summary>
 	public string Text { private get; set; }
 
-	public static QrCodeType Type { get; set; } = QrCodeType.QrCode;
-
 	/// <summary>
 	/// Свойство с версией QR. Если значение не установлено, то устанавливается оптимальное
 	/// </summary>
@@ -45,7 +43,7 @@ public class QRCode : IQRCode
 	/// <summary>
 	/// Свойство с режимом кодирования. Если значение не установлено, то устанавливается оптимальное
 	/// </summary>
-	private EncodingMode? _mode;
+	private EncodingMode? _mode = EncodingMode.Binary;
 	public EncodingMode Mode
 	{
 		get => _mode == null ? EncodingMode.Binary : (EncodingMode)_mode;
@@ -59,16 +57,12 @@ public class QRCode : IQRCode
 	{
 		get
 		{
-			var text = Text;
-
-			QrCodeData data = new()
+            return new()
 			{
-				Data = QrCodeBuilder.GetQrCode(text, ref _version, ref _mode, ref _ecc, ref _mask),
+				Data = QrCodeBuilder.GetQrCode(Text, ref _version, ref _mode, ref _ecc, ref _mask),
 				Version = Version,
 				CorrectionLevel = Ecc
 			};
-
-			return data;
 		}
 	}
 
@@ -86,19 +80,18 @@ public class QRCode : IQRCode
 	public override string ToString()
 	{
 		StringBuilder sb = new();
-		if (Type == QrCodeType.QrCode || Type == QrCodeType.Full)
+		if (IQRCode.Type == QrCodeType.QrCode || IQRCode.Type == QrCodeType.Full)
 		{
 			sb.Append(QRData.Data);
 		}
 
-		if (Type == QrCodeType.Text || Type == QrCodeType.Full)
+		if (IQRCode.Type == QrCodeType.Text || IQRCode.Type == QrCodeType.Full)
 		{
 			sb.Append($"Text: {Text}\n");
 			sb.Append($"Version: {Version}\n");
 			sb.Append($"Correction level: {Ecc}\n");
-			sb.Append($"Data lenght: {Text.Length}");
+			sb.Append($"Data lenght: {Text.Length}\n");
 		}
 		return sb.ToString();
 	}
-
 }

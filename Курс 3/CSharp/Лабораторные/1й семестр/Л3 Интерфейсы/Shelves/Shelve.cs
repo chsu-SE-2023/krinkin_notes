@@ -6,19 +6,21 @@ using Goods;
 /// <summary>
 /// Класс витрины
 /// </summary>
-public class Shelve
+public class Shelve<T> : IShelve<T> where T : class, IProduct
 {
     /// <summary>
     /// Структура данных для хранения товаров.
     /// Может содержать null, что означает свободное место.
     /// </summary>
-    private Product?[] goods;
+    private T?[] goods;
     private int id;
 
     /// <summary>
     /// Свойство, хранящее идентификатор витрины
     /// </summary>
-    public int ID { get => id; 
+    public int ID
+    {
+        get => id;
         set
         {
             id = value;
@@ -31,26 +33,27 @@ public class Shelve
     /// </summary>
     private Shelve(int size)
     {
-        goods = new Product?[size];
+        goods = new T?[size];
     }
 
     /// <summary>
     /// Преобразование из int (размера) в пустую витрину
     /// заданной вместимости
     /// </summary>
-    public static implicit operator Shelve(int size) => new(size);
+    public static implicit operator Shelve<T>(int size) => new(size);
+    public static implicit operator Shelve<T>((int, int) prms) => new(prms.Item1) { ID = prms.Item2 };
 
     /// <summary>
     /// Индексатор.
     /// </summary>
-    public Product? this[int index]
+    public T? this[int index]
     {
         get
         {
             if (index > goods.Length || index < 0)
-                return null;
+                return default;
             var value = goods[index];
-            goods[index] = null;
+            goods[index] = default;
             return value;
         }
         set
@@ -65,7 +68,7 @@ public class Shelve
     /// <summary>
     /// Метод, добавляющий товар на первое свободное место
     /// </summary>
-    public void Add(Product product)
+    public void Add(T product)
     {
         var empty = Array.FindIndex(goods, x => x == null);
         if (empty != -1)
@@ -77,7 +80,7 @@ public class Shelve
     /// <summary>
     /// Метод, добавляющий товар по указанному индексу.
     /// </summary>
-    public void Add(Product product, int index)
+    public void Add(T product, int index)
     {
         if (goods[index] == null)
             this[index] = product;
@@ -86,7 +89,7 @@ public class Shelve
     /// <summary>
     /// Метод, удаляющий товар с витрины
     /// </summary>
-    public void Remove(Product product)
+    public void Remove(T product)
     {
         Remove(Array.FindIndex(goods, x => x == product));
     }
@@ -96,15 +99,15 @@ public class Shelve
     /// </summary>
     public void Remove(int index)
     {
-        goods[index] = null;
+        goods[index] = default;
     }
 
     /// <summary>
     /// Метод, заменяющий товар по индексу. Заменённый товар возвращается
     /// </summary>
-    public Product? Replace(Product product, int index)
+    public T? Replace(T product, int index)
     {
-        Product? old = null;
+        T? old = default;
         if (goods[index] != null)
             old = goods[index];
         this[index] = product;
@@ -115,7 +118,7 @@ public class Shelve
     /// Метод, осуществляющий поиск товара
     /// по его идентификатору
     /// </summary>
-    public Product? Search(int id)
+    public T? Search(int id)
     {
         return Array.Find(goods, x => x?.ID == id);
     }
@@ -124,7 +127,7 @@ public class Shelve
     /// Метод, осуществляющий поиск товара
     /// по его имени
     /// </summary>
-    public Product? Search(string name)
+    public T? Search(string name)
     {
         return Array.Find(goods, x => x?.Name == name);
     }
@@ -184,14 +187,14 @@ public class Shelve
         {
             for (var i = 0; i < goods.Length; i++)
                 if (goods[i] != null)
-                    goods[i]!.qRCode.Text = $"{goods[i]!.ID}{this.ID}{i}";
+                    goods[i]!.QRData.Text = $"{goods[i]!.ID} {this.ID} {i}";
         }
         else
             if (goods[(int)index] != null)
-            goods[index.Value]!.qRCode.Text = $"{goods[index.Value]!.ID}{this.ID}{index}";
+            goods[index.Value]!.QRData.Text = $"{goods[index.Value]!.ID} {this.ID} {index}";
     }
-    
-    public Product?[] GetList()
+
+    public T?[] GetList()
     {
         return goods;
     }
