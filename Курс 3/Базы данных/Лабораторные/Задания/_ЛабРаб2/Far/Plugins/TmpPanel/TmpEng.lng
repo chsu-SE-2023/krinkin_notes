@@ -1,4 +1,4 @@
-.Language=English,English
+﻿.Language=English,English
 
 "Ok"
 "Cancel"
@@ -6,13 +6,12 @@
 "Warning"
 
 "Temporary panel"
-" %sTemporary panel [%d] "
-
-"temporary"
+"Temporary panel"
 
 "Remove"
 "Switch"
 "SavLst"
+"Goto"
 
 "Updating temporary panel contents"
 "Sending files to temporary panel"
@@ -22,7 +21,6 @@
 
 "Temporary panel"
 "Add to &Disks menu"
-"Disks menu &hotkey ('1'-'9'). Leave empty to autoassign"
 "Add to &Plugins menu"
 
 "Use &common panel"
@@ -43,7 +41,6 @@
 "File masks for the file &lists:"
 "Command line pre&fix:"
 
-"New settings will become active after FAR restart"
 "Ne&w panel for search results"
 "Save file list as"
 

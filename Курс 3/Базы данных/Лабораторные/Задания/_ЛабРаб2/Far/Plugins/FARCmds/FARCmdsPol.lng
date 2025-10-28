@@ -1,0 +1,24 @@
+﻿.Language=Polish,Polish (Polski)
+
+"Polecenia FAR"
+
+"Separator polecenia/obiektu"
+
+"&Ukryj zewnętrzne wyjście polecenia"
+"&Pokaż zewnętrzne wyjście polecenia"
+"&Duplikuj przechwycone wyjście na ekran"
+
+"Przechwytuj o&ba strumienie stdout i stderr"
+"Przechwytuj tylko std&out"
+"Przechwytuj tylko std&err"
+"Przechwytuj oba stru&mienie stdout i stderr oddzielnie"
+"Podgląd/edycja p&ustych plików"
+
+"Edytuj &nowe pliki"
+
+"&Wielkość odczytu danych"
+"<stdout>:"
+"<stderr>:"
+
+"&OK"
+"Anuluj"

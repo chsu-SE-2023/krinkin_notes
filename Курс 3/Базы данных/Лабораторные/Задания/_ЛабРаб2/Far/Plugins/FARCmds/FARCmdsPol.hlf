@@ -1,0 +1,380 @@
+﻿.Language=Polish,Polish (Polski)
+.PluginContents=Polecenia FAR
+.Options CtrlStartPosChar=^<wrap>
+
+
+@Contents
+$ #Polecenia FAR#
+   Wtyczka Polecenia FAR (FARCmds) udostępnia szereg dodatkowych poleceń w linii poleceń
+za pomocą prefiksów.
+
+   Dodatkowo, polecenia mogą być używane w ~Menu użytkownika~@:UserMenu@,
+w ~powiązaniach plików~@:FileAssoc@, oraz w oknie dialogowym ~Zastosuj polecenie~@:ApplyCmd@ (#Ctrl-G#)
+
+  #Składnia poleceń#
+
+   #polecenie:#[#opcje#] #obiekt#
+
+   #polecenie# - jedno z poniższych:
+             ~view~@View@     - podgląd
+             ~edit~@Edit@     - edytor
+             ~goto~@Goto@     - przeskocz do pliku lub folderu
+             ~clip~@Clip@     - umieść dane w schowku
+             ~whereis~@WhereIs@  - znajdź i przeskocz do obiektu
+             ~link~@Link@     - utwórz link
+             ~run~@Run@      - wykonaj polecenie
+             ~load~@Load@     - załaduj wtyczkę
+             ~unload~@Unload@   - wyładuj wtyczkę
+
+   #opcje# - ^<wrap>parametry opcjonalne, więcej informacji w opisach poleceń.
+
+   #obiekt#  - ^<wrap>jeden z poniższych:
+             #nazwa_pliku# - ^<wrap>nazwa pliku do podglądu, edycji lub pokazania na liście.
+             #ścieżka#     - ^<wrap>ścieżka do pliku lub folderu, do której nastąpi przejście.
+             #<polecenie# - ^<wrap>~przekierowanie wyjścia~@Direction@ z poleceń systemu
+             operacyjnego. Symbol #<# jest wymagany.
+
+   Zobacz także: ~Konfiguracja poleceń FAR~@Config@ | ~Uwagi~@Remark@
+
+
+@Load
+$ #Polecenie Load (wczytaj)#
+   Polecenie #load# pozwala ręcznie wczytać wtyczki.
+
+   - Ścieżka do wtyczki może być podana jako parametr polecenia:
+
+      #load:nazwa_modułu_DLL#
+
+   - lub pobrana z podanej "#nazwy_pliku#":
+
+      #load: <nazwa_pliku#
+
+   Zobacz także: ~unload~@Unload@ | ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@Unload
+$ #Polecenie Unload (wyłącz)#
+   Polecenie #unload# pozwala na ręczne wyłączenie wtyczki.
+
+   - Ścieżka do wtyczki może być podana jako parametr polecenia:
+
+      #unload:nazw_modułu_DLL#
+
+   - lub pobrana z podanej "#nazwy_pliku#":
+
+      #unload: <nazwa_pliku#
+
+   Zamiast ścieżki do biblioteki DLL można użyć GUID wtyczki.
+
+   Zobacz także ~load~@Load@ | ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@Clip
+$ #Polecenie Clip (schowek)#
+   Polecenie #clip# umieszcza dane w schowku systemu Windows.
+Dane mogą być zawartością pliku lub wynikiem działania programu.
+Schowek zawiera wszystkie dane, aż do znaku o kodzie #0x00#.
+Rozmiar umieszczanych danych można ustawić w oknie konfiguracji wtyczki.
+Domyślna wielkość to 1 MB.
+
+   #clip:nazwa_pliku#
+
+   Dane o zerowym rozmiarze przekazane do schowka spowodują wyczyszczenie schowka.
+
+   Zobacz także: ~Przekierowanie wyjścia~@Direction@ | ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@Run
+$ #Polecenie Run (uruchom)#
+   Polecenie #run# wykonuje #polecenie# systemu operacyjnego z przekierowaniem wyniku
+do pliku podanego jako #"nazwa_pliku"#. Wynik można także wyświetlić na ekranie
+lub ukryć przed użytkownikiem stosując ~przekierowanie wyjścia~@Direction@.
+
+   #run:nazwa_pliku<polecenie#
+
+   Zobacz także: ~Przekierowanie wyjścia~@Direction@ | ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@View
+$ #Polecenie View (podgląd)#
+   Polecenie #view# otwiera plik o nazwa #"nazwa_pliku"# we wbudowanym ~podglądzie~@:Viewer@ plików.
+
+   #view:nazwa_plik#
+
+   Zobacz także: ~Edycja~@Edit@ | ~Przekierowanie wyjścia~@Direction@ | ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@Edit
+$ #Polecenie Edit (edycja)#
+   Polecenie #edit# otwiera plik "#nazwa_pliku#" do edycji
+we wbudowanym ~edytorze~@:Editor@ FAR.
+
+      #edit:nazwa_pliku#
+
+   Jeżeli plik "#nazwa_pliku#" nie istnieje, zostanie on utworzony.
+   Jeżeli nowo utworzony plik nie zostanie zmieniony przed wyjściem z edytora,
+zostanie on usunięty (podobnie jak #Shift+F4#).
+
+   Podczas otwierania pliku, można przeskoczyć do określonej pozycji. W tym celu należy podać
+żądany wiersz i kolumnę w nawiasach kwadratowych (można pominąć dowolny element, domyślnie będzie
+to oznaczać wartość 1).
+Nawiasy kwadratowe są obowiązkowe!
+
+      #edit:[wiersz] nazwa_pliku#
+
+      #edit:[wiersz, kolumna] nazwa_pliku#
+
+      #edit:[,kolumna] nazwa_pliku#
+
+   Dozwolone jest użycie zmiennych środowiskowych zawierających liczby w określaniu wiersza
+i kolumny. Np. zmienna środowiskowa Linia ma wartość 10. W tym przypadku kursor zostanie
+ustawiony w linii nr 10 (w kolumnie nr 1) pliku "Plik.txt":
+
+   edit:[%Linia%,] Plik.txt
+
+   Jeżeli nazwa pliku zawiera nawiasy kwadratowe (np. "[1].txt"), wtedy aby poprawnie
+otworzyć plik w edytorze należy zastosować przynajmniej jeden znak odstępu (np. spację)
+przed nazwą pliku lub ująć nazwę pliku w cudzysłów:
+
+   edit: [1].txt
+   edit:"[1].txt"
+
+   Zobacz także: ~view~@View@ | ~Przekierowanie wyjścia~@Direction@ | ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@Goto
+$ #Polecenie Goto (przejdź)#
+   Poleceniem #goto# można przejść do pliku lub folderu. Ścieżkę można
+   przekazać na dwa sposoby:
+
+   1. Bezpośrednio jako parametr polecenia
+
+      #goto:ścieżka#
+
+   2. Ścieżka pobierana z pliku "#nazwa_pliku#"
+
+      #goto: <nazwa_pliku#
+
+   Jeżeli parametr "#ścieżka#" wskazuje folder i jest zakończony znakiem
+backslash('#\#'), to wtyczka przejdzie do podanego folderu. Jeżeli ścieżka
+do folderu nie jest zakończona znakiem backslash, to kursor w panelu
+zostanie umieszczony na podanych folderze.
+
+   Jeżeli plik "#nazwa_pliku#" jest skrótem do pliku w systemie Windows,
+to wtyczka przejdzie do obiektu, na który wskazuje plik #lnk#.
+
+   Gdy panele są wyłączone, kursor nie jest ustawiony na żądanym obiekcie,
+tylko następuje przełączenie do żądanego folderu.
+
+   Wtyczka wykonuje przełączenie zgodnie ze specyfikacją, nie próbuje
+zlokalizować położenia pliku.
+
+   Zobacz także: ~whereis~@WhereIs@ | ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@Link
+$ #Polecenie Link (odnośnik)#
+   Polecenie #link# tworzy ~linki~@:HardSymLink@ do plików i folderów.
+Pozwala także montować lokalne dyski w systemie plików.
+
+   #link:#[#/msg#] [#/n#] [#/s#] #źródło cel#
+
+   Zależnie od typu źródła można rozróżnić tylko linków:
+
+     #plik#   : tworzony jest #twardy link#;
+     #folder# : tworzone jest #przyłączenie#
+     #dysk#  : ^<wrap>montowany jest dysk (tworzony jest #punkt montowania wolumenu#)
+"dysk" należy podać wg schematu "#litera_dysku:\#", np. "#C:\#"
+
+   Przełącznik #/msg# włącza wyświetlanie komunikatów błędu
+
+   Przełącznik #/n# wyłącza automatyczną aktualizację paneli po utworzeniu linku
+
+   Przełącznik #/s# pozwala wykonać link symboliczny (#symlinks#).
+   Istnieje możliwość utworzenia linku symbolicznego do pliku (zamiast twardego)
+lub do folderu (zamiast przyłączenia folderu).
+   Przełącznik ma zastosowanie w Windows Vista lub nowszym.
+Ignorowany podczas montowania dysków.
+
+   Montowanie dysków (lub punkty montowania wolumenów) to funkcja Windows 2000/XP,
+która umożliwia wyświetlanie określonych dysków jako folderów. Na przykład:
+
+   #link: E:\ C:\cdrom#
+
+    Po wykonaniu tego polecenia folder C:\cdrom wyświetli zawartość dysku E:
+
+   Zobacz także: ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@WhereIs
+$ #Polecenie WhereIs (znajdź)#
+   Polecenie #whereis# lokalizuje podany obiekt i przechodzi do niego, jeżeli
+wyszukiwanie zakończyło się sukcesem.
+
+   #whereis:obiekt#
+
+   Drugi sposób - nazwa obiektu wyszukiwania pobierana jest z podanego pliku #nazwa_pliku#
+
+      #whereis: <nazwa_pliku#
+
+   Wyszukiwanie prowadzone jest w następującej kolejności:
+
+   1. Bieżący folder
+   2. Folder wskazywany przez zmienną środowiskową %FARHOME%
+   3. Foldery w systemowej zmiennej środowiskowej #PATH#
+   4. Windows 95: folder systemowy Windows (SYSTEM)
+      Windows NT: 32-bitowy folder systemowy Windows (SYSTEM32)
+   5. Windows NT: 16-bity folder systemowy Windows (SYSTEM)
+   6. Folder Windows.
+   7. Zawartość klucza rejestru:
+      #HKCU\Software\Microsoft\Windows\CurrentVersion\App Paths#
+   8. Zawartość klucza rejestru::
+      #HKLM\Software\Microsoft\Windows\CurrentVersion\App Paths#
+
+   Wtyczka próbuje najpierw znaleźć obiekt pliku zgodnie z podanymi parametrami,
+a następnie szuka obiektu z rozszerzeniami ze zmiennej środowiskowej #PATHEXT#.
+
+   Gdy panele są wyłączone, kursor nie jest umieszczany na żądanym obiekcie,
+następuje tylko przełączenie do żądanego folderu.
+
+   Zobacz także: ~goto~@Goto@ | ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@Direction
+$ #Przekierowanie wyjścia#
+   Wtyczka może przekierować wyjście określonego #"<polecenie"# lub #"<<polecenie"#.
+
+    #polecenie# - #[#strumień#][#tryb#][#|ścieżka|#]#polecenie#.
+
+    #strumień# - określa, który strumień ma zostać przekierowany.
+             #1# - przekierowuje tylko standardowy strumień wyjściowy #stdout#.
+             #2# - przekierowuje tylko standardowy strumień błędów #stderr#.
+             #*# - przekierowuje #stderr# i #stdout# jako jeden strumień.
+             #?# - przekierowuje #stderr# i #stdout# jako osobne strumienie.
+                 ^<wrap>W przypadku poleceń ~view (podgląd)~@View@ and ~edit (edycja)~@Edit@
+strumienie zostaną otwarte w osobnych oknach. Dla innych poleceń takie samo zachowanie
+jak dla opcji #*#.
+
+             ^<wrap>Domyślną wartość tego parametru można ustawić w ~konfiguracji~@Config@.
+
+    #tryb#   - ^<wrap>kontroluje bezpośrednie wyjście konsoli
+(nie poprzez standardowe strumienie)
+             #># - ^<wrap>ignoruje wyjście konsolowe programu i wyświetla
+tylko informacje o jego wykonaniu.
+             #<# - ^<wrap>zapisuje wyjście konsoli i udostępnia je do przeglądania
+za pomocą klawiszy #Ctrl-O#.
+             #+# - ^<wrap>tak samo jak #<#, ale wyświetla na ekranie
+przekierowane wyjście programu wraz z wyjściem konsoli.
+
+             ^<wrap>Domyślną wartość tego parametru można ustawić w ~konfiguracji~@Config@.
+             ^<wrap>Parametr #tryb# może być podany tylko po parametrze #strumień#.
+
+    #|ścieżka|# - ^<wrap>polecenie może zostać wykonane w innym folderze niż bieżący.
+W tym celu należy podać ścieżkę (ujętą w pionowe kreski - ang. pipes - '#|#').
+             Na przykład: #edit:<|%TEMP%|dir#
+
+   Dane wyjściowe można otworzyć w przeglądarce: #~view~@View@:<polecenie#
+     lub w edytorze:                       #~edit~@Edit@:<polecenie#
+     lub umieszczone w schowku:            #~clip~@Clip@:<polecenie#
+     lub zapisane do pliku użytkownika:    #~run~@Run@:nazwa_pliku<polecenie#
+
+  #Uwagi:#
+
+   1. ^<wrap>Cały łańcuch po symbolu '#<#' oraz opcjonalne modyfikatory
+jest wysyłany do procesora poleceń (%COMSPEC%).
+
+   2. ^<wrap>Wyjście programu jest umieszczane w pliku tymczasowym, który jest automatycznie
+usuwany, gdy Far Manager nie będzie go potrzebować.
+
+   3. ^<wrap>Niektóre programy nie używają standardowych strumieni, ale wysyłają
+informacje bezpośrednio do konsoli. Aby zachować wyjście konsoli i udostępnić je
+do przeglądania za pomocą #Ctrl-O# należy użyć modyfikatorów '#<#' i '#+#'.
+Aby je zignorować, należy użyć'#>#'.
+      ^<wrap>Można zmienić domyślne zachowanie w ~konfiguracji~@Config@.
+
+   4. ^<wrap>Jeżeli parametr #strumień# jest równy #1# lub #2#, to początek
+polecenia musi być oddzielony dowolnym symbolem.
+
+   5. ^<wrap>Jeżeli #polecenie# zostanie podane bez ścieżki, wtyczka spróbuje
+znaleźć plik wykonywalny, podobnie jak polecenie ~whereis~@WhereIs@.
+
+  #Przykłady:#
+
+   Wykonaj polecenie "#polecenie#" i przekieruj wyniki do edytora:
+     #edit:<polecenie#
+
+   Możliwe przypadki z użyciem parametru #strumień#=#1#:
+     #edit:<1 polecenie#
+     #edit:<1"polecenie"#
+     #edit:<1+polecenie#
+     #edit:<1|%TEMP%|polecenie#
+
+   Zobacz także: ~Uwagi~@Remark@ | ~Zawartość~@Contents@
+
+
+@Remark
+$ #Uwagi#
+   1. ^<wrap>Parametry #nazwa_pliku#, #ścieżka# i #polecenie# można podawać w cudzysłowach.
+
+   2. Można używać zmiennych systemowych.
+
+   3. W przypadku błędu składni, zostanie wyświetlone okienko pomocy.
+
+   4. ^<wrap>Można użyć aliasów konsolowych podobnie jak #poleceń# (aliasy - makropolecenia
+zdefiniowane przez polecenie DOSKEY).
+
+   Zobacz także: ~Zawartość~@Contents@
+
+
+@Config
+$ #Konfiguracja poleceń FAR#
+ #Zewnętrzne polecenia wyjścia#  ~Wyjście~@Direction@ ekranu uruchomionego programu:
+ #ekranu#
+
+   #Ukryj zewnętrzne wyjście#    Ukrywa dane wyjściowe programu. Wyświetlany
+   #polecenia#                   jest tylko komunikat o rozmiarze przechwyconego
+                               wyjścia. Podobnie jak przy użyciu #<># zamiast #<#.
+
+   #Pokaż zewnętrzne wyjście#    Zapisuje tekst wyprowadzony przez programy
+   #polecenia#                   bezpośrednio do konsoli w celu wyświetlenia
+                               za pomocą #Ctrl-O#.
+                               Podobnie jak przy użyciu #<<# zamiast #<#.
+
+   #Duplikuj przechwycone#       Zapisuje do wyświetlenia przez #Ctrl-O# oba wyjścia
+   #wyjście na ekran#            zarówno konsoli jak i przechwycone wyjście.
+                               Podobnie jak przy użyciu #<+# zamiast #<#.
+
+ #Przechwytywanie wyników#       Kontrola przechwytywania danych ~wyjściowych~@Direction@
+                               programu:
+
+   #Przechwytuj oba strumienie#  Przechwytuje standardowy strumień #stdout#
+   #stdout i stderr#             oraz strumień błędów #stderr# do jednego strumienia.
+                               Podobnie jak przy użyciu #<*# zamiast #<#.
+
+   #Przechwytuj tylko stdout#    ^<wrap>Przechwytuje tylko #stdout# (standardowy strumień wyjścia).
+                               Podobnie jak przy użyciu #<1# zamiast #<#.
+
+   #Przechwytuj tylko stderr#    ^<wrap>Przechwytuje tylko #stderr# (standardowy strumień błędów).
+                               Podobnie jak przy użyciu #<2# zamiast #<#.
+
+   #Przechwytuj stdout#          Przechwytuje osobno strumienie #stdout# i #stderr#.
+   #i stderr oddzielnie#         Ma to sens tylko w poleceniach #view:<# i #edit:<#.
+                               W innych przypadkach podobnie jak #<*#.
+                               Nie można używać z #<+#.
+                               Podobnie jak przy użyciu #<?# zamiast #<#.
+
+   #Podgląd/edycja pustych#      Po wyłączeniu tej opcji, pliki o zerowym rozmiarze
+   #plików#                      nie będą otwierane do przeglądania ani edycji.
+
+ #Pozostałe#
+
+   #Edytuj nowe pliki#           Pozwala otworzyć edytor z nie istniejącymi plikami.
+
+   #Wielkość odczytu danych#     ^<wrap>Umożliwia ustawienie maksymalnego rozmiaru
+                               danych odczytywanych z pliku w poleceniach ~clip~@clip@,
+                               ~goto~@goto@ i ~whereis~@whereis@.
+                               Domyślnie jest to - 1048576 (1 MB).
+                               Maksymalna wielkość - 4294967295 (4 GB-1).
+                               Wartość pusta lub 0 jest zastępowana przez 1048576 (1 MB).
+
+   Zobacz także: ~Zawartość~@Contents@

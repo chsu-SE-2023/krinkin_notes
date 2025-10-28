@@ -1,5 +1,6 @@
-.Language=English,English
+ï»¿.Language=English,English
 .PluginContents=Temporary panel
+
 
 @Contents
 $ #Temporary panel#
@@ -11,6 +12,7 @@ and processing them as a single group.
    ~Temporary panel configuration~@Config@
    ~Working with file lists~@List@
    ~Command line syntax~@CMD@
+
 
 @TempPanel
 $ #Working with temporary panel#
@@ -39,6 +41,12 @@ panel without deleting actual files, you can press #F7#.
    Press #Ctrl-PgUp# to close the temporary panel and go to the file
 under the cursor.
 
+   #Alt-Shift-F3# on an element:
+
+   - if folder - shows its contents in the passive panel.
+   - if file - positions the cursor on this file in the
+     passive panel.
+
    If the option #"Use common panel"# in the plugin ~configuration~@Config@
 dialog is enabled, the plugin creates 10 temporary panel instances, and
 each of them contains a separate file list. To switch between panels,
@@ -48,8 +56,8 @@ you can use a menu (#Alt-Shift-F12#) or hotkeys for immediate switching
    To save the current contents of the panel to a list file, you
 can use the hotkey #Alt-Shift-F2#.
 
-
  ~Contents~@Contents@
+
 
 @Config
 $ #Temporary panel: configuration#
@@ -57,11 +65,6 @@ $ #Temporary panel: configuration#
 
  #Add to disks menu#
    Enables adding the "Temporary" item to the disks menu.
-
- #Disks menu hotkey#
-   Hotkey for the temporary panel item in the disks menu.
-You can enter a value from 1 to 9 or leave this field empty if
-you prefer the hotkey to be assigned automatically.
 
  #Add to plugins menu#
    Enables adding the "Temporary" item to the plugins menu.
@@ -111,8 +114,8 @@ its text will be copied to the FAR command line.
 files are also copied to the panel. If set to the undefined state
 (#[?]#), a prompt is shown when folders are copied to the panel.
 
- #Replace files with file list# : ~+replace~+@CMD@
-   If this option is checked, then, when doing a file list operation,
+ #Replace files with file list# : ~+replace~@CMD@
+   If this option is checked, then, when doing a ~file list~@List@ operation,
 the names in the file list will replace the file names already in the
 panel. Otherwise the filenames will be added to the existing ones.
 
@@ -130,7 +133,7 @@ delimiter will be executed when the item is selected.
    #|-|# is a separator and will be shown as a horizontal line in
 the menu.
 
-   Example of a list file: #Drive.temp#
+   Example of a list file: #shortcuts.temp#
    #|&A: removable|A:#
    #|&C: fixed|C:#
    #|&D: fixed|D:#
@@ -165,8 +168,8 @@ panel.
    Specifies the prefix for opening the temporary panel from the command
 line and for ~file list operations~@List@.
 
-
  ~Contents~@Contents@
+
 
 @List
 $ #Temporary panel: list files#
@@ -178,7 +181,7 @@ $ #Temporary panel: list files#
      - or the name of a network resource (\\Server\Music)
 
    If the option #"Any elements in panel#" in the
-~configuration dialog@Config@ is not enabled, lines not matching any
+~configuration dialog~@Config@ is not enabled, lines not matching any
 of the conditions mentioned above are not added to the panel. If the
 option is enabled, the list file can contain arbitrary lines - all of
 them will be shown in the panel.
@@ -212,22 +215,20 @@ in the configuration dialog, and it must be in the OEM codepage.
 attempt to locate it in the following directories and in the following
 sequence:
       1. The current directory
-      2. The Windows system directory ("System" for Windows 9x, "System32"
-         for Windows NT)
-      3. The 16-bit system directory for Windows NT.
-      4. The Windows directory
-      5. The directories that are listed in the PATH environment variable.
+      2. In the plugin directory.
+      3. In #%FARHOME%#.
+      4. The directories that are listed in the #%PATH%# environment variable.
 
    The command line prefix used for file list operations (in the examples
 given above - #tmp:#) can be set in the configuration dialog.
 
-
  ~Contents~@Contents@
 
+
 @CMD
-$^#Temporary panel: Command line#
+$ #Temporary panel: Command line#
  Command line syntax:
-   #<prefix>:[<options>] [<filelist>]# , £¤¥:
+   #<prefix>:[<options>] [<filelist>]# , where:
 
    #<prefix>#   - plugin prefix, configurable in the
                 ~configuration dialog~@Config@  (the default is #tmp#)
@@ -247,5 +248,7 @@ $^#Temporary panel: Command line#
    #<filelist>#  - the ~list file~@List@ from which the temporary
 panel will read its list of elements
 
+   See ~Temporary panel: configuration~@Config@ for a more in depth
+explanation of command line switches.
 
  ~Contents~@Contents@

@@ -1,4 +1,4 @@
-.Language=English,English
+﻿.Language=English,English
 
 "EMenu"
 "Show &message after execution"
@@ -11,9 +11,9 @@
 "Show &helptext"
 "Show c&ommands"
 "H&ide if the same"
-"GUI menu position"
+"Menu position"
 "&At the mouse cursor"
-"In the centre of FAR &window"
+"In the center of FAR &window"
 "Save"
 "Cancel"
 "&Context menu"
@@ -23,7 +23,6 @@
 "file(s)"
 "folder(s)"
 "-- owner drawn --"
-"-- bitmap --"
 "Can't show the menu because files come from different folders."
 "Can't show the menu."
 "Can't invoke menu command."

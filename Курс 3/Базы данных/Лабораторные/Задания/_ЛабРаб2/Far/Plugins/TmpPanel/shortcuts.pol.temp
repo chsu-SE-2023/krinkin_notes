@@ -1,0 +1,9 @@
+﻿|&P: Pulpit|%HOMEDRIVE%%HOMEPATH%\Desktop
+|&D: Moje dokumenty|%HOMEDRIVE%%HOMEPATH%\My Documents
+|&U: Ulubione|%USERPROFILE%\Favorites
+|&F: Program Files|%ProgramFiles%
+|-|
+|&S: Moje miejsca sieciowe|%HOMEDRIVE%%HOMEPATH%\NetHood
+|&N: Dokumenty udostępnione|%ALLUSERSPROFILE%\Documents
+|-|
+|&T: %USERNAME%\Temp|%TEMP%

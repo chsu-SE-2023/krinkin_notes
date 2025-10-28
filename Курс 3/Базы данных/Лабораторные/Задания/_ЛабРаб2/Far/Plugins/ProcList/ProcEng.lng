@@ -1,4 +1,4 @@
-.Language=English,English
+﻿.Language=English,English
 
 "Ok"
 "Cancel"
@@ -24,9 +24,6 @@
 "Threads"
 "Started at"
 "Uptime"
-"CPU time"
-"In kernel mode"
-"In user mode"
 
 "Size of all modules"
 "Memory heap size"
@@ -36,21 +33,24 @@
 "Extended style"
 
 "Kill process"
-"Do you wish to kill \"%.40s\""
-"Kill selected processes"
-"Do you wish to kill %d processes"
+"Do you wish to kill \"{0}\"?"
+"Kill selected processes?"
+"Do you wish to kill {0} processes?"
 "Kill"
-"Cannot kill \"%.40s\""
+"Cannot kill \"{0}\""
 
 "Cannot kill the process"
 "Retry with debug privileges?"
-"It may be dangerous!"
+"It may be dangerous."
 "&Yes"
 "&No"
 
 "Select Computer"
 "&Computer:"
 "(empty for local system)"
+"Username:"
+"Password:"
+"(empty for default user)"
 
 "Connecting..."
 
@@ -69,36 +69,34 @@
 "USER Objects"
 
 "Command Line"
-"Environment:"
+"Current Directory"
+"Environment"
 
 "File version"
 "Description"
 
-"Modules:"
-"  Base      Size    "
+"Modules"
+"Base"
+"Size"
 "Path, version, description"
 "Path (version info is not displayed)"
-"Handles:"
-"Handle  Access   Type         Name"
+"Handles"
+"Handle"
+"Access"
+"Type"
+"Name"
 
 "Process list - config"
 "&Add to Disks menu"
-"Disks menu hot&key ('1'-'9'). Leave empty to autoassign"
 "Add to &Plugins menu"
 
 "Include in the additional information:"
-"&Environment (local NT only)"
+"&Environment (local only)"
 "&Module info"
-"Module &versions and descriptions (slow!)"
-"Pe&rformance data (NT only)"
-"&Handles (local NT only)"
+"Module &versions and descriptions"
+"Pe&rformance data"
+"&Handles (local only)"
 "Include unnamed handles"
-
-"Display in the Description column"
-"&Full pathname"
-"&Window title"
-"File's &Description"
-"&Command line (local NT only)"
 
 "Processor Time"
 "Privileged Time"
@@ -161,12 +159,22 @@
 "/sec"
 
 "Sort by"
-"&Name                 Ctrl-F3"
-"E&xtension            Ctrl-F4"
-"S&tart time           Ctrl-F5"
-"&Size                 Ctrl-F6"
-"&Unsorted             Ctrl-F7"
-"&Descriptions         Ctrl-F10"
-"&Owner                Ctrl-F11"
-"Use sort &groups      Shift-F11"
-"Show selected &first  Shift-F12"
+"&Name                 Ctrl+F3"
+"E&xtension            Ctrl+F4"
+"&Size                 Ctrl+F6"
+"&Unsorted             Ctrl+F7"
+"S&tart time           Ctrl+F8"
+"&Descriptions         Ctrl+F10"
+"&Owner                Ctrl+F11"
+"Use sort &groups      Shift+F11"
+"Show selected &first  Shift+F12"
+
+"Owner"
+"Session"
+
+"Access denied"
+"Insufficient privilege"
+"WMI Unknown failure"
+
+"View..."
+"View with Options..."

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<farconfig>
+    <generalconfig>
+        <!-- ExcludeCmds (TI#54) for cmd.exe -->
+        <setting key="System.Executor" name="ExcludeCmds" type="text" value="ASSOC;CALL;CD;CHCP;CHDIR;CLS;COLOR;COPY;DATE;DEL;DIR;DPATH;ECHO;ERASE;EXIT;FOR;FTYPE;IF;KEYS;MD;MKDIR;MKLINK;MOVE;PATH;PAUSE;POPD;PROMPT;PUSHD;RD;REM;REN;RENAME;RMDIR;SET;START;TIME;TITLE;TYPE;VER;VERIFY;VOL" />
+    </generalconfig>
+</farconfig>
