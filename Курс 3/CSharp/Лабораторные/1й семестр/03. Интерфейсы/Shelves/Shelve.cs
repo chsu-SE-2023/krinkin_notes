@@ -181,17 +181,14 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// <summary>
     /// Метод, добавляющий в QR данные о витрине
     /// </summary>
-    private void UpdateQRs(int? index = null)
+    private void UpdateQRs(int index = 0)
     {
-        if (index == null)
+        for (var i = index; i < goods.Length; i++)
         {
-            for (var i = 0; i < goods.Length; i++)
-                if (goods[i] != null)
-                    goods[i]!.QRData.Text = $"{goods[i]!.ID} {this.ID} {i}";
+            if (goods[i] != null)
+                goods[i]!.QRData.Text = $"{goods[i]!.ID} {this.ID} {i}";
+            if (index != 0) break;
         }
-        else
-            if (goods[(int)index] != null)
-            goods[index.Value]!.QRData.Text = $"{goods[index.Value]!.ID} {this.ID} {index}";
     }
 
     public T?[] GetList()
