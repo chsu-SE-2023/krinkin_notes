@@ -3,12 +3,15 @@ using System.Text;
 
 namespace QRLib;
 
-public class QRCode : IQRCode
+/// <summary>
+/// Коструктор класса принимающий кодируемый текст.
+/// </summary>
+public class QRCode(string text) : IQRCode
 {
 	/// <summary>
 	/// Свойство с текстом
 	/// </summary>
-	public string Text { private get; set; }
+	public string Text { private get; set; } = text;
 
 	/// <summary>
 	/// Свойство с версией QR. Если значение не установлено, то устанавливается оптимальное
@@ -64,14 +67,6 @@ public class QRCode : IQRCode
 				CorrectionLevel = Ecc
 			};
 		}
-	}
-
-	/// <summary>
-	/// Коструктор класса принимающий кодируемый текст.
-	/// </summary>
-	public QRCode(string text)
-	{
-		Text = text;
 	}
 
 	/// <summary>

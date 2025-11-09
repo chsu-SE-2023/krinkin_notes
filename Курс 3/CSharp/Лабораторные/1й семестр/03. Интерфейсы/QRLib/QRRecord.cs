@@ -90,7 +90,7 @@ public record QRRecord : IQRCode
             sb.Append($"Text: * {Text} *\n");
             sb.Append($"Version: {Version}\n");
             sb.Append($"Correction level: {Ecc}\n");
-            sb.Append($"Data lenght: {Text.Length}");
+            sb.Append($"Data lenght: {Text.Length}\n");
         }
         return sb.ToString();
     }

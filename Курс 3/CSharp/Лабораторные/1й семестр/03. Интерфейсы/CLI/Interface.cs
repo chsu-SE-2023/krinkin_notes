@@ -19,8 +19,8 @@ public class Interface
     }
 
     private const int SHELVE_SIZE = 13;
-    private Shelve<Router> shelve = SHELVE_SIZE;
-    private int cmd_index = 1;
+    private readonly Shelve<Router> shelve = SHELVE_SIZE;
+    private readonly int cmd_index = 1;
 
 
     public Interface()
@@ -59,7 +59,7 @@ public class Interface
         (currentMenu, prevMenu) = (prevMenu, currentMenu);
     }
 
-    private void Pause()
+    private static void Pause()
     {
         Console.WriteLine("Нажмите Enter для продолжения...");
         Console.ReadLine();
@@ -103,7 +103,7 @@ public class Interface
     private void DialogueShow()
     {
         Console.WriteLine(shelve);
-        Pause();
+		Pause();
     }
 
     private void DialogueRemove()
@@ -129,8 +129,11 @@ public class Interface
         Console.WriteLine("Количество портов LAN: "); var lanCount = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Максимальная версия WiFi: "); var maxWifiVersion = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Пропускная способность: "); var bandwidth = Convert.ToInt32(Console.ReadLine());
-        var rt = new Router(id, name, lanCount, maxWifiVersion, bandwidth);
-        shelve.Add(rt);
+        if (name != null)
+        {
+			var rt = new Router(id, name, lanCount, maxWifiVersion, bandwidth);
+			shelve.Add(rt);
+		}
     }
 }
 

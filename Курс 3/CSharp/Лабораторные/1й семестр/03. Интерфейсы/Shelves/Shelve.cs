@@ -51,9 +51,9 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
         get
         {
             if (index > goods.Length || index < 0)
-                return default;
+                return null;
             var value = goods[index];
-            goods[index] = default;
+            goods[index] = null;
             return value;
         }
         set
@@ -99,7 +99,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// </summary>
     public void Remove(int index)
     {
-        goods[index] = default;
+        goods[index] = null;
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// </summary>
     public T? Replace(T product, int index)
     {
-        T? old = default;
+        T? old = null;
         if (goods[index] != null)
             old = goods[index];
         this[index] = product;
@@ -133,7 +133,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     }
 
     /// <summary>
-    /// Пестановка товара
+    /// Перестановка товара
     /// </summary>
     public void Swap(int index, int new_index)
     {
@@ -168,12 +168,14 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     public override string ToString()
     {
         StringBuilder sb = new();
-        foreach (var product in goods)
+		for (var i = 0; i < goods.Length; i++)
         {
-            sb.Append("".PadLeft(20, '='));
+			sb.Append('\n');
+			sb.Append($"{i}".PadLeft(10, '='));
+			sb.Append("".PadRight(10, '='));
             sb.Append('\n');
-            sb.Append(product?.ToString());
-            if (product == null) sb.Append("Пустая ячейка\n");
+            sb.Append(goods[i]?.ToString());
+            if (goods[i] == null) sb.Append("Пустая ячейка\n");
         }
         return sb.ToString();
     }
@@ -183,12 +185,12 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// </summary>
     private void UpdateQRs(int index = 0)
     {
-        for (var i = index; i < goods.Length; i++)
+		for (var i = index; i < goods.Length; i++)
         {
-            if (goods[i] != null)
-                goods[i]!.QRData.Text = $"{goods[i]!.ID} {this.ID} {i}";
+			if (goods[i] != null)
+				goods[i]!.QRData.Text = $"{goods[i]!.ID} {this.ID} {i}";
             if (index != 0) break;
-        }
+		}
     }
 
     public T?[] GetList()

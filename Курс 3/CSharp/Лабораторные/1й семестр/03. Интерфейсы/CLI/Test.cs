@@ -2,7 +2,6 @@
 using Goods;
 using QRLib;
 
-Console.WriteLine("".PadLeft(120, '='));
 var samples = new List<IProduct>
 {
     new Switch(3000, "D-Link DGS-1024D/J1A", 24, 1000),
@@ -17,7 +16,7 @@ var r_samples = new List<Router>
 
 IQRCode.Type = QrCodeType.Full;
 
-Shelve<IProduct> shelve = 13; shelve.ID = 1;
+IShelve<IProduct> shelve = (Shelve<IProduct>) 13; shelve.ID = 1;
 Shelve<Router> r_shelve = (11, 2);
 
 foreach (var product in samples)
@@ -43,5 +42,11 @@ sample2.ID++;
 
 Console.WriteLine(shelve);
 
-r_shelve[0] = (Router) shelve[5];
+r_shelve[0] = (Router?) shelve[5];
 Console.WriteLine(r_shelve);
+
+// TODO: Явная реализация интерфейса
+// (ID должен меняться)
+Console.WriteLine(sample1);
+sample1.ID++;
+Console.WriteLine(sample1);

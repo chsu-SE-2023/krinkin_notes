@@ -13,7 +13,7 @@ namespace Goods;
 public sealed class Router(int id, string name, int lanCount, int bandwidth, int maxWifiVersion) : Switch(id, name, lanCount, bandwidth)
 {
     public int MaxWiFiVersion { get; init; } = maxWifiVersion;
-    public IQRCode QRCode { get; init; } = new QRRecord("");
+    public new IQRCode QRData { get; init; } = new QRRecord(id.ToString());
 
     /// <summary>
     /// Переопределение типа и информации о свойствах
@@ -30,4 +30,13 @@ public sealed class Router(int id, string name, int lanCount, int bandwidth, int
             return sb.ToString();
         }
     }
+
+	public override string ToString()
+	{
+		StringBuilder sb = new();
+		sb.Append($"{Type}: {Name}\n");
+		sb.Append(Info);
+		sb.Append(QRData?.ToString());
+		return sb.ToString();
+	}
 }
