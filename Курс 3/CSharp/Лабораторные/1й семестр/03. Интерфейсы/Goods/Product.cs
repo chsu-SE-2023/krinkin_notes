@@ -11,7 +11,7 @@ abstract public class Product : IProduct
     /// <summary>
     /// Свойство, хранящее QR код
     /// </summary>
-    public IQRCode QRData { get; set; } = new QRCode("");
+    public IQRCode QRData { get; } = new QRCode("");
 
     public static QrCodeType QRType
     {

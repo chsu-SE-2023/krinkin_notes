@@ -10,8 +10,8 @@ var samples = new List<IProduct>
 };
 var r_samples = new List<Router>
 {
-    new Router(5555, "Keenetic Air KN-1613", 3, 5, 1167),
-    new Router(6666, "ASUS RT-BE50", 3, 7, 3570)
+    new Router(5555, "Keenetic Air KN-1613", 3, 1167, 5),
+    new Router(6666, "ASUS RT-BE50", 3, 3570, 7)
 };
 
 IQRCode.Type = QrCodeType.Full;
@@ -29,8 +29,8 @@ foreach (var product in r_samples)
 }
 shelve.OrderByName();
 
-var sample1 = new Router(7777, "Xiaomi Router AX3200 RB01", 3, 6, 3202);
-var sample2 = new Router(4000, "Keenetic Speedster KN-3013", 3, 5, 1167);
+var sample1 = new Router(7777, "Xiaomi Router AX3200 RB01", 3, 3202, 6);
+var sample2 = new Router(4000, "Keenetic Speedster KN-3013", 3, 1167, 5);
 
 r_shelve[0] = sample1;
 shelve[5] = r_shelve[0];
@@ -48,5 +48,5 @@ Console.WriteLine(r_shelve);
 // TODO: Явная реализация интерфейса
 // (ID должен меняться)
 Console.WriteLine(sample1);
-sample1.ID++;
+// sample1.ID++;
 Console.WriteLine(sample1);

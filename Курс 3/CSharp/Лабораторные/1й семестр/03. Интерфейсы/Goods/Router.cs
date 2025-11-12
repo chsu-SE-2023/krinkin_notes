@@ -10,10 +10,22 @@ namespace Goods;
 /// <remarks>
 /// Конструктор класса
 /// </remarks>
-public sealed class Router(int id, string name, int lanCount, int bandwidth, int maxWifiVersion) : Switch(id, name, lanCount, bandwidth)
+public sealed class Router(int id, string name, int lanCount, int bandwidth, int maxWifiVersion) : Switch(id, name, lanCount, bandwidth), IProduct
 {
-    public int MaxWiFiVersion { get; init; } = maxWifiVersion;
-    public new IQRCode QRData { get; init; } = new QRRecord(id.ToString());
+    public int MaxWiFiVersion { get; } = maxWifiVersion;
+    public new IQRCode QRData { get; set; } = new QRRecord(id.ToString());
+    IQRCode IProduct.QRData { get; } = new QRRecord(id.ToString());
+
+    private int _id;
+    public new int ID
+    {
+        get => _id;
+        set
+        {
+            QRData = new QRRecord(value.ToString());
+            _id = value;
+        }
+    }
 
     /// <summary>
     /// Переопределение типа и информации о свойствах
@@ -31,7 +43,7 @@ public sealed class Router(int id, string name, int lanCount, int bandwidth, int
         }
     }
 
-	public override string ToString()
+    public override string ToString()
 	{
 		StringBuilder sb = new();
 		sb.Append($"{Type}: {Name}\n");
