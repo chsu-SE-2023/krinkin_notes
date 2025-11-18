@@ -1,0 +1,4 @@
+﻿
+using CLI;
+
+new Interface();

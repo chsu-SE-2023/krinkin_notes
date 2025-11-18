@@ -1,4 +1,4 @@
-**SQL (Structured Query Language)** - непроцедурный язык, состоящий из трёх групп операторов: _SQL = DDL (Data Definition Language) + DML (Data Manipulation Language) + DQL (Data Query Language) + ..._. Используется для управления базами данных.
+s**SQL (Structured Query Language)** - непроцедурный язык, состоящий из трёх групп операторов: _SQL = DDL (Data Definition Language) + DML (Data Manipulation Language) + DQL (Data Query Language) + ..._. Используется для управления базами данных.
 
 ![[Drawing 2025-10-29 10.43.35.excalidraw]]
 
@@ -64,7 +64,7 @@ SQL появился в середине 1970-х в рамках проекта 
 - `CREATE TABLE <имя_таблицы> (<имя_поля_1> <тип_данных> [NULL|NOT NULL], ..., <имя_поля_n> <тип_данных> [NULL|NOT NULL]);`
 
 **Изменение структуры таблицы**:
-- `ALTER TABLE <имя_таблицы> (ADD|MODIFY|DROP <имя_поля> [тип_данных] [NULL|NOT NULL], ...);`
+- `ALTER TABLE <имя_таблицы> ADD|MODIFY|DROP <имя_поля> [тип_данных] [NULL|NOT NULL], ...;`
 
 **Удаление таблицы**:
 - `DROP TABLE <имя_таблицы>`
