@@ -19,7 +19,7 @@ public class Interface
     }
 
     private const int SHELVE_SIZE = 13;
-    private readonly Shelve<Router> shelve = SHELVE_SIZE;
+    private readonly Shelve<Product> shelve = SHELVE_SIZE;
     private readonly int cmd_index = 1;
 
 
@@ -72,8 +72,8 @@ public class Interface
             { 1, ( "Вывести информацию", DialogueShow ) },
             { 2, ( "Добавить товар на витрину", DialogueAddProduct ) },
             { 3, ( "Убрать товар с витрины", DialogueRemove ) },
-            { 4, ( "Поменять товары местами", () => throw new NotImplementedException() ) },
-            { 5, ( "Заменить товар", () => throw new NotImplementedException() ) },
+            { 4, ( "Поменять товары местами (не реализовано)", () => throw new NotImplementedException() ) },
+            { 5, ( "Заменить товар (не реализовано)", () => throw new NotImplementedException() ) },
             { 6, ( "Найти товар", DialogueSearch ) },
             { 7, ( "Сортировать", DialogueSort ) },
             { 8, ( "Выход", () => Environment.Exit(0) ) },
@@ -84,8 +84,8 @@ public class Interface
     {
         CurrentMenu = new()
         {
-            { 1, ( "По идентификатору", () => throw new NotImplementedException() ) },
-            { 2, ( "По имени", () => throw new NotImplementedException() ) },
+            { 1, ( "По идентификатору (не реализовано)", () => throw new NotImplementedException() ) },
+            { 2, ( "По имени (не реализовано)", () => throw new NotImplementedException() ) },
             { 3, ( "Назад", Back ) },
         };
     }
@@ -123,6 +123,29 @@ public class Interface
     }
 
     private void DialogueAddProduct()
+    {
+        CurrentMenu = new()
+        {
+            { 1, ( "Switch", DialogueAddSwitch ) },
+            { 2, ( "Router", DialogueAddRouter ) },
+            { 3, ( "Назад", Back ) },
+        };
+    }
+
+    private void DialogueAddSwitch()
+    {
+        Console.WriteLine("ID продукта: "); var id = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Имя продукта: "); var name = Console.ReadLine();
+        Console.WriteLine("Количество портов LAN: "); var lanCount = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Пропускная способность: "); var bandwidth = Convert.ToInt32(Console.ReadLine());
+        if (name != null)
+        {
+            var sw = new Switch(id, name, lanCount, bandwidth);
+            shelve.Add(sw);
+        }
+    }
+
+    private void DialogueAddRouter()
     {
         Console.WriteLine("ID продукта: "); var id = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Имя продукта: "); var name = Console.ReadLine();

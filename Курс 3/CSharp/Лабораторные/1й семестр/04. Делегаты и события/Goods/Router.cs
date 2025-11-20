@@ -13,19 +13,8 @@ namespace Goods;
 public sealed class Router(int id, string name, int lanCount, int bandwidth, int maxWifiVersion) : Switch(id, name, lanCount, bandwidth), IProduct
 {
     public int MaxWiFiVersion { get; } = maxWifiVersion;
-    public new IQRCode QRData { get; set; } = new QRRecord(id.ToString());
-    IQRCode IProduct.QRData { get; } = new QRRecord(id.ToString());
-
-    private int _id;
-    public new int ID
-    {
-        get => _id;
-        set
-        {
-            QRData = new QRRecord(value.ToString());
-            _id = value;
-        }
-    }
+    public override IQRCode QRData { get; } = new QRRecord(id.ToString());
+    IQRCode IProduct.QRData { get; } = new QRRecord(id.ToString()); // Явная реализация интерфейса
 
     /// <summary>
     /// Переопределение типа и информации о свойствах

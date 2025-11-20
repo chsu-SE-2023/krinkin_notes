@@ -1,6 +1,7 @@
 ﻿using Shelves;
 using Goods;
 using QRLib;
+using CLI;
 
 var samples = new List<IProduct>
 {
@@ -45,8 +46,6 @@ Console.WriteLine(shelve);
 r_shelve[0] = (Router?) shelve[5];
 Console.WriteLine(r_shelve);
 
-// TODO: Явная реализация интерфейса
-// (ID должен меняться)
 Console.WriteLine(sample1);
-// sample1.ID++;
+sample1.ID++;
 Console.WriteLine(sample1);

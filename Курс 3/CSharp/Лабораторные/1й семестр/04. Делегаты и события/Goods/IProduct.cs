@@ -9,5 +9,6 @@ namespace Goods
         string Info { get; }
         string Name { get; set; }
         string Type { get; }
+        event EventHandler<IDChangeEvent> IDChangeHandler;
     }
 }

@@ -11,13 +11,19 @@ abstract public class Product : IProduct
     /// <summary>
     /// Свойство, хранящее QR код
     /// </summary>
-    public IQRCode QRData { get; } = new QRCode("");
+    public virtual IQRCode QRData { get; } = new QRCode("");
 
     public static QrCodeType QRType
     {
         get => IQRCode.Type;
         set => IQRCode.Type = value;
     }
+
+    /// <summary>
+    /// Событие изменения идентификатора
+    /// </summary>
+    public event EventHandler<IDChangeEvent> IDChangeHandler;
+    private readonly IDChangeEvent ChangeEvent;
 
     /// <summary>
     /// Свойство, хранящее идентификатор товара
@@ -30,6 +36,7 @@ abstract public class Product : IProduct
         {
             QRData.Text = value.ToString();
             _id = value;
+            IDChangeHandler?.Invoke(this, ChangeEvent);
         }
     }
 

@@ -16,6 +16,11 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     private int id;
 
     /// <summary>
+    /// Делегат изменения идентификатора
+    /// </summary>
+    private Action<Shelve<T>> UpdateID;
+
+    /// <summary>
     /// Свойство, хранящее идентификатор витрины
     /// </summary>
     public int ID
@@ -24,7 +29,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
         set
         {
             id = value;
-            UpdateQRs();
+            UpdateID?.Invoke(this);
         }
     }
 
@@ -50,18 +55,30 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     {
         get
         {
-            if (index > goods.Length || index < 0)
+            if (index > goods.Length || index < 0 || goods[index] == null)
                 return null;
+            
             var value = goods[index];
+            goods[index].IDChangeHandler -= OnProductIDChanged;
+            UpdateID -= goods[index].OnIDChanged;
             goods[index] = null;
             return value;
         }
         set
         {
-            if (index > goods.Length || index < 0)
+            if (index > goods.Length || index < 0 || value == null)
                 return;
             goods[index] = value;
-            UpdateQRs(index);
+            goods[index].IDChangeHandler += OnProductIDChanged;
+            UpdateID += goods[index].OnIDChanged;
+        }
+    }
+
+    private void OnProductIDChanged(object sender, System.EventArgs e)
+    {
+        if (sender is T product)
+        {
+            product.OnIDChanged(this);
         }
     }
 
@@ -114,13 +131,18 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
         return old;
     }
 
+    private T? Search(Predicate<T> condition)
+    {
+        return Array.Find(goods, condition);
+    }
+
     /// <summary>
     /// Метод, осуществляющий поиск товара
     /// по его идентификатору
     /// </summary>
     public T? Search(int id)
     {
-        return Array.Find(goods, x => x?.ID == id);
+        return Search(x => x?.ID == id);
     }
 
     /// <summary>
@@ -129,7 +151,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// </summary>
     public T? Search(string name)
     {
-        return Array.Find(goods, x => x?.Name == name);
+        return Search(x => x?.Name == name);
     }
 
     /// <summary>
@@ -142,14 +164,20 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
             (this[index], this[new_index]) = (this[new_index], this[index]);
     }
 
+    private void OrderBy(Func<T, string> sorter)
+    {
+        T?[] sorted = [.. goods.Where(x => x != null).OrderBy(sorter)];
+        T?[] nulls = [.. goods.Where(x => x == null)];
+        goods = sorted.Concat(nulls).ToArray();
+    }
+
     /// <summary>
     /// Метод, осуществляющий соритировку витрины
     /// по идентификатору товаров
     /// </summary>
     public void OrderByID()
     {
-        goods = [.. goods.OrderBy(x => x?.ID)];
-        UpdateQRs();
+        OrderBy(x => x?.ID.ToString());
     }
 
     /// <summary>
@@ -158,8 +186,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// </summary>
     public void OrderByName()
     {
-        goods = [.. goods.OrderBy(x => x?.Name)];
-        UpdateQRs();
+        OrderBy(x => x?.Name);
     }
 
     /// <summary>
@@ -178,19 +205,6 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
             if (goods[i] == null) sb.Append("Пустая ячейка\n");
         }
         return sb.ToString();
-    }
-
-    /// <summary>
-    /// Метод, добавляющий в QR данные о витрине
-    /// </summary>
-    private void UpdateQRs(int index = 0)
-    {
-		for (var i = index; i < goods.Length; i++)
-        {
-			if (goods[i] != null)
-				goods[i]!.QRData.Text = $"{goods[i]!.ID} {this.ID} {i}";
-            if (index != 0) break;
-		}
     }
 
     public T?[] GetList()
