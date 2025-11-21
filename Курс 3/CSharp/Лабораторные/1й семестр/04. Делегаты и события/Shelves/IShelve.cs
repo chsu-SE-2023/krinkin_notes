@@ -15,8 +15,8 @@ namespace Shelves
         void Remove(int index);
         void Remove(T product);
         T? Replace(T product, int index);
-        T? Search(int id);
-        T? Search(string name);
+        int Search(int id);
+        int Search(string name);
         void Swap(int index, int new_index);
     }
 }

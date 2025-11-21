@@ -61,7 +61,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
             var value = goods[index];
             goods[index].IDChangeHandler -= OnProductIDChanged;
             UpdateID -= goods[index].OnIDChanged;
-            goods[index] = null;
+            goods[index] = null; // TODO: Object is removing!
             return value;
         }
         set
@@ -71,10 +71,11 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
             goods[index] = value;
             goods[index].IDChangeHandler += OnProductIDChanged;
             UpdateID += goods[index].OnIDChanged;
+            goods[index].OnIDChanged(this);
         }
     }
 
-    private void OnProductIDChanged(object sender, System.EventArgs e)
+    private void OnProductIDChanged(object sender, EventArgs e)
     {
         if (sender is T product)
         {
@@ -131,16 +132,16 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
         return old;
     }
 
-    private T? Search(Predicate<T> condition)
+    private int Search(Predicate<T> condition)
     {
-        return Array.Find(goods, condition);
+        return Array.FindIndex(goods, condition);
     }
 
     /// <summary>
     /// Метод, осуществляющий поиск товара
     /// по его идентификатору
     /// </summary>
-    public T? Search(int id)
+    public int Search(int id)
     {
         return Search(x => x?.ID == id);
     }
@@ -149,7 +150,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// Метод, осуществляющий поиск товара
     /// по его имени
     /// </summary>
-    public T? Search(string name)
+    public int Search(string name)
     {
         return Search(x => x?.Name == name);
     }
@@ -168,7 +169,8 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     {
         T?[] sorted = [.. goods.Where(x => x != null).OrderBy(sorter)];
         T?[] nulls = [.. goods.Where(x => x == null)];
-        goods = sorted.Concat(nulls).ToArray();
+        goods = [.. sorted, .. nulls];
+        UpdateID?.Invoke(this);
     }
 
     /// <summary>

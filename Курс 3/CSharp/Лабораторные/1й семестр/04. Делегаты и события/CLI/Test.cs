@@ -49,3 +49,5 @@ Console.WriteLine(r_shelve);
 Console.WriteLine(sample1);
 sample1.ID++;
 Console.WriteLine(sample1);
+
+new Interface();
