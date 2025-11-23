@@ -18,7 +18,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// <summary>
     /// Делегат изменения идентификатора
     /// </summary>
-    private Action<Shelve<T>> UpdateID;
+    private Action<IShelve<T>> updatedID;
 
     /// <summary>
     /// Свойство, хранящее идентификатор витрины
@@ -29,7 +29,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
         set
         {
             id = value;
-            UpdateID?.Invoke(this);
+            updatedID?.Invoke(this);
         }
     }
 
@@ -60,22 +60,23 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
             
             var value = goods[index];
             goods[index].IDChangeHandler -= OnProductIDChanged;
-            UpdateID -= goods[index].OnIDChanged;
-            goods[index] = null; // TODO: Object is removing!
+            updatedID -= goods[index].OnIDChanged;
+            goods[index] = null;
             return value;
         }
         set
         {
             if (index > goods.Length || index < 0 || value == null)
                 return;
-            goods[index] = value;
+            _ = this[index];
+            
             goods[index].IDChangeHandler += OnProductIDChanged;
-            UpdateID += goods[index].OnIDChanged;
+            updatedID += goods[index].OnIDChanged;
             goods[index].OnIDChanged(this);
         }
     }
 
-    private void OnProductIDChanged(object sender, EventArgs e)
+    private void OnProductIDChanged(object sender, IDChangeEventArgs e)
     {
         if (sender is T product)
         {
@@ -134,7 +135,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
 
     private int Search(Predicate<T> condition)
     {
-        return Array.FindIndex(goods, condition);
+        return Array.FindIndex(goods, condition!);
     }
 
     /// <summary>
@@ -167,10 +168,10 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
 
     private void OrderBy(Func<T, string> sorter)
     {
-        T?[] sorted = [.. goods.Where(x => x != null).OrderBy(sorter)];
+        T?[] sorted = [.. goods.Where(x => x != null).OrderBy(sorter!)];
         T?[] nulls = [.. goods.Where(x => x == null)];
         goods = [.. sorted, .. nulls];
-        UpdateID?.Invoke(this);
+        updatedID?.Invoke(this);
     }
 
     /// <summary>
@@ -179,7 +180,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// </summary>
     public void OrderByID()
     {
-        OrderBy(x => x?.ID.ToString());
+        OrderBy(x => x?.ID.ToString()!);
     }
 
     /// <summary>
@@ -188,7 +189,7 @@ public class Shelve<T> : IShelve<T> where T : class, IProduct
     /// </summary>
     public void OrderByName()
     {
-        OrderBy(x => x?.Name);
+        OrderBy(x => x?.Name!);
     }
 
     /// <summary>

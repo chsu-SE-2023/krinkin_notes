@@ -77,9 +77,9 @@ public class Interface
             ( "Убрать товар с витрины", () => ObjectSelectDialogue(shelve.Remove, "Удалить") ),
             ( "Поменять товары местами", () => ObjectSelectDialogue(DialogueSwap, "Поменять", false) ),
             ( "Заменить товар", () => ObjectSelectDialogue(DialogueReplace, "Заменить", false) ),
-            ( "Найти товар", DialogueSearch ),
+            ( "Найти и взять товар", DialogueSearch ),
             ( "Сортировать", DialogueSort ),
-            ( "Изменить идентификатор", DialogueChangeID ),
+            ( "Изменить идентификатор витрины", DialogueChangeSvelveID ),
             ( "Выход", () => Environment.Exit(0) ),
         ];
     }
@@ -194,23 +194,6 @@ public class Interface
         Console.WriteLine("Максимальная версия WiFi: "); var maxWifiVersion = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine("Пропускная способность: "); var bandwidth = Convert.ToInt32(Console.ReadLine());
         return new Router(id, name, lanCount, maxWifiVersion, bandwidth);
-    }
-
-    private void DialogueChangeID()
-    {
-        CurrentMenu =
-        [
-            ( "Продукта", () => ObjectSelectDialogue(DialogueChangeProductID) ),
-            ( "Витрины", DialogueChangeSvelveID ),
-            ( "Назад", Back ),
-        ];
-    }
-
-    private void DialogueChangeProductID(int index)
-    {
-        Console.WriteLine("Новый ID продукта: "); 
-        var id = Convert.ToInt32(Console.ReadLine());
-        shelve[index]!.ID = id; // TODO: Borked
     }
 
     private void DialogueChangeSvelveID()

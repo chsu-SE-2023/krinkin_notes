@@ -22,8 +22,7 @@ abstract public class Product : IProduct
     /// <summary>
     /// Событие изменения идентификатора
     /// </summary>
-    public event EventHandler<IDChangeEvent> IDChangeHandler;
-    private readonly IDChangeEvent ChangeEvent;
+    public event EventHandler<IDChangeEventArgs> IDChangeHandler;
 
     /// <summary>
     /// Свойство, хранящее идентификатор товара
@@ -35,8 +34,9 @@ abstract public class Product : IProduct
         set
         {
             QRData.Text = value.ToString();
+            var tmp = new IDChangeEventArgs(_id, value);
             _id = value;
-            IDChangeHandler?.Invoke(this, ChangeEvent);
+            IDChangeHandler?.Invoke(this, tmp);
         }
     }
 
