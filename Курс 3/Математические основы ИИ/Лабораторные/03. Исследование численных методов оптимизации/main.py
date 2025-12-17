@@ -59,15 +59,15 @@ def descent(func, x_k, e1, e2, m, t):
 if __name__ == "__main__":
     # for i in range(len(examples)):
     #     print(f"{i+1}. {examples[i]}")
-    p_n = 5 # int(input("Введите номер примера: "))
+    p_n = 3 # int(input("Введите номер примера: "))
 
-    x_0 = (8, 9) #tuple(map(float, input("Положение начальной точки: ").split()))
+    x_0 = (-8, -9) #tuple(map(float, input("Положение начальной точки: ").split()))
     eps1 = 0.1 #float(input("Величина параметра e1: "))
-    eps2 = 0.1 #float(input("Величина параметра e2: "))
-    m = 5 #int(input("Предельное количество итераций (M): "))
-    t = 0.1 #float(input("Точность (t): "))
+    eps2 = 0.0001 #float(input("Величина параметра e2: "))
+    m = 10000 #int(input("Предельное количество итераций (M): "))
+    t = 0.001 #float(input("Точность (t): "))
 
     result, iter = descent(examples[p_n-1], x_0, eps1, eps2, m, t)
 
-    print(f"\nРезультат {result} найден за {iter} итераций")
+    print(f"\nРезультат {result} найден на {iter}-ой итерации")
     print(f"f(x1, x2) -> min: {f(examples[p_n-1], result[0], result[1])}")
