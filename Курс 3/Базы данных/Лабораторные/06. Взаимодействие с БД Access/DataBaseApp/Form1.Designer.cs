@@ -28,18 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("ФамилияДата");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("ОтличникиМатематика");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Отличники");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Старше 20-ти");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Запросы", new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14,
-            treeNode15,
-            treeNode16});
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Собственный запрос");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("ФамилияДата");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("ОтличникиМатематика");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отличники");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Старше 20-ти");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Запросы", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4});
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Собственный запрос");
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.comboBoxSort = new System.Windows.Forms.ComboBox();
             this.buttonSort = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -61,7 +62,6 @@
             this.textBoxHistory = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -104,6 +104,18 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Таблица";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox3.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox3.Location = new System.Drawing.Point(10, 318);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(91, 13);
+            this.textBox3.TabIndex = 11;
+            this.textBox3.Text = "Записи";
             // 
             // comboBoxSort
             // 
@@ -257,21 +269,21 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewQueries.Location = new System.Drawing.Point(6, 35);
             this.treeViewQueries.Name = "treeViewQueries";
-            treeNode13.Name = "NodeStudents";
-            treeNode13.Text = "ФамилияДата";
-            treeNode14.Name = "NodeGoodOnesMath";
-            treeNode14.Text = "ОтличникиМатематика";
-            treeNode15.Name = "NodeGoodOnes";
-            treeNode15.Text = "Отличники";
-            treeNode16.Name = "NodeOldOnes";
-            treeNode16.Text = "Старше 20-ти";
-            treeNode17.Name = "NodeQueries";
-            treeNode17.Text = "Запросы";
-            treeNode18.Name = "NodeCustom";
-            treeNode18.Text = "Собственный запрос";
+            treeNode1.Name = "NodeStudents";
+            treeNode1.Text = "ФамилияДата";
+            treeNode2.Name = "NodeGoodOnesMath";
+            treeNode2.Text = "ОтличникиМатематика";
+            treeNode3.Name = "NodeGoodOnes";
+            treeNode3.Text = "Отличники";
+            treeNode4.Name = "NodeOldOnes";
+            treeNode4.Text = "Старше 20-ти";
+            treeNode5.Name = "NodeQueries";
+            treeNode5.Text = "Запросы";
+            treeNode6.Name = "NodeCustom";
+            treeNode6.Text = "Собственный запрос";
             this.treeViewQueries.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode17,
-            treeNode18});
+            treeNode5,
+            treeNode6});
             this.treeViewQueries.Size = new System.Drawing.Size(180, 383);
             this.treeViewQueries.TabIndex = 1;
             this.treeViewQueries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewQueries_AfterSelect);
@@ -344,18 +356,6 @@
             this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            // 
-            // textBox3
-            // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox3.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Location = new System.Drawing.Point(10, 318);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(91, 13);
-            this.textBox3.TabIndex = 11;
-            this.textBox3.Text = "Записи";
             // 
             // Form1
             // 

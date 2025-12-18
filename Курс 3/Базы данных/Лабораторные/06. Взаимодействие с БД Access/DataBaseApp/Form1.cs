@@ -80,10 +80,15 @@ namespace DataBaseApp
         {
             clearData();
 
-            string query = "SELECT * FROM " + tableName;
-            OleDbDataReader dbDataReader = database.GetOleDbReader(query);
+            OleDbDataReader dbDataReader = null;
+            try
+            {
+                string query = "SELECT * FROM " + tableName;
+                dbDataReader = database.GetOleDbReader(query);
+            } 
+            catch (Exception) { }
 
-            if (!dbDataReader.IsClosed)
+            if (dbDataReader != null && !dbDataReader.IsClosed)
             {
                 // Заполнение выпадающего списка сортировки
                 for (int i = 0; i < dbDataReader.FieldCount; i++)
@@ -231,8 +236,7 @@ namespace DataBaseApp
             {
                 error($"Произошла ошибка выполнения запроса:\n\r{err.Message}");
                 history($"Произошла ошибка выполнения запроса {treeViewQueries.SelectedNode.Text}: {err.Message}");
-            }
-            ;
+            };
         }
 
         /// <summary>

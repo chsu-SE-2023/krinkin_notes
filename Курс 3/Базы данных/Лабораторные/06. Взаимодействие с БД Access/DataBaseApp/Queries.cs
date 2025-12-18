@@ -19,7 +19,7 @@ SELECT Фамилия, ДатаРождения FROM student2;";
         /// Запрос студентов-отличников по математике
         /// </summary>
         /// <returns>SQL строка</returns>
-        public static string GoodOnes()
+        public static string GoodOnesMath()
         {
             return 
 @"SELECT * FROM (
@@ -33,7 +33,7 @@ SELECT Фамилия, ДатаРождения FROM student2;";
         /// Запрос студентов-отличников по всем предметам
         /// </summary>
         /// <returns>SQL строка</returns>
-        public static string GoodOnesMath()
+        public static string GoodOnes()
         {
             return 
 @"SELECT * FROM (

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.Data.Common;
 using System.Data.OleDb;
 using System.Text;
 using System.Windows.Forms;
@@ -35,7 +34,6 @@ namespace DataBaseApp
             {
                 this.dbConnection.Close();
             } catch (Exception) { }
-            
         }
 
         /// <summary>
