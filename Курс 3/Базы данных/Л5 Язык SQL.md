@@ -1,4 +1,4 @@
-s**SQL (Structured Query Language)** - непроцедурный язык, состоящий из трёх групп операторов: _SQL = DDL (Data Definition Language) + DML (Data Manipulation Language) + DQL (Data Query Language) + ..._. Используется для управления базами данных.
+**SQL (Structured Query Language)** - непроцедурный язык, состоящий из трёх групп операторов: _SQL = DDL (Data Definition Language) + DML (Data Manipulation Language) + DQL (Data Query Language) + ..._. Используется для управления базами данных.
 
 ![[Drawing 2025-10-29 10.43.35.excalidraw]]
 
