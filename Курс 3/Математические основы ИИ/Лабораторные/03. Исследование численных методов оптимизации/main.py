@@ -57,15 +57,15 @@ def descent(func, x_k, e1, e2, m, t):
 
 
 if __name__ == "__main__":
-    # for i in range(len(examples)):
-    #     print(f"{i+1}. {examples[i]}")
-    p_n = 3 # int(input("Введите номер примера: "))
+    for i in range(len(examples)):
+        print(f"{i+1}. {examples[i]}")
+    p_n = int(input("Введите номер примера: "))
 
-    x_0 = (-8, -9) #tuple(map(float, input("Положение начальной точки: ").split()))
-    eps1 = 0.1 #float(input("Величина параметра e1: "))
-    eps2 = 0.0001 #float(input("Величина параметра e2: "))
-    m = 10000 #int(input("Предельное количество итераций (M): "))
-    t = 0.001 #float(input("Точность (t): "))
+    x_0 = tuple(map(float, input("Положение начальной точки: ").split()))
+    eps1 = float(input("Величина параметра e1: "))
+    eps2 = float(input("Величина параметра e2: "))
+    m = int(input("Предельное количество итераций (M): "))
+    t = float(input("Точность (t): "))
 
     result, iter = descent(examples[p_n-1], x_0, eps1, eps2, m, t)
 
