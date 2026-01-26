@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "parts": [
+    { "type": "wokwi-arduino-nano", "id": "nano", "top": 0, "left": 0, "attrs": {} },
+    { "type": "board-ssd1306", "id": "oled1", "top": 89.5, "left": 19.05, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": 198.2,
+      "left": 86.4,
+      "attrs": { "color": "green", "key": "ArrowUp" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn2",
+      "top": 198.2,
+      "left": -9.6,
+      "attrs": { "color": "green", "key": "ArrowDown" }
+    }
+  ],
+  "connections": [
+    [ "nano:A4", "oled1:SDA", "gold", [ "v0" ] ],
+    [ "oled1:SCL", "nano:A5", "cyan", [ "v-20.36", "h20.38" ] ],
+    [ "oled1:VCC", "nano:3.3V", "red", [ "v-20.07", "h-37.37" ] ],
+    [ "oled1:GND", "nano:GND.1", "black", [ "v-12.82", "h87.28" ] ],
+    [ "btn2:1.r", "nano:3", "green", [ "v0", "h9.8", "v38.4", "h124.8", "v-268.8", "h-86.4" ] ],
+    [ "btn1:1.r", "nano:2", "green", [ "v0", "h38.6", "v-220.8", "h-76.8" ] ],
+    [ "nano:GND.1", "btn1:2.l", "black", [ "v129.6", "h-67.7", "v38.4" ] ],
+    [ "nano:GND.1", "btn2:2.l", "black", [ "v129.6", "h-163.7", "v38.2" ] ]
+  ],
+  "dependencies": {}
+}
