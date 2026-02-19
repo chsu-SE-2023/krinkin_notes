@@ -2,7 +2,7 @@
 #### Классы
 ##### Свойства
 
-``` 
+``` csharp
 public class Pen {
 	public int Size { get; set; } // Свойство (вместо написания функций геттеров и сеттеров)
 	public void Draw(int size = 1) {
@@ -11,7 +11,7 @@ public class Pen {
 }
 ```
 ##### Пользовательские свойства
-```
+``` csharp
 public class Pen 
 {
 	public int Size { get; private set; }
@@ -40,7 +40,7 @@ public class Pen
 Свойства должны называться с большой буквы.
 
 Свойства вызываются и определяются так:
-```
+``` csharp
 Pen p = new();
 p.Size = 12; // Сеттер
 int s = p.Size; // Геттер
@@ -59,7 +59,7 @@ int s = p.Size; // Геттер
 Перекрытие функции производится ключевым словом `new`.
 
 Вызвать конструктор базового класса можно вызвать его сигнатурой `base()`:
-```
+``` csharp
 public class Pen2 : Pen {
 	public Pen2() : base(100)
 	{}
@@ -86,7 +86,7 @@ public class Pen2 : Pen {
 
 В C# нельзя вызывать функции ~~шаблонов~~ обобщений без указания конкретного типа.
 
-```
+``` csharp
 public class Sample
 {
     public static void Test<T>(T parentOrChild)
@@ -97,7 +97,7 @@ public class Sample
 ```
 Для исправления можно явно преобразовать parentOrChild в базовый тип в иерархии наследования с таким методом. 
 Или можно явно указать необходимый интерфейс:
-```
+``` csharp
 public class Sample
 {
     public static void Test<T>(T parentOrChild) where T : IParentOrChild
@@ -119,13 +119,13 @@ public class Sample
 
 **Делегаты** - переменные, хранящие ссылку на метод. 
 Делегат описывается ключевым словом `delegate`: 
-```
+``` csharp
 public delegate void SampleDelegate(string test);
 ```
 В параметрах делегата указывается сигнатура принимаемых методов. Делегат без параметров имеет тип данных `Action`, принимающий и ничего не возвращающий - `Action<T>`, принимающий и возвращающий `bool` - `Predicate`.
 
 Делегат можно передать как параметр:
-```
+``` csharp
 static void Test(SampleDelegate test, string text)
 {
 	test(text);
@@ -133,7 +133,7 @@ static void Test(SampleDelegate test, string text)
 ```
 
 Для проверки того что ссылка на метод не пустой используется проверка и вызов:
-```
+``` csharp
 static void Test(SampleDelegate test, string text)
 {
 	test?.Invoke(text);
@@ -143,7 +143,7 @@ static void Test(SampleDelegate test, string text)
 > "Делегат это не просто класс"
 
 Переменные-делегаты могут содержать несколько методов для вызова:
-```
+``` csharp
 WriteDelegate writeDelegate = null;
 writeDelegate += Console.WriteLine;
 writeDelegate -= sample.Write;
@@ -154,7 +154,7 @@ writeDelegate -= StaticSample.Write;
 В делегате можно просмотреть какие методы к нему подписаны.
 #### События
 
-```
+``` csharp
 public class Pen
 {
 	public int Size { get; set; }

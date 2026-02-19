@@ -1,6 +1,6 @@
 #### Простейшая Java программа
 
-```
+``` java
 public class First {
 	public static void main(String[] args) {
 		System.out.println("Hallo world!");
@@ -37,7 +37,8 @@ public class First {
 
 ![[Pasted image 20260212174616.png]]
 
-``` Example 
+``` java
+// Example 
 public class Main {
 	public static void main(String[] args) {
 		int n = 100;
