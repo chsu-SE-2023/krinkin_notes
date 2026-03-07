@@ -20,3 +20,4 @@
 При создании проекта в Intellij используем Maven Archetype:
 - Catalog: Maven Central (для дома) и `Default` (для лаб в чгу)
 - Archetype: `com.vaadin: vaadin-architype-application`
+
