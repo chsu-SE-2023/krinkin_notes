@@ -873,14 +873,14 @@
 		)
 	)
 	(junction
-		(at 39.37 101.6)
+		(at 40.64 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "210f4fde-12ab-43f9-a0bf-520a8282a33c")
+		(uuid "8f00d489-f9f3-43d1-8054-5f112dc0b3d6")
 	)
 	(wire
 		(pts
-			(xy 81.28 85.09) (xy 49.53 85.09)
+			(xy 81.28 82.55) (xy 48.26 82.55)
 		)
 		(stroke
 			(width 0)
@@ -890,7 +890,27 @@
 	)
 	(wire
 		(pts
-			(xy 81.28 85.09) (xy 81.28 101.6)
+			(xy 44.45 86.36) (xy 44.45 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0204bdb4-846e-4e01-ba64-3f40c929f12a")
+	)
+	(wire
+		(pts
+			(xy 44.45 50.8) (xy 55.88 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "159e5708-69bc-456b-b3f4-5e7e1851c8e5")
+	)
+	(wire
+		(pts
+			(xy 81.28 82.55) (xy 81.28 97.79)
 		)
 		(stroke
 			(width 0)
@@ -900,57 +920,17 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 54.61) (xy 111.76 54.61)
+			(xy 40.64 97.79) (xy 44.45 97.79)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "20f1b058-f38a-48e6-9908-ddb2fa46992c")
+		(uuid "1f1f33be-1758-4feb-a2f8-62cdbda459e8")
 	)
 	(wire
 		(pts
-			(xy 39.37 49.53) (xy 55.88 49.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "21edee06-9e6d-469b-97a2-9260fde8621f")
-	)
-	(wire
-		(pts
-			(xy 111.76 46.99) (xy 100.33 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "23fc67cc-2dc6-47b2-9dc4-2a1b599eb2d9")
-	)
-	(wire
-		(pts
-			(xy 49.53 57.15) (xy 55.88 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2cbdc592-0acc-4646-8fad-304e61477141")
-	)
-	(wire
-		(pts
-			(xy 55.88 54.61) (xy 44.45 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3318a87f-fca9-4db7-a03f-73c7d927c9ea")
-	)
-	(wire
-		(pts
-			(xy 100.33 44.45) (xy 86.36 44.45)
+			(xy 95.25 40.64) (xy 86.36 40.64)
 		)
 		(stroke
 			(width 0)
@@ -960,7 +940,27 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 107.95) (xy 63.5 107.95)
+			(xy 44.45 58.42) (xy 55.88 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "39d2df44-addd-4baa-ba0d-6442c6fcd094")
+	)
+	(wire
+		(pts
+			(xy 111.76 40.64) (xy 99.06 40.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e72eaac-0f47-4f3a-8a03-11c8473a374c")
+	)
+	(wire
+		(pts
+			(xy 40.64 104.14) (xy 63.5 104.14)
 		)
 		(stroke
 			(width 0)
@@ -970,7 +970,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 90.17) (xy 57.15 101.6)
+			(xy 57.15 86.36) (xy 57.15 97.79)
 		)
 		(stroke
 			(width 0)
@@ -980,17 +980,17 @@
 	)
 	(wire
 		(pts
-			(xy 86.36 52.07) (xy 111.76 52.07)
+			(xy 40.64 43.18) (xy 55.88 43.18)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5c289b00-539c-4f4a-b21b-978ad0947466")
+		(uuid "54d8cc1e-9504-4123-ad4e-53f8d3770cc7")
 	)
 	(wire
 		(pts
-			(xy 63.5 107.95) (xy 63.5 101.6)
+			(xy 63.5 104.14) (xy 63.5 97.79)
 		)
 		(stroke
 			(width 0)
@@ -1000,7 +1000,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 101.6) (xy 67.31 101.6)
+			(xy 63.5 97.79) (xy 67.31 97.79)
 		)
 		(stroke
 			(width 0)
@@ -1010,7 +1010,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 101.6) (xy 54.61 101.6)
+			(xy 57.15 97.79) (xy 54.61 97.79)
 		)
 		(stroke
 			(width 0)
@@ -1020,27 +1020,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 85.09) (xy 49.53 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "64b9aa3d-1a6b-417c-ab02-1db42cbd5cdd")
-	)
-	(wire
-		(pts
-			(xy 100.33 46.99) (xy 100.33 44.45)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "66e2dec0-77a3-461f-8d97-d85683550767")
-	)
-	(wire
-		(pts
-			(xy 44.45 90.17) (xy 57.15 90.17)
+			(xy 44.45 86.36) (xy 57.15 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1050,7 +1030,27 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 101.6) (xy 39.37 107.95)
+			(xy 40.64 97.79) (xy 40.64 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "779befd6-5ce2-4bd9-bc71-0aca102f5dbd")
+	)
+	(wire
+		(pts
+			(xy 48.26 82.55) (xy 48.26 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8097647a-1984-45ea-a3fa-517436c7c3b1")
+	)
+	(wire
+		(pts
+			(xy 40.64 97.79) (xy 40.64 104.14)
 		)
 		(stroke
 			(width 0)
@@ -1060,17 +1060,57 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 54.61) (xy 44.45 90.17)
+			(xy 48.26 48.26) (xy 55.88 48.26)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8b57ffce-529b-44c0-abb3-6b382da91e0a")
+		(uuid "822c09c0-33c8-4c91-a192-bdb8c9ee5d03")
 	)
 	(wire
 		(pts
-			(xy 81.28 101.6) (xy 77.47 101.6)
+			(xy 102.87 24.13) (xy 44.45 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9a8c6b63-61a7-49d9-9999-8cba8075b6bd")
+	)
+	(wire
+		(pts
+			(xy 99.06 27.94) (xy 48.26 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ef819ea-09be-434f-bf3e-d41e0fdf59fc")
+	)
+	(wire
+		(pts
+			(xy 48.26 27.94) (xy 48.26 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a862bee8-aa14-4286-ae77-aa2d25da4cf0")
+	)
+	(wire
+		(pts
+			(xy 102.87 38.1) (xy 111.76 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abace855-4778-4724-8fb8-b755ef0495e6")
+	)
+	(wire
+		(pts
+			(xy 81.28 97.79) (xy 77.47 97.79)
 		)
 		(stroke
 			(width 0)
@@ -1080,38 +1120,77 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 101.6) (xy 44.45 101.6)
+			(xy 102.87 24.13) (xy 102.87 38.1)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "bcf37950-cb75-472d-992f-e72b81c2452d")
+		(uuid "b2aa821b-387e-4df8-8090-0fc42cc858e3")
 	)
 	(wire
 		(pts
-			(xy 86.36 49.53) (xy 111.76 49.53)
+			(xy 48.26 60.96) (xy 55.88 60.96)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "bd5869e0-6efe-4635-b35b-ea22e102a472")
+		(uuid "b750604c-5723-4027-b8f7-5938b8e1b561")
 	)
 	(wire
 		(pts
-			(xy 39.37 49.53) (xy 39.37 101.6)
+			(xy 44.45 24.13) (xy 44.45 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f217720d-5ba6-4c51-961f-fb937771c2ed")
+		(uuid "c8ef466b-6456-415c-bf67-712c774d3b61")
+	)
+	(wire
+		(pts
+			(xy 86.36 45.72) (xy 111.76 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e98d1040-29c1-42e2-876f-5e42335e5f35")
+	)
+	(wire
+		(pts
+			(xy 95.25 40.64) (xy 95.25 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0f35022-5c96-4804-bb95-25da09e2cc40")
+	)
+	(wire
+		(pts
+			(xy 99.06 40.64) (xy 99.06 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f270a987-7412-49b2-824c-106d12c0058c")
+	)
+	(wire
+		(pts
+			(xy 95.25 43.18) (xy 111.76 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc428227-f2f7-495f-9487-d1d58611c088")
 	)
 	(symbol
 		(lib_id "ssd1306:SSD1306")
-		(at 120.65 50.8 90)
-		(mirror x)
+		(at 120.65 41.91 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1121,7 +1200,7 @@
 		(dnp no)
 		(uuid "8a808d3e-9ed2-40ec-ba6a-27ed2e589618")
 		(property "Reference" "Brd1"
-			(at 119.3799 58.42 0)
+			(at 119.3799 34.29 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1132,7 +1211,7 @@
 			)
 		)
 		(property "Value" "SSD1306"
-			(at 121.9199 58.42 0)
+			(at 121.9199 34.29 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1143,7 +1222,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 114.3 50.8 0)
+			(at 114.3 41.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1154,7 +1233,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 114.3 50.8 0)
+			(at 114.3 41.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1165,7 +1244,7 @@
 			)
 		)
 		(property "Description" "SSD1306 OLED"
-			(at 120.65 50.8 0)
+			(at 120.65 41.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1198,7 +1277,7 @@
 	)
 	(symbol
 		(lib_id "Arduino:Sparkfun_Pro_Micro")
-		(at 71.12 57.15 0)
+		(at 71.12 53.34 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1209,7 +1288,7 @@
 		(fields_autoplaced yes)
 		(uuid "9e313424-6607-4301-908a-a5fe045e1eb3")
 		(property "Reference" "U2"
-			(at 71.12 34.29 0)
+			(at 71.12 30.48 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1219,7 +1298,7 @@
 			)
 		)
 		(property "Value" "Sparkfun_Pro_Micro"
-			(at 71.12 36.83 0)
+			(at 71.12 33.02 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1229,7 +1308,7 @@
 			)
 		)
 		(property "Footprint" "Arduino:Sparkfun_Pro_Micro"
-			(at 71.12 73.66 0)
+			(at 71.12 69.85 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1240,7 +1319,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.sparkfun.com/products/12640"
-			(at 73.66 83.82 0)
+			(at 73.66 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1251,7 +1330,7 @@
 			)
 		)
 		(property "Description" "Sparkfun Pro Micro"
-			(at 71.12 57.15 0)
+			(at 71.12 53.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1344,7 +1423,7 @@
 	)
 	(symbol
 		(lib_id "Switch:SW_Push")
-		(at 49.53 101.6 0)
+		(at 49.53 97.79 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1355,7 +1434,7 @@
 		(fields_autoplaced yes)
 		(uuid "b138ee2f-f3de-40b5-af6d-50da2e04657c")
 		(property "Reference" "SW1"
-			(at 49.53 93.98 0)
+			(at 49.53 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1365,7 +1444,7 @@
 			)
 		)
 		(property "Value" "SW_Push"
-			(at 49.53 96.52 0)
+			(at 49.53 92.71 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1375,7 +1454,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 49.53 96.52 0)
+			(at 49.53 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1386,7 +1465,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 49.53 96.52 0)
+			(at 49.53 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1397,7 +1476,7 @@
 			)
 		)
 		(property "Description" "Push button switch, generic, two pins"
-			(at 49.53 101.6 0)
+			(at 49.53 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1424,7 +1503,7 @@
 	)
 	(symbol
 		(lib_id "Switch:SW_Push")
-		(at 72.39 101.6 0)
+		(at 72.39 97.79 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1435,7 +1514,7 @@
 		(fields_autoplaced yes)
 		(uuid "d927b886-c565-4c18-97f2-041b1d06e764")
 		(property "Reference" "SW2"
-			(at 72.39 93.98 0)
+			(at 72.39 90.17 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1445,7 +1524,7 @@
 			)
 		)
 		(property "Value" "SW_Push"
-			(at 72.39 96.52 0)
+			(at 72.39 92.71 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1455,7 +1534,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 72.39 96.52 0)
+			(at 72.39 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1466,7 +1545,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 72.39 96.52 0)
+			(at 72.39 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1477,7 +1556,7 @@
 			)
 		)
 		(property "Description" "Push button switch, generic, two pins"
-			(at 72.39 101.6 0)
+			(at 72.39 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
