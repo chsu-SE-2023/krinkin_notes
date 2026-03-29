@@ -1,9 +1,15 @@
 package types;
 
 public class Workpiece {
-    public String name;
-    public String id;
-    public int count;
+    private String name;
+    private String id;
+    private int count;
+
+    public Workpiece(String name, String id, int count) {
+        this.name = name;
+        this.id = id;
+        this.count = count;
+    }
 
     public String getName() {
         return name;
@@ -28,4 +34,10 @@ public class Workpiece {
     public void setCount(int count) {
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return name + " (" + id + ") (" + count + "шт.)";
+    }
+
 }
