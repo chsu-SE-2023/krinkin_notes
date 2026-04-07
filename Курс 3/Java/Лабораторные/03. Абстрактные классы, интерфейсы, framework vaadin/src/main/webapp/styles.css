@@ -1,0 +1,39 @@
+
+.num-input {
+    align-content: center;
+    text-align: center;
+    width: 2rem;
+
+}
+
+.num-input input {
+    mask-image: none;
+    -webkit-mask-image: none;
+}
+
+.math-div {
+    margin: 1rem;
+    padding: 0.5rem;
+    background-color: var(--lumo-contrast-10pct);
+    border-radius: var(--lumo-border-radius-l);
+}
+
+.math-div > vaadin-horizontal-layout {
+    width: fit-content;
+}
+
+.spacer {
+    max-width: 2rem;
+    mask-image: none;
+    -webkit-mask-image: none;
+}
+
+.spacer input {
+    mask-image: none;
+    -webkit-mask-image: none;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
