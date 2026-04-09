@@ -44,10 +44,6 @@ build/
 target
 error-screenshots/
 
-*.iml
-.classpath
-.project
-.settings
 tmp.*
 vaadin-core-internal/vaadin-core-versions.json
 vaadin-internal/vaadin-versions.json
@@ -64,7 +60,6 @@ vaadin-platform-gradle-test/.gradle
 vaadin-platform-sbom/frontend/
 vaadin-platform-sbom/vite.config.ts
 vaadin-platform-sbom/vite.generated.ts
-.DS_Store
 .vscode
 
 node_modules/

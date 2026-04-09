@@ -1,12 +1,5 @@
 
-.num-input {
-    align-content: center;
-    text-align: center;
-    width: 2rem;
-
-}
-
-.num-input input {
+input {
     mask-image: none;
     -webkit-mask-image: none;
 }
@@ -20,17 +13,6 @@
 
 .math-div > vaadin-horizontal-layout {
     width: fit-content;
-}
-
-.spacer {
-    max-width: 2rem;
-    mask-image: none;
-    -webkit-mask-image: none;
-}
-
-.spacer input {
-    mask-image: none;
-    -webkit-mask-image: none;
 }
 
 .center {
