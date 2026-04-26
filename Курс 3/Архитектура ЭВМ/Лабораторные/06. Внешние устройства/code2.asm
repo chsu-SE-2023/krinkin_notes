@@ -10,7 +10,9 @@ WR r3 ; Message3 - 109 101 115 115 097 103 101 051
 RD #11
 OUT 01
 
-EI ; Enable interruptions
+; Write interrupt handler
+RD #42
+WR 100
 
 JMP main
 
@@ -56,6 +58,7 @@ main:
     ; one-symbol mode
     RD #103
     OUT 01
+    EI ; Enable interruptions
 
     NOP
 
