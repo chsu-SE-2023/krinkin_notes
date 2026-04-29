@@ -1,0 +1,382 @@
+
+ 
+ Dim ERwinWorkspace As Workspace
+
+
+
+
+Execution Successful
+
+
+
+
+ Dim ERwinDatabase As Database
+
+
+
+
+Execution Successful
+
+
+
+
+ Dim ERwinTableDef As TableDef
+
+
+
+
+Execution Successful
+
+
+
+
+ Dim ERwinQueryDef As QueryDef
+
+
+
+
+Execution Successful
+
+
+
+
+ Dim ERwinIndex As Index
+
+
+
+
+Execution Successful
+
+
+
+
+ Dim ERwinField As Field
+
+
+
+
+Execution Successful
+
+
+
+
+ Dim ERwinRelation As Relation
+
+
+
+
+Execution Successful
+
+
+
+ 
+  Set ERwinWorkspace = DBEngine.WorkSpaces(0)
+
+
+
+
+Execution Successful
+
+
+
+
+
+ Set ERwinDatabase = ERwinWorkspace.OpenDatabase("Z:\2023_1ПИб-02-2оп-23\Кринкин Олег\Курс 3\ПрБД\02. Физическое проектирование\Database2 — копия.mdb")
+
+
+
+
+Execution Successful
+
+
+
+
+'  CREATE TABLE Блюдо
+Set ERwinTableDef = ERwinDatabase.CreateTableDef("Блюдо")
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinTableDef.CreateField("Номер блюда", DB_LONG)
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinField.Required = True
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinTableDef.Fields.Append ERwinField
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinTableDef.CreateField("Блюдо", DB_TEXT, 20)
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinTableDef.Fields.Append ERwinField
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinTableDef.CreateField("Вид", DB_TEXT, 20)
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinTableDef.Fields.Append ERwinField
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinDatabase.TableDefs.Append ERwinTableDef
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinTableDef.Fields("Номер блюда")
+
+
+
+
+Execution Successful
+
+
+
+
+Call SetFieldProp(ERwinField, "Caption", DB_TEXT , "Номер блюда:")
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinTableDef.Fields("Блюдо")
+
+
+
+
+Execution Successful
+
+
+
+
+Call SetFieldProp(ERwinField, "Caption", DB_TEXT , "Блюдо:")
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinTableDef.Fields("Вид")
+
+
+
+
+Execution Successful
+
+
+
+
+Call SetFieldProp(ERwinField, "Caption", DB_TEXT , "Вид:")
+
+
+
+
+Execution Successful
+
+
+
+
+'  CREATE INDEX XPKБлюдо
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinTableDef = ERwinDatabase.TableDefs("Блюдо")
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinIndex = ERwinTableDef.CreateIndex("XPKБлюдо")
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinIndex.CreateField("Номер блюда")
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinIndex.Fields.Append ERwinField
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinIndex.Primary = True
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinTableDef.Indexes.Append ERwinIndex
+
+
+
+
+Execution Successful
+
+
+
+
+'  CREATE TABLE Город
+Set ERwinTableDef = ERwinDatabase.CreateTableDef("Город")
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinTableDef.CreateField("Название города", DB_TEXT, 20)
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinField.Required = True
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinTableDef.Fields.Append ERwinField
+
+
+
+
+Execution Successful
+
+
+
+
+Set ERwinField = ERwinTableDef.CreateField("Страна", DB_TEXT, 20)
+
+
+
+
+Execution Successful
+
+
+
+
+ERwinTableDef.Fields.Append ERwinField
+
+
+
+
+Execution Successful
+
+
+
+,
+ERwinTableDef.ValidationRule = "IN ('Азербайджан', 'Армения', 'Афганистан', 'Бангладеш', 'Беларусь', 'Бразилия', 'Венгрия', 'Вьетнам', 'Грузия', 'Египет', 'Израиль', 'Индия', 'Иран', 'Казахстан', 'Камбоджа', 'Корея', 'Куба', 'Кыргыстан', 'Латвия', 'Литва', 'Непал', 'ОАЭ', 'Панама', 'Россия', 'Румыния', 'Сербия', 'Таджикистан', 'Тайланд', 'Туркменистан', 'Турция', 'Чехия', 'Швейцария', 'Япония')"
+
+
+
+
+Execution Failed!
+
