@@ -1,0 +1,74 @@
+set names cp866;
+
+create database students character set cp866;
+
+use students;
+
+create table students (
+    `Номер` integer auto_increment primary key, 
+    `Фамилия` varchar(50), 
+    `Год рождения` year, 
+    `Математика` tinyint unsigned, 
+    `Информатика` tinyint unsigned, 
+    `Иностранный` tinyint unsigned
+);
+
+insert into students (`Фамилия`, `Год рождения`, `Математика`, `Информатика`, `Иностранный`)
+values ('Кринкин', 2005, 3, 5, 5);
+
+insert into students (`Фамилия`, `Год рождения`, `Математика`, `Информатика`, `Иностранный`)
+values ('Яичков', 2004, 4, 5, 4);
+
+insert into students (`Фамилия`, `Год рождения`, `Математика`, `Информатика`, `Иностранный`)
+values ('Савкина', 2005, 4, 4, 4);
+
+insert into students (`Фамилия`, `Год рождения`, `Математика`, `Информатика`, `Иностранный`)
+values ('Калинин', 2001, 3, 5, 4);
+
+==== GUI ====
+
+use students;
+
+alter table students add `Пол` char(1);
+
+update students set `Пол`='М';
+
+update students
+    set `Пол`='Ж'
+    where `Фамилия`='Савкина';
+
+create table students2 LIKE students;
+
+insert into students2 (`Фамилия`, `Год рождения`, `Математика`, `Информатика`, `Иностранный`, `Пол`)
+values ('Тарасов', 2005, 5, 5, 5, 'М');
+
+insert into students2 (`Фамилия`, `Год рождения`, `Математика`, `Информатика`, `Иностранный`, `Пол`)
+values ('Гусев', 2005, 5, 5, 5, 'М');
+
+insert into students2 (`Фамилия`, `Год рождения`, `Математика`, `Информатика`, `Иностранный`, `Пол`)
+values ('Литвин', 2005, 4, 5, 3, 'М');
+
+select * from students2 order by `Фамилия`;
+
+select `Фамилия`,`Год рождения` from students
+    union
+select `Фамилия`,`Год рождения` from students2;
+
+select * from (
+    select * from students
+    union
+    select * from students2
+) as temp where `Математика` = 5;
+
+select * from (
+    select * from students
+    union
+    select * from students2
+) as temp where `Математика` = 5 and `Информатика` = 5 and `Иностранный` = 5;
+
+select * from (
+    select * from students
+    union
+    select * from students2
+) as temp where (year(curdate()) - `Год рождения`) >= 20;
+
