@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -189,6 +191,20 @@ namespace DataBaseApp
             string query = $"SELECT * FROM {tableName} ORDER BY {field} DESC;";
             OleDbCommand dbCommand = new OleDbCommand(query.ToString(), dbConnection);
             return dbCommand.ExecuteReader();
+        }
+
+        public Dictionary<string, string> GetQueries()
+        {
+            Dictionary<string, string> queries = new Dictionary<string, string>();
+            DataTable schemaTable = dbConnection.GetOleDbSchemaTable(
+                OleDbSchemaGuid.Views,
+                new object[] { null, null, null }
+            );
+            foreach (DataRow row in schemaTable.Rows)
+            {
+                queries.Add(row["TABLE_NAME"].ToString(), row["VIEW_DEFINITION"].ToString());
+            }
+            return queries;
         }
     }
 }

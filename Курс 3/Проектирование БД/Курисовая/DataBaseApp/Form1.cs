@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
@@ -9,6 +10,7 @@ namespace DataBaseApp
     {
 
         Database database;
+        Dictionary<string, string> queries;
 
         public Form1()
         {
@@ -166,6 +168,14 @@ namespace DataBaseApp
 
                 history("Получен список таблиц");
 
+                treeViewQueries.Nodes[0].Nodes.Clear();
+                queries = database.GetQueries();
+                foreach (var pair in queries)
+                {
+                    treeViewQueries.Nodes[0].Nodes.Add(pair.Key);
+                }
+                history("Получен список запросов");
+
                 buttonClose.Enabled = true;
                 buttonDelete.Enabled = true;
                 buttonSort.Enabled = true;
@@ -183,6 +193,7 @@ namespace DataBaseApp
 
             clearData();
             treeViewTables.Nodes.Clear();
+            treeViewQueries.Nodes[0].Nodes.Clear();
             buttonClose.Enabled = false;
             buttonDelete.Enabled = false;
             buttonSort.Enabled = false;
@@ -320,39 +331,15 @@ namespace DataBaseApp
                 customQuery = textBoxScript.Text;
                 custom = false;
             }
-
-            switch (treeViewQueries.SelectedNode.Name)
+            if (treeViewQueries.SelectedNode.Text == "Запросы") return;
+            if (treeViewQueries.SelectedNode.Name == "NodeCustom")
             {
-                case "NodeStudents":
-                    {
-                        textBoxScript.Text = Queries.SurnameDate();
-                        break;
-                    }
-
-                case "NodeGoodOnesMath":
-                    {
-                        textBoxScript.Text = Queries.GoodOnesMath();
-                        break;
-                    }
-
-                case "NodeGoodOnes":
-                    {
-                        textBoxScript.Text = Queries.GoodOnes();
-                        break;
-                    }
-
-                case "NodeOldOnes":
-                    {
-                        textBoxScript.Text = Queries.OldOnes();
-                        break;
-                    }
-                
-                case "NodeCustom":
-                    {
-                        textBoxScript.Text = customQuery;
-                        custom = true;
-                        break;
-                    }
+                textBoxScript.Text = customQuery;
+                custom = true;
+            }
+            else
+            {
+                textBoxScript.Text = queries[treeViewQueries.SelectedNode.Text];
             }
         }
 

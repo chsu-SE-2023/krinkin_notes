@@ -29,16 +29,8 @@ namespace DataBaseApp
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("ФамилияДата");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("ОтличникиМатематика");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Отличники");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Старше 20-ти");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Запросы", new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4});
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Собственный запрос");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Запросы");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Собственный запрос");
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -55,6 +47,9 @@ namespace DataBaseApp
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.buttonQueryLoad = new System.Windows.Forms.ToolStripButton();
+            this.buttonQuerySave = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonExecute = new System.Windows.Forms.ToolStripButton();
             this.treeViewQueries = new System.Windows.Forms.TreeView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -62,14 +57,11 @@ namespace DataBaseApp
             this.dataGridViewQuery = new System.Windows.Forms.DataGridView();
             this.tabHistory = new System.Windows.Forms.TabPage();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
+            this.buttonHistorySave = new System.Windows.Forms.ToolStripButton();
+            this.buttonHistoryClear = new System.Windows.Forms.ToolStripButton();
             this.textBoxHistory = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
-            this.buttonHistoryClear = new System.Windows.Forms.ToolStripButton();
-            this.buttonQueryLoad = new System.Windows.Forms.ToolStripButton();
-            this.buttonQuerySave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.buttonHistorySave = new System.Windows.Forms.ToolStripButton();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -270,6 +262,31 @@ namespace DataBaseApp
             this.toolStrip2.TabIndex = 3;
             this.toolStrip2.Text = "toolStrip2";
             // 
+            // buttonQueryLoad
+            // 
+            this.buttonQueryLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonQueryLoad.Enabled = false;
+            this.buttonQueryLoad.Image = ((System.Drawing.Image)(resources.GetObject("buttonQueryLoad.Image")));
+            this.buttonQueryLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonQueryLoad.Name = "buttonQueryLoad";
+            this.buttonQueryLoad.Size = new System.Drawing.Size(23, 22);
+            this.buttonQueryLoad.Text = "Загрузить запрос";
+            // 
+            // buttonQuerySave
+            // 
+            this.buttonQuerySave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonQuerySave.Enabled = false;
+            this.buttonQuerySave.Image = ((System.Drawing.Image)(resources.GetObject("buttonQuerySave.Image")));
+            this.buttonQuerySave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonQuerySave.Name = "buttonQuerySave";
+            this.buttonQuerySave.Size = new System.Drawing.Size(23, 22);
+            this.buttonQuerySave.Text = "Сохранить запрос";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // buttonExecute
             // 
             this.buttonExecute.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -287,21 +304,13 @@ namespace DataBaseApp
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeViewQueries.Location = new System.Drawing.Point(6, 34);
             this.treeViewQueries.Name = "treeViewQueries";
-            treeNode1.Name = "NodeStudents";
-            treeNode1.Text = "ФамилияДата";
-            treeNode2.Name = "NodeGoodOnesMath";
-            treeNode2.Text = "ОтличникиМатематика";
-            treeNode3.Name = "NodeGoodOnes";
-            treeNode3.Text = "Отличники";
-            treeNode4.Name = "NodeOldOnes";
-            treeNode4.Text = "Старше 20-ти";
-            treeNode5.Name = "NodeQueries";
-            treeNode5.Text = "Запросы";
-            treeNode6.Name = "NodeCustom";
-            treeNode6.Text = "Собственный запрос";
+            treeNode1.Name = "NodeQueries";
+            treeNode1.Text = "Запросы";
+            treeNode2.Name = "NodeCustom";
+            treeNode2.Text = "Собственный запрос";
             this.treeViewQueries.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6});
+            treeNode1,
+            treeNode2});
             this.treeViewQueries.Size = new System.Drawing.Size(180, 381);
             this.treeViewQueries.TabIndex = 1;
             this.treeViewQueries.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewQueries_AfterSelect);
@@ -368,6 +377,26 @@ namespace DataBaseApp
             this.toolStrip3.TabIndex = 1;
             this.toolStrip3.Text = "toolStrip3";
             // 
+            // buttonHistorySave
+            // 
+            this.buttonHistorySave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonHistorySave.Enabled = false;
+            this.buttonHistorySave.Image = ((System.Drawing.Image)(resources.GetObject("buttonHistorySave.Image")));
+            this.buttonHistorySave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonHistorySave.Name = "buttonHistorySave";
+            this.buttonHistorySave.Size = new System.Drawing.Size(23, 22);
+            this.buttonHistorySave.Text = "Сохранить";
+            // 
+            // buttonHistoryClear
+            // 
+            this.buttonHistoryClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonHistoryClear.Enabled = false;
+            this.buttonHistoryClear.Image = ((System.Drawing.Image)(resources.GetObject("buttonHistoryClear.Image")));
+            this.buttonHistoryClear.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonHistoryClear.Name = "buttonHistoryClear";
+            this.buttonHistoryClear.Size = new System.Drawing.Size(23, 22);
+            this.buttonHistoryClear.Text = "Очистить";
+            // 
             // textBoxHistory
             // 
             this.textBoxHistory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -389,51 +418,6 @@ namespace DataBaseApp
             this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
             this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
-            // 
-            // buttonHistoryClear
-            // 
-            this.buttonHistoryClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonHistoryClear.Enabled = false;
-            this.buttonHistoryClear.Image = ((System.Drawing.Image)(resources.GetObject("buttonHistoryClear.Image")));
-            this.buttonHistoryClear.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonHistoryClear.Name = "buttonHistoryClear";
-            this.buttonHistoryClear.Size = new System.Drawing.Size(23, 22);
-            this.buttonHistoryClear.Text = "Очистить";
-            // 
-            // buttonQueryLoad
-            // 
-            this.buttonQueryLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonQueryLoad.Enabled = false;
-            this.buttonQueryLoad.Image = ((System.Drawing.Image)(resources.GetObject("buttonQueryLoad.Image")));
-            this.buttonQueryLoad.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonQueryLoad.Name = "buttonQueryLoad";
-            this.buttonQueryLoad.Size = new System.Drawing.Size(23, 22);
-            this.buttonQueryLoad.Text = "Загрузить запрос";
-            // 
-            // buttonQuerySave
-            // 
-            this.buttonQuerySave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonQuerySave.Enabled = false;
-            this.buttonQuerySave.Image = ((System.Drawing.Image)(resources.GetObject("buttonQuerySave.Image")));
-            this.buttonQuerySave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonQuerySave.Name = "buttonQuerySave";
-            this.buttonQuerySave.Size = new System.Drawing.Size(23, 22);
-            this.buttonQuerySave.Text = "Сохранить запрос";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // buttonHistorySave
-            // 
-            this.buttonHistorySave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonHistorySave.Enabled = false;
-            this.buttonHistorySave.Image = ((System.Drawing.Image)(resources.GetObject("buttonHistorySave.Image")));
-            this.buttonHistorySave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonHistorySave.Name = "buttonHistorySave";
-            this.buttonHistorySave.Size = new System.Drawing.Size(23, 22);
-            this.buttonHistorySave.Text = "Сохранить";
             // 
             // Form1
             // 
