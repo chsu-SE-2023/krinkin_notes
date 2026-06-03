@@ -11,6 +11,7 @@ namespace DataBaseApp
 
         Database database;
         Dictionary<string, string> queries;
+        string querieText = "";
 
         public Form1()
         {
@@ -95,7 +96,7 @@ namespace DataBaseApp
             OleDbDataReader dbDataReader = null;
             try
             {
-                string query = "SELECT * FROM " + tableName;
+                string query = $"SELECT * FROM [{tableName}]";
                 dbDataReader = database.GetOleDbReader(query);
             } 
             catch (Exception) { }
@@ -168,11 +169,11 @@ namespace DataBaseApp
 
                 history("Получен список таблиц");
 
-                treeViewQueries.Nodes[0].Nodes.Clear();
+                treeViewQueries.Nodes.Clear();
                 queries = database.GetQueries();
                 foreach (var pair in queries)
                 {
-                    treeViewQueries.Nodes[0].Nodes.Add(pair.Key);
+                    treeViewQueries.Nodes.Add(pair.Key);
                 }
                 history("Получен список запросов");
 
@@ -193,7 +194,7 @@ namespace DataBaseApp
 
             clearData();
             treeViewTables.Nodes.Clear();
-            treeViewQueries.Nodes[0].Nodes.Clear();
+            treeViewQueries.Nodes.Clear();
             buttonClose.Enabled = false;
             buttonDelete.Enabled = false;
             buttonSort.Enabled = false;
@@ -240,7 +241,7 @@ namespace DataBaseApp
         {
             try
             {
-                OleDbDataReader dbDataReader = database.GetOleDbReader(textBoxScript.Text);
+                OleDbDataReader dbDataReader = database.GetOleDbReader(querieText);
 
                 if (!dbDataReader.IsClosed)
                 {
@@ -322,25 +323,11 @@ namespace DataBaseApp
         /// Метод, обрабатывающий выбор из списка запросов
         /// Пользовательский запрос сохраняется и восстанавливается при переключении
         /// </summary>
-        string customQuery = "";
-        bool custom = false;
         private void treeViewQueries_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (custom)
-            {
-                customQuery = textBoxScript.Text;
-                custom = false;
-            }
             if (treeViewQueries.SelectedNode.Text == "Запросы") return;
-            if (treeViewQueries.SelectedNode.Name == "NodeCustom")
-            {
-                textBoxScript.Text = customQuery;
-                custom = true;
-            }
-            else
-            {
-                textBoxScript.Text = queries[treeViewQueries.SelectedNode.Text];
-            }
+            querieText = queries[treeViewQueries.SelectedNode.Text];
+            buttonExecute_Click(sender, e);
         }
 
         /// <summary>
