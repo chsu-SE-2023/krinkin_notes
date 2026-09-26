@@ -45,12 +45,11 @@ namespace DataBaseApp
         /// <returns>Структура таблицы</returns>
         public DataTable GetSchema(string tableName)
         {
+            DataTable dataTable = new DataTable();
             string query = "SELECT * FROM " + tableName;
-            OleDbCommand dbCommand = new OleDbCommand(query, dbConnection);
-            OleDbDataReader dbDataReader = dbCommand.ExecuteReader();
-            var schema = dbDataReader.GetSchemaTable();
-            dbDataReader.Close();
-            return schema;
+            OleDbDataAdapter adapter = new OleDbDataAdapter(query, dbConnection);
+            adapter.FillSchema(dataTable, SchemaType.Source);
+            return dataTable;
         }
 
         /// <summary>
@@ -78,6 +77,19 @@ namespace DataBaseApp
         }
 
         /// <summary>
+        /// Метод, проверяющий является ли заданное поле первичным ключом
+        /// </summary>
+        /// <param name="schema"></param>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        public static bool IsPrimaryKey(DataTable schema, string columnName)
+        {
+            foreach (DataColumn primaryKey in schema.PrimaryKey)
+                if (columnName == primaryKey.ColumnName) return true;
+            return false;
+        }
+
+        /// <summary>
         /// Метод добавления записи в таблицу
         /// </summary>
         /// <param name="rowIndex">Индекс строки графической таблицы, содержащей запись</param>
@@ -87,25 +99,25 @@ namespace DataBaseApp
 
             // Формирование запроса
             StringBuilder query = new StringBuilder($"INSERT INTO {tableName} (");
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
-                query.Append($"{schema.Rows[i][0]}");
-                if (i < schema.Rows.Count - 1) query.Append(",");
+                query.Append($"{schema.Columns[i].ColumnName}");
+                if (i < schema.Columns.Count - 1) query.Append(",");
             }
             query.Append(") VALUES (");
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
                 query.Append($"@par{i}");
-                if (i < schema.Rows.Count - 1) query.Append(",");
+                if (i < schema.Columns.Count - 1) query.Append(",");
             }
             query.Append(");");
 
             OleDbCommand dbCommand = new OleDbCommand(query.ToString(), dbConnection);
 
             // Заполнение параметров
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
-                Type type = schema.Rows[i][5] as Type;
+                Type type = schema.Columns[i].DataType;
                 dbCommand.Parameters.Add($"@par{i}", Convert.ChangeType(row.Cells[i].Value, type));
             }
 
@@ -122,30 +134,32 @@ namespace DataBaseApp
 
             // Формирование запроса
             StringBuilder query = new StringBuilder($"UPDATE {tableName} SET ");
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
-                query.Append($"{schema.Rows[i][0]}=@par{i}_new");
-                if (i < schema.Rows.Count - 1) query.Append(",");
+                if (IsPrimaryKey(schema, schema.Columns[i].ColumnName)) continue;
+                query.Append($"[{schema.Columns[i].ColumnName}]=@par{i}_new");
+                if (i < schema.Columns.Count - 1) query.Append(",");
             }
             query.Append(" WHERE ");
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
-                query.Append($"{schema.Rows[i][0]}=@par{i}_old");
-                if (i < schema.Rows.Count - 1) query.Append(" AND ");
+                query.Append($"[{schema.Columns[i].ColumnName}]=@par{i}_old");
+                if (i < schema.Columns.Count - 1) query.Append(" AND ");
             }
             query.Append(";");
 
             OleDbCommand dbCommand = new OleDbCommand(query.ToString(), dbConnection);
 
             // Заполнение параметров
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
-                Type type = schema.Rows[i][5] as Type;
+                if (IsPrimaryKey(schema, schema.Columns[i].ColumnName)) continue;
+                Type type = schema.Columns[i].DataType;
                 dbCommand.Parameters.Add($"@par{i}_new", Convert.ChangeType(row.Cells[i].EditedFormattedValue, type));
             }
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
-                Type type = schema.Rows[i][5] as Type;
+                Type type = schema.Columns[i].DataType;
                 dbCommand.Parameters.Add($"@par{i}_old", Convert.ChangeType(row.Cells[i].FormattedValue, type));
             }
 
@@ -161,19 +175,19 @@ namespace DataBaseApp
 
             // Формирование запроса
             StringBuilder query = new StringBuilder($"DELETE FROM {tableName} WHERE ");
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
-                query.Append($"{schema.Rows[i][0]}=@par{i}");
-                if (i < schema.Rows.Count - 1) query.Append(" AND ");
+                query.Append($"{schema.Columns[i].ColumnName}=@par{i}");
+                if (i < schema.Columns.Count - 1) query.Append(" AND ");
             }
             query.Append(";");
 
             OleDbCommand dbCommand = new OleDbCommand(query.ToString(), dbConnection);
 
             // Заполнение параметров
-            for (int i = 0; i < schema.Rows.Count; i++)
+            for (int i = 0; i < schema.Columns.Count; i++)
             {
-                Type type = schema.Rows[i][5] as Type;
+                Type type = schema.Columns[i].DataType;
                 dbCommand.Parameters.Add($"@par{i}", Convert.ChangeType(row.Cells[i].Value, type));
             }
 

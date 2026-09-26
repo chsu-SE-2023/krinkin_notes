@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.IO;
 using System.Windows.Forms;
 
 namespace DataBaseApp
@@ -20,8 +21,6 @@ namespace DataBaseApp
             this.buttonOpen.Image = IconExtractor.Extract(@"C:\Windows\System32\imageres.dll", -5367)?.ToBitmap();
             this.buttonClose.Image = IconExtractor.Extract(@"C:\Windows\System32\imageres.dll", -5383)?.ToBitmap();
 
-            this.buttonQueryLoad.Image = IconExtractor.Extract(@"C:\Windows\System32\imageres.dll", -3)?.ToBitmap();
-            this.buttonQuerySave.Image = IconExtractor.Extract(@"C:\Windows\System32\shell32.dll", -16761)?.ToBitmap();
             this.buttonExecute.Image = IconExtractor.Extract(@"C:\Windows\System32\imageres.dll", -100)?.ToBitmap();
 
             this.buttonHistoryClear.Image = IconExtractor.Extract(@"C:\Windows\System32\imageres.dll", -2)?.ToBitmap();
@@ -35,6 +34,8 @@ namespace DataBaseApp
         private void history(string message)
         {
             textBoxHistory.Text += $"[{DateTime.Now.ToLongTimeString()}] {message}\r\n";
+            buttonHistoryClear.Enabled = true;
+            buttonHistorySave.Enabled = true;
         }
 
         /// <summary>
@@ -336,6 +337,39 @@ namespace DataBaseApp
         private void Form1_Load(object sender, EventArgs e)
         {
             history("Программа загружена");
+        }
+
+        /// <summary>
+        /// Обработчик нажатия на кнопку очистки истории
+        /// </summary>
+        private void buttonHistoryClear_Click(object sender, EventArgs e)
+        {
+            textBoxHistory.Text = "";
+            buttonHistoryClear.Enabled = false;
+            buttonHistorySave.Enabled = false;
+        }
+
+        /// <summary>
+        /// Обработчик нажатия на кнопку сохранения истории
+        /// </summary>
+        private void buttonHistorySave_Click(object sender, EventArgs e)
+        {
+            saveFileDialog1.FileName = "history.txt";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (StreamWriter outputFile = new StreamWriter(saveFileDialog1.FileName))
+                    {
+                        outputFile.WriteLine(textBoxHistory.Text);
+                    }
+                    history("История сохранена в файл: " + saveFileDialog1.FileName);
+                } catch (IOException)
+                {
+                    error("Ошибка сохранения истории");
+                }
+                
+            }
         }
     }
 }
