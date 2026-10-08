@@ -1,0 +1,2 @@
+Что такое ER-диаграмма: компоненты, нотации Чена и Crow’s Foot и примеры
+https://www.tgu-dpo.ru/news/2026/08/27/er-diagramma-chto-eto/
