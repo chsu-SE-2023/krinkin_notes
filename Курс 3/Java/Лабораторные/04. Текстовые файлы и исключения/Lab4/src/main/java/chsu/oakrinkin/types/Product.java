@@ -1,9 +1,10 @@
 package chsu.oakrinkin.types;
 
 public class Product {
-    String name;
-    int count;
-    double cost;
+    private String name;
+    private int count;
+    private double cost;
+
     public Product(String name, int count, double cost) {
         this.name = name;
         this.count = count;
@@ -22,4 +23,20 @@ public class Product {
         return cost;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return name+" "+count+" "+cost;
+    }
 }
