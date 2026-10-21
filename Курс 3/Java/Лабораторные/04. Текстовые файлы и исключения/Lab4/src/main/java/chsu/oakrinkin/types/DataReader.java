@@ -74,7 +74,7 @@ public class DataReader {
     public List<Product> search(String query) {
         List<Product> lst = new ArrayList<>();
         dataList.stream()
-                .filter(x -> Objects.equals(x.getName(), query))
+                .filter(x -> Objects.equals(x.getName().toLowerCase(), query.toLowerCase()))
                 .forEach(lst::add);
         return lst;
     }
