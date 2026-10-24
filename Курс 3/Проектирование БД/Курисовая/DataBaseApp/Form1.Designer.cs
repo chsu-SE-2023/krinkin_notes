@@ -200,7 +200,7 @@ namespace DataBaseApp
             this.dataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView.Location = new System.Drawing.Point(0, 0);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersWidth = 82;
+            this.dataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(664, 393);
             this.dataGridView.TabIndex = 0;

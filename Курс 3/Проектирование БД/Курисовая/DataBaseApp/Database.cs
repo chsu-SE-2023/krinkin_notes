@@ -46,7 +46,7 @@ namespace DataBaseApp
         public DataTable GetSchema(string tableName)
         {
             DataTable dataTable = new DataTable();
-            string query = "SELECT * FROM " + tableName;
+            string query = $"SELECT * FROM [{tableName}];";
             OleDbDataAdapter adapter = new OleDbDataAdapter(query, dbConnection);
             adapter.FillSchema(dataTable, SchemaType.Source);
             return dataTable;
@@ -133,7 +133,7 @@ namespace DataBaseApp
             DataTable schema = GetSchema(tableName);
 
             // Формирование запроса
-            StringBuilder query = new StringBuilder($"UPDATE {tableName} SET ");
+            StringBuilder query = new StringBuilder($"UPDATE [{tableName}] SET ");
             for (int i = 0; i < schema.Columns.Count; i++)
             {
                 if (IsPrimaryKey(schema, schema.Columns[i].ColumnName)) continue;
@@ -174,10 +174,10 @@ namespace DataBaseApp
             DataTable schema = GetSchema(tableName);
 
             // Формирование запроса
-            StringBuilder query = new StringBuilder($"DELETE FROM {tableName} WHERE ");
+            StringBuilder query = new StringBuilder($"DELETE FROM [{tableName}] WHERE ");
             for (int i = 0; i < schema.Columns.Count; i++)
             {
-                query.Append($"{schema.Columns[i].ColumnName}=@par{i}");
+                query.Append($"[{schema.Columns[i].ColumnName}]=@par{i}");
                 if (i < schema.Columns.Count - 1) query.Append(" AND ");
             }
             query.Append(";");
@@ -202,7 +202,7 @@ namespace DataBaseApp
         /// <returns>Курсор с отсортрованной таблицей</returns>
         public OleDbDataReader OrderBy(string tableName, string field)
         {
-            string query = $"SELECT * FROM {tableName} ORDER BY {field} DESC;";
+            string query = $"SELECT * FROM [{tableName}] ORDER BY [{field}] DESC;";
             OleDbCommand dbCommand = new OleDbCommand(query.ToString(), dbConnection);
             return dbCommand.ExecuteReader();
         }
