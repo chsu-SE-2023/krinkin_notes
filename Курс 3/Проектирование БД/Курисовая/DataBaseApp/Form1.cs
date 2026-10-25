@@ -45,7 +45,7 @@ namespace DataBaseApp
         /// <returns></returns>
         private bool confirm(string actionName)
         {
-            var result = MessageBox.Show("Вы уверены?", actionName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var result = MessageBox.Show("Вы уверены?", actionName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             return result == DialogResult.Yes;
         }
 
@@ -148,6 +148,8 @@ namespace DataBaseApp
                 buttonClose_Click(sender, e);
 
                 history($"Выбран файл {openFileDialog1.FileName}");
+
+                buttonOpen_Click(sender, e);
             }
         }
 
@@ -180,7 +182,6 @@ namespace DataBaseApp
 
                 buttonClose.Enabled = true;
                 buttonDelete.Enabled = true;
-                buttonSort.Enabled = true;
                 comboBoxSort.Enabled = true;
                 buttonExecute.Enabled = true;
             }
@@ -228,8 +229,16 @@ namespace DataBaseApp
                 string tableName = treeViewTables.SelectedNode.Text;
                 foreach (DataGridViewRow row in dataGridView.SelectedRows)
                 {
-                    database.DeleteRow(tableName, row);
-                    history($"Удалена запись {row.Index}");
+                    try
+                    {
+                        database.DeleteRow(tableName, row);
+                        history($"Удалена запись {row.Index+1} ({tableName})");
+                    }
+                    catch (Exception err)
+                    {
+                        error($"Произошла ошибка удаления записи {row.Index+1}:\n\r{err.Message}");
+                        history($"Произошла ошибка удаления записи {row.Index + 1} ({tableName}): {err.Message}");
+                    }
                 }
                 updateGUI(tableName);
             }
@@ -297,12 +306,12 @@ namespace DataBaseApp
                 {
                     database.AddRow(tableName, dataGridView.Rows[e.RowIndex]);
                     addRowMode = false;
-                    history($"Добавлена новая запись ({e.RowIndex})");
+                    history($"Добавлена новая запись ({e.RowIndex}) ({tableName})");
                 }
                 catch (Exception err)
                 {
                     error($"Произошла ошибка добавления записи:\n\r{err.Message}");
-                    history($"Произошла ошибка добавления записи: {err.Message}");
+                    history($"Произошла ошибка добавления записи ({tableName}): {err.Message}");
                 }
             }
             else if (dataGridView.IsCurrentRowDirty)
@@ -310,12 +319,12 @@ namespace DataBaseApp
                 try
                 {
                     database.EditRow(tableName, dataGridView.Rows[e.RowIndex]);
-                    history($"Изменена запись с номером {e.RowIndex}");
+                    history($"Изменена запись с номером {e.RowIndex+1} ({tableName})");
                 }
                 catch (Exception err)
                 {
                     error($"Произошла ошибка изменения записи с номером {e.RowIndex}:\n\r{err.Message}");
-                    history($"Произошла ошибка изменения записи с номером {e.RowIndex}: {err.Message}");
+                    history($"Произошла ошибка изменения записи с номером {e.RowIndex} ({tableName}): {err.Message}");
                 }
             }
         }
@@ -369,6 +378,14 @@ namespace DataBaseApp
                     error("Ошибка сохранения истории");
                 }
                 
+            }
+        }
+
+        private void comboBoxSort_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxSort.SelectedIndex != -1)
+            {
+                buttonSort.Enabled = true;
             }
         }
     }

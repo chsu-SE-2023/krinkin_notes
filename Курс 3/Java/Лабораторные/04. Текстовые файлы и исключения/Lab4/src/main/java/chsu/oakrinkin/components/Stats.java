@@ -10,8 +10,8 @@ import java.util.List;
 
 public class Stats extends Div {
 
-    SearchBox searchBox = new SearchBox("Поиск");
-    DataReader reader;
+    private final SearchBox searchBox = new SearchBox("Поиск");
+    private final DataReader reader;
 
     public Stats(DataReader reader) {
         super();

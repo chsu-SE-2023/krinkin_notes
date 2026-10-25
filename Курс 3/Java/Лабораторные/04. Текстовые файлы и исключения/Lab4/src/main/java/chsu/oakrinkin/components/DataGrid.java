@@ -10,9 +10,9 @@ import java.util.List;
 
 public class DataGrid extends Div {
 
-    Grid<Product> grid = new Grid<>(Product.class, false);
-    DataReader reader;
-    PageSwitch pageSwitch;
+    private final Grid<Product> grid = new Grid<>(Product.class, false);
+    private final DataReader reader;
+    private final PageSwitch pageSwitch;
 
     public DataGrid(DataReader reader, PageSwitch pageSwitch) {
         super();

@@ -98,10 +98,10 @@ namespace DataBaseApp
             DataTable schema = GetSchema(tableName);
 
             // Формирование запроса
-            StringBuilder query = new StringBuilder($"INSERT INTO {tableName} (");
+            StringBuilder query = new StringBuilder($"INSERT INTO [{tableName}] (");
             for (int i = 0; i < schema.Columns.Count; i++)
             {
-                query.Append($"{schema.Columns[i].ColumnName}");
+                query.Append($"[{schema.Columns[i].ColumnName}]");
                 if (i < schema.Columns.Count - 1) query.Append(",");
             }
             query.Append(") VALUES (");
@@ -118,7 +118,10 @@ namespace DataBaseApp
             for (int i = 0; i < schema.Columns.Count; i++)
             {
                 Type type = schema.Columns[i].DataType;
-                dbCommand.Parameters.Add($"@par{i}", Convert.ChangeType(row.Cells[i].Value, type));
+                object value = DBNull.Value;
+                if (row.Cells[i].EditedFormattedValue != string.Empty)
+                    value = Convert.ChangeType(row.Cells[i].EditedFormattedValue, type);
+                dbCommand.Parameters.Add($"@par{i}", value);
             }
 
             dbCommand.ExecuteNonQuery();
@@ -143,7 +146,7 @@ namespace DataBaseApp
             query.Append(" WHERE ");
             for (int i = 0; i < schema.Columns.Count; i++)
             {
-                query.Append($"[{schema.Columns[i].ColumnName}]=@par{i}_old");
+                query.Append($"([{schema.Columns[i].ColumnName}]=@par{i}_old OR (@par{i}_old IS NULL AND [{schema.Columns[i].ColumnName}] IS NULL))");
                 if (i < schema.Columns.Count - 1) query.Append(" AND ");
             }
             query.Append(";");
@@ -155,12 +158,18 @@ namespace DataBaseApp
             {
                 if (IsPrimaryKey(schema, schema.Columns[i].ColumnName)) continue;
                 Type type = schema.Columns[i].DataType;
-                dbCommand.Parameters.Add($"@par{i}_new", Convert.ChangeType(row.Cells[i].EditedFormattedValue, type));
+                object value = DBNull.Value;
+                if (row.Cells[i].EditedFormattedValue != string.Empty)
+                    value = Convert.ChangeType(row.Cells[i].EditedFormattedValue, type);
+                dbCommand.Parameters.Add($"@par{i}_new", value);
             }
             for (int i = 0; i < schema.Columns.Count; i++)
             {
                 Type type = schema.Columns[i].DataType;
-                dbCommand.Parameters.Add($"@par{i}_old", Convert.ChangeType(row.Cells[i].FormattedValue, type));
+                object value = DBNull.Value;
+                if (row.Cells[i].FormattedValue != string.Empty)
+                    value = Convert.ChangeType(row.Cells[i].FormattedValue, type);
+                dbCommand.Parameters.Add($"@par{i}_old", value);
             }
 
             dbCommand.ExecuteNonQuery();
@@ -177,7 +186,7 @@ namespace DataBaseApp
             StringBuilder query = new StringBuilder($"DELETE FROM [{tableName}] WHERE ");
             for (int i = 0; i < schema.Columns.Count; i++)
             {
-                query.Append($"[{schema.Columns[i].ColumnName}]=@par{i}");
+                query.Append($"([{schema.Columns[i].ColumnName}]=@par{i} OR (@par{i} IS NULL AND [{schema.Columns[i].ColumnName}] IS NULL))");
                 if (i < schema.Columns.Count - 1) query.Append(" AND ");
             }
             query.Append(";");
@@ -188,7 +197,10 @@ namespace DataBaseApp
             for (int i = 0; i < schema.Columns.Count; i++)
             {
                 Type type = schema.Columns[i].DataType;
-                dbCommand.Parameters.Add($"@par{i}", Convert.ChangeType(row.Cells[i].Value, type));
+                object value = DBNull.Value;
+                if (row.Cells[i].Value.GetType() != typeof(DBNull))
+                    value = Convert.ChangeType(row.Cells[i].Value, type);
+                dbCommand.Parameters.Add($"@par{i}", value);
             }
 
             dbCommand.ExecuteNonQuery();
@@ -202,7 +214,7 @@ namespace DataBaseApp
         /// <returns>Курсор с отсортрованной таблицей</returns>
         public OleDbDataReader OrderBy(string tableName, string field)
         {
-            string query = $"SELECT * FROM [{tableName}] ORDER BY [{field}] DESC;";
+            string query = $"SELECT * FROM [{tableName}] ORDER BY [{field}] ASC;";
             OleDbCommand dbCommand = new OleDbCommand(query.ToString(), dbConnection);
             return dbCommand.ExecuteReader();
         }

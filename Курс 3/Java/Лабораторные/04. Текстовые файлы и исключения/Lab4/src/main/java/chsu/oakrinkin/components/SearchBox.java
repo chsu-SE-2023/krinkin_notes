@@ -8,8 +8,8 @@ import com.vaadin.flow.component.textfield.TextField;
 
 public class SearchBox extends Div {
 
-    Button search = new Button("Найти");
-    TextField textField;
+    private final Button search = new Button("Найти");
+    private final TextField textField;
 
     public SearchBox(String label) {
         super();

@@ -8,9 +8,9 @@ import java.util.*;
 public class DataReader {
 
     private final File file;
-    int pageSize = 20;
-    List<Product> dataList = new ArrayList<>();
-    Map<String, Exception> errorMap = new HashMap<>();
+    private final int pageSize = 20;
+    private final List<Product> dataList = new ArrayList<>();
+    private final Map<String, Exception> errorMap = new HashMap<>();
 
     /// Метод, парсяций одну строку
     /// @param line строка

@@ -8,8 +8,8 @@ import com.vaadin.flow.component.html.Div;
 
 public class PageSwitch extends Div {
     private int currentPage = 1;
-    Button left = new Button("<");
-    Button right = new Button(">");
+    private final Button left = new Button("<");
+    private final Button right = new Button(">");
 
     public PageSwitch(int pages) {
         super();

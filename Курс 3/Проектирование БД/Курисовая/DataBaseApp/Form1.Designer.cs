@@ -179,6 +179,7 @@ namespace DataBaseApp
             this.comboBoxSort.Name = "comboBoxSort";
             this.comboBoxSort.Size = new System.Drawing.Size(113, 21);
             this.comboBoxSort.TabIndex = 10;
+            this.comboBoxSort.SelectedIndexChanged += new System.EventHandler(this.comboBoxSort_SelectedIndexChanged);
             // 
             // textBox3
             // 

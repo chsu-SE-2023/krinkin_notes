@@ -29,17 +29,15 @@ import java.util.Objects;
 @Route
 public class MainView extends HorizontalLayout {
 
-    FileBuffer frFileBuffer = new FileBuffer();
-    FileBuffer linesFileBuffer = new FileBuffer();
-    Div tab1Div = new Div();
-    Div tab1LeftDiv = new Div();
-    Div tab1RightDiv = new Div();
-    Div tab2Div = new Div();
-    Div tab2LeftDiv = new Div();
-    Div tab2RightDiv = new Div();
-    PageSwitch pageSwitchTab1 = null;
-    PageSwitch pageSwitchTab2 = null;
-    Map<String, Exception> errMap = new HashMap<>();
+    private final FileBuffer frFileBuffer = new FileBuffer();
+    private final FileBuffer linesFileBuffer = new FileBuffer();
+    private final Div tab1LeftDiv = new Div();
+    private final Div tab1RightDiv = new Div();
+    private final Div tab2LeftDiv = new Div();
+    private final Div tab2RightDiv = new Div();
+    private final PageSwitch pageSwitchTab1 = null;
+    private final PageSwitch pageSwitchTab2 = null;
+    private final Map<String, Exception> errMap = new HashMap<>();
 
     public MainView() {
         Tab t1 = new Tab("Чтение через FileReader");
@@ -58,7 +56,9 @@ public class MainView extends HorizontalLayout {
         uploadFR.setAcceptedFileTypes("text/plain", ".txt");
         uploadLines.setAcceptedFileTypes("text/plain", ".txt");
 
+        Div tab1Div = new Div();
         tab1Div.add(tab1LeftDiv, tab1RightDiv);
+        Div tab2Div = new Div();
         tab2Div.add(tab2LeftDiv, tab2RightDiv);
         tab1Div.getStyle().set("display", "grid");
         tab1Div.getStyle().set("grid-template-columns", "auto auto");
