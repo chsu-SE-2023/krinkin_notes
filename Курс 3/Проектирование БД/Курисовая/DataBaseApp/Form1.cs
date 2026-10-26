@@ -304,14 +304,22 @@ namespace DataBaseApp
             {
                 try
                 {
-                    database.AddRow(tableName, dataGridView.Rows[e.RowIndex]);
                     addRowMode = false;
+                    database.AddRow(tableName, dataGridView.Rows[e.RowIndex]);
                     history($"Добавлена новая запись ({e.RowIndex}) ({tableName})");
                 }
                 catch (Exception err)
                 {
                     error($"Произошла ошибка добавления записи:\n\r{err.Message}");
                     history($"Произошла ошибка добавления записи ({tableName}): {err.Message}");
+                }
+                finally
+                {
+                    this.BeginInvoke((MethodInvoker)delegate
+                    {
+                        treeViewTables.Focus();
+                        updateGUI(tableName);
+                    });
                 }
             }
             else if (dataGridView.IsCurrentRowDirty)
@@ -325,6 +333,10 @@ namespace DataBaseApp
                 {
                     error($"Произошла ошибка изменения записи с номером {e.RowIndex}:\n\r{err.Message}");
                     history($"Произошла ошибка изменения записи с номером {e.RowIndex} ({tableName}): {err.Message}");
+                }
+                finally
+                {
+                    dataGridView.CancelEdit();
                 }
             }
         }
