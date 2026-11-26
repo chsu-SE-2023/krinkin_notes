@@ -1,0 +1,817 @@
+<SUF70UninstallData>
+<DataFilePath>C:\Program Files (x86)\NetEmul\Uninstall\uninstall.dat</DataFilePath>
+<DataFilePath>C:\Program Files (x86)\NetEmul\Uninstall\uninstall.dat</DataFilePath>
+<DataFilePath>C:\Program Files (x86)\NetEmul\Uninstall\uninstall.dat</DataFilePath>
+<CPRegKey>SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\NetEmul1.0</CPRegKey>
+<EXELocation>C:\Windows\NetEmul\uninstall.exe</EXELocation>
+<UninstallFiles>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\copyright</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\GPL-2</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\netemul.exe</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\build.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\comp.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\config.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\device.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\howto.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\hub.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\index.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\intro.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\intronet.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\ip.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\mac.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\router.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\switch.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\topology.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\whoread.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\first.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\gateway.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\mac-ip.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\main.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\net.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\net2.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\netcard.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\prog.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\rtable.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\en\img\set.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\build.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\comp.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\config.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\device.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\howto.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\hub.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\index.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\intro.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\intronet.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\ip.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\mac.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\router.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\send.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\switch.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\topology.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\whoread.html</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\first.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\gateway.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\mac-ip.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\main.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\net.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\net2.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\netcard.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\prog.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\rtable.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\send1.png</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\send2.png</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\send_dialog1.png</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\send_dialog2.png</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\send_packets.png</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\ru\img\set.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\shareimg\comp.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\shareimg\hub.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\shareimg\ring.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\shareimg\router.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\shareimg\send.png</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\shareimg\star.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\doc\shareimg\switch.jpeg</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\scripts\arp.js</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\scripts\big.js</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\scripts\checknet.js</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\scripts\dhcp.js</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\scripts\hub.js</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\netemul_es.qm</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\netemul_es.ts</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\netemul_pt_BR.qm</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\netemul_pt_BR.ts</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\netemul_ru.qm</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\netemul_ru.ts</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\qt_es.qm</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\qt_pt.qm</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+<File>
+<Filename>C:\Program Files (x86)\NetEmul\translation\qt_ru.qm</Filename>
+<DecrementUsageCount>0</DecrementUsageCount>
+<UnregisterCOM>0</UnregisterCOM>
+<UnregisterFont>0</UnregisterFont>
+<FontDesc/>
+<BackupFile/>
+</File>
+</UninstallFiles>
+<UninstallShortcuts>
+<Filename>C:\Users\admin2\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\NetEmul\netemul.lnk</Filename>
+<Filename>C:\Users\admin2\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\NetEmul\Uninstall NetEmul.lnk</Filename>
+<Filename>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\NetEmul\netemul.lnk</Filename>
+<Filename>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\NetEmul\Uninstall NetEmul.lnk</Filename>
+</UninstallShortcuts>
+<UninstallSupportFiles>
+<Filename>C:\Program Files (x86)\NetEmul\Uninstall\IRIMG1.JPG</Filename>
+<Filename>C:\Program Files (x86)\NetEmul\Uninstall\IRIMG2.JPG</Filename>
+<Filename>C:\Program Files (x86)\NetEmul\Uninstall\IRIMG3.JPG</Filename>
+</UninstallSupportFiles>
+<UninstallFolders>
+<FolderPath>C:\Program Files (x86)\NetEmul</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\Uninstall</FolderPath>
+<FolderPath>C:\Windows\NetEmul</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\doc</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\doc\en</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\doc\en\img</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\doc\ru</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\doc\ru\img</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\doc\shareimg</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\scripts</FolderPath>
+<FolderPath>C:\Program Files (x86)\NetEmul\translation</FolderPath>
+<FolderPath>C:\Users\admin2\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\NetEmul</FolderPath>
+<FolderPath>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\NetEmul</FolderPath>
+</UninstallFolders>
+<SessionVars>
+<Var>
+<Name>%ProductName%</Name>
+<Value>NetEmul</Value>
+</Var>
+<Var>
+<Name>%CompanyName%</Name>
+<Value>Semenov Pavel &amp; Omilaeva Anastasia</Value>
+</Var>
+<Var>
+<Name>%ProductVer%</Name>
+<Value>1.0</Value>
+</Var>
+<Var>
+<Name>%Copyright%</Name>
+<Value>Copyright © 2007 %CompanyName%</Value>
+</Var>
+<Var>
+<Name>%CompanyURL%</Name>
+<Value>http://www.netemul.sourceforge.net</Value>
+</Var>
+<Var>
+<Name>%WindowTitle%</Name>
+<Value>%ProductName% Setup</Value>
+</Var>
+<Var>
+<Name>%AppFolder%</Name>
+<Value>C:\Program Files (x86)\NetEmul</Value>
+</Var>
+<Var>
+<Name>%AppShortcutFolderName%</Name>
+<Value>NetEmul</Value>
+</Var>
+<Var>
+<Name>%ApplicationDataFolder%</Name>
+<Value>C:\Users\admin2\AppData\Roaming</Value>
+</Var>
+<Var>
+<Name>%CommonFilesFolder%</Name>
+<Value>C:\Program Files (x86)\Common Files</Value>
+</Var>
+<Var>
+<Name>%DesktopFolder%</Name>
+<Value>C:\Users\admin2\Desktop</Value>
+</Var>
+<Var>
+<Name>%DesktopFolderCommon%</Name>
+<Value>C:\Users\Public\Desktop</Value>
+</Var>
+<Var>
+<Name>%FontsFolder%</Name>
+<Value>C:\Windows\Fonts</Value>
+</Var>
+<Var>
+<Name>%MyDocumentsFolder%</Name>
+<Value>C:\Users\admin2\Documents</Value>
+</Var>
+<Var>
+<Name>%ProgramFilesFolder%</Name>
+<Value>C:\Program Files (x86)</Value>
+</Var>
+<Var>
+<Name>%StartFolder%</Name>
+<Value>C:\Users\admin2\AppData\Roaming\Microsoft\Windows\Start Menu</Value>
+</Var>
+<Var>
+<Name>%StartFolderCommon%</Name>
+<Value>C:\ProgramData\Microsoft\Windows\Start Menu</Value>
+</Var>
+<Var>
+<Name>%StartProgramsFolder%</Name>
+<Value>C:\Users\admin2\AppData\Roaming\Microsoft\Windows\Start Menu\Programs</Value>
+</Var>
+<Var>
+<Name>%StartProgramsFolderCommon%</Name>
+<Value>C:\ProgramData\Microsoft\Windows\Start Menu\Programs</Value>
+</Var>
+<Var>
+<Name>%StartupFolder%</Name>
+<Value></Value>
+</Var>
+<Var>
+<Name>%StartupFolderCommon%</Name>
+<Value>C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp</Value>
+</Var>
+<Var>
+<Name>%SystemFolder%</Name>
+<Value>C:\Windows\system32</Value>
+</Var>
+<Var>
+<Name>%WindowsFolder%</Name>
+<Value>C:\Windows</Value>
+</Var>
+<Var>
+<Name>%SystemDrive%</Name>
+<Value>C:</Value>
+</Var>
+<Var>
+<Name>%TempFolder%</Name>
+<Value>C:\Users\admin2\AppData\Local\Temp</Value>
+</Var>
+<Var>
+<Name>%TempLaunchFolder%</Name>
+<Value>C:\Users\admin2\AppData\Local\Temp\_ir_sf7_temp_0</Value>
+</Var>
+<Var>
+<Name>%RegOwner%</Name>
+<Value>admin</Value>
+</Var>
+<Var>
+<Name>%RegOrganization%</Name>
+<Value></Value>
+</Var>
+<Var>
+<Name>%AppDrive%</Name>
+<Value>C:</Value>
+</Var>
+<Var>
+<Name>%DAOPath%</Name>
+<Value>%CommonFiles%\Microsoft Shared\DAO</Value>
+</Var>
+<Var>
+<Name>%SourceFilename%</Name>
+<Value>E:\_ —Ë“\_À‡·–‡·2\netemul-1.0.exe</Value>
+</Var>
+<Var>
+<Name>%SourceFolder%</Name>
+<Value>E:\_ —Ë“\_À‡·–‡·2</Value>
+</Var>
+<Var>
+<Name>%SourceDrive%</Name>
+<Value>E:</Value>
+</Var>
+<Var>
+<Name>%SpaceAvailable%</Name>
+<Value>77.97 GB</Value>
+</Var>
+<Var>
+<Name>%SpaceRequired%</Name>
+<Value>5.37 MB</Value>
+</Var>
+</SessionVars>
+</SUF70UninstallData>

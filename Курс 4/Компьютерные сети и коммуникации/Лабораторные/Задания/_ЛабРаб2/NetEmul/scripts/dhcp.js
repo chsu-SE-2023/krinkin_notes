@@ -1,0 +1,31 @@
+if (open) closeScene();
+newScene();
+var net1 = new Array();
+var net2 = new Array();
+var r1 = addRouter(7,1);
+r1.setSocketsCount(4);
+var r2 = addRouter(7,5);
+r2.setSocketsCount(4);
+var s1 = addSwitch(5,2);
+s1.setSocketsCount(8);
+var s2 = addSwitch(9,2);
+s2.setSocketsCount(8);
+addConnection(s1,r1,"LAN7","LAN1");
+addConnection(s1,r2,"LAN8","LAN1");
+addConnection(s2,r1,"LAN7","LAN2");
+addConnection(s2,r2,"LAN8","LAN2");
+for ( i = 0 ; i < 3; i++ ) {
+    net1[i] = addComputer(3,i+1);
+    addConnection( net1[i] , s1 , "eth0" , "LAN"+(i+1) );
+    net2[i] = addComputer(11,i+1);
+    addConnection( net2[i] , s2 , "eth0" , "LAN"+(i+1) );
+}
+r1.setIp("LAN1","192.168.1.125");
+r1.setIp("LAN2","192.168.1.253");
+r2.setIp("LAN1","192.168.1.126");
+r2.setIp("LAN2","192.168.1.254");
+r1.setMask("LAN1","255.255.255.128");
+r1.setMask("LAN2","255.255.255.128");
+r2.setMask("LAN1","255.255.255.128");
+r2.setMask("LAN2","255.255.255.128");
+true;

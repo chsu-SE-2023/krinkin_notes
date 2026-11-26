@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Switch</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body>
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<TR><TH COLSPAN="3" ALIGN="center">Manual NetEmul</TH>
+</TR>
+<TR><TD WIDTH="10%" ALIGN="left" VALIGN="bottom"><A HREF="hub.html">Prev.</A></TD>
+<TD WIDTH="80%" ALIGN="center" VALIGN="bottom"></TD>
+<TD WIDTH="10%" ALIGN="right" VALIGN="bottom"><A HREF="router.html">Next</A></TD>
+</TR>
+</table>
+<hr>
+<h1>Switch</h1>
+<p>The network switch — the device intended for connection of several sites of a computer network within one segment. 
+Unlike the hub which extends the traffic from one online unit to all the rest, the commutator transfers given only to directly receiver. 
+It raises productivity and safety of a network, saving other segments of a network of necessity (and possibilities) to handle the data 
+which it did not intend. </p>
+<h3>Operation principle.</h3>
+The commutator stores the table in which correspondence of the MAC-address of the site to commutator port is underlined in memory. 
+At commutator inclusion this table is empty, and it works in a training mode. In this mode the data arriving on any port is transferred 
+to all other ports of the commutator. Thus the commutator parses frames and, having defined the host-remailer MAC-address, brings it in 
+the table. Subsequently, if on one of commutator ports the frame intended for a host which MAC-address already is in the table this frame 
+will be transferred only through the port specified in the table arrives. <img src="../shareimg/switch.jpeg" align="left">
+If the host-receiver MAC-address is yet known, the frame will be  duplicate on all interfaces. In due course the commutator builds 
+the complete table for all ports and as a result the traffic is localised.</p>
+<p>Such sort has the commutator in our program. It fulfils all functions described above. <br> the device has a possibility to 
+look the switching table.</p>
+<hr>
+<TABLE WIDTH="100%" BORDER="0" CELLPADDING="0" CELLSPACING="0">
+<TR><TD WIDTH="33%" ALIGN="left"  VALIGN="top"><A HREF="hub.html">Prev.</A></TD>
+<TD WIDTH="34%" ALIGN="center" VALIGN="top"><A  HREF="index.html">Main</A></TD>
+<TD WIDTH="33%" ALIGN="right" VALIGN="top"><A HREF="router.html">Next</A></TD></TR>
+<TR><TD WIDTH="33%" ALIGN="left" VALIGN="top">Hub</TD>
+<TD WIDTH="34%" ALIGN="center" VALIGN="top"><A  HREF="intronet.html">On level above</A></TD>
+<TD WIDTH="33%" ALIGN="right" VALIGN="top">Router</TD></TR>
+</TABLE>
+</body>
+</html>
